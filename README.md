@@ -14,6 +14,10 @@ No build step or package installation is required.
 
 ## Edit
 
+- Weekly agenda content lives in `content/weeks/`. The agenda reads those Markdown files directly, so saving an edit is enough—there is no data-generation step.
+- Use `agenda.html?planning=1` to view every weekly entry expanded before its publish date. Public visitors see details only after each Markdown file's `publish_at` time.
+- Weekly MAKE buttons use the matching `make_id` in the Markdown front matter and the pre-filled URL in `assets/make-submissions-config.js`.
+- Guest profiles and their images live in `content/guests/`; a bare `image` filename in guest front matter is resolved from that same folder and used on the guest page and connected guest week.
 - Course pages are the `.html` files in the root.
 - Japanese translations are centralized in `assets/i18n.js`.
 - Shared colors and layout are in `assets/styles.css`.
