@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Yoh — Global Engineer</title>
+  <path d="M8 12h11l10 15 10-15h11L34 36v6c0 12-7 18-21 18H8V50h5c7 0 10-3 10-9v-5Z" fill="#2b211d"/>
+  <path d="M37 25Q50 3 63 20l-4 4Q50 11 41 29Z" fill="#177c73"/>
+  <circle cx="51" cy="8" r="4.5" fill="#177c73"/>
+</svg>
