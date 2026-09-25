@@ -6,7 +6,14 @@ the Global Engineer Week 1 agenda. The opening visual is NASA Earth
 Observatory's 2016 Black Marble map. Each visual slide includes a clickable
 source; the first slide links directly to the interactive NASA Worldview map.
 
-Visual assets and reuse notes:
+The examples from Yoh's work are grounded in the published
+[portfolio](https://yohman.github.io/yoh/), [biography](https://yohman.github.io/yoh/about.html),
+[LinkedIn publications](https://www.linkedin.com/in/yohman/),
+[GitHub profile](https://github.com/yohman), and project sites. The Noto map is
+a 2024 historical teaching case, not current emergency guidance. Collaborative
+projects are credited to their teams on the slides.
+
+Visual assets and reuse notes for the current deck:
 
 - `black-marble-2016.jpg`: NASA Earth Observatory, Suomi NPP/VIIRS, 2016;
   [NASA source](https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/).
@@ -14,13 +21,12 @@ Visual assets and reuse notes:
   contributors, 2015 snapshot; [file and license details](https://commons.wikimedia.org/wiki/File:Submarine_cable_map_umap.png).
 - `puerto-rico-night-2017.jpg`: NOAA/NESDIS and CIMSS, before and after Hurricane
   Maria, public domain; [file page](https://commons.wikimedia.org/wiki/File:Puerto_Rico_at_night_before_and_after_Hurricane_Maria.jpg).
-- `st-thomas-lineman-2017.jpg`: Kevin Ripplinger / Western Area Power
-  Administration, CC BY 2.0; [file page](https://commons.wikimedia.org/wiki/File:Lineman_restrings_conductor,_Oct._5_(23671906988).jpg).
-- `solar-lantern.jpg`: Brücke-Osteuropa, public domain; [file page](https://commons.wikimedia.org/wiki/File:Solar_Lantern.jpg).
 - `john-hancock-center.jpg`: Nicolas G. Mertens, CC BY-SA 4.0; [file page](https://commons.wikimedia.org/wiki/File:Chicago,_IL%E2%80%94The_John_Hancock_(Fazlur_Khan_of_Skidmore,_Owings,_and_Merrill,_archs).jpg).
-- `e-waste-recycling-2022.svg`: UN Statistics Division and UNEP data processed
-  by Our World in Data, CC BY 4.0; [chart and methods](https://ourworldindata.org/grapher/electronic-waste-recycling-rate)
-  and [fixed 2022 image](https://commons.wikimedia.org/wiki/File:Electronic_waste_recycling_rate,_World,_2022_(cropped).svg).
+- `noto-crisis-map-2024.jpg` and `noto-students-2024.jpg`: images from the
+  [2024 Noto crisis-map project log](https://yohman.github.io/noto/).
+- `human-error-still.png`, `hypercities-portfolio.png`, `kashiwa-after-dark.png`,
+  and `reitaku-360.png`: images from [Yoh's portfolio](https://yohman.github.io/yoh/);
+  the slides link to each project's own site when available.
 
 To rebuild the linked preview after editing the Markdown, run from the course
 repository root:
