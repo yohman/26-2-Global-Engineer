@@ -74,7 +74,15 @@
       const heading = document.createElement('div'); heading.className = 'agenda-week-heading'; heading.innerHTML = `<div><div class="week-number">${String(week.week).padStart(2, '0')}</div><div class="week-date">${date(week.date)}</div></div><div class="agenda-week-title"><p>${escapeHtml(week.subtitle)}</p><div class="agenda-title-line"><h2>${escapeHtml(week.title)}</h2>${guestIcon}</div><div class="week-meta"><span>${escapeHtml(week.kind)}</span><span>Lead: ${escapeHtml(week.lead)}</span></div></div>`; article.append(heading);
       if (!open) { const locked = document.createElement('p'); locked.className = 'agenda-locked'; locked.innerHTML = `<strong>COMING SOON</strong> · Details publish ${publishDate(week.publish_at)}.`; article.append(locked); }
       else {
-        const detail = document.createElement('div'); detail.className = 'agenda-week-detail'; week.sections.forEach(section => addSection(detail, section)); addResources(detail, week.resources);
+        const detail = document.createElement('div'); detail.className = 'agenda-week-detail';
+        if (/^lectures\/[A-Za-z0-9_-]+\.html$/.test(week.lecture_preview || '')) {
+          const preview = document.createElement('a');
+          preview.className = 'button agenda-lecture-button';
+          preview.href = week.lecture_preview;
+          preview.textContent = 'Preview lecture slides';
+          detail.append(preview);
+        }
+        week.sections.forEach(section => addSection(detail, section)); addResources(detail, week.resources);
         const formUrl = week.make_form_url || assignments[week.make_id]?.formUrl;
         if (week.make_id && formUrl) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = formUrl; link.target = '_blank'; link.rel = 'noopener'; link.textContent = 'SUBMIT / UPDATE YOUR MAKE'; detail.append(link); }
         article.append(detail);

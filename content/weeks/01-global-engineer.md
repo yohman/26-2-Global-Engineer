@@ -7,16 +7,22 @@ subtitle: What is a Global Engineer?
 kind: Foundation
 lead: Yoh
 make_id: make01
+lecture_preview: lectures/w01.html
 ---
 
 ## Overview / Big Question
 
-Welcome! Bienvenue! Bienvenido! Willkommen! 欢迎! Добро пожаловать! أهلا وسهلا! Engineering is a global practice. It changes places, power, and everyday life. What makes an engineer global—not just international?
+We begin as a five-person studio. A view of Earth at night opens a conversation about the systems we can see, the people we cannot, and the choices engineers make across places. What makes an engineer global?
+
+## Lecture
+
+Look closely, name your first feeling, then challenge what the image seems to say. The Week 1 slides are a starting point for conversation.
 
 ## In Class
 
-- MAP: world-map vote — who engineered the world?
-- DISCUSS: make one claim, then defend it with a place, system, and consequence.
+- OBSERVE: each person responds to the same global image before we explain it.
+- DISCUSS: each person offers a first definition of a global engineer.
+- STUDIO: sketch one everyday object or service and trace a place, a person, and a consequence connected to it.
 
 ## MAKE
 

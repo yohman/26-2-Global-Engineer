@@ -133,6 +133,7 @@ a { color: inherit; }
 .agenda-resource strong { display: block; margin: .45rem 0; font: 700 .9rem/1.2 var(--sans); }
 .agenda-resource small { color: var(--muted); }
 .agenda-make-button { grid-column: 1 / -1; justify-self: start; }
+.agenda-lecture-button { grid-column: 1 / -1; justify-self: start; }
 .agenda-locked { margin: 1.4rem 0 0 calc(110px + clamp(1.5rem, 5vw, 5rem)); color: var(--muted); font: .84rem var(--sans); }
 .agenda-locked strong { color: var(--red); letter-spacing: .06em; }
 .card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: rgba(17,17,17,.18); margin-bottom: 7rem; }
