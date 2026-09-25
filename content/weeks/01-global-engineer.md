@@ -1,7 +1,7 @@
 ---
 week: 1
 date: 2026-09-29
-publish_at: 2026-09-29T09:00:00+09:00
+publish_at: 2026-09-25T00:00:00+09:00
 title: グローバルエンジニアとは？
 subtitle: What is a Global Engineer?
 kind: Foundation
