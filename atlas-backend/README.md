@@ -6,7 +6,7 @@ The public `GET /stories` endpoint returns published journeys for the class map.
 
 ## Git-connected deployment
 
-The D1 database, `stories` table, and `DB` binding were created in Cloudflare on 2026-09-28. Its database ID in `wrangler.jsonc` is not a secret. The Worker remains a starter until the Git deployment succeeds.
+The D1 database, `stories` table, and `DB` binding were created in Cloudflare on 2026-09-28. Its database ID in `wrangler.jsonc` is not a secret. GitHub Builds is connected to `yohman/26-2-Global-Engineer` with `/atlas-backend/` as its root; the first successful build replaces the starter Worker.
 
 1. In the existing Worker, use **Settings → Builds → GitHub** to connect `yohman/26-2-Global-Engineer`. Set the root directory to `atlas-backend`, the branch to `main`, and the deploy command to `npx wrangler deploy`. The Worker name and Wrangler `name` both equal `global-engineer-atlas`.
 2. In **Settings → Runtime variables and secrets**, add `CLASS_PASSWORD` as a **secret**, with a unique password shared privately with the five students. Never paste it into GitHub or chat.
