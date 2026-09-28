@@ -1,9 +1,9 @@
 .atlas-filmstrip[hidden],.atlas-sheet[hidden]{display:none}
 .atlas-filmstrip{position:absolute;z-index:7;left:1.5rem;right:1.5rem;bottom:1.35rem;pointer-events:none;font-family:var(--sans)}
-.atlas-filmstrip-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.65rem .8rem;margin-bottom:.55rem;width:max-content;max-width:100%;background:rgba(247,244,237,.95);border-left:4px solid var(--red);pointer-events:auto}
+.atlas-filmstrip-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .8rem;margin-top:.45rem;width:100%;background:rgba(247,244,237,.95);border-top:3px solid var(--red);pointer-events:auto}
 .atlas-filmstrip-top>div:first-child{display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap}
 .atlas-filmstrip-kicker{color:var(--red);font:700 .61rem var(--sans);letter-spacing:.11em}
-.atlas-filmstrip-top strong{font:700 1.13rem var(--serif)}
+.atlas-filmstrip-top strong{font:700 1rem var(--serif)}
 .atlas-filmstrip-note{font:400 .67rem var(--sans);color:var(--muted)}
 .atlas-filmstrip-actions{display:flex;gap:.45rem;white-space:nowrap}
 .atlas-filmstrip-actions button{border:1px solid #a8a59b;background:transparent;color:var(--ink);font:700 .65rem var(--sans);padding:.42rem .58rem;cursor:pointer}
@@ -28,15 +28,12 @@
 .atlas-time-gap{position:relative;flex:0 0 var(--gap-width,74px);display:flex;align-items:center;justify-content:center;height:169px;color:var(--ink)}
 .atlas-time-gap::before{content:"";position:absolute;left:0;right:0;top:48%;border-top:2px dashed var(--blue);opacity:.85}
 .atlas-time-gap span{position:relative;z-index:1;background:rgba(247,244,237,.97);padding:.27rem .4rem;color:var(--red);font:700 .62rem var(--sans);white-space:nowrap;transform:translateY(-24px)}
-.atlas-tether{position:absolute;inset:0;width:100%;height:100%;z-index:5;overflow:visible;pointer-events:none;opacity:0;transition:opacity .2s}
-.atlas-tether.is-visible{opacity:1}
-.atlas-tether path{fill:none;stroke-linecap:round}
-#atlas-tether-halo{stroke:rgba(247,244,237,.94);stroke-width:6}
-#atlas-tether-line{stroke:var(--red);stroke-width:2.4;stroke-dasharray:3 8}
-.atlas-portrait{border:0;padding:0;cursor:pointer;transition:box-shadow .25s}
-.atlas-portrait.is-active{box-shadow:0 0 0 4px var(--yellow),0 5px 16px rgba(0,0,0,.32)}
+.atlas-marker{width:38px;height:38px}
+.atlas-portrait{border:0;padding:0;overflow:visible;cursor:pointer;opacity:.68;transition:box-shadow .25s,opacity .25s}
+.atlas-portrait.is-active{opacity:1;box-shadow:0 0 0 4px var(--yellow),0 5px 16px rgba(0,0,0,.32)}
+.atlas-portrait:is(.is-active,:hover,:focus-visible)::after{content:attr(data-place);position:absolute;left:50%;top:calc(100% + 8px);transform:translateX(-50%);padding:.28rem .42rem;background:var(--ink);color:var(--white);font:700 .62rem var(--sans);white-space:nowrap;pointer-events:none}
 .atlas-portrait:focus-visible{outline:3px solid var(--yellow);outline-offset:4px}
 .atlas-portrait--stop{background:var(--blue)}
-.atlas-portrait--stop[data-step]::after{content:attr(data-step);position:absolute;right:-5px;bottom:-6px;min-width:15px;height:15px;border-radius:50%;background:var(--yellow);color:var(--ink);font:700 10px/15px var(--sans);text-align:center;box-shadow:0 0 0 1px var(--paper)}
+.atlas-portrait img{border-radius:50%}
 .atlas-map-credit{z-index:8}
-@media(max-width:760px){.atlas-filmstrip{left:.5rem;right:.5rem;bottom:.85rem}.atlas-filmstrip-top{display:block;width:100%}.atlas-filmstrip-top>div:first-child{gap:.35rem .7rem}.atlas-filmstrip-note{display:none}.atlas-filmstrip-actions{margin-top:.45rem}.atlas-frame{flex-basis:220px;height:162px}.atlas-time-gap{height:162px}.atlas-filmstrip-track{padding-left:.2rem}}
+@media(max-width:760px){.atlas-filmstrip{left:.5rem;right:.5rem;bottom:.85rem}.atlas-filmstrip-top{display:block}.atlas-filmstrip-top>div:first-child{gap:.35rem .7rem}.atlas-filmstrip-note{display:none}.atlas-filmstrip-actions{margin-top:.45rem}.atlas-frame{flex-basis:220px;height:162px}.atlas-time-gap{height:162px}.atlas-filmstrip-track{padding-left:.2rem}.atlas-marker{width:30px;height:30px}}

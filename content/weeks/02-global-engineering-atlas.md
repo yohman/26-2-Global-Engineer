@@ -28,7 +28,7 @@ Use Google Earth to trace one material, person, signal, or route. What crosses b
 
 ## Atlas
 
-Extend or challenge your Atlas route. Follow it to a third place, examine the evidence, and ask how the connection changes across time.
+Extend or challenge your Atlas threads. Follow one connection to a third place—or branch from Japan in another direction. Examine the evidence and ask how each connection changes across time.
 
 ## Resources
 

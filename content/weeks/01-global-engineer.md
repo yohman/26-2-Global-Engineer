@@ -24,16 +24,16 @@ Six images, no slide text. Yoh tells the story behind each image and asks what i
 
 - BEGIN NEAR HOME (7 min): privately sketch a place or problem you know and an engineering hope. Neighborhood, family, and campus all count; personal details are optional.
 - STORY CIRCLE (20 min): three minutes each for your story and dream of becoming a global engineer, then one curious question from the room. No story must prove it is “global enough.”
-- GIVE IT WINGS (18 min): open the class Atlas. Begin with a hometown or another meaningful place in Japan. Let the map lead you to one nation you are curious about. What engineering idea, feat, or problem draws you there? Add one moment in time, trace, link, or video if you have it. You may add more hops later; the filmstrip will show where time passes between them.
+- GIVE IT WINGS (18 min): open the class Atlas. Begin with a hometown or another meaningful place in Japan. Choose an engineering idea, object, infrastructure, or problem that touches it. Where did it begin, where else did it travel, and who changed it? Explore one connection first; add a moment in time, evidence link, video, or question. Later you can follow several branches, not just one route.
 - CLOSE (5 min): show your first thread to the circle. Tell us why you chose it and what you want to learn next. No one has to arrive with international experience or a finished claim.
 
 ## MAKE
 
-**ATLAS 01 — From Here to There.** Begin with one place you know in Japan, choose another nation, and record why you want to explore it. Follow a technology, infrastructure, person, or object. Add a dated trace, source link, video, or question if you have one. This is a beginning, not a proof of global expertise.
+**ATLAS 01 — From Here, Outward.** Begin with a place you know in Japan and choose something engineered that touches it. Was it invented here and taken elsewhere, or inherited and adapted here? Choose one other nation and record a connection, a date, and a question. Add a source link or video if you have one. The story may later branch to many places; no international experience or finished claim is required.
 
 ## Atlas
 
-Open the class Atlas. Start with one place and one engineering curiosity. Each frame can later grow from an idea into a feat, tradeoff, or future question. Select a frame to move the map, or a map marker to return to that moment. The dotted line traces your questions, not necessarily your travels.
+Open the class Atlas. Start with one place and one engineering curiosity. Each frame can grow from an idea into a feat, tradeoff, or future question. Select a frame to light up its place on the map, or select a marker to return to that frame. The frames are moments in your inquiry, not stops on a required journey.
 
 ## Read / View
 
