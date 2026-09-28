@@ -22,8 +22,41 @@
     question: 'Whose stories are carried by aid, and whose are left out?',
     source: 'https://yohman.github.io/26-2-Global-Engineer/lectures/w01-journey.html', image: 'lectures/assets/banda-aceh-rice.png', kind: 'Instructor opening'
   };
-  let records = [opening];
-  let activeId = null;
+  // A fully worked model of an Atlas contribution. The student and local scene
+  // are invented; the project facts and the objection record are sourced.
+  const simulated = {
+    id: 'sample-kashiwa-manila-delhi', alias: 'Studio prototype',
+    title: 'What travels with a train?', kind: 'Simulated story',
+    japan: {
+      place: 'Kashiwa Station', point: [139.9673, 35.8621],
+      story: 'Imagine a student waiting for a train in Kashiwa. The platform feels ordinary: a timetable, a crossing, a promise that people can move. Which parts of that experience could travel—and which depend on this particular city?'
+    },
+    nation: { name: 'Philippines', place: 'Metro Manila', point: [121.0359, 14.6042] },
+    world: { place: 'Delhi, India', point: [77.209, 28.6139] },
+    theme: 'Infrastructure & trade', technology: 'Urban rail: tunnels, stations, rolling stock, and operating practice', year: 2018,
+    connection: 'In 2018, JICA signed a Japanese ODA loan for the Philippines’ first subway. This map line is an inquiry connecting a familiar station in Japan with a Japanese-backed project in Manila—not a literal rail or supply route. Delhi offers a third place to compare how Japan-supported metro systems meet different cities.',
+    evidence: 'JICA’s 2018 loan notice describes a 25 km Metro Manila subway with 13 underground stations and a ¥104.53 billion first-phase loan.',
+    controversy: 'A later request to JICA questioned disclosure of the resettlement plan and compensation or assistance for affected people. The existence of the objection is documented; this sample does not decide its merits.',
+    question: 'If a subway reduces congestion, who receives the benefit first—and who bears the cost of making room for it?',
+    source: 'https://www.jica.go.jp/oda/project/PH-P267/',
+    sources: [
+      { label: 'Project and 2018 loan · JICA', url: 'https://www.jica.go.jp/oda/project/PH-P267/' },
+      { label: 'Resettlement objection record · JICA', url: 'https://www.jica.go.jp/english/about/policy/environment/objection/philippines_02.html' },
+      { label: '2025 Delhi Metro loan · JICA', url: 'https://www.jica.go.jp/english/overseas/india/information/press/2024/1565716_53431.html' }
+    ],
+    metrics: [
+      { value: '25 km', label: 'planned subway length' },
+      { value: '13', label: 'underground stations' },
+      { value: '¥104.53bn', label: '2018 first-phase loan' }
+    ],
+    milestones: [
+      { year: '2018', label: 'Japan–Philippines loan signed' },
+      { year: '2023', label: 'Resettlement objection recorded' },
+      { year: '2025', label: 'Delhi comparison: further JICA metro support' }
+    ]
+  };
+  let records = [simulated, opening];
+  let activeId = simulated.id;
   let picking = null;
   let selectedYear = 2026;
 
@@ -52,6 +85,9 @@
       if (id) showStory(id);
     });
     renderMap();
+    const initialBounds = new maplibregl.LngLatBounds(simulated.japan.point, simulated.japan.point);
+    initialBounds.extend(simulated.nation.point).extend(simulated.world.point);
+    map.fitBounds(initialBounds, { padding: 75, maxZoom: 2.8, duration: 0 });
   });
   map.on('click', event => {
     if (!picking) return;
@@ -111,7 +147,7 @@
   }
   async function refresh() {
     if (!config.feedUrl) {
-      feedStatus.textContent = 'Live publishing is being connected. You can explore the Atlas layout now.';
+      feedStatus.textContent = 'Two model stories · live student publishing is being connected.';
       submit.disabled = true;
       feedReady = false;
       renderStories();
@@ -130,11 +166,12 @@
         try { const record = normalizeRecord(JSON.parse(row[recordCol]), row[aliasCol], row[titleCol]); return record ? [record] : []; }
         catch { return []; }
       }).reverse();
-      records.push(opening);
+      records.push(simulated, opening);
       const confirmedIds = new Set(records.map(record => record.id));
       for (let index = drafts.length - 1; index >= 0; index -= 1) if (confirmedIds.has(drafts[index].id)) drafts.splice(index, 1);
       drafts.forEach(draft => records.unshift(draft));
-      feedStatus.textContent = `${records.length - 1 - drafts.length} class ${records.length - 1 - drafts.length === 1 ? 'submission' : 'submissions'} + one instructor opening · student stories are not yet fact-checked`;
+      const studentCount = records.filter(record => !record.kind).length;
+      feedStatus.textContent = `${studentCount} class ${studentCount === 1 ? 'submission' : 'submissions'} + two model stories · student stories are not yet fact-checked`;
       feedReady = true;
       submit.disabled = false;
       renderStories(); renderMap();
@@ -177,7 +214,10 @@
     addText(head, 'span', `FIELD NOTE / ${record.year} / ${record.alias}`); addText(head, 'h2', record.title);
     addText(head, 'p', `${record.japan.place}, Japan  ↗  ${record.nation.place}, ${record.nation.name}${record.world ? `  ↗  ${record.world.place}` : ''}`);
     dossier.append(head);
+    if (record.kind === 'Simulated story') { const notice = addText(dossier, 'p', 'SIMULATED STUDENT STORY · The student and Kashiwa scene are fictional. Project figures, objection, and comparison are linked to JICA records. Map lines show questions, not literal routes.'); notice.className = 'atlas-simulation-notice'; }
     if (record.image) { const figure = document.createElement('figure'); figure.className = 'atlas-dossier-image'; const image = document.createElement('img'); image.src = record.image; image.alt = 'Yoh with a camp leader beside a World Food Programme rice sack from Japan in Banda Aceh'; figure.append(image); addText(figure, 'figcaption', 'Banda Aceh · the photograph that begins this inquiry'); dossier.append(figure); }
+    if (record.metrics) { const metrics = document.createElement('div'); metrics.className = 'atlas-dossier-metrics'; record.metrics.forEach(metric => { const item = document.createElement('div'); addText(item, 'strong', metric.value); addText(item, 'span', metric.label); metrics.append(item); }); dossier.append(metrics); }
+    if (record.milestones) { const timeline = document.createElement('div'); timeline.className = 'atlas-dossier-timeline'; addText(timeline, 'h3', 'A story in motion'); record.milestones.forEach(moment => { const item = document.createElement('div'); addText(item, 'strong', moment.year); addText(item, 'span', moment.label); timeline.append(item); }); dossier.append(timeline); }
     const grid = document.createElement('div'); grid.className = 'atlas-dossier-grid';
     const chapter = (number, title, body) => { const section = document.createElement('section'); addText(section, 'span', number); addText(section, 'h3', title); addText(section, 'p', body); grid.append(section); };
     chapter('01 / DEPARTURE', 'A place known', record.japan.story);
@@ -188,8 +228,10 @@
     chapter('06 / NEXT QUESTION', 'Where the inquiry goes', record.question);
     dossier.append(grid);
     const footer = document.createElement('div'); footer.className = 'atlas-dossier-foot';
-    const link = document.createElement('a'); link.href = record.source; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = 'Open the evidence ↗'; footer.append(link);
-    addText(footer, 'span', record.kind ? 'INSTRUCTOR OPENING / MAP POINTS APPROXIMATE' : 'STUDENT-SUBMITTED / NOT FACT-CHECKED'); dossier.append(footer);
+    const sources = record.sources || [{ label: 'Open the evidence ↗', url: record.source }];
+    const links = document.createElement('div'); links.className = 'atlas-evidence-links';
+    sources.forEach(source => { const link = document.createElement('a'); link.href = source.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = `${source.label} ↗`; links.append(link); }); footer.append(links);
+    addText(footer, 'span', record.kind === 'Simulated story' ? 'SIMULATED / SOURCED PROJECT FACTS' : record.kind ? 'INSTRUCTOR OPENING / MAP POINTS APPROXIMATE' : 'STUDENT-SUBMITTED / NOT FACT-CHECKED'); dossier.append(footer);
   }
   function showStory(id) {
     activeId = id; renderStories(); renderMap();
