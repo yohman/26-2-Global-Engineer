@@ -35,6 +35,8 @@ Six images, no slide text. Yoh tells the story behind each image and asks what i
 
 Open the class Atlas. Start with one place and one engineering curiosity. Each frame can grow from an idea into a feat, tradeoff, or future question. Select a frame to light up its place on the map, or select a marker to return to that frame. The frames are moments in your inquiry, not stops on a required journey.
 
+[Follow Yoh's draft Atlas story](atlas.html#yoh) to see how one family and research trajectory connects agricultural science, urban planning, and disaster storytelling across places and time. The regional visits are grouped as "1982+" because their exact dates are not specified.
+
 ## Read / View
 
 If you wish, bring an image or object from a place you know well. It does not need to be international.
