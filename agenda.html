@@ -144,7 +144,7 @@
         work.append(activity);
         const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = '<header><span>03 / HOMEWORK</span><h3>Carry it forward</h3></header>';
         week.sections.filter(section => sectionMatches(section, homeworkNames)).forEach(section => addSection(homework, section));
-        if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html#contribute'; link.textContent = 'ADD YOUR ATLAS ROUTE ↗'; homework.append(link); }
+        if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = 'ADD YOUR ATLAS ROUTE ↗'; homework.append(link); }
         const formUrl = week.make_form_url || assignments[week.make_id]?.formUrl;
         if (week.make_id && formUrl) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = formUrl; link.target = '_blank'; link.rel = 'noopener'; link.textContent = 'SUBMIT / UPDATE YOUR MAKE'; homework.append(link); }
         work.append(homework); detail.append(work);
