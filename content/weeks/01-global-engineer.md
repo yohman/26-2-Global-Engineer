@@ -29,11 +29,11 @@ Six images, no slide text. Yoh tells the story behind each image and asks what i
 
 ## MAKE
 
-**ATLAS 01 — Engineering Nation.** Choose one country other than Japan: country + technology + 3–5 evidence points + one controversy.
+**ATLAS 01 — From Here to There.** Begin with one place you know in Japan. Choose another nation and trace one technology, system, or practice linking the two. Show one dated piece of evidence, one controversy, and one open question in the class Atlas.
 
 ## Atlas
 
-Start your Engineering Nation entry. Pin a place, add a time layer, and identify a connection to Japan.
+Open the class Atlas. An illustrated field note is more than two pins: tell the local story, locate the connection, mark when it became visible, and ask whose perspective is missing.
 
 ## Read / View
 

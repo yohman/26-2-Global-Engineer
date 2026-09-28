@@ -6,6 +6,7 @@ window.COURSE_TRANSLATIONS = {
   ja: {
     // Browser titles
     '2026-2 Global Engineer': '2026-2 グローバル・エンジニア',
+    'Atlas · 2026-2 Global Engineer': 'アトラス · 2026-2 グローバル・エンジニア',
     'Agenda · 2026-2 Global Engineer': '授業計画 · 2026-2 グローバル・エンジニア',
     'Groups · 2026-2 Global Engineer': 'グループ活動 · 2026-2 グローバル・エンジニア',
     'MAKE · 2026-2 Global Engineer': 'MAKE課題 · 2026-2 グローバル・エンジニア',
@@ -17,6 +18,7 @@ window.COURSE_TRANSLATIONS = {
     'Skip to content': '本文へ移動',
     'Menu': 'メニュー',
     'Agenda': '授業計画',
+    'Atlas': 'アトラス',
     'Groups': 'グループ',
     'Read / View': '読む・見る',
     'Guests': 'ゲスト',

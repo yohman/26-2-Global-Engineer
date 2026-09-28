@@ -28,7 +28,7 @@ Use Google Earth to trace one material, person, signal, or route. What crosses b
 
 ## Atlas
 
-Add a KML/KMZ pin, route, event, technology, or project. Make time part of the story.
+Extend or challenge your Atlas route. Follow it to a third place, examine the evidence, and ask how the connection changes across time.
 
 ## Resources
 

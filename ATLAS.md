@@ -1,0 +1,9 @@
+# Class Atlas operations
+
+The Atlas is a static page. Its intake is an invisible Google Form; its read side expects a public CSV link from the linked response Sheet. The form records three fields: `Name or alias`, `Atlas title`, and `Atlas record` (JSON). The JSON carries the story, coordinates, year, technology, evidence, controversy, source URL, and question.
+
+The form is published and does **not** collect email addresses. The linked Sheet is titled `Global Engineer Atlas — Class Submissions（回答）`. Yoh has approved immediate publication of submissions, including the raw response tab and timestamps. Nonetheless, publication must be verified anonymously before enabling intake. At present the response tab is **not** public, so `assets/atlas-config.js` deliberately leaves `feedUrl` blank and the Atlas disables its submit button.
+
+To finish activation: in the linked Google Sheet, use **File → Share → Publish to web**, select **フォームの回答 1**, choose **CSV**, and publish. Paste the resulting CSV URL into `feedUrl` in `assets/atlas-config.js`. Test that URL in a signed-out browser, confirm its header row contains `Name or alias`, `Atlas title`, and `Atlas record`, then submit one course-authorized test field note through the Atlas and confirm it appears after refresh. A Google Form POST uses `no-cors`; the browser cannot know whether Google accepted it until the response appears in the CSV feed. This is why the page labels freshly sent stories provisional.
+
+The first map line is a clearly marked instructor opening from Yoh's Banda Aceh story, not a student submission. Its geographic points are approximate and do not claim a literal food-shipment route. Student text is rendered as text, not HTML; submitted links are limited to HTTP(S). Entries appear immediately and are explicitly labelled unverified. Do not request student contact details or private locations in the form.
