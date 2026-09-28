@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="The 14-week agenda for 2026-2 Global Engineer."><title>Agenda · 2026-2 Global Engineer</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=agenda-rows-v2-20260928"></head>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=journey-20260928"></head>
 <body class="agenda-page"><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><a class="wordmark" href="index.html"><span>2026-2</span> Global Engineer</a><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" class="site-nav" aria-label="Course navigation"><a href="agenda.html">Agenda</a><a href="groups.html">Groups</a><a href="make.html">MAKE</a><a href="resources.html">Read / View</a><a href="guests.html">Guests</a><a href="exhibition.html">Exhibition</a></nav></header>
 <main id="main">
@@ -67,10 +67,10 @@
   };
   const scheduleFor = week => {
     if (week.week === 1) return [
-      ['00–15', 'Night lights', 'Look, feel, and name what is missing.'],
-      ['15–40', 'Human Error', 'Fukushima, people, and energy choices.'],
-      ['40–80', 'Studio dialogue', 'Trace one light across places and systems.'],
-      ['80–100', 'Share + MAKE', 'Five voices and one question to carry forward.']
+      ['00–10', 'Opening question', 'Where does a global story begin?'],
+      ['10–40', 'A family in motion', 'IRRI, Colombia, cassava, and a bicycle.'],
+      ['40–65', 'A turning point', 'Banda Aceh, Human Error, and responsibility.'],
+      ['65–100', 'Five stories', 'Listen, sketch a connection, and carry a question forward.']
     ];
     if (/^Guest/.test(week.kind)) return [
       ['00–10', 'Opening question', week.subtitle],
@@ -111,7 +111,10 @@
     if (!available) return `<div class="agenda-slide-card agenda-slide-card--pending"><span>WEEK ${String(week.week).padStart(2, '0')}</span><strong>Lecture slides</strong><p>Preview will appear here when the slides are ready.</p></div>`;
     const href = `lecture-preview.html?file=${encodeURIComponent(file)}&week=${week.week}`;
     const image = /^lectures\/assets\/[A-Za-z0-9._-]+$/.test(week.slide_image || '') ? `<img src="${escapeHtml(week.slide_image)}" alt="" loading="lazy">` : `<span class="agenda-slide-placeholder">WEEK ${String(week.week).padStart(2, '0')}</span>`;
-    return `<a class="agenda-slide-card" href="${href}" aria-label="Preview Week ${week.week} lecture slides"><span class="agenda-slide-image">${image}</span><span class="agenda-slide-caption"><span>LECTURE SLIDES</span><strong>Preview slides <span aria-hidden="true">↗</span></strong></span></a>`;
+    const followup = /^lectures\/[A-Za-z0-9_-]+\.html$/.test(week.lecture_followup || '')
+      ? `<a class="agenda-slide-followup" href="lecture-preview.html?file=${encodeURIComponent(week.lecture_followup)}&week=${week.week}">Later conversation: Fukushima and energy systems ↗</a>`
+      : '';
+    return `<a class="agenda-slide-card" href="${href}" aria-label="Preview Week ${week.week} lecture slides"><span class="agenda-slide-image">${image}</span><span class="agenda-slide-caption"><span>LECTURE SLIDES</span><strong>Preview slides <span aria-hidden="true">↗</span></strong></span></a>${followup}`;
   };
   const render = (weeks, guests) => {
     mode.textContent = planning ? 'Planning mode · all weeks expanded' : 'Weekly course agenda';

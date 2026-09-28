@@ -7,23 +7,25 @@ subtitle: What is a Global Engineer?
 kind: Foundation
 lead: Yoh
 make_id: make01
-lecture_preview: lectures/w01.html
-slide_image: lectures/assets/black-marble-2016.jpg
+lecture_preview: lectures/w01-journey.html
+lecture_followup: lectures/w01.html
+slide_image: lectures/assets/irri-rice-science.png
 ---
 
 ## Overview / Big Question
 
-We begin as a five-person studio. Earth at night opens a conversation about the systems we can see and the people we cannot. From **Human Error** and Fukushima, we follow one energy decision through public trust, global nuclear safety, and Japan’s dependence on imported fuel. What makes an engineer global?
+We begin as a six-person studio: five students and Yoh. Before asking for a definition of a global engineer, we ask where a global story begins. Yoh's journey moves from his father's agricultural research at IRRI in the Philippines and CIAT in Colombia to Banda Aceh after the 2004 tsunami and the making of **Human Error**. Then each student begins their own story.
 
 ## Lecture
 
-Look closely and name your first feeling. The Week 1 slides move from night lights and the people affected by Fukushima to Japan’s energy choices and the 2026 disruption around the Strait of Hormuz.
+Six images, no slide text. Yoh tells the story behind each image and asks what it makes us notice, feel, or question. The Fukushima and energy-systems deck remains available as a later conversation.
 
 ## In Class
 
-- OBSERVE: each person responds to the same global image before we explain it.
-- DISCUSS: each person offers a first definition of a global engineer.
-- STUDIO: sketch one everyday object or service and trace a place, a person, and a consequence connected to it.
+- OPEN: where does a global story begin? Everyone names a place or a person.
+- LISTEN: IRRI, Colombia, one farmer's bicycle, Banda Aceh, and **Human Error**.
+- SHARE: each student tells a story of a place, person, or event that shaped their own trajectory.
+- STUDIO: sketch one connection between your story and a wider world; keep one question to investigate this term.
 
 ## MAKE
 
@@ -35,7 +37,7 @@ Start your Engineering Nation entry. Pin a place, add a time layer, and identify
 
 ## Read / View
 
-Bring one example of an engineered system you rely on but rarely notice.
+Bring one image or object connected to a place, person, or event that shaped your own global story.
 
 ## Resources
 

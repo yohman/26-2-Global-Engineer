@@ -285,6 +285,7 @@ a { color: inherit; }
 .agenda-slide-card--pending > span { font: 700 1.85rem var(--sans); letter-spacing: -.05em; }
 .agenda-slide-card--pending strong { display: block; margin-top: 2.5rem; font: 700 .9rem var(--sans); }
 .agenda-slide-card--pending p { margin: .35rem 0 0; color: var(--muted); font: .76rem/1.4 var(--sans); }
+.agenda-slide-followup { display: block; margin-top: .7rem; color: var(--blue); font: 600 .72rem/1.4 var(--sans); text-decoration: underline; text-underline-offset: .18em; }
 .agenda-work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1rem; }
 .agenda-work-card { min-width: 0; padding: clamp(1.25rem, 2.5vw, 2rem); }
 .agenda-work-card header { margin-bottom: 1.3rem; }
