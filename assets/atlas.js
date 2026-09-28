@@ -222,7 +222,8 @@
           if(stage==='origin'&&feature.properties.name==='Japan')setOrigin([event.lngLat.lng,event.lngLat.lat],'My chosen place in Japan');
           else if(['choose','selected'].includes(stage))useCountry(feature);
         });
-        if(journey?.hops.length){origin=journey.origin;setStage('choose');map.jumpTo({center:[110,20],zoom:1.7})}
+        if(window.location.hash==='#sample')showJourney(sample);
+        else if(journey?.hops.length){origin=journey.origin;setStage('choose');map.jumpTo({center:[110,20],zoom:1.7})}
         else setStage('origin');
       }catch(error){ui.hint.textContent='The map could not load country boundaries. Please reconnect and reload.';console.error(error)}
     });
