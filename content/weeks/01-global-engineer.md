@@ -39,9 +39,9 @@ Open the class Atlas. Start with one place and one engineering curiosity. Each f
 
 ## Read / View
 
-If you wish, bring an image or object from a place you know well. It does not need to be international.
+Read the short [What Is Global Engineering?](https://www.colorado.edu/center/mortenson/about-us/what-global-engineering) introduction. Bring a two-sentence response: Which idea connects to a place or problem you know, and what would you add to or question about its definition? Your example does not need to be international. If you wish, bring an image or object from that place.
 
 ## Resources
 
-- [Engineering for Sustainable Development](https://unesdoc.unesco.org/ark:/48223/pf0000368054) — UNESCO | Engineering as a social and global practice {READ}
+- [What Is Global Engineering?](https://www.colorado.edu/center/mortenson/about-us/what-global-engineering) — CU Boulder Mortenson Center | A short definition to test against your own local experience {READ}
 - [The 17 Goals](https://sdgs.un.org/goals) — United Nations | A shared language for global challenges {EXPLORE}
