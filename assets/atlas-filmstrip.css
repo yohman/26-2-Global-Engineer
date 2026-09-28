@@ -33,7 +33,7 @@
 .atlas-tether path{fill:none;stroke-linecap:round}
 #atlas-tether-halo{stroke:rgba(247,244,237,.94);stroke-width:6}
 #atlas-tether-line{stroke:var(--red);stroke-width:2.4;stroke-dasharray:3 8}
-.atlas-portrait{border:0;padding:0;cursor:pointer;transition:transform .25s,box-shadow .25s}
+.atlas-portrait{border:0;padding:0;cursor:pointer;transition:box-shadow .25s}
 .atlas-portrait.is-active{box-shadow:0 0 0 4px var(--yellow),0 5px 16px rgba(0,0,0,.32)}
 .atlas-portrait:focus-visible{outline:3px solid var(--yellow);outline-offset:4px}
 .atlas-portrait--stop{background:var(--blue)}

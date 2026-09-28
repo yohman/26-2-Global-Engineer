@@ -11,7 +11,7 @@
     {country:'Indonesia',point:[106.83,-6.18],year:2026,beat:'FUTURE QUESTION',lens:'Infrastructure',engineering:'A design study considers shield tunneling and flood exposure.',reason:'How would an underground line live with floods?',trace:'This is Mina’s 2026 question about an earlier design study, not a claim that this work happened in 2026.',mediaUrl:'https://openjicareport.jica.go.jp/pdf/12144796_02.pdf'}
   ]};
   let map,features=[],stage='origin',origin=null,selected=null,hover='',journey=readJourney(),markers=[],returnStage='origin';
-  let activeRoute=null,activeMoment=0,playTimer=null,tetherFrame=0;
+  let activeRoute=null,activeMoment=0,playTimer=null,tetherFrame=0,routeCamera=null;
   function readJourney(){try{const v=JSON.parse(localStorage.getItem(storageKey)||'null');return v&&Array.isArray(v.hops)&&v.origin?v:null}catch{return null}}
   function writeJourney(v){try{localStorage.setItem(storageKey,JSON.stringify(v));return true}catch{return false}}
   function safeUrl(v){try{const u=new URL(v);return /^https?:$/.test(u.protocol)?u.href:''}catch{return ''}}
@@ -86,6 +86,14 @@
   function frameMoment(route,index){
     return index===0?{...route.origin,country:'Japan',reason:'A place I know. A question begins here.'}:route.hops[index-1];
   }
+  function journeyCamera(route){
+    const points=[route.origin.point,...route.hops.map(hop=>hop.point)];
+    const west=Math.min(...points.map(point=>point[0])),east=Math.max(...points.map(point=>point[0]));
+    const south=Math.min(...points.map(point=>point[1])),north=Math.max(...points.map(point=>point[1]));
+    const filmstripHeight=ui.filmstrip.getBoundingClientRect().height;
+    const padding={top:105,bottom:Math.min(map.getContainer().clientHeight*.48,filmstripHeight+38),left:75,right:75};
+    return map.cameraForBounds([[west,south],[east,north]],{padding,maxZoom:2.7});
+  }
   function timeGap(previous,current){
     if(previous?.year&&current?.year){
       const years=Math.abs(current.year-previous.year);
@@ -156,7 +164,10 @@
     map.getSource('atlas-focus-route')?.setData({type:'FeatureCollection',features});
     const frame=ui.filmstripTrack.querySelector(`[data-moment="${activeMoment}"]`);
     if(frame)ui.filmstripTrack.scrollTo({left:frame.offsetLeft-ui.filmstripTrack.offsetLeft-ui.filmstripTrack.clientWidth/2+frame.offsetWidth/2,behavior:'smooth'});
-    if(move)map.easeTo({center:moment.point,zoom:activeMoment?3.3:3.1,offset:[0,-80],duration:1050});
+    if(move&&routeCamera){
+      const center=routeCamera.center;
+      map.easeTo({center:[center.lng+(moment.point[0]-center.lng)*.1,center.lat+(moment.point[1]-center.lat)*.1],zoom:routeCamera.zoom,duration:750});
+    }
     requestTether();
   }
   function stopPlayback(){if(playTimer)clearTimeout(playTimer);playTimer=null;ui.filmstripPlay.textContent='Play journey ▶'}
@@ -176,7 +187,9 @@
   function showJourney(route,personal=false){
     stopPlayback();returnStage=stage;activeRoute=route;activeMoment=0;
     buildFilmstrip(route);setStage('demo');
-    setActiveMoment(0,true);
+    routeCamera=journeyCamera(route);
+    setActiveMoment(0,false);
+    if(routeCamera)map.easeTo({...routeCamera,duration:850});
   }
   function saveDraft(){const f=ui.form.elements,localPlace=f.localPlace.value.trim(),reason=f.reason.value.trim(),lens=ui.form.querySelector('[name="lens"]:checked')?.value,alias=f.alias.value.trim(),mediaUrl=f.mediaUrl.value.trim();if(!localPlace||!reason||!lens||!alias){ui.status.textContent='Please add your starting place, a reason, a thread, and your name or alias.';return}if(mediaUrl&&!safeUrl(mediaUrl)){ui.status.textContent='Please use an http or https link, or leave it blank.';return}const yearText=f.year.value.trim(),year=yearText?Number(yearText):null;if(year&&(year<1900||year>2100)){ui.status.textContent='Please enter a year between 1900 and 2100.';return}const hop={country:selected.name,point:selected.point,reason,lens,year,trace:f.trace.value.trim(),mediaUrl:safeUrl(mediaUrl)};const draft=journey||{id:`journey-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,alias,origin,hops:[]};draft.alias=alias;draft.origin={place:localPlace,point:origin.point};draft.hops.push(hop);const localSaved=writeJourney(draft);journey=draft;origin=draft.origin;ui.form.reset();ui.status.textContent=localSaved?'Saved on this device. Sending to the class intake…':'Could not save on this device. Please keep a copy of your story.';renderRoutes();if(config.formResponseUrl&&config.fields){const fields=new URLSearchParams();fields.set(config.fields.alias,draft.alias);fields.set(config.fields.title,`${draft.origin.place} → ${hop.country}`);fields.set(config.fields.record,JSON.stringify(draft));fetch(config.formResponseUrl,{method:'POST',mode:'no-cors',credentials:'omit',body:fields}).then(()=>{ui.status.textContent='Saved on this device. Sent to class intake, but delivery cannot be verified here. Public map display is not yet connected.'}).catch(()=>{ui.status.textContent='Saved on this device; sending to class intake failed. Please try again later.'})}else ui.status.textContent='Saved on this device. Class intake is not configured yet.';ui.first.hidden=true;ui.second.hidden=true;ui.selected.querySelector('.atlas-selected-prompt').textContent='Your thread has been added. Choose another nation when you are ready.';ui.myJourney.hidden=false;ui.existing.hidden=true;const again=node('button','atlas-primary atlas-add-hop','Add another hop →');again.type='button';again.addEventListener('click',()=>{selected=null;map.setFilter('atlas-selected-fill',['==',['get','name'],'']);setStage('choose')});ui.existing.replaceChildren(again);ui.existing.hidden=false}
   async function initMap(){
@@ -232,7 +245,7 @@
   ui.world.addEventListener('click',()=>map?.easeTo({center:[100,20],zoom:1.55,duration:800}));
   ui.search.addEventListener('change',()=>{const feature=features.find(f=>f.properties.name.toLowerCase()===ui.search.value.trim().toLowerCase());if(feature){useCountry(feature);ui.search.value=''}});
   ui.demo.addEventListener('click',()=>showJourney(sample));ui.myJourney.addEventListener('click',()=>{if(journey)showJourney(journey,true)});
-  function closeJourney(){stopPlayback();activeRoute=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);setStage(returnStage==='origin'?'origin':'choose');map?.easeTo(returnStage==='origin'?{center:[137,37],zoom:2.55,duration:800}:{center:[110,20],zoom:1.7,duration:800})}
+  function closeJourney(){stopPlayback();activeRoute=null;routeCamera=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);setStage(returnStage==='origin'?'origin':'choose');map?.easeTo(returnStage==='origin'?{center:[137,37],zoom:2.55,duration:800}:{center:[110,20],zoom:1.7,duration:800})}
   ui.filmstripClose.addEventListener('click',closeJourney);
   ui.filmstripPlay.addEventListener('click',playJourney);
   ui.filmstripTrack.addEventListener('scroll',requestTether);
