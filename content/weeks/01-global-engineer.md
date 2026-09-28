@@ -24,7 +24,7 @@ Six images, no slide text. Yoh tells the story behind each image and asks what i
 
 - BEGIN NEAR HOME (7 min): privately sketch a place or problem you know and an engineering hope. Neighborhood, family, and campus all count; personal details are optional.
 - STORY CIRCLE (20 min): three minutes each for your story and dream of becoming a global engineer, then one curious question from the room. No story must prove it is “global enough.”
-- GIVE IT WINGS (18 min): open the class Atlas. Begin with a hometown or another meaningful place in Japan. Let the map lead you to one nation you are curious about. Name the thread—technology, infrastructure, a person’s story, or an object—and add one moment in time, trace, link, or video if you have it. You may add more hops later.
+- GIVE IT WINGS (18 min): open the class Atlas. Begin with a hometown or another meaningful place in Japan. Let the map lead you to one nation you are curious about. What engineering idea, feat, or problem draws you there? Add one moment in time, trace, link, or video if you have it. You may add more hops later; the filmstrip will show where time passes between them.
 - CLOSE (5 min): show your first thread to the circle. Tell us why you chose it and what you want to learn next. No one has to arrive with international experience or a finished claim.
 
 ## MAKE
@@ -33,7 +33,7 @@ Six images, no slide text. Yoh tells the story behind each image and asks what i
 
 ## Atlas
 
-Open the class Atlas. Start with one place and one curiosity. The dotted line traces your questions, not necessarily your travels. Return to add more countries, evidence, and complications as the course unfolds.
+Open the class Atlas. Start with one place and one engineering curiosity. Each frame can later grow from an idea into a feat, tradeoff, or future question. Select a frame to move the map, or a map marker to return to that moment. The dotted line traces your questions, not necessarily your travels.
 
 ## Read / View
 
