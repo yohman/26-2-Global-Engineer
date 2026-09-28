@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Lecture slide preview · 2026-2 Global Engineer</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css?v=agenda-rows-v2-20260928">
+</head>
+<body class="lecture-preview-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="wordmark" href="index.html"><span>2026-2</span> Global Engineer</a><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" class="site-nav" aria-label="Course navigation"><a href="agenda.html">Agenda</a><a href="groups.html">Groups</a><a href="make.html">MAKE</a><a href="resources.html">Read / View</a><a href="guests.html">Guests</a><a href="exhibition.html">Exhibition</a></nav></header>
+  <main id="main" class="wrap lecture-preview-main">
+    <a class="lecture-preview-back" data-back href="agenda.html">← Back to the agenda</a>
+    <div class="lecture-preview-heading"><div><p class="eyebrow">LECTURE SLIDE PREVIEW</p><h1 data-title>Lecture slides</h1></div><a data-open href="agenda.html" target="_blank" rel="noopener">Open slides in a new tab ↗</a></div>
+    <section class="lecture-preview-stage" id="lecture-preview-stage" data-stage aria-label="Lecture slides">
+      <div class="lecture-preview-toolbar"><span data-stage-label>Week 1 · slides</span><button type="button" data-fullscreen aria-pressed="false">Full screen ⛶</button></div>
+      <iframe data-frame title="Lecture slides" allowfullscreen></iframe>
+    </section>
+    <p class="lecture-preview-hint">Use the slide arrows or your keyboard to move through the lecture. Press Esc to leave full screen.</p>
+  </main>
+  <script src="assets/i18n.js"></script><script src="assets/site.js"></script>
+  <script>
+    (() => {
+      const params = new URLSearchParams(location.search);
+      const requestedFile = params.get('file') || '';
+      const file = /^lectures\/[A-Za-z0-9_-]+\.html$/.test(requestedFile) ? requestedFile : '';
+      const week = Number(params.get('week'));
+      const safeWeek = Number.isInteger(week) && week >= 1 && week <= 14 ? week : null;
+      const label = safeWeek ? `Week ${safeWeek} · lecture slides` : 'Lecture slides';
+      document.title = `${label} · 2026-2 Global Engineer`;
+      document.querySelector('[data-title]').textContent = label;
+      document.querySelector('[data-stage-label]').textContent = label;
+      document.querySelector('[data-back]').href = safeWeek ? `agenda.html#week-${safeWeek}` : 'agenda.html';
+      const frame = document.querySelector('[data-frame]');
+      const open = document.querySelector('[data-open]');
+      const stage = document.querySelector('[data-stage]');
+      const button = document.querySelector('[data-fullscreen]');
+      if (!file) {
+        open.hidden = true;
+        frame.hidden = true;
+        stage.insertAdjacentHTML('beforeend', '<p class="lecture-preview-error">No lecture slides were selected. Return to the agenda and choose an available preview.</p>');
+        button.disabled = true;
+        return;
+      }
+      frame.src = file;
+      frame.title = label;
+      open.href = file;
+      const updateButton = () => {
+        const active = document.fullscreenElement === stage || stage.classList.contains('is-fullscreen-fallback');
+        button.textContent = active ? 'Exit full screen ⛶' : 'Full screen ⛶';
+        button.setAttribute('aria-pressed', String(active));
+      };
+      button.addEventListener('click', async () => {
+        if (document.fullscreenElement === stage) { await document.exitFullscreen(); return; }
+        if (stage.classList.contains('is-fullscreen-fallback')) { stage.classList.remove('is-fullscreen-fallback'); document.body.classList.remove('preview-fallback-open'); updateButton(); return; }
+        try { await stage.requestFullscreen(); }
+        catch { stage.classList.add('is-fullscreen-fallback'); document.body.classList.add('preview-fallback-open'); updateButton(); }
+      });
+      document.addEventListener('fullscreenchange', updateButton);
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && stage.classList.contains('is-fullscreen-fallback')) {
+          stage.classList.remove('is-fullscreen-fallback'); document.body.classList.remove('preview-fallback-open'); updateButton();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

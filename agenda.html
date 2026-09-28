@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="The 14-week agenda for 2026-2 Global Engineer."><title>Agenda · 2026-2 Global Engineer</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css"></head>
-<body><a class="skip-link" href="#main">Skip to content</a>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=agenda-rows-v2-20260928"></head>
+<body class="agenda-page"><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><a class="wordmark" href="index.html"><span>2026-2</span> Global Engineer</a><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" class="site-nav" aria-label="Course navigation"><a href="agenda.html">Agenda</a><a href="groups.html">Groups</a><a href="make.html">MAKE</a><a href="resources.html">Read / View</a><a href="guests.html">Guests</a><a href="exhibition.html">Exhibition</a></nav></header>
 <main id="main">
   <section class="page-hero wrap"><p class="eyebrow">September 29, 2026 → January 12, 2027</p><h1>Fourteen-week<br>agenda</h1><p class="dek">Map, make, discuss, and install. Each week connects a real global-engineering question to a public-facing artifact.</p><nav class="page-index" aria-label="Agenda sections"><a href="#week-1">Foundation</a><a href="#week-3">Guest / Group</a><a href="#week-13">Studio</a><a href="#week-14">Exhibition</a></nav></section>
@@ -57,13 +57,61 @@
   };
   const date = value => new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', timeZone: 'Asia/Tokyo' }).format(new Date(`${value}T00:00:00+09:00`));
   const publishDate = value => new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' }).format(new Date(value));
-  const addSection = (target, section) => { const block = document.createElement('section'); block.className = 'agenda-detail-block'; block.innerHTML = `<h3>${escapeHtml(section.title)}</h3>${section.html}`; target.append(block); };
-  const addResources = (target, resources) => {
+  const addSection = (target, section) => { const block = document.createElement('section'); block.className = 'agenda-detail-block'; block.innerHTML = `<h4>${escapeHtml(section.title)}</h4>${section.html}`; target.append(block); };
+  const addResources = (target, resources, heading = 'Resources') => {
     if (!resources.length) return;
-    const section = document.createElement('section'); section.className = 'agenda-resources'; section.innerHTML = '<h3>Resources</h3>';
+    const section = document.createElement('section'); section.className = 'agenda-resources'; section.innerHTML = `<h4>${escapeHtml(heading)}</h4>`;
     const grid = document.createElement('div'); grid.className = 'agenda-resource-grid';
     resources.forEach(resource => { const link = document.createElement('a'); link.href = resource.url; link.target = '_blank'; link.rel = 'noopener'; link.className = 'agenda-resource'; link.innerHTML = `<span>${resource.category}</span><strong>${escapeHtml(resource.title)}</strong><small>${escapeHtml(resource.source)}${resource.note ? ` · ${escapeHtml(resource.note)}` : ''}</small>`; grid.append(link); });
     section.append(grid); target.append(section);
+  };
+  const scheduleFor = week => {
+    if (week.week === 1) return [
+      ['00–15', 'Night lights', 'Look, feel, and name what is missing.'],
+      ['15–40', 'Human Error', 'Fukushima, people, and energy choices.'],
+      ['40–80', 'Studio dialogue', 'Trace one light across places and systems.'],
+      ['80–100', 'Share + MAKE', 'Five voices and one question to carry forward.']
+    ];
+    if (/^Guest/.test(week.kind)) return [
+      ['00–10', 'Opening question', week.subtitle],
+      ['10–45', 'Guest story', `Conversation with ${week.lead}.`],
+      ['45–80', 'In-class clinic', 'Test the question through the week’s activity.'],
+      ['80–100', 'Reflect + MAKE', 'Share what changed and introduce the assignment.']
+    ];
+    if (/^Group/.test(week.kind)) return [
+      ['00–10', 'Opening question', week.subtitle],
+      ['10–30', 'Group framing', `Led by ${week.lead}.`],
+      ['30–80', 'Participatory work', 'Make, test, and discuss together.'],
+      ['80–100', 'Critique + MAKE', 'Compare insights and introduce the assignment.']
+    ];
+    if (/Exhibition/.test(week.kind)) return [
+      ['00–15', 'Set up', 'Prepare the exhibition and welcome visitors.'],
+      ['15–75', 'Show the work', 'Walk through the projects and installations.'],
+      ['75–90', 'Conversation', 'Ask what the work reveals and leaves unresolved.'],
+      ['90–100', 'Close', 'Share one question to take beyond the course.']
+    ];
+    if (/Crit/.test(week.kind)) return [
+      ['00–10', 'Brief', 'Name today’s design question.'],
+      ['10–65', 'Studio', 'Build and test the installation.'],
+      ['65–90', 'Critique', 'Show the work and receive feedback.'],
+      ['90–100', 'Next steps', 'Choose a revision for exhibition.']
+    ];
+    return [
+      ['00–15', 'Opening question', week.subtitle],
+      ['15–35', 'Context', 'Map the week’s global-engineering system.'],
+      ['35–80', 'Studio activity', 'Work with the scenario and materials.'],
+      ['80–100', 'Share + MAKE', 'Compare discoveries and set up homework.']
+    ];
+  };
+  const scheduleHtml = week => `<ol class="agenda-time-grid" aria-label="Proposed 100-minute class agenda">${scheduleFor(week).map(([time, title, description]) => `<li><time>${escapeHtml(time)} min</time><strong>${escapeHtml(title)}</strong><span>${escapeHtml(description)}</span></li>`).join('')}</ol>`;
+  const sectionMatches = (section, names) => names.includes(section.title);
+  const slideCardHtml = week => {
+    const file = week.lecture_preview || '';
+    const available = /^lectures\/[A-Za-z0-9_-]+\.html$/.test(file);
+    if (!available) return `<div class="agenda-slide-card agenda-slide-card--pending"><span>WEEK ${String(week.week).padStart(2, '0')}</span><strong>Lecture slides</strong><p>Preview will appear here when the slides are ready.</p></div>`;
+    const href = `lecture-preview.html?file=${encodeURIComponent(file)}&week=${week.week}`;
+    const image = /^lectures\/assets\/[A-Za-z0-9._-]+$/.test(week.slide_image || '') ? `<img src="${escapeHtml(week.slide_image)}" alt="" loading="lazy">` : `<span class="agenda-slide-placeholder">WEEK ${String(week.week).padStart(2, '0')}</span>`;
+    return `<a class="agenda-slide-card" href="${href}" aria-label="Preview Week ${week.week} lecture slides"><span class="agenda-slide-image">${image}</span><span class="agenda-slide-caption"><span>LECTURE SLIDES</span><strong>Preview slides <span aria-hidden="true">↗</span></strong></span></a>`;
   };
   const render = (weeks, guests) => {
     mode.textContent = planning ? 'Planning mode · all weeks expanded' : 'Weekly course agenda';
@@ -76,20 +124,32 @@
       if (!open) { const locked = document.createElement('p'); locked.className = 'agenda-locked'; locked.innerHTML = `<strong>COMING SOON</strong> · Details publish ${publishDate(week.publish_at)}.`; article.append(locked); }
       else {
         const detail = document.createElement('div'); detail.className = 'agenda-week-detail';
-        if (/^lectures\/[A-Za-z0-9_-]+\.html$/.test(week.lecture_preview || '')) {
-          const preview = document.createElement('a');
-          preview.className = 'button agenda-lecture-button';
-          preview.href = week.lecture_preview;
-          preview.textContent = 'Preview lecture slides';
-          detail.append(preview);
-        }
-        week.sections.forEach(section => addSection(detail, section)); addResources(detail, week.resources);
+        const lectureNames = ['Overview / Big Question', 'Guest / Big Question', 'Group Theme / Big Question', 'Lecture', 'Guest Preparation', 'Group Preparation'];
+        const activityNames = ['In Class', 'Scenario / Activity', 'Participatory Class Activity', 'Discussion'];
+        const homeworkNames = ['MAKE', 'Homework', 'Atlas', 'Read / View'];
+        const lecture = document.createElement('section'); lecture.className = 'agenda-lecture-row';
+        lecture.innerHTML = `<header class="agenda-row-heading"><span>01 / LECTURE MATERIALS</span><h3>Question, context, and conversation</h3><p>Proposed 100-minute flow</p></header>${scheduleHtml(week)}<div class="agenda-lecture-grid"><div class="agenda-lecture-copy"></div><aside class="agenda-lecture-aside" aria-label="Lecture slide preview">${slideCardHtml(week)}</aside></div>`;
+        const lectureCopy = lecture.querySelector('.agenda-lecture-copy');
+        week.sections.filter(section => sectionMatches(section, lectureNames)).forEach(section => addSection(lectureCopy, section));
+        addResources(lectureCopy, week.resources.filter(resource => ['READ', 'VIEW', 'REFERENCE'].includes(resource.category)), 'Read / view');
+        detail.append(lecture);
+        const work = document.createElement('div'); work.className = 'agenda-work-grid';
+        const activity = document.createElement('section'); activity.className = 'agenda-work-card agenda-work-card--activity'; activity.innerHTML = '<header><span>02 / IN-CLASS ACTIVITIES</span><h3>Work together</h3></header>';
+        week.sections.filter(section => sectionMatches(section, activityNames)).forEach(section => addSection(activity, section));
+        addResources(activity, week.resources.filter(resource => ['EXPLORE', 'TOOLS'].includes(resource.category)), 'Tools / explore');
+        work.append(activity);
+        const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = '<header><span>03 / HOMEWORK</span><h3>Carry it forward</h3></header>';
+        week.sections.filter(section => sectionMatches(section, homeworkNames)).forEach(section => addSection(homework, section));
         const formUrl = week.make_form_url || assignments[week.make_id]?.formUrl;
-        if (week.make_id && formUrl) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = formUrl; link.target = '_blank'; link.rel = 'noopener'; link.textContent = 'SUBMIT / UPDATE YOUR MAKE'; detail.append(link); }
+        if (week.make_id && formUrl) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = formUrl; link.target = '_blank'; link.rel = 'noopener'; link.textContent = 'SUBMIT / UPDATE YOUR MAKE'; homework.append(link); }
+        work.append(homework); detail.append(work);
         article.append(detail);
       }
       list.append(article);
     });
+    if (/^#week-(?:[1-9]|1[0-4])$/.test(location.hash)) {
+      requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
+    }
   };
   const load = async file => {
     const response = await fetch(`content/weeks/${file}`, { cache: 'no-cache' });

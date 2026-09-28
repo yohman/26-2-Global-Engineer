@@ -8,15 +8,16 @@ kind: Foundation
 lead: Yoh
 make_id: make01
 lecture_preview: lectures/w01.html
+slide_image: lectures/assets/black-marble-2016.jpg
 ---
 
 ## Overview / Big Question
 
-We begin as a five-person studio. A view of Earth at night opens a conversation about the systems we can see, the people we cannot, and the choices engineers make across places. What makes an engineer global?
+We begin as a five-person studio. Earth at night opens a conversation about the systems we can see and the people we cannot. From **Human Error** and Fukushima, we follow one energy decision through public trust, global nuclear safety, and Japan’s dependence on imported fuel. What makes an engineer global?
 
 ## Lecture
 
-Look closely, name your first feeling, then challenge what the image seems to say. The Week 1 slides are a starting point for conversation.
+Look closely and name your first feeling. The Week 1 slides move from night lights and the people affected by Fukushima to Japan’s energy choices and the 2026 disruption around the Strait of Hormuz.
 
 ## In Class
 
