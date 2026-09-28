@@ -66,6 +66,7 @@ function applyLanguage(language) {
   languageButton.textContent = language === 'ja' ? 'EN' : 'JP';
   languageButton.setAttribute('aria-label', language === 'ja' ? 'Switch to English' : '日本語に切り替える');
   try { localStorage.setItem('ge-language', language); } catch {}
+  window.dispatchEvent(new CustomEvent('course-language-change', { detail: { language } }));
 }
 
 let language = savedLanguage();

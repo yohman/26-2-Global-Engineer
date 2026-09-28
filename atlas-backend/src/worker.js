@@ -64,7 +64,9 @@ function cleanStory(input, id) {
       place: text(origin.place, 100),
       point: point(origin.point),
       year: year(origin.year),
-      engineering: text(origin.engineering, 700)
+      engineering: text(origin.engineering, 700),
+      trace: text(origin.trace, 700),
+      mediaUrl: url(origin.mediaUrl)
     },
     hops: input.hops.map(hop => {
       if (!text(hop?.country, 100)) throw new Error('Connection country required');

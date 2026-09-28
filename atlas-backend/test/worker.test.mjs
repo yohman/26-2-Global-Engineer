@@ -5,7 +5,7 @@ import worker from '../src/worker.js';
 const origin = 'https://yohman.github.io';
 const story = {
   id: 'journey-test1234', alias: 'Student', marker: { color: '#20567c', symbol: '旅' },
-  origin: { place: 'Kashiwa', point: [139.9, 35.8] },
+  origin: { place: 'Kashiwa', point: [139.9, 35.8], engineering: 'An idea begins here', trace: 'A source to follow', mediaUrl: 'https://example.org/source' },
   hops: [{ country: 'Philippines', point: [121, 14], reason: 'A rail connection', lens: 'Infrastructure' }]
 };
 
@@ -49,6 +49,8 @@ test('create, read, edit, and reject stale revisions', async () => {
   response = await worker.fetch(new Request('https://atlas.example/stories', { headers: { Origin: origin } }), env);
   const listing = await response.json();
   assert.equal(listing.stories[0].origin.place, 'Kashiwa');
+  assert.equal(listing.stories[0].origin.trace, 'A source to follow');
+  assert.equal(listing.stories[0].origin.mediaUrl, 'https://example.org/source');
   assert.equal(response.headers.get('Access-Control-Allow-Origin'), origin);
   response = await worker.fetch(put({ story: { ...story, title: 'Revised' }, revision: 1 }), env);
   assert.equal((await response.json()).revision, 2);
