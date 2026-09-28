@@ -1,17 +1,13 @@
-# Atlas story service (Cloudflare)
+# Class Atlas service
 
-This is a prepared Cloudflare Worker and D1 database for the five-student Atlas. It is not connected to the public site until its deployment URL is configured. The current Google submission path remains active during the transition.
+The course Atlas is hosted on GitHub Pages. Its small story service deploys from this folder to Cloudflare Worker `global-engineer-atlas`, with D1 bound as `DB`. The only required secret is `CLASS_PASSWORD`, configured in Cloudflare Runtime variables and secrets. Do not put it in GitHub.
 
-The public `GET /stories` endpoint returns published journeys for the class map. A `PUT /stories/:id` creates or revises one journey, requires the shared class password, and checks the story revision before saving. The password is a Cloudflare Worker secret, not part of this repository or browser storage. The same password gives access to all class stories, as requested. Student submissions should omit private details and should only use photos with permission.
+The landing view is public. `GET /stories` returns the class journeys without author email addresses. `POST /session` accepts an email and the class password, saves the normalized email in the D1 `authors` table, and returns a 12-hour random bearer token. The browser keeps the token in session storage; D1 stores only its SHA-256 hash. `GET /stories` with this token marks only that email's stories as editable. `PUT /stories/:id` and `DELETE /stories/:id` enforce ownership and revision checks. A new browser or an expired session requires signing in again.
 
-## Git-connected deployment
+This is **class-password identification, not verified email identity**. Anyone with the shared password can enter another person's email. Use a long private class password and only invite the five students. Add email verification later if stronger ownership is needed.
 
-The D1 database, `stories` table, and `DB` binding were created in Cloudflare on 2026-09-28. Its database ID in `wrangler.jsonc` is not a secret. GitHub Builds is connected to `yohman/26-2-Global-Engineer` with `/atlas-backend/` as its root; the first successful build replaces the starter Worker.
+Images are resized in the browser and limited to 700 KB for D1 storage. `POST /stories/:id/images` requires the owner's token and accepts JPEG, PNG, or WebP; `GET /images/:id` serves the image publicly. D1's per-BLOB limit is 2 MB, so this class-sized design stays well below it. Upload only images the author has permission to publish.
 
-1. In the existing Worker, use **Settings → Builds → GitHub** to connect `yohman/26-2-Global-Engineer`. Set the root directory to `atlas-backend`, the branch to `main`, and the deploy command to `npx wrangler deploy`. The Worker name and Wrangler `name` both equal `global-engineer-atlas`.
-2. In **Settings → Runtime variables and secrets**, add `CLASS_PASSWORD` as a **secret**, with a unique password shared privately with the five students. Never paste it into GitHub or chat.
-3. Check `https://global-engineer-atlas.ykawano.workers.dev/stories` from a browser. It should return `{ "stories": [] }`.
+The `stories` table was created before this author mode. The Worker creates `authors`, `sessions`, and `story_images` on the first successful login; `schema.sql` also records the full schema for a fresh installation. Existing journeys without an `ownerEmail` in their stored record remain publicly viewable but cannot be edited or deleted through the new author flow. The instructor can migrate one explicitly after confirming its owner's email.
 
-After those checks, the course Atlas can be connected to the Worker URL and its Google form submission retired. Do not make that switch before an actual class story is saved, read back on another device, and edited successfully.
-
-The Worker permits browser requests from the course's GitHub Pages origin and `localhost:4173` for testing. Public reads are intentional; write requests require the secret. A shared password is simple, but it does not establish individual authorship or prevent classmates who know it from editing each other's stories. Keep a copy of important story text.
+Run `node --test test/worker.test.mjs` for service checks. A live password-protected create/edit/upload/delete should be verified with an authorized class account after deployment.

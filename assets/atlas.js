@@ -1,11 +1,12 @@
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
-  const ui = { map:$('atlas-map'), name:$('atlas-country-name'), search:$('atlas-country-search'), options:$('atlas-country-options'), world:$('atlas-world'), sheet:$('atlas-sheet'), welcome:document.querySelector('.atlas-welcome'), selected:document.querySelector('.atlas-selected'), welcomeTitle:$('atlas-welcome-title'), welcomeCopy:$('atlas-welcome-copy'), hint:$('atlas-welcome-hint'), count:$('atlas-stage-count'), campus:$('atlas-use-campus'), demo:$('atlas-demo'), yoh:$('atlas-yoh'), studioOpen:$('atlas-studio-open'), myJourney:$('atlas-my-journey'), clear:$('atlas-clear'), selectedName:$('atlas-selected-name'), form:$('atlas-form'), first:document.querySelector('.atlas-form-first'), second:document.querySelector('.atlas-form-second'), next:$('atlas-next'), back:$('atlas-back'), status:$('atlas-form-status'), existing:$('atlas-existing'), markerPreview:$('atlas-marker-preview'), filmstrip:$('atlas-filmstrip'), filmstripTrack:$('atlas-filmstrip-track'), filmstripTitle:$('atlas-filmstrip-title'), filmstripKicker:$('atlas-filmstrip-kicker'), filmstripPrev:$('atlas-filmstrip-prev'), filmstripNext:$('atlas-filmstrip-next'), filmstripPlay:$('atlas-filmstrip-play'), filmstripEdit:$('atlas-filmstrip-edit'), filmstripAdd:$('atlas-filmstrip-add'), filmstripStudio:$('atlas-filmstrip-studio'), filmstripClose:$('atlas-filmstrip-close'), studio:$('atlas-studio'), studioYears:$('atlas-studio-years'), studioLanes:$('atlas-studio-lanes'), studioClose:$('atlas-studio-close'), editor:$('atlas-editor'), editorForm:$('atlas-editor-form'), editorStatus:$('atlas-editor-status'), access:$('atlas-access'), accessForm:$('atlas-access-form'), accessStatus:$('atlas-access-status') };
+  const ui = { map:$('atlas-map'), name:$('atlas-country-name'), search:$('atlas-country-search'), options:$('atlas-country-options'), world:$('atlas-world'), mapControls:document.querySelector('.atlas-map-controls'), sheet:$('atlas-sheet'), welcome:document.querySelector('.atlas-welcome'), selected:document.querySelector('.atlas-selected'), welcomeTitle:$('atlas-welcome-title'), welcomeCopy:$('atlas-welcome-copy'), hint:$('atlas-welcome-hint'), count:$('atlas-stage-count'), originForm:$('atlas-origin-form'), originStatus:$('atlas-origin-status'), originMapNote:$('atlas-origin-map-note'), originMarkerPreview:$('atlas-origin-marker-preview'), chooseMessage:$('atlas-choose-message'), chooseActions:$('atlas-choose-actions'), selectedName:$('atlas-selected-name'), form:$('atlas-form'), status:$('atlas-form-status'), filmstrip:$('atlas-filmstrip'), filmstripTrack:$('atlas-filmstrip-track'), filmstripTitle:$('atlas-filmstrip-title'), filmstripKicker:$('atlas-filmstrip-kicker'), filmstripPrev:$('atlas-filmstrip-prev'), filmstripNext:$('atlas-filmstrip-next'), filmstripPlay:$('atlas-filmstrip-play'), filmstripAdd:$('atlas-filmstrip-add'), filmstripStudio:$('atlas-filmstrip-studio'), filmstripClose:$('atlas-filmstrip-close'), studio:$('atlas-studio'), studioYears:$('atlas-studio-years'), studioLanes:$('atlas-studio-lanes'), addJourney:$('atlas-add-journey'), signOut:$('atlas-sign-out'), editor:$('atlas-editor'), editorForm:$('atlas-editor-form'), editorStatus:$('atlas-editor-status'), access:$('atlas-access'), accessForm:$('atlas-access-form'), accessStatus:$('atlas-access-status') };
   const config = window.ATLAS_CONFIG || {};
   const workerUrl = String(config.workerUrl || '').replace(/\/$/, '');
   const t = value => document.documentElement.lang === 'ja' ? (window.COURSE_TRANSLATIONS?.ja?.[String(value)] || value) : value;
   const storageKey = 'global-engineer-atlas-journey-v2';
+  const sessionKey = 'global-engineer-atlas-session-v1';
   const japan = [139.967,35.862];
   const sample = { id:'simulated-mina', alias:'Mina', simulated:true, marker:{color:'#20567c',symbol:'M'}, origin:{place:'Kashiwa, Japan',point:japan,beat:'IDEA',engineering:'Metro = tunnels + signals + power + stations + access. One system.'}, hops:[
     {country:'Philippines',point:[121.04,14.60],year:2018,beat:'DESIGN',lens:'Infrastructure',engineering:'A planned 25-km first subway must thread beneath a congested city.',reason:'Who gives up land to make it possible?',trace:'The 2018 Japanese loan supported the planned first subway. Later construction and resettlement are part of the story, too.',mediaUrl:'https://www.jica.go.jp/oda/project/PH-P267/',costUrl:'https://www.jica.go.jp/english/about/policy/environment/objection/philippines_02.html'},
@@ -24,47 +25,95 @@
     {country:'Japan',place:'Japan · the 2011 disasters',point:[141.0,38.2],year:2011,beat:'WITNESS',engineering:'I return to witness the disasters in Japan and the lives they unsettle.',reason:'How do people live with the consequences of engineered systems and failed assumptions?'},
     {country:'Japan',place:'Fukushima · Japan',point:[140.47,37.76],dateLabel:'AFTER 2011',beat:'LISTEN',engineering:'In Fukushima, Human Error documents the narratives of people affected by the nuclear disaster.',reason:'My role is to listen and carry those stories beyond Japan.',image:'lectures/assets/human-error-still.png',imageAlt:'A still from Human Error showing a person descending an outdoor staircase.',mediaUrl:'https://filmfreeway.com/HumanError',sourceLabel:'Human Error ↗'}
   ]};
-  let map,features=[],stage='origin',origin=null,selected=null,hover='',journey=readJourney(),sharedStories=[],markers=[],returnStage='origin';
-  let activeRoute=null,activeMoment=0,playTimer=null,routeCamera=null,routeAnimation=null,studioCamera=null,studioReturnStage='origin';
+  let map,features=[],stage='studio',origin=null,selected=null,hover='',journey=null,sharedStories=[],markers=[],returnStage='studio';
+  let activeRoute=null,activeMoment=0,playTimer=null,routeCamera=null,routeAnimation=null,studioCamera=null,studioReturnStage='studio';
+  let session=readSession(),authorOriginPoint=[...japan],authorOriginCountry='Japan',authorDraft=null;
   function readJourney(){try{const v=JSON.parse(localStorage.getItem(storageKey)||'null');return v&&Array.isArray(v.hops)&&v.origin?v:null}catch{return null}}
   function writeJourney(v){try{localStorage.setItem(storageKey,JSON.stringify(v));return true}catch{return false}}
+  function readSession(){try{const value=JSON.parse(sessionStorage.getItem(sessionKey)||'null');return value?.token&&Date.parse(value.expiresAt)>Date.now()?value:null}catch{return null}}
+  function storeSession(value){session=value;try{if(value)sessionStorage.setItem(sessionKey,JSON.stringify(value));else sessionStorage.removeItem(sessionKey)}catch{}ui.signOut.hidden=!value}
+  function authHeaders(){return session?{Authorization:`Bearer ${session.token}`}:{}}
+  function canEdit(route){return Boolean(session&&route?.editable)}
+  async function restoreSession(){
+    if(!session)return;
+    try{const response=await fetch(`${workerUrl}/session`,{headers:authHeaders(),cache:'no-store'});if(!response.ok)throw new Error('expired');ui.signOut.hidden=false}
+    catch{storeSession(null)}
+  }
   async function loadSharedStories(){
-    if(!workerUrl)return;
+    if(!workerUrl)return false;
     try{
-      const response=await fetch(`${workerUrl}/stories`,{cache:'no-store'});
+      const response=await fetch(`${workerUrl}/stories`,{headers:authHeaders(),cache:'no-store'});
       if(!response.ok)throw new Error(`HTTP ${response.status}`);
       const data=await response.json();
       if(!Array.isArray(data.stories))throw new Error('Invalid class feed');
       sharedStories=data.stories.filter(story=>story&&/^journey-[A-Za-z0-9-]{8,70}$/.test(story.id)&&Array.isArray(story.hops)&&story.origin);
       const current=sharedStories.find(story=>story.id===journey?.id);
-      if(current&&current.revision>Number(journey?.revision||0)){journey=current;origin=current.origin;writeJourney(current)}
+      if(current){journey=current;origin=current.origin;writeJourney(current)}
       if(stage==='studio'){buildStudio();renderRoutes()}
-    }catch(error){console.warn('Class Atlas feed unavailable',error)}
+      document.querySelector('.atlas-studio-note').textContent=t('Follow a journey by choosing a marker or a moment on the shared timeline. Your own journey can begin anywhere.');
+      return true;
+    }catch(error){document.querySelector('.atlas-studio-note').textContent=t('The class feed is unavailable. Please reload before adding a journey.');console.warn('Class Atlas feed unavailable',error);return false}
   }
-  function askClassPassword(){
-    return new Promise(resolve=>{
-      ui.accessStatus.textContent='';ui.accessForm.reset();ui.access.showModal();
-      const finish=value=>{ui.accessForm.removeEventListener('submit',submit);$('atlas-access-cancel').removeEventListener('click',cancel);ui.access.removeEventListener('cancel',cancel);ui.access.close();ui.accessForm.reset();resolve(value)};
-      const submit=event=>{event.preventDefault();finish(ui.accessForm.elements.password.value)};
-      const cancel=event=>{event?.preventDefault();finish(null)};
-      ui.accessForm.addEventListener('submit',submit);$('atlas-access-cancel').addEventListener('click',cancel);ui.access.addEventListener('cancel',cancel);
-      ui.accessForm.elements.password.focus();
-    });
+  async function signIn(event){
+    event.preventDefault();
+    const email=ui.accessForm.elements.email.value.trim(),password=ui.accessForm.elements.password.value;
+    if(!email||!password){ui.accessStatus.textContent=t('Enter your email and the class password.');return}
+    ui.accessStatus.textContent=t('Checking class access…');
+    try{
+      const response=await fetch(`${workerUrl}/session`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
+      const data=await response.json();
+      if(!response.ok)throw new Error(data.error||'Could not sign in');
+      storeSession(data);
+      if(!await loadSharedStories())throw new Error('The class feed is unavailable. Please reload before adding a journey.');
+      ui.accessForm.reset();ui.access.close();
+      const owned=sharedStories.find(story=>story.editable);
+      if(owned){showJourney(owned,true);return}
+      startAuthor();
+    }catch(error){ui.accessStatus.textContent=t(error.message)}
   }
   async function publishStory(story){
-    if(!workerUrl)return {ok:false,error:'Class service is not connected yet.'};
-    const password=await askClassPassword();
-    if(!password)return {ok:false,cancelled:true,error:'Saved on this device only.'};
+    if(!session)return {ok:false,error:'Sign in again'};
     try{
-      const response=await fetch(`${workerUrl}/stories/${encodeURIComponent(story.id)}`,{method:'PUT',headers:{'Content-Type':'application/json','Authorization':`Bearer ${password}`},body:JSON.stringify({revision:Number(story.revision||0),story})});
+      const response=await fetch(`${workerUrl}/stories/${encodeURIComponent(story.id)}`,{method:'PUT',headers:{'Content-Type':'application/json',...authHeaders()},body:JSON.stringify({revision:Number(story.revision||0),story})});
       const result=await response.json();
       if(!response.ok)throw new Error(result.error||`HTTP ${response.status}`);
-      story.revision=result.revision;story.updatedAt=result.updatedAt;
+      story.revision=result.revision;story.updatedAt=result.updatedAt;story.editable=true;
       sharedStories=[story,...sharedStories.filter(item=>item.id!==story.id)];
       if(journey?.id===story.id){journey=story;writeJourney(story)}
       if(stage==='studio'){buildStudio();renderRoutes()}
       return {ok:true};
     }catch(error){return {ok:false,error:error.message||'Could not reach the class service.'}}
+  }
+  async function compressImage(file){
+    if(!file||!/^image\/(jpeg|png|webp)$/.test(file.type))throw new Error('Choose a JPEG, PNG, or WebP image.');
+    if(file.size>15000000)throw new Error('Choose an image under 15 MB.');
+    const bitmap=await createImageBitmap(file);
+    let size=Math.min(1,1600/Math.max(bitmap.width,bitmap.height));
+    try{
+      for(let attempt=0;attempt<4;attempt++){
+        const canvas=document.createElement('canvas');
+        canvas.width=Math.max(1,Math.round(bitmap.width*size));canvas.height=Math.max(1,Math.round(bitmap.height*size));
+        const context=canvas.getContext('2d');context.fillStyle='#ffffff';context.fillRect(0,0,canvas.width,canvas.height);context.drawImage(bitmap,0,0,canvas.width,canvas.height);
+        const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',Math.max(.55,.82-attempt*.08)));
+        if(blob&&blob.size<=700000)return blob;
+        size*=.75;
+      }
+    }finally{bitmap.close()}
+    throw new Error('This image is too large after resizing. Try a smaller one.');
+  }
+  async function uploadImage(storyId,file){
+    const image=await compressImage(file);
+    const response=await fetch(`${workerUrl}/stories/${encodeURIComponent(storyId)}/images`,{method:'POST',headers:{'Content-Type':'image/jpeg',...authHeaders()},body:image});
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.error||'Image upload failed');
+    return data.imageId;
+  }
+  async function deleteStory(route){
+    const response=await fetch(`${workerUrl}/stories/${encodeURIComponent(route.id)}`,{method:'DELETE',headers:{'Content-Type':'application/json',...authHeaders()},body:JSON.stringify({revision:Number(route.revision)})});
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.error||'Could not delete journey');
+    sharedStories=sharedStories.filter(item=>item.id!==route.id);
+    if(journey?.id===route.id){journey=null;origin=null}
   }
   function safeUrl(v){try{const u=new URL(v);return /^https?:$/.test(u.protocol)?u.href:''}catch{return ''}}
   function markerColor(value){return /^#[0-9a-f]{6}$/i.test(value||'')?value:'#20567c'}
@@ -81,33 +130,69 @@
     ui.welcome.hidden=!['origin','choose'].includes(next);
     ui.selected.hidden=next!=='selected';
     ui.name.hidden=!['origin','choose'].includes(next);
+    ui.originForm.hidden=next!=='origin';
+    ui.chooseMessage.hidden=next!=='choose';
+    ui.chooseActions.hidden=next!=='choose';
+    ui.mapControls.hidden=['origin','demo'].includes(next);
+    ui.world.hidden=next!=='studio';
+    ui.search.closest('.atlas-find').hidden=next==='studio';
     ui.sheet.classList.toggle('atlas-sheet--welcome',!ui.welcome.hidden);
-    ui.myJourney.hidden=!journey||!journey.hops.length;
     ui.search.disabled=['origin','demo','studio'].includes(next);
     if(map?.getLayer('atlas-muted')){
-      const visibility=next==='studio'||(next==='demo'&&activeRoute===yohStory)?'none':'visible';
+      const visibility=next==='studio'||(next==='demo'&&activeRoute===yohStory)||(next==='origin'&&ui.originForm.elements.anywhere.checked)?'none':'visible';
       map.setLayoutProperty('atlas-muted','visibility',visibility);
       map.setLayoutProperty('atlas-outline','visibility',visibility);
     }
     if(next==='origin'){
       ui.welcomeTitle.textContent=t('Start in Japan.');
-      ui.welcomeCopy.textContent=t('Begin with a place you know in Japan. Choose an engineering idea, object, or problem that touches it. Where did it come from, where else did it go, and who changed it? No global background required.');
-      ui.hint.textContent=t('Tap your place in Japan');ui.count.textContent='01 / 03';
-      ui.campus.textContent=t('Start at Reitaku campus ↗');setCountryName('Japan');
+      ui.welcomeCopy.textContent=t('Choose a place you know. This is your anchor, not a claim that your idea began here.');
+      ui.hint.textContent=t('Tap your place in Japan');ui.count.textContent='01 / 02';
+      setCountryName(authorOriginCountry);
     }else if(next==='choose'){
-      ui.welcomeTitle.textContent=t(journey?.hops.length?'Where else?':'Follow a thread.');
-      ui.welcomeCopy.textContent=t(journey?.hops.length?'Choose another country connected to your idea. It can branch from Japan or from anywhere in your story; this is not a travel itinerary.':'Choose a country touched by your idea. It may be where the idea began, where it traveled, or where it changed. A question is enough to begin.');
-      ui.hint.textContent=t('Choose a nation');ui.count.textContent='02 / 03';
-      ui.campus.textContent=t('Change my starting place');setCountryName('The world');
+      ui.welcomeTitle.textContent=t('Choose a connection.');
+      ui.welcomeCopy.textContent=t('Follow an engineering idea to another country. Select it on the map or search by name.');
+      ui.hint.textContent=t('Choose a nation');ui.count.textContent='02 / 02';
+      setCountryName('The world');
     }
     renderRoutes();
   }
-  function setOrigin(point,place){origin={place,point};if(journey&&journey.hops.length){journey.origin=origin;writeJourney(journey)}setStage('choose');map?.easeTo({center:[110,20],zoom:1.7,duration:900})}
-  function useCountry(feature){if(!origin)return;const name=feature.properties.name;if(name==='Japan')return;selected={name,feature,point:pointFor(feature)};map.setFilter('atlas-selected-fill',['==',['get','name'],name]);ui.selectedName.textContent=t(name);ui.form.elements.localPlace.value=origin.place;ui.form.elements.alias.value=journey?.alias||'';ui.form.elements.markerColor.value=markerColor(journey?.marker?.color);ui.form.elements.markerSymbol.value=journey?.marker?.symbol||'';updateMarkerPreview();ui.selected.querySelector('.atlas-selected-prompt').textContent=t('What brought this place to mind?');ui.first.hidden=false;ui.second.hidden=true;ui.status.textContent='';ui.existing.hidden=true;showExisting(name);setStage('selected');setCountryName(name)}
-  function showExisting(name){const stops=sample.hops.filter(h=>h.country===name);if(!stops.length)return;ui.existing.replaceChildren();const details=node('details');details.append(node('summary','','A simulated student also wondered about this place'));for(const hop of stops){const line=node('div','atlas-trace');line.append(node('strong','',`${hop.year} · ${hop.lens}`),node('p','',hop.reason));if(hop.mediaUrl){const link=node('a','','See the source ↗');link.href=hop.mediaUrl;link.target='_blank';link.rel='noopener noreferrer';line.append(link)}details.append(line)}ui.existing.append(details);ui.existing.hidden=false}
+  function startAuthor(){
+    authorDraft=null;journey=null;origin=null;selected=null;authorOriginPoint=[...japan];authorOriginCountry='Japan';
+    ui.originForm.reset();ui.originForm.elements.markerColor.value='#20567c';
+    ui.originForm.elements.place.value='';
+    ui.originMapNote.textContent=t('Tap a place in Japan on the map, or use Reitaku campus as your starting point.');
+    ui.originStatus.textContent='';updateMarkerPreview();setStage('origin');
+    map?.easeTo({center:[139,36],zoom:4.1,duration:850});
+  }
+  function chooseOriginPoint(point,country){
+    authorOriginPoint=point;authorOriginCountry=country;
+    ui.originMapNote.textContent=`${t('Map anchor')}: ${t(country)} · ${point[1].toFixed(2)}, ${point[0].toFixed(2)}`;
+    if(!ui.originForm.elements.place.value.trim())ui.originForm.elements.place.value=country==='Japan'?'':country;
+    setCountryName(country);
+    renderRoutes();
+  }
+  function saveOrigin(event){
+    event.preventDefault();
+    const form=ui.originForm.elements;
+    const alias=form.alias.value.trim(),place=form.place.value.trim();
+    if(!alias||!place){ui.originStatus.textContent=t('Add your alias and starting place.');return}
+    origin={country:authorOriginCountry,place,point:authorOriginPoint,year:null};
+    const marker={color:markerColor(form.markerColor.value),symbol:markerSymbol(form.markerSymbol.value||alias[0])};
+    authorDraft={id:`journey-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,alias,marker,origin,hops:[]};
+    journey=authorDraft;setStage('choose');map?.easeTo({center:[60,18],zoom:1.65,duration:850});
+  }
+  function useCountry(feature,clickedPoint){
+    if(!origin||!['choose','selected'].includes(stage))return;
+    const name=feature.properties.name;if(name===origin.country)return;
+    selected={name,feature,point:clickedPoint||pointFor(feature)};
+    map.setFilter('atlas-selected-fill',['==',['get','name'],name]);
+    ui.selectedName.textContent=t(name);ui.form.reset();ui.status.textContent='';
+    ui.selected.querySelector('.atlas-selected-prompt').textContent=t('What engineering connection brought this place to mind?');
+    setStage('selected');setCountryName(name);map?.easeTo({center:selected.point,zoom:2.5,duration:850});
+  }
   function removeMarkers(){markers.forEach(m=>m.remove());markers=[]}
   function longitudeNear(lng,reference){return lng+360*Math.round((reference-lng)/360)}
-  function updateMarkerPreview(){const color=markerColor(ui.form.elements.markerColor.value);ui.markerPreview.style.backgroundColor=color;ui.markerPreview.style.color=markerInk(color);ui.markerPreview.textContent=markerSymbol(ui.form.elements.markerSymbol.value)}
+  function updateMarkerPreview(){const color=markerColor(ui.originForm.elements.markerColor.value);ui.originMarkerPreview.style.backgroundColor=color;ui.originMarkerPreview.style.color=markerInk(color);ui.originMarkerPreview.textContent=markerSymbol(ui.originForm.elements.markerSymbol.value)}
   function clearRouteLine(){
     if(routeAnimation)cancelAnimationFrame(routeAnimation);
     routeAnimation=null;
@@ -178,8 +263,9 @@
       addMarker(route.origin.point,route.origin.place,'origin',null,stage==='demo'?0:null);
       route.hops.forEach((hop,i)=>addMarker(hop.point,`${route.alias} · ${hop.place||hop.country}`,'stop',route.photoUrl,i+1,hop.place||hop.country));
     }else if(origin)addMarker(origin.point,origin.place,'origin');
+    else if(stage==='origin')addMarker(authorOriginPoint,ui.originForm.elements.place.value||authorOriginCountry,'origin');
   }
-  function studioProjects(){return [yohStory,sample,...sharedStories,...(journey?.hops.length&&!sharedStories.some(story=>story.id===journey.id)?[journey]:[])]}
+  function studioProjects(){return [yohStory,sample,...sharedStories]}
   function renderStudioMarkers(){
     removeMarkers();
     for(const route of studioProjects()){
@@ -198,7 +284,7 @@
     }
   }
   function frameMoment(route,index){
-    return index===0?{...route.origin,country:'Japan',reason:'A place I know. A question begins here.'}:route.hops[index-1];
+    return index===0?{...route.origin,country:route.origin.country||'Japan',reason:'A place I know. A question begins here.'}:route.hops[index-1];
   }
   function journeyCamera(route,panelHeight=ui.filmstrip.getBoundingClientRect().height){
     const points=[route.origin.point,...route.hops.map(hop=>hop.point)];
@@ -227,7 +313,7 @@
     for(const route of projects){
       const color=markerColor(route.marker?.color),moments=[route.origin,...route.hops];
       const lane=node('div','atlas-studio-lane');
-      const title=node('button','atlas-studio-person',`${markerSymbol(route.marker?.symbol||route.alias?.slice(0,1))}  ${route.alias}${route.simulated?t(' · simulated'):route===journey?t(' · this device'):''}`);
+      const title=node('button','atlas-studio-person',`${markerSymbol(route.marker?.symbol||route.alias?.slice(0,1))}  ${route.alias}${route.simulated?t(' · simulated'):canEdit(route)?t(' · mine'):''}`);
       title.type='button';title.style.color=color;title.addEventListener('click',()=>showJourney(route));
       const track=node('div','atlas-studio-track');track.style.setProperty('--lane-color',color);
       moments.forEach((moment,index)=>{
@@ -279,9 +365,10 @@
       const frame=node('article','atlas-frame');frame.dataset.moment=index;
       const button=node('button','atlas-frame-button');button.type='button';
       button.setAttribute('aria-label',`${t('Focus')} ${t(moment.place||moment.country||'Japan')}${moment.year?` ${t('in')} ${moment.year}`:''}`);
-      if(moment.image?.startsWith('lectures/assets/')){
+      const imageUrl=moment.image?.startsWith('lectures/assets/')?moment.image:/^[0-9a-f-]{36}$/i.test(moment.imageId||'')?`${workerUrl}/images/${moment.imageId}`:'';
+      if(imageUrl){
         frame.classList.add('atlas-frame--image');
-        const photo=node('img','atlas-frame-image');photo.src=moment.image;photo.alt=t(moment.imageAlt||'');photo.loading='lazy';
+        const photo=node('img','atlas-frame-image');photo.src=imageUrl;photo.alt=t(moment.imageAlt||moment.place||moment.country||'Journey image');photo.loading='lazy';
         button.append(photo);
       }
       const top=node('span','atlas-frame-top');
@@ -308,14 +395,21 @@
     if(move&&previous!==activeMoment)revealConnection(frameMoment(activeRoute,previous),frameMoment(activeRoute,activeMoment));
     ui.filmstripPrev.disabled=activeMoment===0;
     ui.filmstripNext.disabled=activeMoment===activeRoute.hops.length;
-    const editable=workerUrl&&/^journey-[A-Za-z0-9-]{8,70}$/.test(activeRoute.id||'');
-    ui.filmstripEdit.hidden=!editable;ui.filmstripAdd.hidden=!editable;
+    const editable=canEdit(activeRoute);
+    ui.filmstripAdd.hidden=!editable;
     ui.filmstripTrack.querySelectorAll('.atlas-frame').forEach((frame,i)=>frame.classList.toggle('is-active',i===activeMoment));
     markers.forEach((marker,i)=>{
       const host=marker.getElement();
       host.firstElementChild?.classList.toggle('is-active',i===activeMoment);
       host.style.zIndex=i===activeMoment?'3':'1';
+      host.querySelector('.atlas-marker-actions')?.remove();
     });
+    if(editable&&markers[activeMoment]){
+      const actions=node('div','atlas-marker-actions');
+      const edit=node('button','',t('Edit'));edit.type='button';edit.setAttribute('aria-label',t('Edit this marker'));edit.addEventListener('click',event=>{event.stopPropagation();openEditor()});
+      const remove=node('button','',t('Delete'));remove.type='button';remove.setAttribute('aria-label',t(activeMoment?'Delete this connection':'Delete this journey'));remove.addEventListener('click',event=>{event.stopPropagation();deleteActiveMoment()});
+      actions.append(edit,remove);markers[activeMoment].getElement().append(actions);
+    }
     const moment=frameMoment(activeRoute,activeMoment);
     map.setFilter('atlas-selected-fill',['==',['get','name'],activeMoment?moment.country:'']);
     const frame=ui.filmstripTrack.querySelector(`[data-moment="${activeMoment}"]`);
@@ -349,9 +443,10 @@
     if(routeCamera)map.easeTo({...routeCamera,duration:850});
   }
   function openEditor(){
-    if(!activeRoute||ui.filmstripEdit.hidden)return;
+    if(!canEdit(activeRoute))return;
     const moment=activeMoment?activeRoute.hops[activeMoment-1]:activeRoute.origin;
     const form=ui.editorForm.elements;
+    ui.editorForm.reset();
     form.title.value=activeRoute.title||'';form.alias.value=activeRoute.alias||'';
     form.year.value=moment.year||'';form.place.value=moment.place||moment.country||'';
     form.story.value=moment.engineering||moment.reason||'';form.trace.value=moment.trace||'';
@@ -362,10 +457,10 @@
   }
   async function saveEdit(event){
     event.preventDefault();
-    if(!activeRoute)return;
+    if(!canEdit(activeRoute))return;
     const form=ui.editorForm.elements;
     const alias=form.alias.value.trim(),place=form.place.value.trim(),storyText=form.story.value.trim(),mediaUrl=form.mediaUrl.value.trim();
-    if(!alias||!place||!storyText){ui.editorStatus.textContent=t('Add a name, place, and story before saving.');return}
+    if(!alias||!place||(activeMoment&&!storyText)){ui.editorStatus.textContent=t('Add a name, place, and story before saving.');return}
     if(mediaUrl&&!safeUrl(mediaUrl)){ui.editorStatus.textContent=t('Use an http or https link.');return}
     const yearText=form.year.value.trim(),year=yearText?Number(yearText):null;
     if(year&&(year<1900||year>2100)){ui.editorStatus.textContent=t('Enter a year between 1900 and 2100.');return}
@@ -377,57 +472,66 @@
     if(activeMoment)moment.reason=storyText;
     else moment.engineering=storyText;
     moment.trace=form.trace.value.trim();moment.mediaUrl=safeUrl(mediaUrl);
-    ui.editorStatus.textContent=t('Waiting for class password…');
+    try{
+      if(form.image.files[0]){ui.editorStatus.textContent=t('Preparing image…');moment.imageId=await uploadImage(draft.id,form.image.files[0])}
+    }catch(error){ui.editorStatus.textContent=t(error.message);return}
+    ui.editorStatus.textContent=t('Saving changes…');
     const result=await publishStory(draft);
     if(!result.ok){ui.editorStatus.textContent=t(result.error);return}
     activeRoute=draft;
     ui.editor.close();buildFilmstrip(draft);renderRoutes();setActiveMoment(activeMoment,false);
   }
   function addConnectionToRoute(){
-    if(!activeRoute||ui.filmstripAdd.hidden)return;
-    if(journey?.id!==activeRoute.id&&journey?.hops.length&&!confirm(t('Continue this story here? Your other local draft will remain in the class Atlas if it was published.')))return;
+    if(!canEdit(activeRoute))return;
     stopPlayback();clearRouteLine();journey=JSON.parse(JSON.stringify(activeRoute));origin=journey.origin;writeJourney(journey);
-    activeRoute=null;routeCamera=null;selected=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);
+    authorDraft=null;activeRoute=null;routeCamera=null;selected=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);
     setStage('choose');map?.easeTo({center:[110,20],zoom:1.7,duration:800});
   }
-  function saveDraft(){
-    const f=ui.form.elements,localPlace=f.localPlace.value.trim(),reason=f.reason.value.trim();
-    const lens=ui.form.querySelector('[name="lens"]:checked')?.value,alias=f.alias.value.trim(),mediaUrl=f.mediaUrl.value.trim();
-    if(!localPlace||!reason||!lens||!alias){ui.status.textContent=t('Please add your starting place, a reason, a thread, and your name or alias.');return}
+  async function saveDraft(){
+    if(!session||!selected||!origin){ui.status.textContent=t('Sign in again');return}
+    const form=ui.form.elements,reason=form.reason.value.trim(),mediaUrl=form.mediaUrl.value.trim();
+    const tags=[...ui.form.querySelectorAll('[name="tag"]:checked')].map(item=>item.value);
+    if(!reason||!tags.length){ui.status.textContent=t('Add an engineering idea and at least one tag.');return}
     if(mediaUrl&&!safeUrl(mediaUrl)){ui.status.textContent=t('Please use an http or https link, or leave it blank.');return}
-    const yearText=f.year.value.trim(),year=yearText?Number(yearText):null;
+    const yearText=form.year.value.trim(),year=yearText?Number(yearText):null;
     if(year&&(year<1900||year>2100)){ui.status.textContent=t('Please enter a year between 1900 and 2100.');return}
-    const hop={country:selected.name,point:selected.point,reason,lens,year,trace:f.trace.value.trim(),mediaUrl:safeUrl(mediaUrl)};
-    const draft=journey||{id:`journey-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,alias,origin,hops:[]};
-    draft.alias=alias;draft.marker={color:markerColor(f.markerColor.value),symbol:markerSymbol(f.markerSymbol.value||alias.slice(0,1))};draft.origin={place:localPlace,point:origin.point};draft.hops.push(hop);
-    const localSaved=writeJourney(draft);journey=draft;origin=draft.origin;ui.form.reset();
-    ui.status.textContent=t(localSaved?'Saved on this device. Preparing to publish…':'Could not save on this device. Please keep a copy of your story.');
-    renderRoutes();
-    if(workerUrl){
-      publishStory(draft).then(result=>{
-        ui.status.textContent=result.ok?t('Published to the class Atlas. Everyone can now see this journey.'):`${t(result.error)} ${t('Your draft remains on this device.')}`;
-        ui.existing.querySelector('.atlas-retry-publish').hidden=result.ok;
-      });
-    }else if(config.formResponseUrl&&config.fields){
-      const fields=new URLSearchParams();
-      fields.set(config.fields.alias,draft.alias);
-      fields.set(config.fields.title,`${draft.origin.place} · ${hop.country}`);
-      fields.set(config.fields.record,JSON.stringify(draft));
-      fetch(config.formResponseUrl,{method:'POST',mode:'no-cors',credentials:'omit',body:fields})
-        .then(()=>{ui.status.textContent='Saved on this device. Sent to class intake, but delivery cannot be verified here. Public map display is not yet connected.'})
-        .catch(()=>{ui.status.textContent='Saved on this device; sending to class intake failed. Please try again later.'});
-    }else ui.status.textContent='Saved on this device. Class intake is not configured yet.';
-    ui.first.hidden=true;ui.second.hidden=true;
-    ui.selected.querySelector('.atlas-selected-prompt').textContent=t('Your thread has been added. Choose another nation when you are ready.');
-    ui.myJourney.hidden=false;ui.existing.hidden=true;
-    const again=node('button','atlas-primary atlas-add-hop','Add another connection →');again.type='button';
-    again.addEventListener('click',()=>{selected=null;map.setFilter('atlas-selected-fill',['==',['get','name'],'']);setStage('choose')});
-    ui.existing.replaceChildren(again);
-    if(workerUrl){const retry=node('button','atlas-retry-publish','Publish this draft');retry.type='button';retry.hidden=true;retry.addEventListener('click',async()=>{const result=await publishStory(journey);ui.status.textContent=t(result.ok?'Published to the class Atlas.':result.error);retry.hidden=result.ok});ui.existing.append(retry)}
-    ui.existing.hidden=false;
+    const base=journey||authorDraft;
+    if(!base){ui.status.textContent=t('Start your journey again.');return}
+    const draft=JSON.parse(JSON.stringify(base));
+    draft.hops.push({country:selected.name,point:selected.point,reason,lens:tags[0],tags,year,trace:form.trace.value.trim(),mediaUrl:safeUrl(mediaUrl)});
+    const submit=ui.form.querySelector('[type="submit"]');submit.disabled=true;ui.status.textContent=t('Publishing connection…');
+    const result=await publishStory(draft);
+    if(!result.ok){ui.status.textContent=t(result.error);submit.disabled=false;return}
+    let warning='';
+    if(form.image.files[0]){
+      try{
+        ui.status.textContent=t('Uploading image…');
+        draft.hops.at(-1).imageId=await uploadImage(draft.id,form.image.files[0]);
+        const imageSave=await publishStory(draft);
+        if(!imageSave.ok)throw new Error(imageSave.error);
+      }catch(error){warning=t('The connection was published, but its image was not. You can add it with Edit.')}
+    }
+    journey=draft;origin=draft.origin;authorDraft=null;writeJourney(draft);submit.disabled=false;
+    ui.form.reset();await loadSharedStories();showStudio();showJourney(draft,true,draft.hops.length);returnStage='studio';
+    if(warning)window.alert(warning);
+  }
+  async function deleteActiveMoment(){
+    if(!canEdit(activeRoute))return;
+    const route=activeRoute,index=activeMoment;
+    const question=index?t('Delete this connection from your journey?'):t('Delete your entire journey?');
+    if(!window.confirm(question))return;
+    try{
+      if(index&&route.hops.length>1){
+        const draft=JSON.parse(JSON.stringify(route));draft.hops.splice(index-1,1);
+        const result=await publishStory(draft);if(!result.ok)throw new Error(result.error);
+        await loadSharedStories();showJourney(draft,true,Math.min(index-1,draft.hops.length));returnStage='studio';
+      }else{
+        await deleteStory(route);await loadSharedStories();showStudio();
+      }
+    }catch(error){window.alert(t(error.message))}
   }
   async function initMap(){
-    if(!window.maplibregl||!window.topojson){ui.hint.textContent='Map unavailable. Please reload when connected.';return}
+    if(!window.maplibregl||!window.topojson){document.querySelector('.atlas-studio-note').textContent=t('Map unavailable. Please reload when connected.');return}
     map=new maplibregl.Map({container:ui.map,style:'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',center:[137,37],zoom:2.55,minZoom:.7,maxZoom:8,attributionControl:false});
     map.addControl(new maplibregl.NavigationControl({showCompass:false}),'bottom-right');
     map.on('load',async()=>{
@@ -462,34 +566,49 @@
         map.on('mouseleave','atlas-hit',()=>{
           hover='';map.getCanvas().style.cursor='';
           map.setFilter('atlas-hover',['==',['get','name'],'']);
-          if(stage!=='demo')setCountryName(selected?.name||(origin?'The world':'Japan'));
+          if(stage!=='demo')setCountryName(stage==='origin'?authorOriginCountry:selected?.name||(origin?'The world':'Japan'));
         });
         map.on('click','atlas-hit',event=>{
           const feature=event.features[0];if(!feature)return;
-          if(stage==='origin'&&feature.properties.name==='Japan')setOrigin([event.lngLat.lng,event.lngLat.lat],'My chosen place in Japan');
-          else if(['choose','selected'].includes(stage))useCountry(feature);
+          const name=feature.properties.name;
+          if(stage==='origin'&&(name==='Japan'||ui.originForm.elements.anywhere.checked))chooseOriginPoint([event.lngLat.lng,event.lngLat.lat],name);
+          else if(['choose','selected'].includes(stage))useCountry(feature,[event.lngLat.lng,event.lngLat.lat]);
         });
-        if(window.location.hash==='#studio')showStudio();
-        else if(window.location.hash==='#yoh')showJourney(yohStory);
+        await restoreSession();await loadSharedStories();
+        showStudio();
+        if(window.location.hash==='#yoh')showJourney(yohStory);
         else if(window.location.hash==='#sample')showJourney(sample);
-        else if(journey?.hops.length){origin=journey.origin;setStage('choose');map.jumpTo({center:[110,20],zoom:1.7})}
-        else setStage('origin');
-        loadSharedStories();
-      }catch(error){ui.hint.textContent='The map could not load country boundaries. Please reconnect and reload.';console.error(error)}
+      }catch(error){document.querySelector('.atlas-studio-note').textContent=t('The map could not load country boundaries. Please reconnect and reload.');console.error(error)}
     });
   }
-  ui.campus.addEventListener('click',()=>{if(stage==='choose'){origin=null;setStage('origin');map?.easeTo({center:[137,37],zoom:2.55})}else setOrigin(japan,'Reitaku campus, Kashiwa')});
+  function cancelAuthor(){authorDraft=null;selected=null;origin=null;journey=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);showStudio()}
   ui.world.addEventListener('click',()=>map?.easeTo({center:[100,20],zoom:1.55,duration:800}));
   ui.search.addEventListener('change',()=>{const feature=features.find(f=>f.properties.name.toLowerCase()===ui.search.value.trim().toLowerCase());if(feature){useCountry(feature);ui.search.value=''}});
-  ui.demo.addEventListener('click',()=>showJourney(sample));
-  ui.yoh.addEventListener('click',()=>showJourney(yohStory));
-  ui.studioOpen.addEventListener('click',()=>{showStudio();loadSharedStories()});
-  ui.myJourney.addEventListener('click',()=>{if(journey)showJourney(journey,true)});
-  function closeJourney(){if(returnStage==='studio'){showStudio();return}stopPlayback();clearRouteLine();activeRoute=null;routeCamera=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);setStage(returnStage==='origin'?'origin':'choose');map?.easeTo(returnStage==='origin'?{center:[137,37],zoom:2.55,duration:800}:{center:[110,20],zoom:1.7,duration:800})}
-  function closeStudio(){activeRoute=null;studioCamera=null;setStage(studioReturnStage==='origin'?'origin':'choose');map?.easeTo(studioReturnStage==='origin'?{center:[137,37],zoom:2.55,duration:800}:{center:[110,20],zoom:1.7,duration:800})}
-  ui.studioClose.addEventListener('click',closeStudio);
+  ui.addJourney.addEventListener('click',()=>{
+    if(!session){ui.accessStatus.textContent='';ui.accessForm.reset();ui.access.showModal();ui.accessForm.elements.email.focus();return}
+    const owned=sharedStories.find(story=>story.editable);
+    if(owned)showJourney(owned,true);else startAuthor();
+  });
+  ui.accessForm.addEventListener('submit',signIn);
+  $('atlas-access-cancel').addEventListener('click',()=>ui.access.close());
+  ui.signOut.addEventListener('click',async()=>{
+    const token=session?.token;storeSession(null);journey=null;origin=null;activeRoute=null;
+    if(token)fetch(`${workerUrl}/session`,{method:'DELETE',headers:{Authorization:`Bearer ${token}`}}).catch(()=>{});
+    await loadSharedStories();showStudio();
+  });
+  ui.originForm.addEventListener('submit',saveOrigin);
+  ui.originForm.elements.markerColor.addEventListener('input',updateMarkerPreview);
+  ui.originForm.elements.markerSymbol.addEventListener('input',updateMarkerPreview);
+  ui.originForm.elements.anywhere.addEventListener('change',()=>{
+    if(!ui.originForm.elements.anywhere.checked&&authorOriginCountry!=='Japan'){authorOriginPoint=[...japan];authorOriginCountry='Japan';ui.originMapNote.textContent=t('Tap a place in Japan on the map, or use Reitaku campus as your starting point.')}
+    setStage('origin');map?.easeTo(ui.originForm.elements.anywhere.checked?{center:[60,18],zoom:1.65,duration:750}:{center:[139,36],zoom:4.1,duration:750});
+  });
+  $('atlas-author-cancel').addEventListener('click',cancelAuthor);
+  $('atlas-choose-cancel').addEventListener('click',cancelAuthor);
+  $('atlas-connection-cancel').addEventListener('click',cancelAuthor);
+  $('atlas-connection-back').addEventListener('click',()=>{selected=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);setStage('choose')});
+  function closeJourney(){stopPlayback();clearRouteLine();activeRoute=null;routeCamera=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);showStudio()}
   ui.filmstripClose.addEventListener('click',closeJourney);
-  ui.filmstripEdit.addEventListener('click',openEditor);
   ui.filmstripAdd.addEventListener('click',addConnectionToRoute);
   ui.editorForm.addEventListener('submit',saveEdit);
   $('atlas-editor-cancel').addEventListener('click',()=>ui.editor.close());
@@ -504,24 +623,15 @@
     if(event.target.closest?.('input,textarea,select,[contenteditable="true"]'))return;
     event.preventDefault();stopPlayback();setActiveMoment(activeMoment+(event.key==='ArrowRight'?1:-1),true);
   });
-  ui.clear.addEventListener('click',()=>{selected=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);setStage('choose')});
-  ui.form.elements.markerColor.addEventListener('input',updateMarkerPreview);
-  ui.form.elements.markerSymbol.addEventListener('input',updateMarkerPreview);
-  ui.next.addEventListener('click',()=>{const f=ui.form.elements;if(!f.localPlace.value.trim()||!f.reason.value.trim()||!ui.form.querySelector('[name="lens"]:checked')){ui.status.textContent='Add a starting place, a reason, and one kind of thread to follow.';return}ui.status.textContent='';ui.first.hidden=true;ui.second.hidden=false;ui.sheet.scrollTop=0});
   ui.search.addEventListener('input',()=>{const feature=features.find(f=>f.properties.name.toLowerCase()===ui.search.value.trim().toLowerCase());if(feature&&origin){useCountry(feature);ui.search.value=''}});
-  ui.back.addEventListener('click',()=>{ui.first.hidden=false;ui.second.hidden=true;ui.status.textContent=''});ui.form.addEventListener('submit',event=>{event.preventDefault();saveDraft()});
-  ui.campus.disabled=true;ui.demo.disabled=true;ui.yoh.disabled=true;
-  if(workerUrl){
-    document.querySelector('.atlas-studio-note').textContent=t('Shared time, separate journeys. Yoh’s draft and Mina’s simulated example are shown alongside published class stories. Select a chapter to explore or edit it.');
-    document.querySelector('.atlas-privacy').textContent=t('Use an alias if you prefer. Do not include private details or a photo without consent. Your story appears immediately on the public class Atlas after you enter the class password.');
-  }
+  ui.form.addEventListener('submit',event=>{event.preventDefault();saveDraft()});
   function localizeAttributes(){
     ui.search.placeholder=t('Find a country');
-    ui.form.elements.localPlace.placeholder=t('A town, campus, kitchen, station…');
-    ui.form.elements.reason.placeholder=t('Something Japan shared, inherited, adapted—or a problem both places face…');
+    ui.originForm.elements.place.placeholder=t('A town, campus, kitchen, station…');
+    ui.originForm.elements.alias.placeholder=t('How should we identify your story?');
+    ui.form.elements.reason.placeholder=t('A technology, borrowed infrastructure, story, or shared problem…');
     ui.form.elements.year.placeholder=t('Year, if known');
-    ui.form.elements.trace.placeholder=t('The feat, the benefit, the tradeoff, or an open question…');
-    ui.form.elements.alias.placeholder=t('How should we identify your story?');
+    ui.form.elements.trace.placeholder=t('What changed—or might change?');
     ui.editorForm.elements.title.placeholder=t('Give your journey a title');
   }
   localizeAttributes();
@@ -530,17 +640,12 @@
     if(['origin','choose'].includes(stage))setStage(stage);
     if(stage==='selected'){
       ui.selectedName.textContent=t(selected?.name||'');
-      ui.selected.querySelector('.atlas-selected-prompt').textContent=t(ui.first.hidden?'Your thread has been added. Choose another nation when you are ready.':'What brought this place to mind?');
+      ui.selected.querySelector('.atlas-selected-prompt').textContent=t('What engineering connection brought this place to mind?');
     }
     if(stage==='demo'&&activeRoute){buildFilmstrip(activeRoute);setActiveMoment(activeMoment,false)}
     if(stage==='studio')buildStudio();
-    if(workerUrl){
-      document.querySelector('.atlas-studio-note').textContent=t('Shared time, separate journeys. Yoh’s draft and Mina’s simulated example are shown alongside published class stories. Select a chapter to explore or edit it.');
-      document.querySelector('.atlas-privacy').textContent=t('Use an alias if you prefer. Do not include private details or a photo without consent. Your story appears immediately on the public class Atlas after you enter the class password.');
-    }
     ui.status.textContent=t(ui.status.textContent);
     ui.editorStatus.textContent=t(ui.editorStatus.textContent);
   });
   initMap();
-  if(map){map.jumpTo({center:[137,37],zoom:2.55});map.on('idle',()=>{if(map.getSource('atlas-countries')){ui.campus.disabled=false;ui.demo.disabled=false;ui.yoh.disabled=false}})}
 })();
