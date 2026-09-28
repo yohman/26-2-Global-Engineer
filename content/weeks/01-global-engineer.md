@@ -14,7 +14,7 @@ slide_image: lectures/assets/irri-rice-science.png
 
 ## Overview / Big Question
 
-We begin as a six-person studio: five students and Yoh. Before asking for a definition of a global engineer, we ask where a global story begins. Yoh's journey moves from his father's agricultural research at IRRI in the Philippines and CIAT in Colombia to Banda Aceh after the 2004 tsunami and the making of **Human Error**. Then each student begins their own story.
+We begin as a six-person studio: five students and Yoh. No international experience is needed. Yoh's journey moves from his father's agricultural research at IRRI in the Philippines and CIAT in Colombia to Banda Aceh after the 2004 tsunami and the making of **Human Error**. Then we listen to each student's own story and dream before asking how a local concern might grow into global work.
 
 ## Lecture
 
@@ -22,10 +22,10 @@ Six images, no slide text. Yoh tells the story behind each image and asks what i
 
 ## In Class
 
-- OPEN: where does a global story begin? Everyone names a place or a person.
-- LISTEN: IRRI, Colombia, one farmer's bicycle, Banda Aceh, and **Human Error**.
-- SHARE: each student tells a story of a place, person, or event that shaped their own trajectory.
-- STUDIO: sketch one connection between your story and a wider world; keep one question to investigate this term.
+- BEGIN NEAR HOME (7 min): privately sketch a place or problem you know and an engineering hope. Neighborhood, family, and campus all count; personal details are optional.
+- STORY CIRCLE (20 min): three minutes each for your story and dream of becoming a global engineer, then one curious question from the room. No story must prove it is “global enough.”
+- GIVE IT WINGS (18 min): map one local concern to two wider links—people, materials, food, energy, data, climate, or policy. Follow one link through a map, object label, or public source; mark one concrete clue and one open question.
+- CLOSE (5 min): share one surprising connection and one question to explore this term. Keep your map as the first page of your studio journal.
 
 ## MAKE
 
@@ -37,7 +37,7 @@ Start your Engineering Nation entry. Pin a place, add a time layer, and identify
 
 ## Read / View
 
-Bring one image or object connected to a place, person, or event that shaped your own global story.
+If you wish, bring an image or object from a place you know well. It does not need to be international.
 
 ## Resources
 
