@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS stories (
+  id TEXT PRIMARY KEY,
+  record TEXT NOT NULL,
+  revision INTEGER NOT NULL DEFAULT 1,
+  updated_at TEXT NOT NULL
+);

@@ -1,0 +1,12 @@
+{
+  "name": "global-engineer-atlas",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-09-28",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "global-engineer-atlas",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+    }
+  ]
+}
