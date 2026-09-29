@@ -515,6 +515,15 @@
       if(sources.childNodes.length)frame.append(sources);
       ui.filmstripTrack.append(frame);
     });
+    if(canEdit(route)&&moments.length){
+      const last=moments.at(-1);
+      const end=node('div','atlas-time-gap atlas-time-gap--end');
+      end.style.setProperty('--gap-width','72px');
+      const add=iconButton(node('button'),'add',`Add after ${last.moment.place||last.moment.country}`);
+      add.type='button';add.classList.add('atlas-gap-add');
+      add.addEventListener('click',()=>beginConnection(last.index));
+      end.append(add);ui.filmstripTrack.append(end);
+    }
   }
   function setActiveMoment(index,move=false){
     if(stage!=='demo'||!activeRoute)return;

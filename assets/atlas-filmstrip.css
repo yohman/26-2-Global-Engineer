@@ -42,6 +42,8 @@
 .atlas-time-gap span{position:relative;z-index:1;background:rgba(247,244,237,.97);padding:.27rem .4rem;color:var(--red);font:700 .62rem var(--sans);white-space:nowrap;transform:translateY(-24px)}
 .atlas-time-gap .atlas-gap-add{position:absolute;z-index:2;top:calc(48% + 8px);left:50%;transform:translateX(-50%);display:grid;place-items:center;width:31px;height:31px;border:1px solid var(--blue);border-radius:50%;background:#f7f4ed;color:var(--blue);cursor:pointer}
 .atlas-time-gap .atlas-gap-add:hover,.atlas-time-gap .atlas-gap-add:focus-visible{background:var(--blue);color:white}
+.atlas-time-gap--end::before{right:50%}
+.atlas-time-gap--end .atlas-gap-add{top:calc(48% - 15px)}
 .atlas-marker{width:38px;height:38px;display:flex;align-items:center;justify-content:center}
 .atlas-portrait{border:0;padding:0;overflow:visible;cursor:pointer;opacity:.68;transition:box-shadow .25s,opacity .25s}
 .atlas-portrait--compact:not(.is-active){width:22px;height:22px;font-size:.65rem;opacity:.5}
