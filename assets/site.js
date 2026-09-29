@@ -13,7 +13,7 @@ if (nav && !nav.querySelector('a[href="atlas.html"]')) {
   const atlasLink = document.createElement('a');
   atlasLink.href = 'atlas.html';
   atlasLink.textContent = 'Atlas';
-  nav.querySelector('a[href="make.html"]')?.before(atlasLink);
+  nav.querySelector('a[href="agenda.html"]')?.after(atlasLink);
 }
 const current = location.pathname.split('/').pop() || 'index.html';
 document.querySelectorAll('.site-nav a').forEach((link) => {
