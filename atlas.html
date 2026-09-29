@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="assets/atlas.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-journey.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-filmstrip.css?v=drag-marker-2"><link rel="stylesheet" href="assets/atlas-overview.css?v=map-7"><link rel="stylesheet" href="assets/atlas-form.css?v=form-1"><link rel="stylesheet" href="assets/atlas-actions.css?v=card-controls-1"><link rel="stylesheet" href="assets/atlas-basemap.css?v=basemaps-1">
+  <link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="assets/atlas.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-journey.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-filmstrip.css?v=insert-1"><link rel="stylesheet" href="assets/atlas-overview.css?v=map-7"><link rel="stylesheet" href="assets/atlas-form.css?v=insert-1"><link rel="stylesheet" href="assets/atlas-actions.css?v=card-controls-1"><link rel="stylesheet" href="assets/atlas-basemap.css?v=basemaps-1">
 </head>
 <body class="atlas-page"><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><a class="wordmark" href="index.html"><span>2026-2</span> Global Engineer</a><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" class="site-nav" aria-label="Course navigation"><a href="agenda.html">Agenda</a><a href="groups.html">Groups</a><a href="make.html">MAKE</a><a href="resources.html">Read / View</a><a href="guests.html">Guests</a><a href="exhibition.html">Exhibition</a></nav></header>
@@ -26,12 +26,13 @@
       <form id="atlas-origin-form" novalidate>
         <label>Your name or alias<input name="alias" required maxlength="60" placeholder="How should we identify your story?"></label>
         <label>Your starting place<input name="place" required maxlength="100" placeholder="A town, campus, kitchen, station…"></label>
+        <label>Year<input name="year" type="number" required min="1900" max="2100" placeholder="When does your story begin?"></label>
         <label class="atlas-check"><input name="anywhere" type="checkbox"> Start anywhere, not necessarily in Japan</label>
-        <details class="atlas-optional"><summary>Customize my marker <span>optional</span></summary><div class="atlas-marker-author">
+        <div class="atlas-optional"><p class="atlas-option-title">Customize my marker</p><div class="atlas-marker-author">
           <label>Marker color<input name="markerColor" type="color" value="#20567c"></label>
           <label>Marker symbol <span>one emoji or character</span><input name="markerSymbol" maxlength="12" placeholder="旅 / 🌱 / M"></label>
           <span class="atlas-marker-preview" id="atlas-origin-marker-preview" aria-label="Marker preview">✦</span>
-        </div></details>
+        </div></div>
         <p class="atlas-map-note" id="atlas-origin-map-note">Tap a place in Japan on the map, or use Reitaku campus as your starting point.</p>
         <p class="atlas-author-status" id="atlas-origin-status" role="status"></p>
         <div class="atlas-form-actions"><button type="button" id="atlas-author-cancel">Cancel</button><button class="atlas-primary" type="submit">Choose a connection →</button></div>
@@ -46,17 +47,16 @@
       <p class="atlas-connection-source" id="atlas-selected-source"></p>
       <form id="atlas-form" novalidate>
         <label>Why did you choose this location?<textarea name="reason" required maxlength="500" rows="4" placeholder="An invention, person, event, or idea you want to investigate…"></textarea></label>
-        <details class="atlas-optional"><summary>Add time, evidence, or an image <span>optional</span></summary>
+        <div class="atlas-optional"><p class="atlas-option-title">Add time, evidence, or an image</p>
         <fieldset><legend>Tags <span>optional</span></legend><div class="atlas-lenses">
           <label><input type="checkbox" name="tag" value="Technology"><span>Technology</span></label>
           <label><input type="checkbox" name="tag" value="Infrastructure"><span>Infrastructure</span></label>
           <label><input type="checkbox" name="tag" value="People / story"><span>People / story</span></label>
           <label><input type="checkbox" name="tag" value="Object / material"><span>Object / material</span></label>
         </div></fieldset>
-        <div class="atlas-form-pair"><label>Year <span>optional</span><input name="year" type="number" min="1900" max="2100" placeholder="Year, if known"></label><label>Link or video <span>optional</span><input name="mediaUrl" type="url" maxlength="500" placeholder="https://…"></label></div>
-        <label>Evidence, effect, or open question <span>optional</span><textarea name="trace" maxlength="700" rows="2" placeholder="What changed—or might change?"></textarea></label>
+        <div class="atlas-form-pair"><label>Year<input name="year" type="number" required min="1900" max="2100" placeholder="Year"></label><label>Link or video <span>optional</span><input name="mediaUrl" type="url" maxlength="500" placeholder="https://…"></label></div>
         <label class="atlas-upload">Add an image <span>optional · JPEG, PNG, or WebP</span><input name="image" type="file" accept="image/jpeg,image/png,image/webp"><small>We resize it before uploading. Only use images you have permission to share.</small></label>
-        </details>
+        </div>
         <p id="atlas-form-status" role="status"></p>
         <div class="atlas-form-actions"><button type="button" id="atlas-connection-back">← Choose another country</button><button class="atlas-primary" type="submit">Add story slide</button></div>
       </form>
@@ -65,7 +65,7 @@
 
   <section class="atlas-filmstrip" id="atlas-filmstrip" aria-label="Journey through time" hidden>
     <div class="atlas-filmstrip-track" id="atlas-filmstrip-track" tabindex="0" aria-label="Scroll through the journey frames"></div>
-    <div class="atlas-filmstrip-top"><div><span class="atlas-filmstrip-kicker" id="atlas-filmstrip-kicker">SIMULATED JOURNEY</span><strong id="atlas-filmstrip-title">Mina’s threads</strong><span class="atlas-filmstrip-note">Select a frame or marker · use ← → to move</span></div><div class="atlas-filmstrip-actions"><button type="button" id="atlas-filmstrip-prev" aria-label="Previous story frame">←</button><button type="button" id="atlas-filmstrip-next" aria-label="Next story frame">→</button><button type="button" id="atlas-filmstrip-play" aria-label="Play journey" title="Play journey">▶</button><button type="button" id="atlas-filmstrip-add" hidden>Add connection</button><button type="button" id="atlas-filmstrip-studio">All stories</button><button type="button" id="atlas-filmstrip-close" aria-label="Close" title="Close">×</button></div></div>
+    <div class="atlas-filmstrip-top"><div><span class="atlas-filmstrip-kicker" id="atlas-filmstrip-kicker">SIMULATED JOURNEY</span><strong id="atlas-filmstrip-title">Mina’s threads</strong><span class="atlas-filmstrip-note">Select a frame or marker · use ← → to move</span></div><div class="atlas-filmstrip-actions"><button type="button" id="atlas-filmstrip-prev" aria-label="Previous story frame">←</button><button type="button" id="atlas-filmstrip-next" aria-label="Next story frame">→</button><button type="button" id="atlas-filmstrip-play" aria-label="Play journey" title="Play journey">▶</button><button type="button" id="atlas-filmstrip-studio">All stories</button><button type="button" id="atlas-filmstrip-close" aria-label="Close" title="Close">×</button></div></div>
   </section>
 
   <section class="atlas-studio" id="atlas-studio" aria-label="All studio journeys" hidden>
@@ -88,7 +88,7 @@
   <div class="atlas-editor-head"><div><span class="atlas-filmstrip-kicker">YOUR STORY · EDIT</span><h2 id="atlas-editor-title">Edit this frame</h2></div><button type="button" id="atlas-editor-cancel" aria-label="Close editor">×</button></div>
   <p class="atlas-editor-note">Revise this chapter. To explore another country, add a new connection on the map.</p>
   <label>Story title<input name="title" maxlength="120" placeholder="Give your journey a title"></label>
-  <div class="atlas-editor-pair"><label>Name or alias<input name="alias" required maxlength="60"></label><label>Year <span>optional</span><input name="year" type="number" min="1900" max="2100"></label></div>
+  <div class="atlas-editor-pair"><label>Name or alias<input name="alias" required maxlength="60"></label><label>Year<input name="year" type="number" required min="1900" max="2100"></label></div>
   <label>Place label<input name="place" required maxlength="100"></label>
   <div class="atlas-editor-location"><span id="atlas-editor-location">Current marker location</span><button type="button" id="atlas-editor-move">Move on map ↗</button></div>
   <label>Or move to a country’s center <span>optional</span><input name="country" list="atlas-country-options" maxlength="100"></label>
@@ -105,5 +105,5 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<script src="assets/i18n.js?v=drag-marker-2"></script><script src="assets/site.js?v=nav-2"></script><script src="assets/atlas-config.js?v=instructor-6"></script><script src="assets/atlas.js?v=drag-marker-2"></script>
+<script src="assets/i18n.js?v=insert-1"></script><script src="assets/site.js?v=nav-2"></script><script src="assets/atlas-config.js?v=instructor-6"></script><script src="assets/atlas.js?v=insert-1"></script>
 </body></html>

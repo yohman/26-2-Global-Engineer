@@ -37,7 +37,7 @@
   ]};
   let map,features=[],stage='studio',origin=null,selected=null,hover='',journey=null,sharedStories=[],hiddenBuiltins=[],builtinOverrides={},markers=[],returnStage='studio',basemapId=readBasemap();
   let activeRoute=null,activeMoment=0,displayOrder=[],playTimer=null,routeCamera=null,routeAnimation=null,studioCamera=null,studioReturnStage='studio';
-  let session=readSession(),authorOriginPoint=[...japan],authorOriginCountry='Japan',authorDraft=null,connectionFromIndex=0,studioWorldView=false;
+  let session=readSession(),authorOriginPoint=[...japan],authorOriginCountry='Japan',authorDraft=null,connectionFromIndex=0,connectionInsertBeforeIndex=null,studioWorldView=false;
   let editorMoving=false,editorPickPoint=null,editorPickCountry='',pickCandidate=null,editingMarker=null,originalMarkerPosition=null;
   function readJourney(){try{const v=JSON.parse(localStorage.getItem(storageKey)||'null');return v&&Array.isArray(v.hops)&&v.origin?v:null}catch{return null}}
   function writeJourney(v){try{localStorage.setItem(storageKey,JSON.stringify(v));return true}catch{return false}}
@@ -217,9 +217,8 @@
     renderRoutes();
   }
   function startAuthor(){
-    authorDraft=null;journey=null;origin=null;selected=null;connectionFromIndex=0;authorOriginPoint=[...japan];authorOriginCountry='Japan';
+    authorDraft=null;journey=null;origin=null;selected=null;connectionFromIndex=0;connectionInsertBeforeIndex=null;authorOriginPoint=[...japan];authorOriginCountry='Japan';
     ui.originForm.reset();ui.originForm.elements.markerColor.value='#20567c';
-    ui.originForm.querySelector('details').open=false;
     ui.originForm.elements.place.value='';
     ui.originMapNote.textContent=t('Tap a place in Japan on the map, or use Reitaku campus as your starting point.');
     ui.originStatus.textContent='';updateMarkerPreview();setStage('origin');
@@ -235,9 +234,10 @@
   function saveOrigin(event){
     event.preventDefault();
     const form=ui.originForm.elements;
-    const alias=form.alias.value.trim(),place=form.place.value.trim();
+    const alias=form.alias.value.trim(),place=form.place.value.trim(),year=Number(form.year.value);
     if(!alias||!place){ui.originStatus.textContent=t('Add your alias and starting place.');return}
-    origin={country:authorOriginCountry,place,point:authorOriginPoint,year:null};
+    if(!form.year.value||!Number.isInteger(year)||year<1900||year>2100){ui.originStatus.textContent=t('Please enter a year between 1900 and 2100.');return}
+    origin={country:authorOriginCountry,place,point:authorOriginPoint,year};
     const marker={color:markerColor(form.markerColor.value),symbol:markerSymbol(form.markerSymbol.value||alias[0])};
     authorDraft={id:`journey-${Date.now()}-${Math.random().toString(36).slice(2,8)}`,alias,marker,origin,hops:[]};
     journey=authorDraft;connectionFromIndex=0;setStage('choose');map?.easeTo({center:[60,18],zoom:1.65,duration:850});
@@ -247,7 +247,7 @@
     const name=feature.properties.name;if(name===(journey?.hops[connectionFromIndex-1]?.country||origin.country))return;
     selected={name,feature,point:clickedPoint||pointFor(feature)};
     map.setFilter('atlas-selected-fill',['==',['get','name'],name]);
-    ui.selectedName.textContent=t(name);ui.form.reset();ui.form.querySelector('details').open=false;ui.status.textContent='';
+    ui.selectedName.textContent=t(name);ui.form.reset();ui.status.textContent='';
     $('atlas-selected-source').textContent=`${t('From')}: ${t(frameMoment(journey,connectionFromIndex).place||origin.country)} → ${t(name)}`;
     setStage('selected');setCountryName(name);map?.easeTo({center:selected.point,zoom:2.5,duration:850});
   }
@@ -468,6 +468,12 @@
         const gap=node('div','atlas-time-gap');
         gap.style.setProperty('--gap-width',`${gapInfo.width}px`);
         gap.append(node('span','',gapInfo.label));
+        if(canEdit(route)){
+          const insert=iconButton(node('button'),'add',`Add between ${moments[position-1].moment.place||moments[position-1].moment.country} and ${moment.place||moment.country}`);
+          insert.type='button';insert.classList.add('atlas-gap-add');
+          insert.addEventListener('click',()=>beginConnection(moments[position-1].index,index));
+          gap.append(insert);
+        }
         ui.filmstripTrack.append(gap);
       }
       const frame=node('article','atlas-frame');frame.dataset.moment=index;
@@ -492,6 +498,8 @@
       if(canEdit(route)){
         const edit=iconButton(node('button'),'edit',`Edit: ${moment.place||moment.country}`);
         edit.type='button';edit.addEventListener('click',()=>{stopPlayback();setActiveMoment(index,false);openEditor()});controls.append(edit);
+        const add=iconButton(node('button'),'add',`Add after ${moment.place||moment.country}`);
+        add.type='button';add.addEventListener('click',()=>beginConnection(index));controls.append(add);
       }
       if(canRemove(route)){
         const remove=iconButton(node('button'),'delete',`${deleteLabel(route,index)}: ${moment.place||moment.country}`);
@@ -516,7 +524,6 @@
     const position=displayOrder.indexOf(activeMoment);
     ui.filmstripPrev.disabled=position===0;
     ui.filmstripNext.disabled=position===displayOrder.length-1;
-    ui.filmstripAdd.hidden=!canEdit(activeRoute);
     ui.filmstripTrack.querySelectorAll('.atlas-frame').forEach(frame=>frame.classList.toggle('is-active',Number(frame.dataset.moment)===activeMoment));
     markers.forEach((marker,i)=>{
       const host=marker.getElement();
@@ -647,8 +654,8 @@
     const alias=form.alias.value.trim(),place=form.place.value.trim(),storyText=form.story.value.trim(),mediaUrl=form.mediaUrl.value.trim();
     if(!alias||!place||(activeMoment&&!storyText)){ui.editorStatus.textContent=t('Add a name, place, and story before saving.');return}
     if(mediaUrl&&!safeUrl(mediaUrl)){ui.editorStatus.textContent=t('Use an http or https link.');return}
-    const yearText=form.year.value.trim(),year=yearText?Number(yearText):null;
-    if(year&&(year<1900||year>2100)){ui.editorStatus.textContent=t('Enter a year between 1900 and 2100.');return}
+    const yearText=form.year.value.trim(),year=Number(yearText);
+    if(!yearText||!Number.isInteger(year)||year<1900||year>2100){ui.editorStatus.textContent=t('Enter a year between 1900 and 2100.');return}
     const draft=JSON.parse(JSON.stringify(activeRoute));
     draft.title=form.title.value.trim();draft.alias=alias;
     draft.marker={color:markerColor(form.markerColor.value),symbol:markerSymbol(form.markerSymbol.value||alias[0])};
@@ -683,8 +690,8 @@
     $('atlas-branch-continue').hidden=activeMoment===0;
     $('atlas-branch').showModal();
   }
-  function beginConnection(fromIndex){
-    $('atlas-branch').close();connectionFromIndex=fromIndex;
+  function beginConnection(fromIndex,beforeIndex=null){
+    if($('atlas-branch').open)$('atlas-branch').close();connectionFromIndex=fromIndex;connectionInsertBeforeIndex=beforeIndex;
     stopPlayback();clearRouteLine();journey=JSON.parse(JSON.stringify(activeRoute));origin=journey.origin;writeJourney(journey);
     authorDraft=null;activeRoute=null;routeCamera=null;selected=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);
     setStage('choose');
@@ -697,12 +704,25 @@
     const tags=[...ui.form.querySelectorAll('[name="tag"]:checked')].map(item=>item.value);
     if(!reason){ui.status.textContent=t('Describe the connection before publishing.');return}
     if(mediaUrl&&!safeUrl(mediaUrl)){ui.status.textContent=t('Please use an http or https link, or leave it blank.');return}
-    const yearText=form.year.value.trim(),year=yearText?Number(yearText):null;
-    if(year&&(year<1900||year>2100)){ui.status.textContent=t('Please enter a year between 1900 and 2100.');return}
+    const yearText=form.year.value.trim(),year=Number(yearText);
+    if(!yearText||!Number.isInteger(year)||year<1900||year>2100){ui.status.textContent=t('Please enter a year between 1900 and 2100.');return}
     const base=journey||authorDraft;
     if(!base){ui.status.textContent=t('Start your journey again.');return}
+    if(connectionInsertBeforeIndex!==null){
+      const earliest=momentYear(frameMoment(base,connectionFromIndex));
+      const latest=momentYear(frameMoment(base,connectionInsertBeforeIndex));
+      if((earliest!==null&&year<earliest)||(latest!==null&&year>latest)){ui.status.textContent=t('Choose a year between the two cards.');return}
+    }
     const draft=JSON.parse(JSON.stringify(base));
-    draft.hops.push({country:selected.name,point:selected.point,fromIndex:connectionFromIndex,reason,lens:tags[0],tags,year,trace:form.trace.value.trim(),mediaUrl:safeUrl(mediaUrl)});
+    const insertAt=connectionInsertBeforeIndex!==null&&connectionFromIndex<connectionInsertBeforeIndex?connectionInsertBeforeIndex:draft.hops.length+1;
+    if(insertAt<=draft.hops.length){
+      draft.hops.forEach((hop,i)=>{
+        const oldIndex=i+1,parent=Number.isInteger(hop.fromIndex)?hop.fromIndex:i;
+        hop.fromIndex=parent>=insertAt?parent+1:parent;
+        if(oldIndex===insertAt&&parent===connectionFromIndex)hop.fromIndex=insertAt;
+      });
+    }
+    draft.hops.splice(insertAt-1,0,{country:selected.name,point:selected.point,fromIndex:connectionFromIndex,reason,lens:tags[0],tags,year,trace:'',mediaUrl:safeUrl(mediaUrl)});
     const submit=ui.form.querySelector('[type="submit"]');submit.disabled=true;ui.status.textContent=t('Publishing connection…');
     const result=await publishStory(draft);
     if(!result.ok){ui.status.textContent=t(result.error);submit.disabled=false;return}
@@ -710,13 +730,13 @@
     if(form.image.files[0]){
       try{
         ui.status.textContent=t('Uploading image…');
-        draft.hops.at(-1).imageId=await uploadImage(draft.id,form.image.files[0]);
+        draft.hops[insertAt-1].imageId=await uploadImage(draft.id,form.image.files[0]);
         const imageSave=await publishStory(draft);
         if(!imageSave.ok)throw new Error(imageSave.error);
       }catch(error){warning=t('The connection was published, but its image was not. You can add it with Edit.')}
     }
     journey=draft;origin=draft.origin;authorDraft=null;writeJourney(draft);submit.disabled=false;
-    ui.form.reset();await loadSharedStories();showStudio();showJourney(draft,true,draft.hops.length);returnStage='studio';
+    ui.form.reset();await loadSharedStories();showStudio();showJourney(draft,true,insertAt);returnStage='studio';
     if(warning)window.alert(warning);
   }
   async function deleteActiveMoment(){
@@ -854,7 +874,6 @@
   $('atlas-connection-back').addEventListener('click',()=>{selected=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);setStage('choose')});
   function closeJourney(){stopPlayback();clearRouteLine();activeRoute=null;routeCamera=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);showStudio()}
   ui.filmstripClose.addEventListener('click',closeJourney);
-  ui.filmstripAdd.addEventListener('click',addConnectionToRoute);
   $('atlas-branch-continue').addEventListener('click',()=>beginConnection(activeMoment));
   $('atlas-branch-origin').addEventListener('click',()=>beginConnection(0));
   $('atlas-branch-cancel').addEventListener('click',()=>$('atlas-branch').close());
@@ -890,22 +909,21 @@
   ui.form.addEventListener('submit',event=>{event.preventDefault();saveDraft()});
   iconButton($('atlas-card-edit'),'edit','Edit frame');
   iconButton($('atlas-card-delete'),'delete','Delete marker');
-  iconButton(ui.filmstripAdd,'add','Add connection');
   function localizeAttributes(){
     $('atlas-basemap').setAttribute('aria-label',t('Basemap'));
     ui.search.placeholder=t('Find a country');
     ui.originForm.elements.place.placeholder=t('A town, campus, kitchen, station…');
     ui.originForm.elements.alias.placeholder=t('How should we identify your story?');
     ui.form.elements.reason.placeholder=t('An invention, person, event, or idea you want to investigate…');
-    ui.form.elements.year.placeholder=t('Year, if known');
-    ui.form.elements.trace.placeholder=t('What changed—or might change?');
+    ui.form.elements.year.placeholder=t('Year');
+    ui.originForm.elements.year.placeholder=t('When does your story begin?');
     ui.editorForm.elements.title.placeholder=t('Give your journey a title');
   }
   localizeAttributes();
   window.addEventListener('course-language-change',()=>{
     localizeAttributes();
     updateAccessPrompt();storeSession(session);
-    iconButton($('atlas-card-edit'),'edit','Edit frame');iconButton(ui.filmstripAdd,'add','Add connection');
+    iconButton($('atlas-card-edit'),'edit','Edit frame');
     ui.filmstripPlay.setAttribute('aria-label',t(playTimer?'Pause journey':'Play journey'));ui.filmstripPlay.title=t(playTimer?'Pause journey':'Play journey');
     $('atlas-filmstrip-close').setAttribute('aria-label',t('Close'));$('atlas-filmstrip-close').title=t('Close');
     if(['origin','choose'].includes(stage))setStage(stage);
