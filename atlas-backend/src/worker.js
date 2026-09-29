@@ -83,10 +83,13 @@ function cleanStory(input, id) {
       mediaUrl: url(origin.mediaUrl),
       imageId: imageId(origin.imageId)
     },
-    hops: input.hops.map(hop => {
+    hops: input.hops.map((hop, index) => {
       if (!text(hop?.country, 100)) throw new Error('Connection country required');
+      const fromIndex = hop.fromIndex === undefined ? index : Number(hop.fromIndex);
+      if (!Number.isInteger(fromIndex) || fromIndex < 0 || fromIndex > index) throw new Error('Invalid connection origin');
       return {
         country: text(hop.country, 100),
+        fromIndex,
         place: text(hop.place, 100),
         point: point(hop.point),
         year: year(hop.year),

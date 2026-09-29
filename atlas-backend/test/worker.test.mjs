@@ -137,3 +137,20 @@ test('reject invalid password, unsafe links, and unauthenticated writes', async 
   assert.equal((await worker.fetch(request(`/stories/${story.id}`, 'PUT', { story: unsafe, revision: 0 }, data.token), env)).status, 400);
   assert.equal((await worker.fetch(request('/stories', 'GET', undefined, undefined, 'https://unrelated.example'), env)).status, 403);
 });
+
+test('stores branching origins and rejects connections to a future marker', async () => {
+  const db = database(), env = { DB: db, CLASS_PASSWORD: 'class-secret' };
+  const { data } = await login(db);
+  const branched = { ...story, hops: [
+    { ...story.hops[0], fromIndex: 0 },
+    { country: 'Colombia', point: [-74, 4], reason: 'A second branch', fromIndex: 0 },
+    { country: 'Thailand', point: [100, 14], reason: 'Continue from Colombia', fromIndex: 2 }
+  ] };
+  let response = await worker.fetch(request(`/stories/${story.id}`, 'PUT', { story: branched, revision: 0 }, data.token), env);
+  assert.equal(response.status, 200);
+  response = await worker.fetch(request('/stories'), env);
+  assert.deepEqual((await response.json()).stories[0].hops.map(hop => hop.fromIndex), [0, 0, 2]);
+  const invalid = { ...branched, hops: branched.hops.map((hop, index) => index === 1 ? { ...hop, fromIndex: 2 } : hop) };
+  response = await worker.fetch(request(`/stories/${story.id}`, 'PUT', { story: invalid, revision: 1 }, data.token), env);
+  assert.equal(response.status, 400);
+});
