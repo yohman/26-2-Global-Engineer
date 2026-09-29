@@ -258,12 +258,14 @@ test('instructor can edit and extend a built-in journey without changing its sou
   assert.equal(published.hops[0].engineering, 'Rice science travels');
   assert.equal(published.hops[0].image, 'lectures/assets/irri-rice-science.png');
   assert.equal(published.editable, false);
-  const extended = { ...published, hops: [...published.hops, { country: 'Colombia', point: [-76, 4], year: 1971, reason: 'Cassava research', fromIndex: 1 }] };
+  const combinedInquiry = 'Why this place matters. '.repeat(40);
+  const extended = { ...published, hops: [...published.hops, { country: 'Colombia', point: [-76, 4], year: 1971, reason: combinedInquiry, fromIndex: 1 }] };
   response = await worker.fetch(request('/builtins/yoh-draft/story', 'PUT', { story: extended, revision: 1 }, admin.token), env);
   assert.equal(response.status, 200);
   response = await worker.fetch(request('/stories', 'GET', undefined, admin.token), env);
   published = (await response.json()).builtinOverrides['yoh-draft'];
   assert.equal(published.hops.length, 2);
+  assert.equal(published.hops[1].reason, combinedInquiry.trim());
   assert.equal(published.editable, true);
   response = await worker.fetch(request('/builtins/yoh-draft/story', 'PUT', { story: builtIn, revision: 1 }, admin.token), env);
   assert.equal(response.status, 409);

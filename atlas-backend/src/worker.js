@@ -80,7 +80,7 @@ function cleanStory(input, id) {
       place: text(origin.place, 100),
       point: point(origin.point),
       year: year(origin.year),
-      engineering: text(origin.engineering, 700),
+      engineering: text(origin.engineering, 2000),
       trace: text(origin.trace, 700),
       mediaUrl: url(origin.mediaUrl),
       imageId: imageId(origin.imageId)
@@ -97,7 +97,7 @@ function cleanStory(input, id) {
         year: year(hop.year),
         lens: text(hop.lens, 40),
         tags: Array.isArray(hop.tags) ? hop.tags.slice(0, 4).map(value => text(value, 40)).filter(Boolean) : [],
-        reason: text(hop.reason, 500),
+        reason: text(hop.reason, 2000),
         trace: text(hop.trace, 700),
         mediaUrl: url(hop.mediaUrl),
         imageId: imageId(hop.imageId)
@@ -116,7 +116,7 @@ function cleanBuiltinStory(input, id) {
     dateLabel: text(moment?.dateLabel, 50),
     period: text(moment?.period, 80),
     beat: text(moment?.beat, 60),
-    engineering: text(moment?.engineering, 700),
+    engineering: text(moment?.engineering, 2000),
     image: /^lectures\/assets\/[A-Za-z0-9._-]+$/.test(moment?.image || '') ? moment.image : '',
     imageAlt: text(moment?.imageAlt, 200),
     sourceLabel: text(moment?.sourceLabel, 80),

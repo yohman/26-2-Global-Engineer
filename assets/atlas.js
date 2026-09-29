@@ -530,7 +530,7 @@
     ui.editorForm.reset();
     form.title.value=activeRoute.title||'';form.alias.value=activeRoute.alias||'';
     form.year.value=moment.year||'';form.place.value=moment.place||moment.country||'';form.country.value=moment.country||activeRoute.origin.country||'Japan';
-    form.story.value=moment.engineering||moment.reason||'';form.trace.value=moment.trace||'';
+    form.story.value=[moment.engineering,moment.reason,moment.trace].filter((part,index,all)=>part&&all.indexOf(part)===index).join('\n\n');
     form.mediaUrl.value=moment.mediaUrl||'';
     form.markerColor.value=markerColor(activeRoute.marker?.color);
     form.markerSymbol.value=activeRoute.marker?.symbol||'';
@@ -556,9 +556,9 @@
       if(!feature){ui.editorStatus.textContent=t('Choose a country from the list.');return}
       moment.country=feature.properties.name;moment.point=pointFor(feature);
     }
-    if(activeMoment)moment.reason=storyText;
+    if(activeMoment){moment.reason=storyText;moment.engineering=''}
     else moment.engineering=storyText;
-    moment.trace=form.trace.value.trim();moment.mediaUrl=safeUrl(mediaUrl);
+    moment.trace='';moment.mediaUrl=safeUrl(mediaUrl);
     try{
       if(form.image.files[0]){ui.editorStatus.textContent=t('Preparing image…');moment.imageId=await uploadImage(draft.id,form.image.files[0])}
     }catch(error){ui.editorStatus.textContent=t(error.message);return}
