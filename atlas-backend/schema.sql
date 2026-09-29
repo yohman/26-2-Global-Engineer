@@ -30,3 +30,8 @@ CREATE TABLE IF NOT EXISTS story_images (
   data BLOB NOT NULL,
   created_at TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS hidden_builtins (
+  id TEXT PRIMARY KEY,
+  hidden_at TEXT NOT NULL
+);

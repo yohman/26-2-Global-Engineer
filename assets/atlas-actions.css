@@ -1,0 +1,52 @@
+.atlas-my-actions .atlas-icon-button,
+.atlas-filmstrip-actions .atlas-icon-button,
+.atlas-marker-actions .atlas-icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: .3rem;
+  flex: none;
+}
+
+.atlas-icon-button svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.atlas-my-actions .atlas-action--delete,
+.atlas-filmstrip-actions .atlas-action--delete,
+.atlas-marker-actions .atlas-action--delete {
+  color: var(--red);
+}
+
+.atlas-my-actions .atlas-action--restore {
+  color: var(--blue);
+}
+
+.atlas-my-actions .atlas-action--delete:hover,
+.atlas-filmstrip-actions .atlas-action--delete:hover,
+.atlas-marker-actions .atlas-action--delete:hover {
+  color: var(--white);
+}
+
+.atlas-frame-expand {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#atlas-filmstrip-play,
+#atlas-filmstrip-close {
+  min-width: 2rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+@media (max-width: 760px) {
+  .atlas-filmstrip-actions { gap: .25rem; }
+}

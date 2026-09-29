@@ -7,6 +7,7 @@ const storyIdPattern = /^journey-[A-Za-z0-9-]{8,70}$/;
 const imageIdPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const imageLimit = 700000;
 const instructorEmail = 'ykawano@reitaku-u.co.jp';
+const builtinIds = new Set(['yoh-draft', 'simulated-mina']);
 
 function cors(origin) {
   return allowedOrigins.has(origin) ? {
@@ -136,6 +137,7 @@ async function prepareTables(db) {
   await db.prepare('CREATE TABLE IF NOT EXISTS sessions (token_hash TEXT PRIMARY KEY, email TEXT NOT NULL, expires_at TEXT NOT NULL)').run();
   await db.prepare('CREATE TABLE IF NOT EXISTS admin_sessions (token_hash TEXT PRIMARY KEY, email TEXT NOT NULL, expires_at TEXT NOT NULL)').run();
   await db.prepare('CREATE TABLE IF NOT EXISTS story_images (id TEXT PRIMARY KEY, story_id TEXT NOT NULL, owner_email TEXT NOT NULL, mime TEXT NOT NULL, data BLOB NOT NULL, created_at TEXT NOT NULL)').run();
+  await db.prepare('CREATE TABLE IF NOT EXISTS hidden_builtins (id TEXT PRIMARY KEY, hidden_at TEXT NOT NULL)').run();
 }
 
 async function sessionFor(request, env) {
@@ -191,8 +193,25 @@ export default {
 
     if (path === '/stories' && request.method === 'GET') {
       const session = bearer(request) ? await sessionFor(request, env) : null;
+      await env.DB.prepare('CREATE TABLE IF NOT EXISTS hidden_builtins (id TEXT PRIMARY KEY, hidden_at TEXT NOT NULL)').run();
       const rows = await env.DB.prepare('SELECT record, revision, updated_at FROM stories ORDER BY updated_at DESC LIMIT 20').all();
-      return json({ stories: rows.results.map(row => publicStory(row, session)) }, 200, origin);
+      const hidden = await env.DB.prepare('SELECT id FROM hidden_builtins').all();
+      return json({ stories: rows.results.map(row => publicStory(row, session)), hiddenBuiltins: hidden.results.map(row => row.id) }, 200, origin);
+    }
+
+    const builtinMatch = /^\/builtins\/([A-Za-z0-9-]+)$/.exec(path);
+    if (builtinMatch && ['DELETE', 'PUT'].includes(request.method)) {
+      if (!builtinIds.has(builtinMatch[1])) return json({ error: 'Journey not found' }, 404, origin);
+      const session = await sessionFor(request, env);
+      if (!session) return json({ error: 'Sign in again' }, 401, origin);
+      if (!session.admin) return json({ error: 'Instructor access required' }, 403, origin);
+      await env.DB.prepare('CREATE TABLE IF NOT EXISTS hidden_builtins (id TEXT PRIMARY KEY, hidden_at TEXT NOT NULL)').run();
+      if (request.method === 'DELETE') {
+        await env.DB.prepare('INSERT OR REPLACE INTO hidden_builtins (id, hidden_at) VALUES (?, ?)').bind(builtinMatch[1], new Date().toISOString()).run();
+      } else {
+        await env.DB.prepare('DELETE FROM hidden_builtins WHERE id = ?').bind(builtinMatch[1]).run();
+      }
+      return json({ ok: true }, 200, origin);
     }
 
     if (path === '/session' && request.method === 'GET') {

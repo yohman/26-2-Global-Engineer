@@ -10,7 +10,7 @@ const story = {
 };
 
 function database() {
-  const authors = new Map(), sessions = new Map(), adminSessions = new Map(), stories = new Map(), images = new Map();
+  const authors = new Map(), sessions = new Map(), adminSessions = new Map(), stories = new Map(), images = new Map(), hiddenBuiltins = new Map();
   return {
     authors, stories,
     prepare(query) {
@@ -30,6 +30,7 @@ function database() {
           return null;
         },
         async all() {
+          if (query.includes('FROM hidden_builtins')) return { results: [...hiddenBuiltins.keys()].map(id => ({ id })) };
           return { results: [...stories.values()] };
         },
         async run() {
@@ -39,6 +40,8 @@ function database() {
           if (query.startsWith('INSERT INTO admin_sessions')) { adminSessions.set(args[0], { email: args[1], expires_at: args[2] }); return { meta: { changes: 1 } }; }
           if (query.startsWith('DELETE FROM sessions')) { sessions.delete(args[0]); return { meta: { changes: 1 } }; }
           if (query.startsWith('DELETE FROM admin_sessions')) { adminSessions.delete(args[0]); return { meta: { changes: 1 } }; }
+          if (query.startsWith('INSERT OR REPLACE INTO hidden_builtins')) { hiddenBuiltins.set(args[0], args[1]); return { meta: { changes: 1 } }; }
+          if (query.startsWith('DELETE FROM hidden_builtins')) { hiddenBuiltins.delete(args[0]); return { meta: { changes: 1 } }; }
           if (query.startsWith('INSERT INTO story_images')) { images.set(args[0], { id: args[0], story_id: args[1], owner_email: args[2], mime: args[3], data: [...args[4]] }); return { meta: { changes: 1 } }; }
           if (query.startsWith('DELETE FROM story_images')) {
             for (const [id, image] of images) if (image.story_id === args[0]) images.delete(id);
@@ -202,4 +205,27 @@ test('instructor access stays unavailable until a distinct secret is configured'
   assert.equal(response.status, 503);
   response = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'class-secret' }), { DB: db, CLASS_PASSWORD: 'class-secret', ADMIN_PASSWORD: 'class-secret' });
   assert.equal(response.status, 503);
+});
+
+test('only instructor can hide and restore bundled journeys', async () => {
+  const db = database(), env = { DB: db, CLASS_PASSWORD: 'class-secret', ADMIN_PASSWORD: 'different-instructor-secret' };
+  const student = await login(db);
+  const adminResponse = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'different-instructor-secret' }), env);
+  const admin = await adminResponse.json();
+  let response = await worker.fetch(request('/builtins/yoh-draft', 'DELETE', undefined, student.data.token), env);
+  assert.equal(response.status, 403);
+  response = await worker.fetch(request('/builtins/yoh-draft', 'DELETE', undefined, admin.token), env);
+  assert.equal(response.status, 200);
+  response = await worker.fetch(request('/stories'), env);
+  assert.deepEqual((await response.json()).hiddenBuiltins, ['yoh-draft']);
+  response = await worker.fetch(request('/builtins/simulated-mina', 'DELETE', undefined, admin.token), env);
+  assert.equal(response.status, 200);
+  response = await worker.fetch(request('/stories'), env);
+  assert.deepEqual((await response.json()).hiddenBuiltins, ['yoh-draft', 'simulated-mina']);
+  response = await worker.fetch(request('/builtins/yoh-draft', 'PUT', undefined, admin.token), env);
+  assert.equal(response.status, 200);
+  response = await worker.fetch(request('/stories'), env);
+  assert.deepEqual((await response.json()).hiddenBuiltins, ['simulated-mina']);
+  response = await worker.fetch(request('/builtins/unknown-story', 'DELETE', undefined, admin.token), env);
+  assert.equal(response.status, 404);
 });
