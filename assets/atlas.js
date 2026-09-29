@@ -28,6 +28,7 @@
   let map,features=[],stage='studio',origin=null,selected=null,hover='',journey=null,sharedStories=[],hiddenBuiltins=[],builtinOverrides={},markers=[],returnStage='studio';
   let activeRoute=null,activeMoment=0,playTimer=null,routeCamera=null,routeAnimation=null,studioCamera=null,studioReturnStage='studio';
   let session=readSession(),authorOriginPoint=[...japan],authorOriginCountry='Japan',authorDraft=null,connectionFromIndex=0,studioWorldView=false;
+  let editorMoving=false,editorPickPoint=null,editorPickCountry='',pickCandidate=null,pickMarker=null;
   function readJourney(){try{const v=JSON.parse(localStorage.getItem(storageKey)||'null');return v&&Array.isArray(v.hops)&&v.origin?v:null}catch{return null}}
   function writeJourney(v){try{localStorage.setItem(storageKey,JSON.stringify(v));return true}catch{return false}}
   function readSession(){try{const value=JSON.parse(sessionStorage.getItem(sessionKey)||'null');return value?.token&&Date.parse(value.expiresAt)>Date.now()?value:null}catch{return null}}
@@ -527,6 +528,7 @@
     if(!canEdit(activeRoute))return;
     const moment=activeMoment?activeRoute.hops[activeMoment-1]:activeRoute.origin;
     const form=ui.editorForm.elements;
+    editorPickPoint=null;editorPickCountry='';
     ui.editorForm.reset();
     form.title.value=activeRoute.title||'';form.alias.value=activeRoute.alias||'';
     form.year.value=moment.year||'';form.place.value=moment.place||moment.country||'';form.country.value=moment.country||activeRoute.origin.country||'Japan';
@@ -534,7 +536,40 @@
     form.mediaUrl.value=moment.mediaUrl||'';
     form.markerColor.value=markerColor(activeRoute.marker?.color);
     form.markerSymbol.value=activeRoute.marker?.symbol||'';
+    $('atlas-editor-location').textContent=locationText(moment.point,moment.country);
     ui.editorStatus.textContent='';ui.editor.showModal();form.story.focus();
+  }
+  function locationText(point,country){return `${t(country||'Japan')} · ${point[1].toFixed(3)}°, ${point[0].toFixed(3)}°`}
+  function finishMapPick(keep){
+    if(keep&&pickCandidate){
+      editorPickPoint=pickCandidate.point;editorPickCountry=pickCandidate.country;
+      ui.editorForm.elements.country.value=editorPickCountry;
+      $('atlas-editor-location').textContent=locationText(editorPickPoint,editorPickCountry);
+    }
+    editorMoving=false;pickCandidate=null;pickMarker?.remove();pickMarker=null;
+    $('atlas-map-pick').hidden=true;document.querySelector('.atlas-stage').classList.remove('is-picking');
+    ui.filmstrip.hidden=false;
+    ui.editor.showModal();
+  }
+  function beginMapPick(){
+    if(!canEdit(activeRoute)||!map)return;
+    editorMoving=true;pickCandidate=null;pickMarker?.remove();pickMarker=null;
+    $('atlas-map-pick-status').textContent=t('Zoom and pan to find the right place.');
+    $('atlas-map-pick-use').disabled=true;
+    ui.editor.close();ui.filmstrip.hidden=true;
+    document.querySelector('.atlas-stage').classList.add('is-picking');
+    $('atlas-map-pick').hidden=false;
+  }
+  function chooseMapPick(event){
+    if(!editorMoving)return;
+    const country=map.queryRenderedFeatures(event.point,{layers:['atlas-hit']})[0]?.properties.name||'At sea';
+    const lng=((event.lngLat.lng+180)%360+360)%360-180;
+    const point=[lng,event.lngLat.lat];
+    pickCandidate={point,country};
+    pickMarker?.remove();
+    pickMarker=new maplibregl.Marker({element:node('div','atlas-pick-marker'),anchor:'center'}).setLngLat(point).addTo(map);
+    $('atlas-map-pick-status').textContent=locationText(point,country);
+    $('atlas-map-pick-use').disabled=false;
   }
   async function saveEdit(event){
     event.preventDefault();
@@ -551,7 +586,9 @@
     const moment=activeMoment?draft.hops[activeMoment-1]:draft.origin;
     moment.place=place;moment.year=year;
     const newCountry=form.country.value.trim();
-    if(newCountry&&newCountry!==moment.country){
+    if(editorPickPoint&&newCountry===editorPickCountry){
+      moment.country=newCountry;moment.point=editorPickPoint;
+    }else if(newCountry&&newCountry!==moment.country){
       const feature=features.find(item=>item.properties.name.toLowerCase()===newCountry.toLowerCase());
       if(!feature){ui.editorStatus.textContent=t('Choose a country from the list.');return}
       moment.country=feature.properties.name;moment.point=pointFor(feature);
@@ -566,7 +603,7 @@
     const result=await publishStory(draft);
     if(!result.ok){ui.editorStatus.textContent=t(result.error);return}
     activeRoute=draft;
-    ui.editor.close();buildFilmstrip(draft);routeCamera=journeyCamera(draft);renderRoutes();setActiveMoment(activeMoment,false);
+    ui.editor.close();editorPickPoint=null;editorPickCountry='';buildFilmstrip(draft);routeCamera=journeyCamera(draft);renderRoutes();setActiveMoment(activeMoment,false);
     if(routeCamera)map.easeTo({...routeCamera,duration:750});
   }
   function addConnectionToRoute(){
@@ -683,6 +720,7 @@
           if(stage==='origin'&&(name==='Japan'||ui.originForm.elements.anywhere.checked))chooseOriginPoint([event.lngLat.lng,event.lngLat.lat],name);
           else if(['choose','selected'].includes(stage))useCountry(feature,[event.lngLat.lng,event.lngLat.lat]);
         });
+        map.on('click',chooseMapPick);
         await restoreSession();await loadSharedStories();
         showStudio();
         if(window.location.hash==='#yoh'&&!hiddenBuiltins.includes(yohStory.id))showJourney(builtinRoute('yoh-draft'));
@@ -732,11 +770,21 @@
   ui.editorForm.addEventListener('submit',saveEdit);
   $('atlas-editor-cancel').addEventListener('click',()=>ui.editor.close());
   $('atlas-editor-discard').addEventListener('click',()=>ui.editor.close());
+  $('atlas-editor-move').addEventListener('click',beginMapPick);
+  $('atlas-map-pick-cancel').addEventListener('click',()=>finishMapPick(false));
+  $('atlas-map-pick-use').addEventListener('click',()=>finishMapPick(true));
+  ui.editorForm.elements.country.addEventListener('input',()=>{
+    if(editorPickPoint&&ui.editorForm.elements.country.value.trim()!==editorPickCountry){
+      editorPickPoint=null;editorPickCountry='';
+      $('atlas-editor-location').textContent=t('Country center will be used.');
+    }
+  });
   ui.filmstripStudio.addEventListener('click',showStudio);
   ui.filmstripPlay.addEventListener('click',playJourney);
   ui.filmstripPrev.addEventListener('click',()=>{stopPlayback();setActiveMoment(activeMoment-1,true)});
   ui.filmstripNext.addEventListener('click',()=>{stopPlayback();setActiveMoment(activeMoment+1,true)});
   window.addEventListener('keydown',event=>{
+    if(editorMoving&&event.key==='Escape'){event.preventDefault();finishMapPick(false);return}
     if(stage!=='demo'||!['ArrowLeft','ArrowRight'].includes(event.key)||event.altKey||event.ctrlKey||event.metaKey)return;
     if(ui.editor.open||ui.access.open||$('atlas-branch').open||$('atlas-card-detail').open)return;
     if(event.target.closest?.('input,textarea,select,[contenteditable="true"]'))return;
