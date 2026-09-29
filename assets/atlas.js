@@ -161,6 +161,23 @@
     return button;
   }
   function pointFor(feature){const coords=[];function visit(v){if(!Array.isArray(v))return;if(typeof v[0]==='number')coords.push(v);else v.forEach(visit)}visit(feature.geometry.coordinates);if(!coords.length)return[0,0];return[(Math.min(...coords.map(p=>p[0]))+Math.max(...coords.map(p=>p[0])))/2,(Math.min(...coords.map(p=>p[1]))+Math.max(...coords.map(p=>p[1])))/2]}
+  function unwrapRussia(feature){
+    if(feature.properties.name!=='Russia')return feature;
+    // Keep rings crossing the date line continuous instead of drawing edges across Eurasia.
+    const coordinates=feature.geometry.coordinates.map(polygon=>polygon.map(ring=>{
+      let offset=0,previous=ring[0][0];
+      return ring.map(([longitude,latitude],index)=>{
+        if(index){
+          const delta=longitude+offset-previous;
+          if(delta>180)offset-=360;
+          else if(delta< -180)offset+=360;
+        }
+        previous=longitude+offset;
+        return [previous,latitude];
+      });
+    }));
+    return {...feature,geometry:{...feature.geometry,coordinates}};
+  }
   function setCountryName(name,active=false){ui.name.textContent=t(name||'Japan');ui.name.classList.toggle('is-hover',active)}
   function setStage(next){
     stage=next;
@@ -747,7 +764,7 @@
         const response=await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
         if(!response.ok)throw new Error('Country boundaries unavailable');
         const topology=await response.json();
-        features=topojson.feature(topology,topology.objects.countries).features;
+        features=topojson.feature(topology,topology.objects.countries).features.map(unwrapRussia);
         installAtlasLayers();
         features.map(f=>f.properties.name).sort().forEach(name=>{const option=node('option');option.value=name;ui.options.append(option)});
         map.on('mousemove','atlas-hit',event=>{
