@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="assets/atlas.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-journey.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-filmstrip.css?v=move-1"><link rel="stylesheet" href="assets/atlas-overview.css?v=map-7"><link rel="stylesheet" href="assets/atlas-form.css?v=form-1"><link rel="stylesheet" href="assets/atlas-actions.css?v=controls-2">
+  <link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="assets/atlas.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-journey.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-filmstrip.css?v=move-1"><link rel="stylesheet" href="assets/atlas-overview.css?v=map-7"><link rel="stylesheet" href="assets/atlas-form.css?v=form-1"><link rel="stylesheet" href="assets/atlas-actions.css?v=controls-2"><link rel="stylesheet" href="assets/atlas-basemap.css?v=basemaps-1">
 </head>
 <body class="atlas-page"><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><a class="wordmark" href="index.html"><span>2026-2</span> Global Engineer</a><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" class="site-nav" aria-label="Course navigation"><a href="agenda.html">Agenda</a><a href="groups.html">Groups</a><a href="make.html">MAKE</a><a href="resources.html">Read / View</a><a href="guests.html">Guests</a><a href="exhibition.html">Exhibition</a></nav></header>
 <main id="main" class="atlas-stage">
   <div id="atlas-map" role="application" aria-label="Class journeys across the world"></div>
   <div class="atlas-topline"><span>WEEK 01 / A STUDIO ATLAS</span><span>JAPAN ↗ THE WORLD</span></div>
-  <div class="atlas-map-controls"><button type="button" id="atlas-world">Explore the world ↗</button><label class="atlas-find"><span class="sr-only">Find a country</span><input id="atlas-country-search" list="atlas-country-options" placeholder="Find a country" autocomplete="off"></label><datalist id="atlas-country-options"></datalist></div>
+  <div class="atlas-map-controls"><button type="button" id="atlas-world">Explore the world ↗</button><label class="atlas-find"><span class="sr-only">Find a country</span><input id="atlas-country-search" list="atlas-country-options" placeholder="Find a country" autocomplete="off"></label><datalist id="atlas-country-options"></datalist><label class="atlas-basemap"><span class="sr-only">Basemap</span><select id="atlas-basemap" aria-label="Basemap"><option value="streets">Streets</option><option value="light">Light</option><option value="dark">Dark</option><option value="imagery">Esri World Imagery</option><option value="nightlights">Nightlights · 2012</option></select></label></div>
   <div class="atlas-country-name" id="atlas-country-name" aria-live="off">Japan</div>
 
   <section class="atlas-sheet atlas-sheet--welcome" id="atlas-sheet" aria-live="polite" hidden>
@@ -79,7 +79,7 @@
     <span id="atlas-map-pick-status" role="status">Zoom and pan to find the right place.</span>
     <div><button type="button" id="atlas-map-pick-cancel">Cancel</button><button class="atlas-primary" type="button" id="atlas-map-pick-use" disabled>Use this place</button></div>
   </div>
-  <div class="atlas-map-credit">© OpenStreetMap contributors · © CARTO · Country boundaries: Natural Earth via world-atlas</div>
+  <div class="atlas-map-credit" id="atlas-map-credit">© OpenStreetMap contributors · © CARTO · Country boundaries: Natural Earth via world-atlas</div>
 </main>
 
 <dialog class="atlas-access" id="atlas-access" aria-labelledby="atlas-access-title"><form id="atlas-access-form" novalidate><span class="atlas-filmstrip-kicker" id="atlas-access-kicker">CLASS ACCESS</span><h2 id="atlas-access-title">Add my journey</h2><p id="atlas-access-note">Use the class password and your email to enter author mode. Your email is saved privately; it is not shown on the map.</p><label>Your email<input name="email" type="email" required autocomplete="email"></label><label><span id="atlas-password-label">Class password</span><input name="password" type="password" required autocomplete="off"></label><p id="atlas-access-status" role="status"></p><div class="atlas-editor-actions"><button type="button" id="atlas-access-cancel">Cancel</button><button class="atlas-primary" type="submit">Begin</button></div></form></dialog>
@@ -105,5 +105,5 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<script src="assets/i18n.js?v=move-1"></script><script src="assets/site.js?v=instructor-6"></script><script src="assets/atlas-config.js?v=instructor-6"></script><script src="assets/atlas.js?v=move-1"></script>
+<script src="assets/i18n.js?v=basemaps-1"></script><script src="assets/site.js?v=instructor-6"></script><script src="assets/atlas-config.js?v=instructor-6"></script><script src="assets/atlas.js?v=basemaps-1"></script>
 </body></html>

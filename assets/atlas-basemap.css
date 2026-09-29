@@ -1,0 +1,24 @@
+.atlas-basemap select {
+  height: 40px;
+  max-width: 175px;
+  padding: 0 .6rem;
+  border: 1px solid #a5a298;
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 600 .72rem var(--sans);
+  cursor: pointer;
+}
+
+.atlas-map-controls .atlas-basemap[hidden],
+.atlas-map-controls .atlas-find[hidden] { display: none; }
+
+.atlas-map-credit {
+  max-width: min(530px, 85vw);
+  text-align: right;
+  line-height: 1.3;
+}
+
+@media (max-width: 760px) {
+  .atlas-basemap select { max-width: 145px; font-size: .65rem; }
+}

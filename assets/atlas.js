@@ -7,6 +7,16 @@
   const t = value => document.documentElement.lang === 'ja' ? (window.COURSE_TRANSLATIONS?.ja?.[String(value)] || value) : value;
   const storageKey = 'global-engineer-atlas-journey-v2';
   const sessionKey = 'global-engineer-atlas-session-v1';
+  const basemapKey = 'global-engineer-atlas-basemap-v1';
+  const rasterStyle = (tile,attribution,maxzoom=18) => ({version:8,sources:{background:{type:'raster',tiles:[tile],tileSize:256,maxzoom,attribution}},layers:[{id:'background-raster',type:'raster',source:'background'}]});
+  const basemaps = {
+    streets:{style:'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',credit:'© OpenStreetMap contributors · © CARTO'},
+    light:{style:'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',credit:'© OpenStreetMap contributors · © CARTO'},
+    dark:{style:'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',credit:'© OpenStreetMap contributors · © CARTO'},
+    imagery:{style:rasterStyle('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}','Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community'),credit:'Esri World Imagery · Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community'},
+    nightlights:{style:rasterStyle('https://gibs.earthdata.nasa.gov/wmts/epsg3857/std/VIIRS_CityLights_2012/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg','NASA EOSDIS GIBS · VIIRS City Lights 2012',8),credit:'NASA EOSDIS GIBS · VIIRS City Lights 2012 (not live)'}
+  };
+  const readBasemap = () => {try{const value=localStorage.getItem(basemapKey);return Object.hasOwn(basemaps,value)?value:'streets'}catch{return 'streets'}};
   const japan = [139.967,35.862];
   const sample = { id:'simulated-mina', alias:'Mina', simulated:true, marker:{color:'#20567c',symbol:'M'}, origin:{place:'Kashiwa, Japan',point:japan,beat:'IDEA',engineering:'Metro = tunnels + signals + power + stations + access. One system.'}, hops:[
     {country:'Philippines',point:[121.04,14.60],year:2018,beat:'DESIGN',lens:'Infrastructure',engineering:'A planned 25-km first subway must thread beneath a congested city.',reason:'Who gives up land to make it possible?',trace:'The 2018 Japanese loan supported the planned first subway. Later construction and resettlement are part of the story, too.',mediaUrl:'https://www.jica.go.jp/oda/project/PH-P267/',costUrl:'https://www.jica.go.jp/english/about/policy/environment/objection/philippines_02.html'},
@@ -25,7 +35,7 @@
     {country:'Japan',place:'Japan · the 2011 disasters',point:[141.0,38.2],year:2011,beat:'WITNESS',engineering:'I return to witness the disasters in Japan and the lives they unsettle.',reason:'How do people live with the consequences of engineered systems and failed assumptions?'},
     {country:'Japan',place:'Fukushima · Japan',point:[140.47,37.76],dateLabel:'AFTER 2011',beat:'LISTEN',engineering:'In Fukushima, Human Error documents the narratives of people affected by the nuclear disaster.',reason:'My role is to listen and carry those stories beyond Japan.',image:'lectures/assets/human-error-still.png',imageAlt:'A still from Human Error showing a person descending an outdoor staircase.',mediaUrl:'https://filmfreeway.com/HumanError',sourceLabel:'Human Error ↗'}
   ]};
-  let map,features=[],stage='studio',origin=null,selected=null,hover='',journey=null,sharedStories=[],hiddenBuiltins=[],builtinOverrides={},markers=[],returnStage='studio';
+  let map,features=[],stage='studio',origin=null,selected=null,hover='',journey=null,sharedStories=[],hiddenBuiltins=[],builtinOverrides={},markers=[],returnStage='studio',basemapId=readBasemap();
   let activeRoute=null,activeMoment=0,playTimer=null,routeCamera=null,routeAnimation=null,studioCamera=null,studioReturnStage='studio';
   let session=readSession(),authorOriginPoint=[...japan],authorOriginCountry='Japan',authorDraft=null,connectionFromIndex=0,studioWorldView=false;
   let editorMoving=false,editorPickPoint=null,editorPickCountry='',pickCandidate=null,pickMarker=null;
@@ -164,13 +174,13 @@
     ui.chooseMessage.hidden=next!=='choose';
     $('atlas-connection-source').hidden=next!=='choose';
     ui.chooseActions.hidden=next!=='choose';
-    ui.mapControls.hidden=['origin','demo'].includes(next);
+    ui.mapControls.hidden=false;
     ui.world.hidden=next!=='studio';
-    ui.search.closest('.atlas-find').hidden=next==='studio';
+    ui.search.closest('.atlas-find').hidden=['origin','demo','studio'].includes(next);
     ui.sheet.classList.toggle('atlas-sheet--welcome',!ui.welcome.hidden);
     ui.search.disabled=['origin','demo','studio'].includes(next);
     if(map?.getLayer('atlas-muted')){
-      const visibility=next==='studio'||(next==='demo'&&activeRoute?.id==='yoh-draft')||(next==='origin'&&ui.originForm.elements.anywhere.checked)?'none':'visible';
+      const visibility=['imagery','nightlights'].includes(basemapId)||next==='studio'||(next==='demo'&&activeRoute?.id==='yoh-draft')||(next==='origin'&&ui.originForm.elements.anywhere.checked)?'none':'visible';
       map.setLayoutProperty('atlas-muted','visibility',visibility);
       map.setLayoutProperty('atlas-outline','visibility',visibility);
     }
@@ -676,31 +686,49 @@
     try{if(isBuiltin(route))await setBuiltinVisible(route,false);else{await deleteStory(route);await loadSharedStories();showStudio()}}
     catch(error){window.alert(t(error.message))}
   }
+  function installAtlasLayers(){
+    if(!features.length||map.getSource('atlas-countries'))return;
+    map.addSource('atlas-countries',{type:'geojson',data:{type:'FeatureCollection',features}});
+    const firstLabel=map.getStyle().layers.find(layer=>layer.type==='symbol')?.id;
+    function addFill(id,paint,filter){
+      const layer={id,type:'fill',source:'atlas-countries',paint};
+      if(filter)layer.filter=filter;
+      map.addLayer(layer,firstLabel);
+    }
+    addFill('atlas-muted',{'fill-color':'#d9d8d0','fill-opacity':.72});
+    addFill('atlas-japan',{'fill-color':'#d74b3f','fill-opacity':.85},['==',['get','name'],'Japan']);
+    addFill('atlas-hover',{'fill-color':'#f4c745','fill-opacity':.9},['==',['get','name'],'']);
+    addFill('atlas-selected-fill',{'fill-color':'#20567c','fill-opacity':.86},['==',['get','name'],'']);
+    map.addLayer({id:'atlas-outline',type:'line',source:'atlas-countries',paint:{'line-color':'#f7f4ed','line-width':.6,'line-opacity':.65}},firstLabel);
+    map.addSource('atlas-reveal-route',{type:'geojson',data:{type:'Feature',geometry:{type:'LineString',coordinates:[]},properties:{}}});
+    map.addLayer({id:'atlas-reveal-route-line',type:'line',source:'atlas-reveal-route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#b73e32','line-width':4,'line-dasharray':[.15,1.3],'line-opacity':.96}},firstLabel);
+    map.addLayer({id:'atlas-hit',type:'fill',source:'atlas-countries',paint:{'fill-color':'#000000','fill-opacity':.01}});
+    const raster=['imagery','nightlights'].includes(basemapId);
+    map.setPaintProperty('atlas-muted','fill-color',basemapId==='dark'?'#172934':'#d9d8d0');
+    map.setPaintProperty('atlas-muted','fill-opacity',basemapId==='dark'?.38:.72);
+    map.setPaintProperty('atlas-japan','fill-opacity',raster?.24:.85);
+    map.setPaintProperty('atlas-hover','fill-opacity',raster?.42:.9);
+    map.setPaintProperty('atlas-selected-fill','fill-opacity',raster?.42:.86);
+    setStage(stage);
+    if(stage==='selected'&&selected)map.setFilter('atlas-selected-fill',['==',['get','name'],selected.name]);
+    if(stage==='demo'&&activeRoute){setActiveMoment(activeMoment,false);if(activeMoment)revealConnection(sourceMoment(activeRoute,activeMoment),frameMoment(activeRoute,activeMoment))}
+    if(editorMoving)ui.filmstrip.hidden=true;
+    $('atlas-basemap').disabled=false;
+  }
   async function initMap(){
     if(!window.maplibregl||!window.topojson){document.querySelector('.atlas-studio-note').textContent=t('Map unavailable. Please reload when connected.');return}
-    map=new maplibregl.Map({container:ui.map,style:'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',center:[137,37],zoom:2.55,minZoom:.7,maxZoom:8,attributionControl:false});
+    $('atlas-basemap').value=basemapId;
+    $('atlas-map-credit').textContent=`${basemaps[basemapId].credit} · Country boundaries: Natural Earth via world-atlas`;
+    map=new maplibregl.Map({container:ui.map,style:basemaps[basemapId].style,center:[137,37],zoom:2.55,minZoom:.7,maxZoom:8,attributionControl:false});
     map.addControl(new maplibregl.NavigationControl({showCompass:false}),'bottom-right');
+    map.on('style.load',installAtlasLayers);
     map.on('load',async()=>{
       try{
         const response=await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
         if(!response.ok)throw new Error('Country boundaries unavailable');
         const topology=await response.json();
         features=topojson.feature(topology,topology.objects.countries).features;
-        map.addSource('atlas-countries',{type:'geojson',data:{type:'FeatureCollection',features}});
-        const firstLabel=map.getStyle().layers.find(layer=>layer.type==='symbol')?.id;
-        function addFill(id,paint,filter){
-          const layer={id,type:'fill',source:'atlas-countries',paint};
-          if(filter)layer.filter=filter;
-          map.addLayer(layer,firstLabel);
-        }
-        addFill('atlas-muted',{'fill-color':'#d9d8d0','fill-opacity':.72});
-        addFill('atlas-japan',{'fill-color':'#d74b3f','fill-opacity':.85},['==',['get','name'],'Japan']);
-        addFill('atlas-hover',{'fill-color':'#f4c745','fill-opacity':.9},['==',['get','name'],'']);
-        addFill('atlas-selected-fill',{'fill-color':'#20567c','fill-opacity':.86},['==',['get','name'],'']);
-        map.addLayer({id:'atlas-outline',type:'line',source:'atlas-countries',paint:{'line-color':'#f7f4ed','line-width':.6,'line-opacity':.65}},firstLabel);
-        map.addSource('atlas-reveal-route',{type:'geojson',data:{type:'Feature',geometry:{type:'LineString',coordinates:[]},properties:{}}});
-        map.addLayer({id:'atlas-reveal-route-line',type:'line',source:'atlas-reveal-route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#b73e32','line-width':4,'line-dasharray':[.15,1.3],'line-opacity':.96}},firstLabel);
-        map.addLayer({id:'atlas-hit',type:'fill',source:'atlas-countries',paint:{'fill-color':'#000000','fill-opacity':.01}});
+        installAtlasLayers();
         features.map(f=>f.properties.name).sort().forEach(name=>{const option=node('option');option.value=name;ui.options.append(option)});
         map.on('mousemove','atlas-hit',event=>{
           const name=event.features[0]?.properties.name;
@@ -729,6 +757,15 @@
     });
   }
   function cancelAuthor(){authorDraft=null;selected=null;origin=null;journey=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);showStudio()}
+  $('atlas-basemap').addEventListener('change',event=>{
+    const next=event.target.value;
+    if(!map||!Object.hasOwn(basemaps,next)||next===basemapId)return;
+    clearRouteLine();basemapId=next;
+    try{localStorage.setItem(basemapKey,next)}catch{}
+    $('atlas-map-credit').textContent=`${basemaps[next].credit} · Country boundaries: Natural Earth via world-atlas`;
+    event.target.disabled=true;
+    map.setStyle(basemaps[next].style,{diff:false});
+  });
   ui.world.addEventListener('click',()=>{studioWorldView=true;renderStudioMarkers();map?.fitBounds([[-178,-58],[178,78]],{padding:{top:70,bottom:Math.min(300,ui.studio.getBoundingClientRect().height+35),left:40,right:40},duration:850})});
   ui.search.addEventListener('change',()=>{const feature=features.find(f=>f.properties.name.toLowerCase()===ui.search.value.trim().toLowerCase());if(feature){useCountry(feature);ui.search.value=''}});
   ui.addJourney.addEventListener('click',()=>{
@@ -796,6 +833,7 @@
   iconButton($('atlas-filmstrip-delete'),'delete','Delete marker');
   iconButton(ui.filmstripAdd,'add','Add connection');
   function localizeAttributes(){
+    $('atlas-basemap').setAttribute('aria-label',t('Basemap'));
     ui.search.placeholder=t('Find a country');
     ui.originForm.elements.place.placeholder=t('A town, campus, kitchen, station…');
     ui.originForm.elements.alias.placeholder=t('How should we identify your story?');
