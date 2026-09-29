@@ -1,7 +1,7 @@
 ---
 week: 9
 date: 2026-11-24
-publish_at: 2026-11-24T09:00:00+09:00
+publish_at: 2026-11-23T00:00:00+09:00
 title: 国際機関・GIS・人道支援
 subtitle: International Organizations, GIS & Humanitarian Work
 kind: Guest 04

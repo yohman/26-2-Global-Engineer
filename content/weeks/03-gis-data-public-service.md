@@ -1,7 +1,7 @@
 ---
 week: 3
 date: 2026-10-13
-publish_at: 2026-10-13T09:00:00+09:00
+publish_at: 2026-10-12T00:00:00+09:00
 title: GIS・データ・公共サービス
 subtitle: GIS, Data & Public Service
 kind: Guest 01

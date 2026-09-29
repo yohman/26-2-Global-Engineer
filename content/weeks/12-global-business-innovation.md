@@ -1,7 +1,7 @@
 ---
 week: 12
 date: 2026-12-15
-publish_at: 2026-12-15T09:00:00+09:00
+publish_at: 2026-12-14T00:00:00+09:00
 title: グローバルビジネス・イノベーション
 subtitle: Global Business & Innovation
 kind: Group 05 · student-led

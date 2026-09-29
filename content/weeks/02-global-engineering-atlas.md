@@ -1,7 +1,7 @@
 ---
 week: 2
 date: 2026-10-06
-publish_at: 2026-10-06T09:00:00+09:00
+publish_at: 2026-10-05T00:00:00+09:00
 title: Global Engineering Atlas
 subtitle: Map systems across time and place
 kind: Participatory studio

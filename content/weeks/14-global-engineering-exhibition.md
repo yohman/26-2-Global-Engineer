@@ -1,7 +1,7 @@
 ---
 week: 14
 date: 2027-01-12
-publish_at: 2027-01-12T09:00:00+09:00
+publish_at: 2027-01-11T00:00:00+09:00
 title: Global Engineering Exhibition
 subtitle: Make the argument public
 kind: Exhibition

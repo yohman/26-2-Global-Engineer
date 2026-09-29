@@ -1,7 +1,7 @@
 ---
 week: 8
 date: 2026-11-17
-publish_at: 2026-11-17T09:00:00+09:00
+publish_at: 2026-11-16T00:00:00+09:00
 title: 国際開発・持続可能性
 subtitle: International Development & Sustainability
 kind: Group 03 · student-led

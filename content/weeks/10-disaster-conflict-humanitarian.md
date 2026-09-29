@@ -1,7 +1,7 @@
 ---
 week: 10
 date: 2026-12-01
-publish_at: 2026-12-01T09:00:00+09:00
+publish_at: 2026-11-30T00:00:00+09:00
 title: 災害・紛争・人道支援
 subtitle: Disaster, Conflict & Humanitarian Response
 kind: Group 04 · student-led

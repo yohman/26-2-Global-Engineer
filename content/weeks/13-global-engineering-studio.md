@@ -1,7 +1,7 @@
 ---
 week: 13
 date: 2027-01-05
-publish_at: 2027-01-05T09:00:00+09:00
+publish_at: 2027-01-04T00:00:00+09:00
 title: Global Engineering Studio / Installation Crit
 subtitle: Critique, revise, install
 kind: Studio Crit

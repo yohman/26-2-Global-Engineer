@@ -1,7 +1,7 @@
 ---
 week: 4
 date: 2026-10-20
-publish_at: 2026-10-20T09:00:00+09:00
+publish_at: 2026-10-19T00:00:00+09:00
 title: 人間中心の技術・UI/UX
 subtitle: Human-Centered Technology / UI/UX
 kind: Group 01 · student-led

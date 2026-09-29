@@ -1,7 +1,7 @@
 ---
 week: 11
 date: 2026-12-08
-publish_at: 2026-12-08T09:00:00+09:00
+publish_at: 2026-12-07T00:00:00+09:00
 title: グローバルテクノロジー・イノベーション
 subtitle: Global Technology & Innovation
 kind: Guest 05

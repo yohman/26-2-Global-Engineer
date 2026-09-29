@@ -1,7 +1,7 @@
 ---
 week: 7
 date: 2026-11-10
-publish_at: 2026-11-10T09:00:00+09:00
+publish_at: 2026-11-09T00:00:00+09:00
 title: 国際開発・インフラ・アジア
 subtitle: International Development, Infrastructure & Asia
 kind: Guest 03

@@ -1,7 +1,7 @@
 ---
 week: 5
 date: 2026-10-27
-publish_at: 2026-10-27T09:00:00+09:00
+publish_at: 2026-10-26T00:00:00+09:00
 title: AI・ロボティクス・ケア
 subtitle: AI, Robotics & Care
 kind: Guest 02

@@ -20,7 +20,7 @@
   const guestFiles = ['01-yoko-myers.md', '02-atsushi-koshio.md', '03-ke-seetha-ram.md', '04-kana-kudo.md', '05-alesha-unpingco.md'];
   const list = document.querySelector('#weekly-agenda');
   const mode = document.querySelector('#agenda-mode');
-  const planning = new URLSearchParams(location.search).has('planning') || ['localhost', '127.0.0.1'].includes(location.hostname);
+  const planning = new URLSearchParams(location.search).has('planning');
   const assignments = window.MAKE_SUBMISSIONS_CONFIG?.assignments || {};
   const t = value => document.documentElement.lang === 'ja' ? (window.COURSE_TRANSLATIONS?.ja?.[value] || value) : value;
   const guestImageUrl = value => value && !value.includes('/') ? `content/guests/${encodeURIComponent(value)}` : value;
@@ -177,7 +177,17 @@
   let loadedAgenda = null;
   window.addEventListener('course-language-change', () => { if (loadedAgenda) render(...loadedAgenda); });
   Promise.all([Promise.all(weekFiles.map(load)), Promise.all(guestFiles.map(loadGuest))])
-    .then(([weeks, guestList]) => { loadedAgenda = [weeks, new Map(guestList.map(guest => [guest.id, guest]))]; render(...loadedAgenda); })
+    .then(([weeks, guestList]) => {
+      loadedAgenda = [weeks, new Map(guestList.map(guest => [guest.id, guest]))];
+      render(...loadedAgenda);
+      if (!planning) {
+        const scheduleNextRelease = () => {
+          const nextRelease = weeks.map(week => new Date(week.publish_at).getTime()).filter(time => time > Date.now()).sort((a, b) => a - b)[0];
+          if (nextRelease) setTimeout(() => { render(...loadedAgenda); scheduleNextRelease(); }, Math.min(nextRelease - Date.now() + 1000, 2147483647));
+        };
+        scheduleNextRelease();
+      }
+    })
     .catch(error => { mode.textContent = 'Agenda unavailable'; list.innerHTML = `<p class="agenda-locked"><strong>AGENDA ERROR</strong> · ${escapeHtml(error.message)}</p>`; });
 })();
 </script></body></html>

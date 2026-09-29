@@ -1,7 +1,7 @@
 ---
 week: 6
 date: 2026-11-03
-publish_at: 2026-11-03T09:00:00+09:00
+publish_at: 2026-11-02T00:00:00+09:00
 title: AI・データ・社会
 subtitle: AI, Data & Society
 kind: Group 02 · student-led
