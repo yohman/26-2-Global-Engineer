@@ -1,6 +1,7 @@
 .atlas-my-actions .atlas-icon-button,
 .atlas-filmstrip-actions .atlas-icon-button,
-.atlas-marker-actions .atlas-icon-button {
+.atlas-frame-controls .atlas-icon-button,
+.atlas-card-actions .atlas-icon-button {
   display: inline-grid;
   place-items: center;
   width: 2rem;
@@ -24,8 +25,8 @@
 }
 
 .atlas-my-actions .atlas-action--delete,
-.atlas-filmstrip-actions .atlas-action--delete,
-.atlas-marker-actions .atlas-action--delete {
+.atlas-frame-controls .atlas-action--delete,
+.atlas-card-actions .atlas-action--delete {
   color: var(--red);
 }
 
@@ -34,10 +35,40 @@
 }
 
 .atlas-my-actions .atlas-action--delete:hover,
-.atlas-filmstrip-actions .atlas-action--delete:hover,
-.atlas-marker-actions .atlas-action--delete:hover {
+.atlas-frame-controls .atlas-action--delete:hover,
+.atlas-card-actions .atlas-action--delete:hover {
   color: var(--white);
 }
+
+.atlas-frame-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .12rem;
+  padding: 0 .5rem .25rem;
+}
+
+.atlas-frame-controls button {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  cursor: pointer;
+}
+
+.atlas-frame-controls button:hover,
+.atlas-frame-controls button:focus-visible { background: var(--red); color: var(--white); }
+.atlas-frame.is-active .atlas-frame-controls button { color: var(--yellow); }
+.atlas-frame.is-active .atlas-frame-controls .atlas-action--delete { color: #ff9c91; }
+.atlas-frame.is-active .atlas-frame-controls button:hover,
+.atlas-frame.is-active .atlas-frame-controls button:focus-visible { color: var(--white); }
+
+.atlas-card-actions { display: flex; align-items: center; gap: .35rem; }
+.atlas-card-actions .atlas-action--delete { border-color: var(--red); }
 
 .atlas-frame-expand {
   font-size: 1rem;

@@ -455,6 +455,7 @@
     }
     return {label:!previous?.year&&current?.year?'first thread':'time unmarked',width:88};
   }
+  function deleteLabel(route,index){return index?'Delete this connection':isBuiltin(route)?'Remove built-in journey':'Delete journey'}
   function buildFilmstrip(route){
     ui.filmstripTitle.textContent=t(route.title||(route.simulated?'Mina: what travels with a metro?':`${route.alias||'My'}’s engineering threads`));
     ui.filmstripKicker.textContent=t(route.kicker||(route.simulated?'SIMULATED ENGINEERING STORY':'MY STUDIO JOURNEY'));
@@ -487,7 +488,17 @@
       else if(moment.trace)button.append(node('span','atlas-frame-question',moment.trace));
       button.addEventListener('click',()=>{stopPlayback();setActiveMoment(index,true)});
       frame.append(button);
-      const expand=node('button','atlas-frame-expand','↗');expand.type='button';expand.title=t('Expand card');expand.setAttribute('aria-label',`${t('Expand card')}: ${t(moment.place||moment.country)}`);expand.addEventListener('click',()=>openCard(index));frame.append(expand);
+      const controls=node('div','atlas-frame-controls');
+      if(canEdit(route)){
+        const edit=iconButton(node('button'),'edit',`Edit: ${moment.place||moment.country}`);
+        edit.type='button';edit.addEventListener('click',()=>{stopPlayback();setActiveMoment(index,false);openEditor()});controls.append(edit);
+      }
+      if(canRemove(route)){
+        const remove=iconButton(node('button'),'delete',`${deleteLabel(route,index)}: ${moment.place||moment.country}`);
+        remove.type='button';remove.addEventListener('click',()=>{stopPlayback();setActiveMoment(index,false);deleteActiveMoment()});controls.append(remove);
+      }
+      const expand=node('button','atlas-frame-expand','↗');expand.type='button';expand.title=t('Expand card');expand.setAttribute('aria-label',`${t('Expand card')}: ${t(moment.place||moment.country)}`);expand.addEventListener('click',()=>openCard(index));controls.append(expand);
+      frame.append(controls);
       const sources=node('div','atlas-frame-sources');
       const url=safeUrl(moment.mediaUrl);
       if(url){const link=node('a','atlas-frame-source',moment.sourceLabel||(moment.country==='Indonesia'&&route.simulated?'2013 study ↗':'Project ↗'));link.href=url;link.target='_blank';link.rel='noopener noreferrer';sources.append(link)}
@@ -505,23 +516,13 @@
     const position=displayOrder.indexOf(activeMoment);
     ui.filmstripPrev.disabled=position===0;
     ui.filmstripNext.disabled=position===displayOrder.length-1;
-    const editable=canEdit(activeRoute),removable=canRemove(activeRoute);
-    ui.filmstripAdd.hidden=!editable;
-    $('atlas-filmstrip-edit').hidden=!editable;$('atlas-filmstrip-delete').hidden=!removable;
-    iconButton($('atlas-filmstrip-delete'),'delete',activeMoment?'Delete marker':isBuiltin(activeRoute)?'Remove built-in journey':'Delete journey');
+    ui.filmstripAdd.hidden=!canEdit(activeRoute);
     ui.filmstripTrack.querySelectorAll('.atlas-frame').forEach(frame=>frame.classList.toggle('is-active',Number(frame.dataset.moment)===activeMoment));
     markers.forEach((marker,i)=>{
       const host=marker.getElement();
       host.firstElementChild?.classList.toggle('is-active',i===activeMoment);
       host.style.zIndex=i===activeMoment?'3':'1';
-      host.querySelector('.atlas-marker-actions')?.remove();
     });
-    if(removable&&markers[activeMoment]){
-      const actions=node('div','atlas-marker-actions');
-      if(editable){const edit=iconButton(node('button'),'edit','Edit this marker');edit.type='button';edit.addEventListener('click',event=>{event.stopPropagation();openEditor()});actions.append(edit)}
-      const remove=iconButton(node('button'),'delete',activeMoment?'Delete this connection':isBuiltin(activeRoute)?'Remove built-in journey':'Delete this journey');remove.type='button';remove.addEventListener('click',event=>{event.stopPropagation();deleteActiveMoment()});
-      actions.append(remove);markers[activeMoment].getElement().append(actions);
-    }
     const moment=frameMoment(activeRoute,activeMoment);
     map.setFilter('atlas-selected-fill',['==',['get','name'],activeMoment?moment.country:'']);
     const frame=ui.filmstripTrack.querySelector(`[data-moment="${activeMoment}"]`);
@@ -566,6 +567,9 @@
     $('atlas-card-story').textContent=t(moment.engineering||moment.reason||'A question begins here.');
     $('atlas-card-trace').textContent=t(moment.trace||moment.reason||'');
     const link=$('atlas-card-link'),url=safeUrl(moment.mediaUrl);link.hidden=!url;if(url)link.href=url;
+    $('atlas-card-edit').hidden=!canEdit(activeRoute);
+    $('atlas-card-delete').hidden=!canRemove(activeRoute);
+    iconButton($('atlas-card-delete'),'delete',deleteLabel(activeRoute,activeMoment));
     const position=displayOrder.indexOf(activeMoment);
     $('atlas-card-count').textContent=`${position+1} / ${displayOrder.length}`;
     $('atlas-card-prev').disabled=position===0;$('atlas-card-next').disabled=position===displayOrder.length-1;
@@ -833,12 +837,12 @@
   function closeJourney(){stopPlayback();clearRouteLine();activeRoute=null;routeCamera=null;map?.setFilter('atlas-selected-fill',['==',['get','name'],'']);showStudio()}
   ui.filmstripClose.addEventListener('click',closeJourney);
   ui.filmstripAdd.addEventListener('click',addConnectionToRoute);
-  $('atlas-filmstrip-edit').addEventListener('click',openEditor);
-  $('atlas-filmstrip-delete').addEventListener('click',deleteActiveMoment);
   $('atlas-branch-continue').addEventListener('click',()=>beginConnection(activeMoment));
   $('atlas-branch-origin').addEventListener('click',()=>beginConnection(0));
   $('atlas-branch-cancel').addEventListener('click',()=>$('atlas-branch').close());
   $('atlas-card-close').addEventListener('click',()=>$('atlas-card-detail').close());
+  $('atlas-card-edit').addEventListener('click',()=>{$('atlas-card-detail').close();openEditor()});
+  $('atlas-card-delete').addEventListener('click',()=>{$('atlas-card-detail').close();deleteActiveMoment()});
   $('atlas-card-prev').addEventListener('click',()=>openCard(adjacentMoment(activeMoment,-1)));
   $('atlas-card-next').addEventListener('click',()=>openCard(adjacentMoment(activeMoment,1)));
   ui.editorForm.addEventListener('submit',saveEdit);
@@ -866,8 +870,8 @@
   });
   ui.search.addEventListener('input',()=>{const feature=features.find(f=>f.properties.name.toLowerCase()===ui.search.value.trim().toLowerCase());if(feature&&origin){useCountry(feature);ui.search.value=''}});
   ui.form.addEventListener('submit',event=>{event.preventDefault();saveDraft()});
-  iconButton($('atlas-filmstrip-edit'),'edit','Edit frame');
-  iconButton($('atlas-filmstrip-delete'),'delete','Delete marker');
+  iconButton($('atlas-card-edit'),'edit','Edit frame');
+  iconButton($('atlas-card-delete'),'delete','Delete marker');
   iconButton(ui.filmstripAdd,'add','Add connection');
   function localizeAttributes(){
     $('atlas-basemap').setAttribute('aria-label',t('Basemap'));
@@ -883,7 +887,7 @@
   window.addEventListener('course-language-change',()=>{
     localizeAttributes();
     updateAccessPrompt();storeSession(session);
-    iconButton($('atlas-filmstrip-edit'),'edit','Edit frame');iconButton(ui.filmstripAdd,'add','Add connection');
+    iconButton($('atlas-card-edit'),'edit','Edit frame');iconButton(ui.filmstripAdd,'add','Add connection');
     ui.filmstripPlay.setAttribute('aria-label',t(playTimer?'Pause journey':'Play journey'));ui.filmstripPlay.title=t(playTimer?'Pause journey':'Play journey');
     $('atlas-filmstrip-close').setAttribute('aria-label',t('Close'));$('atlas-filmstrip-close').title=t('Close');
     if(['origin','choose'].includes(stage))setStage(stage);
