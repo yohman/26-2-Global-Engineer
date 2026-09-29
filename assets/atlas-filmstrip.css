@@ -138,8 +138,10 @@
 .atlas-map-pick>div{display:flex;justify-content:flex-end;align-items:center;gap:.7rem}
 .atlas-map-pick button:not(.atlas-primary){border:0;background:none;color:var(--blue);font:700 .7rem var(--sans);cursor:pointer}
 .atlas-map-pick .atlas-primary:disabled{opacity:.45;cursor:not-allowed}
-.atlas-stage.is-picking .atlas-marker{pointer-events:none}
+.atlas-stage.is-picking .atlas-marker:not(.is-editing){pointer-events:none}
+.atlas-stage.is-picking .atlas-marker.is-editing,.atlas-stage.is-picking .atlas-marker.is-editing .atlas-portrait{pointer-events:auto;cursor:grab}
+.atlas-stage.is-picking .atlas-marker.is-editing:active,.atlas-stage.is-picking .atlas-marker.is-editing:active .atlas-portrait{cursor:grabbing}
+.atlas-stage.is-picking .atlas-marker.is-editing .atlas-portrait{opacity:1;box-shadow:0 0 0 4px var(--yellow),0 0 0 8px var(--paper),0 5px 18px #101b2266}
 .atlas-stage.is-picking #atlas-map canvas{cursor:crosshair!important}
-.atlas-pick-marker{width:26px;height:26px;border:5px solid var(--paper);border-radius:50%;background:var(--red);box-shadow:0 0 0 3px var(--red),0 2px 14px #101b2266;pointer-events:none}
 @media(min-width:761px){.atlas-sheet{max-height:min(80dvh,650px)}.atlas-welcome h1{font-size:clamp(2.1rem,3vw,3rem)}.atlas-welcome>p:not(.atlas-kicker){margin:.5rem 0 .7rem}.atlas-sheet form label{margin-bottom:.48rem}.atlas-sheet input:not([type=radio]):not([type=checkbox]),.atlas-sheet textarea{padding:.46rem .58rem;margin-top:.22rem}.atlas-marker-author{margin:.1rem 0 .4rem}.atlas-sheet .atlas-check{margin:.5rem 0}.atlas-form-actions{margin-top:.45rem}}
 @media(max-width:760px){.atlas-studio-head{align-items:start}.atlas-studio-actions{gap:.2rem}.atlas-studio-actions .atlas-primary{padding:.55rem .62rem;font-size:.62rem}}

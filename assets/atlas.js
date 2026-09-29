@@ -38,7 +38,7 @@
   let map,features=[],stage='studio',origin=null,selected=null,hover='',journey=null,sharedStories=[],hiddenBuiltins=[],builtinOverrides={},markers=[],returnStage='studio',basemapId=readBasemap();
   let activeRoute=null,activeMoment=0,displayOrder=[],playTimer=null,routeCamera=null,routeAnimation=null,studioCamera=null,studioReturnStage='studio';
   let session=readSession(),authorOriginPoint=[...japan],authorOriginCountry='Japan',authorDraft=null,connectionFromIndex=0,studioWorldView=false;
-  let editorMoving=false,editorPickPoint=null,editorPickCountry='',pickCandidate=null,pickMarker=null;
+  let editorMoving=false,editorPickPoint=null,editorPickCountry='',pickCandidate=null,editingMarker=null,originalMarkerPosition=null;
   function readJourney(){try{const v=JSON.parse(localStorage.getItem(storageKey)||'null');return v&&Array.isArray(v.hops)&&v.origin?v:null}catch{return null}}
   function writeJourney(v){try{localStorage.setItem(storageKey,JSON.stringify(v));return true}catch{return false}}
   function readSession(){try{const value=JSON.parse(sessionStorage.getItem(sessionKey)||'null');return value?.token&&Date.parse(value.expiresAt)>Date.now()?value:null}catch{return null}}
@@ -301,7 +301,7 @@
     if(stage==='demo'&&activeRoute?.hops.length>6)dot.classList.add('atlas-portrait--compact');
     if(interactive){
       dot.type='button';
-      dot.addEventListener('click',()=>{stopPlayback();setActiveMoment(index,true)});
+      dot.addEventListener('click',()=>{if(editorMoving)return;stopPlayback();setActiveMoment(index,true)});
     }
     dot.title=label;
     dot.dataset.place=placeLabel;
@@ -597,30 +597,48 @@
       ui.editorForm.elements.country.value=editorPickCountry;
       $('atlas-editor-location').textContent=locationText(editorPickPoint,editorPickCountry);
     }
-    editorMoving=false;pickCandidate=null;pickMarker?.remove();pickMarker=null;
+    if(editingMarker){
+      editingMarker.off('dragend',chooseDragPick);
+      editingMarker.setDraggable(false);
+      editingMarker.setLngLat(originalMarkerPosition);
+      editingMarker.getElement().classList.remove('is-editing');
+    }
+    editorMoving=false;pickCandidate=null;editingMarker=null;originalMarkerPosition=null;
     $('atlas-map-pick').hidden=true;document.querySelector('.atlas-stage').classList.remove('is-picking');
     ui.filmstrip.hidden=false;
     ui.editor.showModal();
   }
   function beginMapPick(){
-    if(!canEdit(activeRoute)||!map)return;
-    editorMoving=true;pickCandidate=null;pickMarker?.remove();pickMarker=null;
-    $('atlas-map-pick-status').textContent=t('Zoom and pan to find the right place.');
+    if(!canEdit(activeRoute)||!map||!markers[activeMoment])return;
+    editorMoving=true;pickCandidate=null;
+    editingMarker=markers[activeMoment];originalMarkerPosition=editingMarker.getLngLat();
+    editingMarker.setDraggable(true);
+    editingMarker.on('dragend',chooseDragPick);
+    editingMarker.getElement().classList.add('is-editing');
+    $('atlas-map-pick-status').textContent=t('Drag the highlighted marker, or tap a new place.');
     $('atlas-map-pick-use').disabled=true;
     ui.editor.close();ui.filmstrip.hidden=true;
     document.querySelector('.atlas-stage').classList.add('is-picking');
     $('atlas-map-pick').hidden=false;
   }
+  function selectPickPoint(lngLat,country){
+    const lng=((lngLat.lng+180)%360+360)%360-180;
+    const point=[lng,lngLat.lat];
+    pickCandidate={point,country};
+    editingMarker.setLngLat([lngLat.lng,lngLat.lat]);
+    $('atlas-map-pick-status').textContent=locationText(point,country);
+    $('atlas-map-pick-use').disabled=false;
+  }
+  function chooseDragPick(){
+    if(!editorMoving||!editingMarker)return;
+    const lngLat=editingMarker.getLngLat();
+    const country=map.queryRenderedFeatures(map.project(lngLat),{layers:['atlas-hit']})[0]?.properties.name||'At sea';
+    selectPickPoint(lngLat,country);
+  }
   function chooseMapPick(event){
     if(!editorMoving)return;
     const country=map.queryRenderedFeatures(event.point,{layers:['atlas-hit']})[0]?.properties.name||'At sea';
-    const lng=((event.lngLat.lng+180)%360+360)%360-180;
-    const point=[lng,event.lngLat.lat];
-    pickCandidate={point,country};
-    pickMarker?.remove();
-    pickMarker=new maplibregl.Marker({element:node('div','atlas-pick-marker'),anchor:'center'}).setLngLat(point).addTo(map);
-    $('atlas-map-pick-status').textContent=locationText(point,country);
-    $('atlas-map-pick-use').disabled=false;
+    selectPickPoint(event.lngLat,country);
   }
   async function saveEdit(event){
     event.preventDefault();
