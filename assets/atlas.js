@@ -25,7 +25,7 @@
     {country:'Japan',place:'Japan · the 2011 disasters',point:[141.0,38.2],year:2011,beat:'WITNESS',engineering:'I return to witness the disasters in Japan and the lives they unsettle.',reason:'How do people live with the consequences of engineered systems and failed assumptions?'},
     {country:'Japan',place:'Fukushima · Japan',point:[140.47,37.76],dateLabel:'AFTER 2011',beat:'LISTEN',engineering:'In Fukushima, Human Error documents the narratives of people affected by the nuclear disaster.',reason:'My role is to listen and carry those stories beyond Japan.',image:'lectures/assets/human-error-still.png',imageAlt:'A still from Human Error showing a person descending an outdoor staircase.',mediaUrl:'https://filmfreeway.com/HumanError',sourceLabel:'Human Error ↗'}
   ]};
-  let map,features=[],stage='studio',origin=null,selected=null,hover='',journey=null,sharedStories=[],hiddenBuiltins=[],markers=[],returnStage='studio';
+  let map,features=[],stage='studio',origin=null,selected=null,hover='',journey=null,sharedStories=[],hiddenBuiltins=[],builtinOverrides={},markers=[],returnStage='studio';
   let activeRoute=null,activeMoment=0,playTimer=null,routeCamera=null,routeAnimation=null,studioCamera=null,studioReturnStage='studio';
   let session=readSession(),authorOriginPoint=[...japan],authorOriginCountry='Japan',authorDraft=null,connectionFromIndex=0,studioWorldView=false;
   function readJourney(){try{const v=JSON.parse(localStorage.getItem(storageKey)||'null');return v&&Array.isArray(v.hops)&&v.origin?v:null}catch{return null}}
@@ -33,9 +33,10 @@
   function readSession(){try{const value=JSON.parse(sessionStorage.getItem(sessionKey)||'null');return value?.token&&Date.parse(value.expiresAt)>Date.now()?value:null}catch{return null}}
   function storeSession(value){session=value;try{if(value)sessionStorage.setItem(sessionKey,JSON.stringify(value));else sessionStorage.removeItem(sessionKey)}catch{}ui.signOut.hidden=!value;$('atlas-my-journeys-toggle').hidden=!value;const label=t(value?.admin?'All journeys':'My journeys');$('atlas-my-journeys-toggle').textContent=label;$('atlas-my-journeys').setAttribute('aria-label',label);$('atlas-my-journeys-heading').textContent=label;if(!value)$('atlas-my-journeys').hidden=true}
   function authHeaders(){return session?{Authorization:`Bearer ${session.token}`}:{}}
-  function canEdit(route){return Boolean(session&&route?.editable)}
+  function canEdit(route){return Boolean(session&&(route?.editable||(session.admin&&isBuiltin(route))))}
   function isBuiltin(route){return route?.id==='yoh-draft'||route?.id==='simulated-mina'}
   function canRemove(route){return canEdit(route)||Boolean(session?.admin&&isBuiltin(route))}
+  function builtinRoute(id){return builtinOverrides[id]||(id==='yoh-draft'?yohStory:sample)}
   async function restoreSession(){
     if(!session)return;
     try{const response=await fetch(`${workerUrl}/session`,{headers:authHeaders(),cache:'no-store'});if(!response.ok)throw new Error('expired');const data=await response.json();storeSession({...session,admin:Boolean(data.admin)})}
@@ -49,9 +50,11 @@
       const data=await response.json();
       if(!Array.isArray(data.stories))throw new Error('Invalid class feed');
       hiddenBuiltins=Array.isArray(data.hiddenBuiltins)?data.hiddenBuiltins.filter(id=>id==='yoh-draft'||id==='simulated-mina'):[];
+      builtinOverrides=Object.fromEntries(Object.entries(data.builtinOverrides||{}).filter(([id,route])=>(id==='yoh-draft'||id==='simulated-mina')&&route?.origin&&Array.isArray(route.hops)));
       sharedStories=data.stories.filter(story=>story&&/^journey-[A-Za-z0-9-]{8,70}$/.test(story.id)&&Array.isArray(story.hops)&&story.origin);
       const current=sharedStories.find(story=>story.id===journey?.id);
       if(current){journey=current;origin=current.origin;writeJourney(current)}
+      if(isBuiltin(journey)){journey=builtinRoute(journey.id);origin=journey.origin}
       if(stage==='studio'){buildStudio();buildMyJourneys();renderRoutes()}
       document.querySelector('.atlas-studio-note').textContent=t('Follow a journey by choosing a marker or a moment on the shared timeline. Your own journey can begin anywhere.');
       return true;
@@ -82,11 +85,12 @@
   async function publishStory(story){
     if(!session)return {ok:false,error:'Sign in again'};
     try{
-      const response=await fetch(`${workerUrl}/stories/${encodeURIComponent(story.id)}`,{method:'PUT',headers:{'Content-Type':'application/json',...authHeaders()},body:JSON.stringify({revision:Number(story.revision||0),story})});
+      const response=await fetch(isBuiltin(story)?`${workerUrl}/builtins/${story.id}/story`:`${workerUrl}/stories/${encodeURIComponent(story.id)}`,{method:'PUT',headers:{'Content-Type':'application/json',...authHeaders()},body:JSON.stringify({revision:Number(story.revision||0),story})});
       const result=await response.json();
       if(!response.ok)throw new Error(result.error||`HTTP ${response.status}`);
       story.revision=result.revision;story.updatedAt=result.updatedAt;story.editable=true;
-      sharedStories=[story,...sharedStories.filter(item=>item.id!==story.id)];
+      if(isBuiltin(story))builtinOverrides[story.id]=story;
+      else sharedStories=[story,...sharedStories.filter(item=>item.id!==story.id)];
       if(journey?.id===story.id){journey=story;writeJourney(story)}
       if(stage==='studio'){buildStudio();buildMyJourneys();renderRoutes()}
       return {ok:true};
@@ -111,7 +115,8 @@
   }
   async function uploadImage(storyId,file){
     const image=await compressImage(file);
-    const response=await fetch(`${workerUrl}/stories/${encodeURIComponent(storyId)}/images`,{method:'POST',headers:{'Content-Type':'image/jpeg',...authHeaders()},body:image});
+    const collection=storyId==='yoh-draft'||storyId==='simulated-mina'?'builtins':'stories';
+    const response=await fetch(`${workerUrl}/${collection}/${encodeURIComponent(storyId)}/images`,{method:'POST',headers:{'Content-Type':'image/jpeg',...authHeaders()},body:image});
     const data=await response.json();
     if(!response.ok)throw new Error(data.error||'Image upload failed');
     return data.imageId;
@@ -164,7 +169,7 @@
     ui.sheet.classList.toggle('atlas-sheet--welcome',!ui.welcome.hidden);
     ui.search.disabled=['origin','demo','studio'].includes(next);
     if(map?.getLayer('atlas-muted')){
-      const visibility=next==='studio'||(next==='demo'&&activeRoute===yohStory)||(next==='origin'&&ui.originForm.elements.anywhere.checked)?'none':'visible';
+      const visibility=next==='studio'||(next==='demo'&&activeRoute?.id==='yoh-draft')||(next==='origin'&&ui.originForm.elements.anywhere.checked)?'none':'visible';
       map.setLayoutProperty('atlas-muted','visibility',visibility);
       map.setLayoutProperty('atlas-outline','visibility',visibility);
     }
@@ -293,7 +298,7 @@
     }else if(origin)addMarker(origin.point,origin.place,'origin');
     else if(stage==='origin')addMarker(authorOriginPoint,ui.originForm.elements.place.value||authorOriginCountry,'origin');
   }
-  function studioProjects(){return [yohStory,sample].filter(route=>!hiddenBuiltins.includes(route.id)).concat(sharedStories)}
+  function studioProjects(){return [builtinRoute('yoh-draft'),builtinRoute('simulated-mina')].filter(route=>!hiddenBuiltins.includes(route.id)).concat(sharedStories)}
   function renderStudioMarkers(){
     removeMarkers();
     for(const route of studioProjects()){
@@ -346,7 +351,7 @@
       const title=node('button','atlas-studio-person');
       const avatar=node('span','atlas-studio-avatar',markerSymbol(route.marker?.symbol||route.alias?.slice(0,1)));
       avatar.style.backgroundColor=color;avatar.style.color=markerInk(color);
-      title.append(avatar,node('span','',`${route.alias}${route.simulated?t(' · simulated'):canEdit(route)?t(' · mine'):''}`));
+      title.append(avatar,node('span','',`${route.alias}${route.simulated?t(' · simulated'):!isBuiltin(route)&&canEdit(route)?t(' · mine'):''}`));
       title.type='button';title.addEventListener('click',()=>showJourney(route));
       const track=node('div','atlas-studio-track');track.style.setProperty('--lane-color',color);
       moments.forEach((moment,index)=>{
@@ -364,7 +369,7 @@
   function buildMyJourneys(){
     const list=$('atlas-my-journeys-list');list.replaceChildren();
     if(!session)return;
-    const owned=session.admin?[yohStory,sample,...sharedStories.filter(canEdit)]:sharedStories.filter(canEdit);
+    const owned=session.admin?[builtinRoute('yoh-draft'),builtinRoute('simulated-mina'),...sharedStories.filter(canEdit)]:sharedStories.filter(canEdit);
     if(!owned.length){list.append(node('p','atlas-my-empty','No journeys yet. Start with a place you know.'));return}
     for(const route of owned){
       const row=node('div','atlas-my-row');
@@ -457,7 +462,7 @@
     const editable=canEdit(activeRoute),removable=canRemove(activeRoute);
     ui.filmstripAdd.hidden=!editable;
     $('atlas-filmstrip-edit').hidden=!editable;$('atlas-filmstrip-delete').hidden=!removable;
-    iconButton($('atlas-filmstrip-delete'),'delete',isBuiltin(activeRoute)?'Remove built-in journey':activeMoment?'Delete marker':'Delete journey');
+    iconButton($('atlas-filmstrip-delete'),'delete',activeMoment?'Delete marker':isBuiltin(activeRoute)?'Remove built-in journey':'Delete journey');
     ui.filmstripTrack.querySelectorAll('.atlas-frame').forEach((frame,i)=>frame.classList.toggle('is-active',i===activeMoment));
     markers.forEach((marker,i)=>{
       const host=marker.getElement();
@@ -468,7 +473,7 @@
     if(removable&&markers[activeMoment]){
       const actions=node('div','atlas-marker-actions');
       if(editable){const edit=iconButton(node('button'),'edit','Edit this marker');edit.type='button';edit.addEventListener('click',event=>{event.stopPropagation();openEditor()});actions.append(edit)}
-      const remove=iconButton(node('button'),'delete',isBuiltin(activeRoute)?'Remove built-in journey':activeMoment?'Delete this connection':'Delete this journey');remove.type='button';remove.addEventListener('click',event=>{event.stopPropagation();deleteActiveMoment()});
+      const remove=iconButton(node('button'),'delete',activeMoment?'Delete this connection':isBuiltin(activeRoute)?'Remove built-in journey':'Delete this journey');remove.type='button';remove.addEventListener('click',event=>{event.stopPropagation();deleteActiveMoment()});
       actions.append(remove);markers[activeMoment].getElement().append(actions);
     }
     const moment=frameMoment(activeRoute,activeMoment);
@@ -611,8 +616,8 @@
   async function deleteActiveMoment(){
     if(!canRemove(activeRoute))return;
     const route=activeRoute,index=activeMoment;
-    if(isBuiltin(route)){await deleteEntireJourney(route);return}
     if(!index){await deleteEntireJourney(route);return}
+    if(isBuiltin(route)&&route.hops.length===1){await deleteEntireJourney(route);return}
     const question=route.hops.length===1?t('Delete this last connection and the entire journey?'):t('Delete this connection from your journey?');
     if(!window.confirm(question))return;
     try{
@@ -680,8 +685,8 @@
         });
         await restoreSession();await loadSharedStories();
         showStudio();
-        if(window.location.hash==='#yoh'&&!hiddenBuiltins.includes(yohStory.id))showJourney(yohStory);
-        else if(window.location.hash==='#sample'&&!hiddenBuiltins.includes(sample.id))showJourney(sample);
+        if(window.location.hash==='#yoh'&&!hiddenBuiltins.includes(yohStory.id))showJourney(builtinRoute('yoh-draft'));
+        else if(window.location.hash==='#sample'&&!hiddenBuiltins.includes(sample.id))showJourney(builtinRoute('simulated-mina'));
       }catch(error){document.querySelector('.atlas-studio-note').textContent=t('The map could not load country boundaries. Please reconnect and reload.');console.error(error)}
     });
   }
@@ -746,7 +751,7 @@
     ui.search.placeholder=t('Find a country');
     ui.originForm.elements.place.placeholder=t('A town, campus, kitchen, station…');
     ui.originForm.elements.alias.placeholder=t('How should we identify your story?');
-    ui.form.elements.reason.placeholder=t('A technology, idea, or shared problem…');
+    ui.form.elements.reason.placeholder=t('An invention, person, event, or idea you want to investigate…');
     ui.form.elements.year.placeholder=t('Year, if known');
     ui.form.elements.trace.placeholder=t('What changed—or might change?');
     ui.editorForm.elements.title.placeholder=t('Give your journey a title');

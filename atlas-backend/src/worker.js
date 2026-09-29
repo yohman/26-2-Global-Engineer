@@ -108,6 +108,29 @@ function cleanStory(input, id) {
   return cleaned;
 }
 
+function cleanBuiltinStory(input, id) {
+  if (!builtinIds.has(id) || input?.id !== id) throw new Error('Invalid built-in journey');
+  const temporaryId = `journey-builtin-${id}`;
+  const cleaned = cleanStory({ ...input, id: temporaryId }, temporaryId);
+  const extra = moment => ({
+    dateLabel: text(moment?.dateLabel, 50),
+    period: text(moment?.period, 80),
+    beat: text(moment?.beat, 60),
+    engineering: text(moment?.engineering, 700),
+    image: /^lectures\/assets\/[A-Za-z0-9._-]+$/.test(moment?.image || '') ? moment.image : '',
+    imageAlt: text(moment?.imageAlt, 200),
+    sourceLabel: text(moment?.sourceLabel, 80),
+    costUrl: url(moment?.costUrl)
+  });
+  cleaned.id = id;
+  cleaned.kicker = text(input.kicker, 120);
+  cleaned.simulated = id === 'simulated-mina';
+  cleaned.origin = { ...cleaned.origin, ...extra(input.origin) };
+  cleaned.hops = cleaned.hops.map((hop, index) => ({ ...hop, ...extra(input.hops[index]) }));
+  if (new TextEncoder().encode(JSON.stringify(cleaned)).length > 30000) throw new Error('Story is too long');
+  return cleaned;
+}
+
 function equalSecret(a, b) {
   const one = new TextEncoder().encode(a || '');
   const two = new TextEncoder().encode(b || '');
@@ -138,6 +161,7 @@ async function prepareTables(db) {
   await db.prepare('CREATE TABLE IF NOT EXISTS admin_sessions (token_hash TEXT PRIMARY KEY, email TEXT NOT NULL, expires_at TEXT NOT NULL)').run();
   await db.prepare('CREATE TABLE IF NOT EXISTS story_images (id TEXT PRIMARY KEY, story_id TEXT NOT NULL, owner_email TEXT NOT NULL, mime TEXT NOT NULL, data BLOB NOT NULL, created_at TEXT NOT NULL)').run();
   await db.prepare('CREATE TABLE IF NOT EXISTS hidden_builtins (id TEXT PRIMARY KEY, hidden_at TEXT NOT NULL)').run();
+  await db.prepare('CREATE TABLE IF NOT EXISTS builtin_overrides (id TEXT PRIMARY KEY, record TEXT NOT NULL, revision INTEGER NOT NULL DEFAULT 1, updated_at TEXT NOT NULL)').run();
 }
 
 async function sessionFor(request, env) {
@@ -194,9 +218,47 @@ export default {
     if (path === '/stories' && request.method === 'GET') {
       const session = bearer(request) ? await sessionFor(request, env) : null;
       await env.DB.prepare('CREATE TABLE IF NOT EXISTS hidden_builtins (id TEXT PRIMARY KEY, hidden_at TEXT NOT NULL)').run();
+      await env.DB.prepare('CREATE TABLE IF NOT EXISTS builtin_overrides (id TEXT PRIMARY KEY, record TEXT NOT NULL, revision INTEGER NOT NULL DEFAULT 1, updated_at TEXT NOT NULL)').run();
       const rows = await env.DB.prepare('SELECT record, revision, updated_at FROM stories ORDER BY updated_at DESC LIMIT 20').all();
       const hidden = await env.DB.prepare('SELECT id FROM hidden_builtins').all();
-      return json({ stories: rows.results.map(row => publicStory(row, session)), hiddenBuiltins: hidden.results.map(row => row.id) }, 200, origin);
+      const overrides = await env.DB.prepare('SELECT id, record, revision, updated_at FROM builtin_overrides').all();
+      const builtinOverrides = Object.fromEntries(overrides.results.filter(row => builtinIds.has(row.id)).map(row => [row.id, { ...JSON.parse(row.record), revision: row.revision, updatedAt: row.updated_at, editable: Boolean(session?.admin) }]));
+      return json({ stories: rows.results.map(row => publicStory(row, session)), hiddenBuiltins: hidden.results.map(row => row.id), builtinOverrides }, 200, origin);
+    }
+
+    const builtinStoryMatch = /^\/builtins\/([A-Za-z0-9-]+)\/story$/.exec(path);
+    if (builtinStoryMatch && request.method === 'PUT') {
+      if (!builtinIds.has(builtinStoryMatch[1])) return json({ error: 'Journey not found' }, 404, origin);
+      const session = await sessionFor(request, env);
+      if (!session) return json({ error: 'Sign in again' }, 401, origin);
+      if (!session.admin) return json({ error: 'Instructor access required' }, 403, origin);
+      try {
+        if (Number(request.headers.get('Content-Length')) > 33000) throw new Error('Story is too long');
+        const body = await request.text();
+        if (new TextEncoder().encode(body).length > 33000) throw new Error('Story is too long');
+        const payload = JSON.parse(body);
+        const revision = Number(payload.revision);
+        if (!Number.isInteger(revision) || revision < 0) throw new Error('Invalid revision');
+        const story = cleanBuiltinStory(payload.story, builtinStoryMatch[1]);
+        await env.DB.prepare('CREATE TABLE IF NOT EXISTS builtin_overrides (id TEXT PRIMARY KEY, record TEXT NOT NULL, revision INTEGER NOT NULL DEFAULT 1, updated_at TEXT NOT NULL)').run();
+        const existing = await env.DB.prepare('SELECT record, revision FROM builtin_overrides WHERE id = ?').bind(story.id).first();
+        if (revision !== (existing?.revision || 0)) return json({ error: 'Story changed elsewhere. Reload before saving.' }, 409, origin);
+        for (const id of [story.origin, ...story.hops].map(moment => moment.imageId).filter(Boolean)) {
+          const image = await env.DB.prepare('SELECT id FROM story_images WHERE id = ? AND story_id = ?').bind(id, story.id).first();
+          if (!image) throw new Error('Image is not part of this journey');
+        }
+        const updatedAt = new Date().toISOString();
+        if (existing) {
+          const result = await env.DB.prepare('UPDATE builtin_overrides SET record = ?, revision = revision + 1, updated_at = ? WHERE id = ? AND revision = ?').bind(JSON.stringify(story), updatedAt, story.id, revision).run();
+          if (!result.meta.changes) return json({ error: 'Story changed elsewhere. Reload before saving.' }, 409, origin);
+        } else {
+          const result = await env.DB.prepare('INSERT OR IGNORE INTO builtin_overrides (id, record, revision, updated_at) VALUES (?, ?, 1, ?)').bind(story.id, JSON.stringify(story), updatedAt).run();
+          if (!result.meta.changes) return json({ error: 'Story changed elsewhere. Reload before saving.' }, 409, origin);
+        }
+        return json({ ok: true, revision: revision + 1, updatedAt }, 200, origin);
+      } catch (error) {
+        return json({ error: error instanceof SyntaxError ? 'Invalid story JSON' : error.message }, 400, origin);
+      }
     }
 
     const builtinMatch = /^\/builtins\/([A-Za-z0-9-]+)$/.exec(path);
@@ -240,21 +302,26 @@ export default {
       });
     }
 
-    const imageUpload = /^\/stories\/(journey-[A-Za-z0-9-]{8,70})\/images$/.exec(path);
+    const imageUpload = /^\/(stories|builtins)\/(journey-[A-Za-z0-9-]{8,70}|yoh-draft|simulated-mina)\/images$/.exec(path);
     if (imageUpload && request.method === 'POST') {
       const session = await sessionFor(request, env);
       if (!session) return json({ error: 'Sign in again' }, 401, origin);
-      const row = await env.DB.prepare('SELECT record FROM stories WHERE id = ?').bind(imageUpload[1]).first();
-      if (!row || (!session.admin && JSON.parse(row.record).ownerEmail !== session.email)) return json({ error: 'This is not your journey' }, 403, origin);
+      const builtin = imageUpload[1] === 'builtins', storyId = imageUpload[2];
+      if (builtin && (!session.admin || !builtinIds.has(storyId))) return json({ error: 'Instructor access required' }, 403, origin);
+      if (!builtin) {
+        if (!storyIdPattern.test(storyId)) return json({ error: 'Journey not found' }, 404, origin);
+        const row = await env.DB.prepare('SELECT record FROM stories WHERE id = ?').bind(storyId).first();
+        if (!row || (!session.admin && JSON.parse(row.record).ownerEmail !== session.email)) return json({ error: 'This is not your journey' }, 403, origin);
+      }
       if (Number(request.headers.get('Content-Length')) > imageLimit) return json({ error: 'Image must be under 700 KB' }, 413, origin);
       const bytes = new Uint8Array(await request.arrayBuffer());
       const mime = (request.headers.get('Content-Type') || '').split(';')[0].toLowerCase();
       if (!bytes.length || bytes.length > imageLimit || !validImage(bytes, mime)) return json({ error: 'Use a JPEG, PNG, or WebP image under 700 KB' }, 400, origin);
-      const count = await env.DB.prepare('SELECT COUNT(*) AS total FROM story_images WHERE story_id = ?').bind(imageUpload[1]).first();
+      const count = await env.DB.prepare('SELECT COUNT(*) AS total FROM story_images WHERE story_id = ?').bind(storyId).first();
       if (count.total >= 30) return json({ error: 'Image limit reached for this journey' }, 409, origin);
       const id = crypto.randomUUID();
       await env.DB.prepare('INSERT INTO story_images (id, story_id, owner_email, mime, data, created_at) VALUES (?, ?, ?, ?, ?, ?)')
-        .bind(id, imageUpload[1], session.email, mime, bytes, new Date().toISOString()).run();
+        .bind(id, storyId, session.email, mime, bytes, new Date().toISOString()).run();
       return json({ imageId: id }, 201, origin);
     }
 

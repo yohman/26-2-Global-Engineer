@@ -10,7 +10,7 @@ const story = {
 };
 
 function database() {
-  const authors = new Map(), sessions = new Map(), adminSessions = new Map(), stories = new Map(), images = new Map(), hiddenBuiltins = new Map();
+  const authors = new Map(), sessions = new Map(), adminSessions = new Map(), stories = new Map(), images = new Map(), hiddenBuiltins = new Map(), builtinOverrides = new Map();
   return {
     authors, stories,
     prepare(query) {
@@ -25,12 +25,14 @@ function database() {
             const image = images.get(args[0]);
             return image && (!args[1] || (image.story_id === args[1] && (!query.includes('owner_email = ?') || image.owner_email === args[2]))) ? image : null;
           }
+          if (query.includes('FROM builtin_overrides')) return builtinOverrides.get(args[0]) || null;
           if (query.includes('FROM stories') && query.includes('COUNT')) return { total: stories.size };
           if (query.includes('FROM stories')) return stories.get(args[0]) || null;
           return null;
         },
         async all() {
           if (query.includes('FROM hidden_builtins')) return { results: [...hiddenBuiltins.keys()].map(id => ({ id })) };
+          if (query.includes('FROM builtin_overrides')) return { results: [...builtinOverrides.entries()].map(([id, row]) => ({ id, ...row })) };
           return { results: [...stories.values()] };
         },
         async run() {
@@ -42,6 +44,17 @@ function database() {
           if (query.startsWith('DELETE FROM admin_sessions')) { adminSessions.delete(args[0]); return { meta: { changes: 1 } }; }
           if (query.startsWith('INSERT OR REPLACE INTO hidden_builtins')) { hiddenBuiltins.set(args[0], args[1]); return { meta: { changes: 1 } }; }
           if (query.startsWith('DELETE FROM hidden_builtins')) { hiddenBuiltins.delete(args[0]); return { meta: { changes: 1 } }; }
+          if (query.startsWith('INSERT OR IGNORE INTO builtin_overrides')) {
+            if (builtinOverrides.has(args[0])) return { meta: { changes: 0 } };
+            builtinOverrides.set(args[0], { record: args[1], revision: 1, updated_at: args[2] });
+            return { meta: { changes: 1 } };
+          }
+          if (query.startsWith('UPDATE builtin_overrides')) {
+            const current = builtinOverrides.get(args[2]);
+            if (!current || current.revision !== args[3]) return { meta: { changes: 0 } };
+            builtinOverrides.set(args[2], { record: args[0], revision: current.revision + 1, updated_at: args[1] });
+            return { meta: { changes: 1 } };
+          }
           if (query.startsWith('INSERT INTO story_images')) { images.set(args[0], { id: args[0], story_id: args[1], owner_email: args[2], mime: args[3], data: [...args[4]] }); return { meta: { changes: 1 } }; }
           if (query.startsWith('DELETE FROM story_images')) {
             for (const [id, image] of images) if (image.story_id === args[0]) images.delete(id);
@@ -228,4 +241,31 @@ test('only instructor can hide and restore bundled journeys', async () => {
   assert.deepEqual((await response.json()).hiddenBuiltins, ['simulated-mina']);
   response = await worker.fetch(request('/builtins/unknown-story', 'DELETE', undefined, admin.token), env);
   assert.equal(response.status, 404);
+});
+
+test('instructor can edit and extend a built-in journey without changing its source', async () => {
+  const db = database(), env = { DB: db, CLASS_PASSWORD: 'class-secret', ADMIN_PASSWORD: 'different-instructor-secret' };
+  const student = await login(db);
+  const adminResponse = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'different-instructor-secret' }), env);
+  const admin = await adminResponse.json();
+  const builtIn = { ...story, id: 'yoh-draft', title: 'Yoh story', kicker: 'YOH STORY', hops: [{ ...story.hops[0], beat: 'RESEARCH', engineering: 'Rice science travels', image: 'lectures/assets/irri-rice-science.png' }] };
+  let response = await worker.fetch(request('/builtins/yoh-draft/story', 'PUT', { story: builtIn, revision: 0 }, student.data.token), env);
+  assert.equal(response.status, 403);
+  response = await worker.fetch(request('/builtins/yoh-draft/story', 'PUT', { story: builtIn, revision: 0 }, admin.token), env);
+  assert.equal(response.status, 200);
+  response = await worker.fetch(request('/stories'), env);
+  let published = (await response.json()).builtinOverrides['yoh-draft'];
+  assert.equal(published.hops[0].engineering, 'Rice science travels');
+  assert.equal(published.hops[0].image, 'lectures/assets/irri-rice-science.png');
+  assert.equal(published.editable, false);
+  const extended = { ...published, hops: [...published.hops, { country: 'Colombia', point: [-76, 4], year: 1971, reason: 'Cassava research', fromIndex: 1 }] };
+  response = await worker.fetch(request('/builtins/yoh-draft/story', 'PUT', { story: extended, revision: 1 }, admin.token), env);
+  assert.equal(response.status, 200);
+  response = await worker.fetch(request('/stories', 'GET', undefined, admin.token), env);
+  published = (await response.json()).builtinOverrides['yoh-draft'];
+  assert.equal(published.hops.length, 2);
+  assert.equal(published.editable, true);
+  response = await worker.fetch(request('/builtins/yoh-draft/story', 'PUT', { story: builtIn, revision: 1 }, admin.token), env);
+  assert.equal(response.status, 409);
+  assert.equal(db.stories.size, 0);
 });

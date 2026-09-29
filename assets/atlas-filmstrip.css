@@ -128,7 +128,7 @@
 .atlas-upload small{display:block;font:400 .62rem/1.4 var(--sans);color:var(--muted);margin-top:.25rem}
 .atlas-sheet .atlas-upload input[type=file]{font-size:.69rem;padding:.4rem}
 .atlas-sheet #atlas-form-status{min-height:1.2rem}
-.atlas-marker{position:relative}
+.atlas-marker{position:absolute}
 .atlas-marker-actions{position:absolute;left:calc(100% + 8px);top:50%;transform:translateY(-50%);display:flex;gap:.2rem;padding:.24rem;background:var(--paper);border:1px solid #a8a59b;box-shadow:0 3px 10px #17212933;white-space:nowrap}
 .atlas-marker-actions button{border:0;background:none;color:var(--ink);padding:.32rem .4rem;font:700 .58rem var(--sans);cursor:pointer}
 .atlas-marker-actions button:hover,.atlas-marker-actions button:focus-visible{background:var(--red);color:var(--white)}

@@ -4,7 +4,7 @@ window.MAKE_SUBMISSIONS_CONFIG = {
   GOOGLE_MAKE_SHEET_URL: '',
 
   assignments: {
-    make01: { title: 'ATLAS 01 — Engineering Nation', formUrl: '' },
+    make01: { title: 'My Global Engineering Story', formUrl: '' },
     make02: { title: 'Local Spatial Problem', formUrl: '' },
     make03: { title: 'Fix My Community', formUrl: '' },
     make04: { title: 'Redesign It', formUrl: '' },
@@ -23,7 +23,7 @@ window.MAKE_SUBMISSIONS_CONFIG = {
   localSampleSubmissions: [
     {
       Timestamp: '2026-09-30T09:30:00+09:00',
-      Assignment: 'ATLAS 01 — Engineering Nation',
+      Assignment: 'My Global Engineering Story',
       'Student ID': 'sample-001',
       'Display Name': 'Sample Student',
       'Project Title': 'A map of a changing nation',

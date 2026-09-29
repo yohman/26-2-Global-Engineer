@@ -9,7 +9,7 @@
   <section class="wrap agenda-week-list" id="weekly-agenda" aria-live="polite"></section>
 </main>
 <footer class="site-footer"><div class="wrap footer-grid"><p><strong>2026-2 Global Engineer</strong><br>Instructor: Yoh</p><p>Fall 2026 · Tuesdays<br>9/29–1/12</p><p><a href="groups.html">Group sessions</a><br><a href="resources.html">Reading & viewing</a></p></div></footer>
-<script src="assets/make-submissions-config.js"></script><script src="assets/i18n.js"></script><script src="assets/site.js"></script><script>
+<script src="assets/make-submissions-config.js?v=story-1"></script><script src="assets/i18n.js?v=story-1"></script><script src="assets/site.js"></script><script>
 (() => {
   const weekFiles = [
     '01-global-engineer.md', '02-global-engineering-atlas.md', '03-gis-data-public-service.md', '04-human-centered-ui-ux.md',
@@ -22,6 +22,7 @@
   const mode = document.querySelector('#agenda-mode');
   const planning = new URLSearchParams(location.search).has('planning') || ['localhost', '127.0.0.1'].includes(location.hostname);
   const assignments = window.MAKE_SUBMISSIONS_CONFIG?.assignments || {};
+  const t = value => document.documentElement.lang === 'ja' ? (window.COURSE_TRANSLATIONS?.ja?.[value] || value) : value;
   const guestImageUrl = value => value && !value.includes('/') ? `content/guests/${encodeURIComponent(value)}` : value;
   const escapeHtml = value => value.replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
   const inlineMarkdown = value => escapeHtml(value)
@@ -53,11 +54,15 @@
       const item = line.match(/^- \[(.+?)\]\((https?:\/\/[^\s)]+)\)\s*—\s*(.+?)(?:\s*\|\s*(.*?))?\s*\{(READ|VIEW|EXPLORE|TOOLS|REFERENCE)\}\s*$/);
       return item ? [{ title: item[1], url: item[2], source: item[3], note: item[4] || '', category: item[5] }] : [];
     });
-    return { ...meta, week: Number(meta.week), sections: namedSections.filter(section => section.title !== 'Resources').map(section => ({ title: section.title, html: markdownHtml(section.content) })), resources };
+    return { ...meta, week: Number(meta.week), sections: namedSections.filter(section => section.title !== 'Resources'), resources };
   };
   const date = value => new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', timeZone: 'Asia/Tokyo' }).format(new Date(`${value}T00:00:00+09:00`));
   const publishDate = value => new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' }).format(new Date(value));
-  const addSection = (target, section) => { const block = document.createElement('section'); block.className = 'agenda-detail-block'; block.innerHTML = `<h4>${escapeHtml(section.title)}</h4>${section.html}`; target.append(block); };
+  const addSection = (target, section) => {
+    const block = document.createElement('section'); block.className = 'agenda-detail-block';
+    const content = section.content.split('\n').map(line => { const bullet = line.startsWith('- ') ? '- ' : ''; return bullet + t(line.slice(bullet.length)); }).join('\n');
+    block.innerHTML = `<h4>${escapeHtml(t(section.title))}</h4>${markdownHtml(content)}`; target.append(block);
+  };
   const addResources = (target, resources, heading = 'Resources') => {
     if (!resources.length) return;
     const section = document.createElement('section'); section.className = 'agenda-resources'; section.innerHTML = `<h4>${escapeHtml(heading)}</h4>`;
@@ -70,7 +75,9 @@
       ['00–10', 'Opening question', 'A meaningful story can begin close to home.'],
       ['10–35', 'A family in motion', 'IRRI, Colombia, cassava, and a bicycle.'],
       ['35–50', 'A turning point', 'Banda Aceh, Human Error, and responsibility.'],
-      ['50–100', 'Local → global studio', 'Hear five stories and dreams; trace where one local concern could lead.']
+      ['50–75', 'Conversation', 'Hear five stories, dreams, and engineering curiosities.'],
+      ['75–95', 'Atlas story studio', 'Begin a journey of global engineering inspirations.'],
+      ['95–100', 'Share', 'Show one story frame and why it matters.']
     ];
     if (/^Guest/.test(week.kind)) return [
       ['00–10', 'Opening question', week.subtitle],
@@ -103,7 +110,7 @@
       ['80–100', 'Share + MAKE', 'Compare discoveries and set up homework.']
     ];
   };
-  const scheduleHtml = week => `<ol class="agenda-time-grid" aria-label="Proposed 100-minute class agenda">${scheduleFor(week).map(([time, title, description]) => `<li><time>${escapeHtml(time)} min</time><strong>${escapeHtml(title)}</strong><span>${escapeHtml(description)}</span></li>`).join('')}</ol>`;
+  const scheduleHtml = week => `<ol class="agenda-time-grid" aria-label="Proposed 100-minute class agenda">${scheduleFor(week).map(([time, title, description]) => `<li><time>${escapeHtml(time)} min</time><strong>${escapeHtml(t(title))}</strong><span>${escapeHtml(t(description))}</span></li>`).join('')}</ol>`;
   const sectionMatches = (section, names) => names.includes(section.title);
   const slideCardHtml = week => {
     const file = week.lecture_preview || '';
@@ -117,6 +124,7 @@
     return `<a class="agenda-slide-card" href="${href}" aria-label="Preview Week ${week.week} lecture slides"><span class="agenda-slide-image">${image}</span><span class="agenda-slide-caption"><span>LECTURE SLIDES</span><strong>Preview slides <span aria-hidden="true">↗</span></strong></span></a>${followup}`;
   };
   const render = (weeks, guests) => {
+    list.replaceChildren();
     mode.textContent = planning ? 'Planning mode · all weeks expanded' : 'Weekly course agenda';
     weeks.sort((a, b) => a.week - b.week).forEach(week => {
       const open = planning || new Date() >= new Date(week.publish_at);
@@ -144,7 +152,7 @@
         work.append(activity);
         const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = '<header><span>03 / HOMEWORK</span><h3>Carry it forward</h3></header>';
         week.sections.filter(section => sectionMatches(section, homeworkNames)).forEach(section => addSection(homework, section));
-        if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = 'ADD YOUR ATLAS ROUTE ↗'; homework.append(link); }
+        if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = t(week.week === 1 ? 'ADD YOUR STORY ↗' : 'ADD YOUR ATLAS ROUTE ↗'); homework.append(link); }
         const formUrl = week.make_form_url || assignments[week.make_id]?.formUrl;
         if (week.make_id && formUrl) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = formUrl; link.target = '_blank'; link.rel = 'noopener'; link.textContent = 'SUBMIT / UPDATE YOUR MAKE'; homework.append(link); }
         work.append(homework); detail.append(work);
@@ -166,8 +174,10 @@
     if (!response.ok) throw new Error(`${file} could not be loaded.`);
     return parseWeek(await response.text());
   };
+  let loadedAgenda = null;
+  window.addEventListener('course-language-change', () => { if (loadedAgenda) render(...loadedAgenda); });
   Promise.all([Promise.all(weekFiles.map(load)), Promise.all(guestFiles.map(loadGuest))])
-    .then(([weeks, guestList]) => render(weeks, new Map(guestList.map(guest => [guest.id, guest]))))
+    .then(([weeks, guestList]) => { loadedAgenda = [weeks, new Map(guestList.map(guest => [guest.id, guest]))]; render(...loadedAgenda); })
     .catch(error => { mode.textContent = 'Agenda unavailable'; list.innerHTML = `<p class="agenda-locked"><strong>AGENDA ERROR</strong> · ${escapeHtml(error.message)}</p>`; });
 })();
 </script></body></html>

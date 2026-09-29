@@ -35,3 +35,10 @@ CREATE TABLE IF NOT EXISTS hidden_builtins (
   id TEXT PRIMARY KEY,
   hidden_at TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS builtin_overrides (
+  id TEXT PRIMARY KEY,
+  record TEXT NOT NULL,
+  revision INTEGER NOT NULL DEFAULT 1,
+  updated_at TEXT NOT NULL
+);

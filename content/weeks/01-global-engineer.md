@@ -22,24 +22,13 @@ Six images, no slide text. Yoh tells the story behind each image and asks what i
 
 ## In Class
 
-- BEGIN NEAR HOME (7 min): privately sketch a place or problem you know and an engineering hope. Neighborhood, family, and campus all count; personal details are optional.
-- STORY CIRCLE (20 min): three minutes each for your story and dream of becoming a global engineer, then one curious question from the room. No story must prove it is “global enough.”
-- GIVE IT WINGS (18 min): open the class Atlas. Begin with a hometown or another meaningful place in Japan. Choose an engineering idea, object, infrastructure, or problem that touches it. Where did it begin, where else did it travel, and who changed it? Explore one connection first; add a moment in time, evidence link, video, or question. Later you can follow several branches, not just one route.
-- CLOSE (5 min): show your first thread to the circle. Tell us why you chose it and what you want to learn next. No one has to arrive with international experience or a finished claim.
+- CONVERSATION (25 min): Share a place you know, what inspires you about engineering, and a dream. Listen and ask one curious question.
+- ATLAS (20 min): Explore the map and begin “My Global Engineering Story.” Choose places linked to inventions, people, events, technologies, or futures you want to investigate.
+- SHARE (5 min): Show one story frame and say what draws you to it.
 
 ## MAKE
 
-**ATLAS 01 — From Here, Outward.** Begin with a place you know in Japan and choose something engineered that touches it. Was it invented here and taken elsewhere, or inherited and adapted here? Choose one other nation and record a connection, a date, and a question. Add a source link or video if you have one. The story may later branch to many places; no international experience or finished claim is required.
-
-## Atlas
-
-Open the class Atlas. Start with one place and one engineering curiosity. Each frame can grow from an idea into a feat, tradeoff, or future question. Select a frame to light up its place on the map, or select a marker to return to that frame. The frames are moments in your inquiry, not stops on a required journey.
-
-[Follow Yoh's draft Atlas story](atlas.html#yoh) to see how one family and research trajectory connects agricultural science, urban planning, and disaster storytelling across places and time. The regional visits are grouped as "1982+" because their exact dates are not specified.
-
-## Read / View
-
-Read the short [What Is Global Engineering?](https://www.colorado.edu/center/mortenson/about-us/what-global-engineering) introduction. Bring a two-sentence response: Which idea connects to a place or problem you know, and what would you add to or question about its definition? Your example does not need to be international. If you wish, bring an image or object from that place.
+**MY GLOBAL ENGINEERING STORY.** Build at least five story slides in the class Atlas, beyond your starting-place marker. Each slide shows a place and one global engineering inspiration or question you want to investigate. Finish your journey as homework and present it to the class next week.
 
 ## Resources
 
