@@ -19,6 +19,10 @@
   stroke-linejoin: round;
 }
 
+.atlas-icon-button[hidden] {
+  display: none;
+}
+
 .atlas-my-actions .atlas-action--delete,
 .atlas-filmstrip-actions .atlas-action--delete,
 .atlas-marker-actions .atlas-action--delete {
