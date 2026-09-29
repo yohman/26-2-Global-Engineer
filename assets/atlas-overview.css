@@ -1,0 +1,11 @@
+/* Keep the polar edge of the Mercator basemap out of the Atlas masthead. */
+.atlas-topline {
+  padding-bottom: 3.1rem;
+  background: linear-gradient(
+    to bottom,
+    var(--paper) 0%,
+    var(--paper) 56%,
+    rgba(247, 244, 237, .97) 82%,
+    rgba(247, 244, 237, 0) 100%
+  );
+}
