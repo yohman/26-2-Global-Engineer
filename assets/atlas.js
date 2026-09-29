@@ -36,7 +36,7 @@
     {country:'Japan',place:'Fukushima · Japan',point:[140.47,37.76],dateLabel:'AFTER 2011',beat:'LISTEN',engineering:'In Fukushima, Human Error documents the narratives of people affected by the nuclear disaster.',reason:'My role is to listen and carry those stories beyond Japan.',image:'lectures/assets/human-error-still.png',imageAlt:'A still from Human Error showing a person descending an outdoor staircase.',mediaUrl:'https://filmfreeway.com/HumanError',sourceLabel:'Human Error ↗'}
   ]};
   let map,features=[],stage='studio',origin=null,selected=null,hover='',journey=null,sharedStories=[],hiddenBuiltins=[],builtinOverrides={},markers=[],returnStage='studio',basemapId=readBasemap();
-  let activeRoute=null,activeMoment=0,playTimer=null,routeCamera=null,routeAnimation=null,studioCamera=null,studioReturnStage='studio';
+  let activeRoute=null,activeMoment=0,displayOrder=[],playTimer=null,routeCamera=null,routeAnimation=null,studioCamera=null,studioReturnStage='studio';
   let session=readSession(),authorOriginPoint=[...japan],authorOriginCountry='Japan',authorDraft=null,connectionFromIndex=0,studioWorldView=false;
   let editorMoving=false,editorPickPoint=null,editorPickCountry='',pickCandidate=null,pickMarker=null;
   function readJourney(){try{const v=JSON.parse(localStorage.getItem(storageKey)||'null');return v&&Array.isArray(v.hops)&&v.origin?v:null}catch{return null}}
@@ -332,6 +332,22 @@
   }
   function sourceIndex(route,index){return index<1?0:Number.isInteger(route.hops[index-1]?.fromIndex)?route.hops[index-1].fromIndex:index-1}
   function sourceMoment(route,index){return frameMoment(route,sourceIndex(route,index))}
+  function momentYear(moment){
+    const explicit=Number(moment.year);
+    if(moment.year!==undefined&&moment.year!==null&&moment.year!==''&&Number.isFinite(explicit))return explicit;
+    const label=String(moment.dateLabel||moment.period||'');
+    const match=label.match(/\b(?:19|20)\d{2}\b/);
+    if(!match)return null;
+    return Number(match[0])+(/\bafter\b/i.test(label)?0.5:/\+/.test(label)?0.25:0);
+  }
+  function orderedMoments(route){
+    return [route.origin,...route.hops].map((moment,index)=>({moment,index,year:momentYear(moment)}))
+      .sort((a,b)=>(a.year??Infinity)-(b.year??Infinity)||a.index-b.index);
+  }
+  function adjacentMoment(index,direction){
+    const position=displayOrder.indexOf(index);
+    return displayOrder[Math.max(0,Math.min(displayOrder.length-1,position+direction))];
+  }
   function journeyCamera(route,panelHeight=ui.filmstrip.getBoundingClientRect().height){
     const points=[route.origin.point,...route.hops.map(hop=>hop.point)];
     const longitudes=points.map(point=>(point[0]+360)%360).sort((a,b)=>a-b);
@@ -348,7 +364,7 @@
   }
   function buildStudio(){
     const projects=studioProjects();
-    const dated=projects.flatMap(route=>[route.origin,...route.hops].map(moment=>Number(moment.year)).filter(Boolean));
+    const dated=projects.flatMap(route=>orderedMoments(route).map(item=>item.year).filter(year=>year!==null));
     const minimum=Math.floor(Math.min(...dated,1960)/10)*10,maximum=Math.ceil(Math.max(...dated,2026)/10)*10;
     ui.studioYears.replaceChildren();ui.studioLanes.replaceChildren();
     for(let year=minimum;year<=maximum;year+=10){
@@ -357,7 +373,7 @@
       ui.studioYears.append(tick);
     }
     for(const route of projects){
-      const color=markerColor(route.marker?.color),moments=[route.origin,...route.hops];
+      const color=markerColor(route.marker?.color),moments=orderedMoments(route);
       const lane=node('div','atlas-studio-lane');
       const title=node('button','atlas-studio-person');
       const avatar=node('span','atlas-studio-avatar',markerSymbol(route.marker?.symbol||route.alias?.slice(0,1)));
@@ -365,12 +381,12 @@
       title.append(avatar,node('span','',`${route.alias}${route.simulated?t(' · simulated'):!isBuiltin(route)&&canEdit(route)?t(' · mine'):''}`));
       title.type='button';title.addEventListener('click',()=>showJourney(route));
       const track=node('div','atlas-studio-track');track.style.setProperty('--lane-color',color);
-      moments.forEach((moment,index)=>{
-        const year=Number(moment.year)||Number(moments.slice(0,index).reverse().find(item=>item.year)?.year)||Number(moments.find(item=>item.year)?.year)||2026;
+      moments.forEach(({moment,index,year},position)=>{
+        const displayYear=year??moments.slice(0,position).reverse().find(item=>item.year!==null)?.year??2026;
         const dot=node('button','atlas-studio-point',markerSymbol(route.marker?.symbol||route.alias?.slice(0,1)));
-        dot.type='button';dot.style.left=`${(year-minimum)/(maximum-minimum)*100}%`;
+        dot.type='button';dot.style.left=`${(displayYear-minimum)/(maximum-minimum)*100}%`;
         dot.style.backgroundColor=color;dot.style.color=markerInk(color);
-        dot.title=`${route.alias} · ${moment.place||moment.country} · ${moment.dateLabel||year}`;
+        dot.title=`${route.alias} · ${moment.place||moment.country} · ${moment.dateLabel||displayYear}`;
         dot.setAttribute('aria-label',`Open ${route.alias}’s story at ${moment.place||moment.country}`);
         dot.addEventListener('click',()=>showJourney(route,false,index));track.append(dot);
       });
@@ -426,10 +442,11 @@
     ui.filmstripTitle.textContent=t(route.title||(route.simulated?'Mina: what travels with a metro?':`${route.alias||'My'}’s engineering threads`));
     ui.filmstripKicker.textContent=t(route.kicker||(route.simulated?'SIMULATED ENGINEERING STORY':'MY STUDIO JOURNEY'));
     ui.filmstripTrack.replaceChildren();
-    const moments=[route.origin,...route.hops];
-    moments.forEach((moment,index)=>{
-      if(index){
-        const gapInfo=timeGap(moments[index-1],moment);
+    const moments=orderedMoments(route);
+    displayOrder=moments.map(item=>item.index);
+    moments.forEach(({moment,index},position)=>{
+      if(position){
+        const gapInfo=timeGap(moments[position-1].moment,moment);
         const gap=node('div','atlas-time-gap');
         gap.style.setProperty('--gap-width',`${gapInfo.width}px`);
         gap.append(node('span','',gapInfo.label));
@@ -468,13 +485,14 @@
     const previous=activeMoment;
     activeMoment=Math.max(0,Math.min(index,activeRoute.hops.length));
     if(move&&previous!==activeMoment)revealConnection(sourceMoment(activeRoute,activeMoment),frameMoment(activeRoute,activeMoment));
-    ui.filmstripPrev.disabled=activeMoment===0;
-    ui.filmstripNext.disabled=activeMoment===activeRoute.hops.length;
+    const position=displayOrder.indexOf(activeMoment);
+    ui.filmstripPrev.disabled=position===0;
+    ui.filmstripNext.disabled=position===displayOrder.length-1;
     const editable=canEdit(activeRoute),removable=canRemove(activeRoute);
     ui.filmstripAdd.hidden=!editable;
     $('atlas-filmstrip-edit').hidden=!editable;$('atlas-filmstrip-delete').hidden=!removable;
     iconButton($('atlas-filmstrip-delete'),'delete',activeMoment?'Delete marker':isBuiltin(activeRoute)?'Remove built-in journey':'Delete journey');
-    ui.filmstripTrack.querySelectorAll('.atlas-frame').forEach((frame,i)=>frame.classList.toggle('is-active',i===activeMoment));
+    ui.filmstripTrack.querySelectorAll('.atlas-frame').forEach(frame=>frame.classList.toggle('is-active',Number(frame.dataset.moment)===activeMoment));
     markers.forEach((marker,i)=>{
       const host=marker.getElement();
       host.firstElementChild?.classList.toggle('is-active',i===activeMoment);
@@ -500,23 +518,24 @@
   function stopPlayback(){if(playTimer)clearTimeout(playTimer);playTimer=null;ui.filmstripPlay.textContent='▶';ui.filmstripPlay.setAttribute('aria-label',t('Play journey'));ui.filmstripPlay.title=t('Play journey')}
   function playJourney(){
     if(playTimer){stopPlayback();return}
-    if(activeMoment>=activeRoute.hops.length)setActiveMoment(0,true);
+    if(displayOrder.indexOf(activeMoment)===displayOrder.length-1)setActiveMoment(displayOrder[0],true);
     ui.filmstripPlay.textContent='Ⅱ';ui.filmstripPlay.setAttribute('aria-label',t('Pause journey'));ui.filmstripPlay.title=t('Pause journey');
     const advance=()=>{
-      if(activeMoment>=activeRoute.hops.length){stopPlayback();return}
-      const from=frameMoment(activeRoute,activeMoment),to=frameMoment(activeRoute,activeMoment+1);
-      setActiveMoment(activeMoment+1,true);
+      if(displayOrder.indexOf(activeMoment)===displayOrder.length-1){stopPlayback();return}
+      const next=adjacentMoment(activeMoment,1);
+      const from=frameMoment(activeRoute,activeMoment),to=frameMoment(activeRoute,next);
+      setActiveMoment(next,true);
       const gap=from.year&&to.year?Math.abs(to.year-from.year):0;
       playTimer=setTimeout(advance,Math.min(3000,1450+gap*230));
     };
     playTimer=setTimeout(advance,750);
   }
-  function showJourney(route,personal=false,startIndex=0){
+  function showJourney(route,personal=false,startIndex=null){
     stopPlayback();clearRouteLine();returnStage=stage;activeRoute=route;activeMoment=0;
     buildFilmstrip(route);setStage('demo');
     routeCamera=journeyCamera(route);
     renderRoutes();
-    setActiveMoment(startIndex,false);
+    setActiveMoment(startIndex??displayOrder[0],false);
     if(routeCamera)map.easeTo({...routeCamera,duration:850});
   }
   function openCard(index){
@@ -530,8 +549,9 @@
     $('atlas-card-story').textContent=t(moment.engineering||moment.reason||'A question begins here.');
     $('atlas-card-trace').textContent=t(moment.trace||moment.reason||'');
     const link=$('atlas-card-link'),url=safeUrl(moment.mediaUrl);link.hidden=!url;if(url)link.href=url;
-    $('atlas-card-count').textContent=`${activeMoment+1} / ${activeRoute.hops.length+1}`;
-    $('atlas-card-prev').disabled=activeMoment===0;$('atlas-card-next').disabled=activeMoment===activeRoute.hops.length;
+    const position=displayOrder.indexOf(activeMoment);
+    $('atlas-card-count').textContent=`${position+1} / ${displayOrder.length}`;
+    $('atlas-card-prev').disabled=position===0;$('atlas-card-next').disabled=position===displayOrder.length-1;
     if(!dialog.open)dialog.showModal();
   }
   function openEditor(){
@@ -802,8 +822,8 @@
   $('atlas-branch-origin').addEventListener('click',()=>beginConnection(0));
   $('atlas-branch-cancel').addEventListener('click',()=>$('atlas-branch').close());
   $('atlas-card-close').addEventListener('click',()=>$('atlas-card-detail').close());
-  $('atlas-card-prev').addEventListener('click',()=>openCard(activeMoment-1));
-  $('atlas-card-next').addEventListener('click',()=>openCard(activeMoment+1));
+  $('atlas-card-prev').addEventListener('click',()=>openCard(adjacentMoment(activeMoment,-1)));
+  $('atlas-card-next').addEventListener('click',()=>openCard(adjacentMoment(activeMoment,1)));
   ui.editorForm.addEventListener('submit',saveEdit);
   $('atlas-editor-cancel').addEventListener('click',()=>ui.editor.close());
   $('atlas-editor-discard').addEventListener('click',()=>ui.editor.close());
@@ -818,14 +838,14 @@
   });
   ui.filmstripStudio.addEventListener('click',showStudio);
   ui.filmstripPlay.addEventListener('click',playJourney);
-  ui.filmstripPrev.addEventListener('click',()=>{stopPlayback();setActiveMoment(activeMoment-1,true)});
-  ui.filmstripNext.addEventListener('click',()=>{stopPlayback();setActiveMoment(activeMoment+1,true)});
+  ui.filmstripPrev.addEventListener('click',()=>{stopPlayback();setActiveMoment(adjacentMoment(activeMoment,-1),true)});
+  ui.filmstripNext.addEventListener('click',()=>{stopPlayback();setActiveMoment(adjacentMoment(activeMoment,1),true)});
   window.addEventListener('keydown',event=>{
     if(editorMoving&&event.key==='Escape'){event.preventDefault();finishMapPick(false);return}
     if(stage!=='demo'||!['ArrowLeft','ArrowRight'].includes(event.key)||event.altKey||event.ctrlKey||event.metaKey)return;
     if(ui.editor.open||ui.access.open||$('atlas-branch').open||$('atlas-card-detail').open)return;
     if(event.target.closest?.('input,textarea,select,[contenteditable="true"]'))return;
-    event.preventDefault();stopPlayback();setActiveMoment(activeMoment+(event.key==='ArrowRight'?1:-1),true);
+    event.preventDefault();stopPlayback();setActiveMoment(adjacentMoment(activeMoment,event.key==='ArrowRight'?1:-1),true);
   });
   ui.search.addEventListener('input',()=>{const feature=features.find(f=>f.properties.name.toLowerCase()===ui.search.value.trim().toLowerCase());if(feature&&origin){useCountry(feature);ui.search.value=''}});
   ui.form.addEventListener('submit',event=>{event.preventDefault();saveDraft()});
