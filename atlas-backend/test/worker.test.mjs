@@ -179,9 +179,11 @@ test('instructor secret grants access to every story without taking student owne
   const student = await login(db);
   let response = await worker.fetch(request(`/stories/${story.id}`, 'PUT', { story, revision: 0 }, student.data.token), env);
   assert.equal(response.status, 200);
-  response = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'class-secret' }), env);
+  response = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku.ac.jp', password: 'class-secret' }), env);
   assert.equal(response.status, 401);
   response = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'different-instructor-secret' }), env);
+  assert.equal(response.status, 401);
+  response = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku.ac.jp', password: 'different-instructor-secret' }), env);
   assert.equal(response.status, 200);
   const instructor = await response.json();
   assert.equal(instructor.admin, true);
@@ -213,17 +215,17 @@ test('instructor secret grants access to every story without taking student owne
 
 test('instructor access stays unavailable until a distinct secret is configured', async () => {
   const db = database();
-  const req = request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'class-secret' });
+  const req = request('/session', 'POST', { email: 'ykawano@reitaku.ac.jp', password: 'class-secret' });
   let response = await worker.fetch(req, { DB: db, CLASS_PASSWORD: 'class-secret' });
   assert.equal(response.status, 503);
-  response = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'class-secret' }), { DB: db, CLASS_PASSWORD: 'class-secret', ADMIN_PASSWORD: 'class-secret' });
+  response = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku.ac.jp', password: 'class-secret' }), { DB: db, CLASS_PASSWORD: 'class-secret', ADMIN_PASSWORD: 'class-secret' });
   assert.equal(response.status, 503);
 });
 
 test('only instructor can hide and restore bundled journeys', async () => {
   const db = database(), env = { DB: db, CLASS_PASSWORD: 'class-secret', ADMIN_PASSWORD: 'different-instructor-secret' };
   const student = await login(db);
-  const adminResponse = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'different-instructor-secret' }), env);
+  const adminResponse = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku.ac.jp', password: 'different-instructor-secret' }), env);
   const admin = await adminResponse.json();
   let response = await worker.fetch(request('/builtins/yoh-draft', 'DELETE', undefined, student.data.token), env);
   assert.equal(response.status, 403);
@@ -246,7 +248,7 @@ test('only instructor can hide and restore bundled journeys', async () => {
 test('instructor can edit and extend a built-in journey without changing its source', async () => {
   const db = database(), env = { DB: db, CLASS_PASSWORD: 'class-secret', ADMIN_PASSWORD: 'different-instructor-secret' };
   const student = await login(db);
-  const adminResponse = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'different-instructor-secret' }), env);
+  const adminResponse = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku.ac.jp', password: 'different-instructor-secret' }), env);
   const admin = await adminResponse.json();
   const builtIn = { ...story, id: 'yoh-draft', title: 'Yoh story', kicker: 'YOH STORY', hops: [{ ...story.hops[0], beat: 'RESEARCH', engineering: 'Rice science travels', image: 'lectures/assets/irri-rice-science.png' }] };
   let response = await worker.fetch(request('/builtins/yoh-draft/story', 'PUT', { story: builtIn, revision: 0 }, student.data.token), env);
