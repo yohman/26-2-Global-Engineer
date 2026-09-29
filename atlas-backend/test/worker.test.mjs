@@ -10,19 +10,20 @@ const story = {
 };
 
 function database() {
-  const authors = new Map(), sessions = new Map(), stories = new Map(), images = new Map();
+  const authors = new Map(), sessions = new Map(), adminSessions = new Map(), stories = new Map(), images = new Map();
   return {
-    authors,
+    authors, stories,
     prepare(query) {
       let args = [];
       return {
         bind(...values) { args = values; return this; },
         async first() {
+          if (query.includes('FROM admin_sessions')) return adminSessions.get(args[0]) || null;
           if (query.includes('FROM sessions')) return sessions.get(args[0]) || null;
           if (query.includes('FROM story_images') && query.includes('COUNT')) return { total: [...images.values()].filter(image => image.story_id === args[0]).length };
           if (query.includes('FROM story_images')) {
             const image = images.get(args[0]);
-            return image && (!args[1] || (image.story_id === args[1] && image.owner_email === args[2])) ? image : null;
+            return image && (!args[1] || (image.story_id === args[1] && (!query.includes('owner_email = ?') || image.owner_email === args[2]))) ? image : null;
           }
           if (query.includes('FROM stories') && query.includes('COUNT')) return { total: stories.size };
           if (query.includes('FROM stories')) return stories.get(args[0]) || null;
@@ -35,7 +36,9 @@ function database() {
           if (query.startsWith('CREATE TABLE')) return { meta: { changes: 0 } };
           if (query.startsWith('INSERT OR IGNORE INTO authors')) { authors.set(args[0], { email: args[0] }); return { meta: { changes: 1 } }; }
           if (query.startsWith('INSERT INTO sessions')) { sessions.set(args[0], { email: args[1], expires_at: args[2] }); return { meta: { changes: 1 } }; }
+          if (query.startsWith('INSERT INTO admin_sessions')) { adminSessions.set(args[0], { email: args[1], expires_at: args[2] }); return { meta: { changes: 1 } }; }
           if (query.startsWith('DELETE FROM sessions')) { sessions.delete(args[0]); return { meta: { changes: 1 } }; }
+          if (query.startsWith('DELETE FROM admin_sessions')) { adminSessions.delete(args[0]); return { meta: { changes: 1 } }; }
           if (query.startsWith('INSERT INTO story_images')) { images.set(args[0], { id: args[0], story_id: args[1], owner_email: args[2], mime: args[3], data: [...args[4]] }); return { meta: { changes: 1 } }; }
           if (query.startsWith('DELETE FROM story_images')) {
             for (const [id, image] of images) if (image.story_id === args[0]) images.delete(id);
@@ -153,4 +156,50 @@ test('stores branching origins and rejects connections to a future marker', asyn
   const invalid = { ...branched, hops: branched.hops.map((hop, index) => index === 1 ? { ...hop, fromIndex: 2 } : hop) };
   response = await worker.fetch(request(`/stories/${story.id}`, 'PUT', { story: invalid, revision: 1 }, data.token), env);
   assert.equal(response.status, 400);
+});
+
+test('instructor secret grants access to every story without taking student ownership', async () => {
+  const db = database(), env = { DB: db, CLASS_PASSWORD: 'class-secret', ADMIN_PASSWORD: 'different-instructor-secret' };
+  const student = await login(db);
+  let response = await worker.fetch(request(`/stories/${story.id}`, 'PUT', { story, revision: 0 }, student.data.token), env);
+  assert.equal(response.status, 200);
+  response = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'class-secret' }), env);
+  assert.equal(response.status, 401);
+  response = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'different-instructor-secret' }), env);
+  assert.equal(response.status, 200);
+  const instructor = await response.json();
+  assert.equal(instructor.admin, true);
+  response = await worker.fetch(request('/session', 'GET', undefined, instructor.token), { ...env, ADMIN_PASSWORD: 'rotated-instructor-secret' });
+  assert.equal(response.status, 401);
+  response = await worker.fetch(request('/stories', 'GET', undefined, instructor.token), env);
+  assert.equal((await response.json()).stories[0].editable, true);
+  response = await worker.fetch(request(`/stories/${story.id}`, 'PUT', { story: { ...story, title: 'Instructor edit' }, revision: 1 }, instructor.token), env);
+  assert.equal(response.status, 200);
+  response = await worker.fetch(request('/stories', 'GET', undefined, student.data.token), env);
+  assert.equal((await response.json()).stories[0].editable, true);
+  assert.equal(JSON.parse(db.stories.get(story.id).record).ownerEmail, 'student@example.edu');
+  const png = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  response = await worker.fetch(request(`/stories/${story.id}/images`, 'POST', png, instructor.token, siteOrigin, 'image/png'), env);
+  assert.equal(response.status, 201);
+  const { imageId } = await response.json();
+  response = await worker.fetch(request(`/stories/${story.id}`, 'PUT', { story: { ...story, title: 'Student edit', hops: [{ ...story.hops[0], imageId }] }, revision: 2 }, student.data.token), env);
+  assert.equal(response.status, 200);
+  const legacyId = 'journey-ownerless1234';
+  db.stories.set(legacyId, { record: JSON.stringify({ ...story, id: legacyId }), revision: 1, updated_at: new Date().toISOString() });
+  response = await worker.fetch(request('/stories', 'GET', undefined, instructor.token), env);
+  assert.equal((await response.json()).stories.find(item => item.id === legacyId).editable, true);
+  response = await worker.fetch(request(`/stories/${legacyId}`, 'PUT', { story: { ...story, id: legacyId, title: 'Legacy edit' }, revision: 1 }, instructor.token), env);
+  assert.equal(response.status, 200);
+  assert.equal(JSON.parse(db.stories.get(legacyId).record).ownerEmail, undefined);
+  response = await worker.fetch(request(`/stories/${legacyId}`, 'DELETE', { revision: 2 }, instructor.token), env);
+  assert.equal(response.status, 200);
+});
+
+test('instructor access stays unavailable until a distinct secret is configured', async () => {
+  const db = database();
+  const req = request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'class-secret' });
+  let response = await worker.fetch(req, { DB: db, CLASS_PASSWORD: 'class-secret' });
+  assert.equal(response.status, 503);
+  response = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.co.jp', password: 'class-secret' }), { DB: db, CLASS_PASSWORD: 'class-secret', ADMIN_PASSWORD: 'class-secret' });
+  assert.equal(response.status, 503);
 });

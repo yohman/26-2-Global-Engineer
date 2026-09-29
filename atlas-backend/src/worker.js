@@ -6,6 +6,7 @@ const allowedOrigins = new Set([
 const storyIdPattern = /^journey-[A-Za-z0-9-]{8,70}$/;
 const imageIdPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const imageLimit = 700000;
+const instructorEmail = 'ykawano@reitaku-u.co.jp';
 
 function cors(origin) {
   return allowedOrigins.has(origin) ? {
@@ -119,6 +120,12 @@ async function tokenHash(token) {
   return [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
+async function adminTokenHash(token, secret) {
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const signature = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(token));
+  return [...new Uint8Array(signature)].map(byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
 function bearer(request) {
   const match = /^Bearer ([A-Za-z0-9_-]{32,100})$/.exec(request.headers.get('Authorization') || '');
   return match?.[1] || '';
@@ -127,19 +134,27 @@ function bearer(request) {
 async function prepareTables(db) {
   await db.prepare('CREATE TABLE IF NOT EXISTS authors (email TEXT PRIMARY KEY, joined_at TEXT NOT NULL)').run();
   await db.prepare('CREATE TABLE IF NOT EXISTS sessions (token_hash TEXT PRIMARY KEY, email TEXT NOT NULL, expires_at TEXT NOT NULL)').run();
+  await db.prepare('CREATE TABLE IF NOT EXISTS admin_sessions (token_hash TEXT PRIMARY KEY, email TEXT NOT NULL, expires_at TEXT NOT NULL)').run();
   await db.prepare('CREATE TABLE IF NOT EXISTS story_images (id TEXT PRIMARY KEY, story_id TEXT NOT NULL, owner_email TEXT NOT NULL, mime TEXT NOT NULL, data BLOB NOT NULL, created_at TEXT NOT NULL)').run();
 }
 
-async function sessionFor(request, db) {
+async function sessionFor(request, env) {
   const token = bearer(request);
   if (!token) return null;
-  const row = await db.prepare('SELECT email, expires_at FROM sessions WHERE token_hash = ?').bind(await tokenHash(token)).first();
-  return row && Date.parse(row.expires_at) > Date.now() ? { email: row.email, token } : null;
+  const db = env.DB;
+  await db.prepare('CREATE TABLE IF NOT EXISTS admin_sessions (token_hash TEXT PRIMARY KEY, email TEXT NOT NULL, expires_at TEXT NOT NULL)').run();
+  const hash = await tokenHash(token);
+  const adminHash = env.ADMIN_PASSWORD && !equalSecret(env.ADMIN_PASSWORD, env.CLASS_PASSWORD)
+    ? await adminTokenHash(token, env.ADMIN_PASSWORD) : '';
+  const admin = adminHash ? await db.prepare('SELECT email, expires_at FROM admin_sessions WHERE token_hash = ?').bind(adminHash).first() : null;
+  if (admin && admin.email === instructorEmail && Date.parse(admin.expires_at) > Date.now()) return { email: admin.email, admin: true, token };
+  const row = await db.prepare('SELECT email, expires_at FROM sessions WHERE token_hash = ?').bind(hash).first();
+  return row && row.email !== instructorEmail && Date.parse(row.expires_at) > Date.now() ? { email: row.email, admin: false, token } : null;
 }
 
-function publicStory(row, email) {
+function publicStory(row, session) {
   const { ownerEmail, ...story } = JSON.parse(row.record);
-  return { ...story, revision: row.revision, updatedAt: row.updated_at, editable: Boolean(email && ownerEmail === email) };
+  return { ...story, revision: row.revision, updatedAt: row.updated_at, editable: Boolean(session && (session.admin || ownerEmail === session.email)) };
 }
 
 function validImage(bytes, mime) {
@@ -160,31 +175,40 @@ export default {
       if (Number(request.headers.get('Content-Length')) > 1000) return json({ error: 'Request too large' }, 413, origin);
       let body;
       try { body = await request.json(); } catch { return json({ error: 'Invalid request' }, 400, origin); }
-      if (!equalSecret(body.password, env.CLASS_PASSWORD)) return json({ error: 'Class password rejected' }, 401, origin);
       let email;
       try { email = emailAddress(body.email); } catch (error) { return json({ error: error.message }, 400, origin); }
+      const admin = email === instructorEmail;
+      if (admin && (!env.ADMIN_PASSWORD || equalSecret(env.ADMIN_PASSWORD, env.CLASS_PASSWORD))) return json({ error: 'Instructor access is not configured' }, 503, origin);
+      if (!equalSecret(body.password, admin ? env.ADMIN_PASSWORD : env.CLASS_PASSWORD)) return json({ error: admin ? 'Instructor password rejected' : 'Class password rejected' }, 401, origin);
       await prepareTables(env.DB);
       const token = [...crypto.getRandomValues(new Uint8Array(32))].map(byte => byte.toString(16).padStart(2, '0')).join('');
       const now = new Date().toISOString();
       const expiresAt = new Date(Date.now() + 12 * 60 * 60 * 1000).toISOString();
       await env.DB.prepare('INSERT OR IGNORE INTO authors (email, joined_at) VALUES (?, ?)').bind(email, now).run();
-      await env.DB.prepare('INSERT INTO sessions (token_hash, email, expires_at) VALUES (?, ?, ?)').bind(await tokenHash(token), email, expiresAt).run();
-      return json({ token, email, expiresAt }, 200, origin);
+      await env.DB.prepare(admin ? 'INSERT INTO admin_sessions (token_hash, email, expires_at) VALUES (?, ?, ?)' : 'INSERT INTO sessions (token_hash, email, expires_at) VALUES (?, ?, ?)').bind(admin ? await adminTokenHash(token, env.ADMIN_PASSWORD) : await tokenHash(token), email, expiresAt).run();
+      return json({ token, email, admin, expiresAt }, 200, origin);
     }
 
     if (path === '/stories' && request.method === 'GET') {
-      const session = bearer(request) ? await sessionFor(request, env.DB) : null;
+      const session = bearer(request) ? await sessionFor(request, env) : null;
       const rows = await env.DB.prepare('SELECT record, revision, updated_at FROM stories ORDER BY updated_at DESC LIMIT 20').all();
-      return json({ stories: rows.results.map(row => publicStory(row, session?.email)) }, 200, origin);
+      return json({ stories: rows.results.map(row => publicStory(row, session)) }, 200, origin);
     }
 
     if (path === '/session' && request.method === 'GET') {
-      const session = await sessionFor(request, env.DB);
-      return session ? json({ email: session.email }, 200, origin) : json({ error: 'Sign in again' }, 401, origin);
+      const session = await sessionFor(request, env);
+      return session ? json({ email: session.email, admin: session.admin }, 200, origin) : json({ error: 'Sign in again' }, 401, origin);
     }
     if (path === '/session' && request.method === 'DELETE') {
       const token = bearer(request);
-      if (token) await env.DB.prepare('DELETE FROM sessions WHERE token_hash = ?').bind(await tokenHash(token)).run();
+      if (token) {
+        const hash = await tokenHash(token);
+        await env.DB.prepare('DELETE FROM sessions WHERE token_hash = ?').bind(hash).run();
+        if (env.ADMIN_PASSWORD && !equalSecret(env.ADMIN_PASSWORD, env.CLASS_PASSWORD)) {
+          await env.DB.prepare('CREATE TABLE IF NOT EXISTS admin_sessions (token_hash TEXT PRIMARY KEY, email TEXT NOT NULL, expires_at TEXT NOT NULL)').run();
+          await env.DB.prepare('DELETE FROM admin_sessions WHERE token_hash = ?').bind(await adminTokenHash(token, env.ADMIN_PASSWORD)).run();
+        }
+      }
       return json({ ok: true }, 200, origin);
     }
 
@@ -199,10 +223,10 @@ export default {
 
     const imageUpload = /^\/stories\/(journey-[A-Za-z0-9-]{8,70})\/images$/.exec(path);
     if (imageUpload && request.method === 'POST') {
-      const session = await sessionFor(request, env.DB);
+      const session = await sessionFor(request, env);
       if (!session) return json({ error: 'Sign in again' }, 401, origin);
       const row = await env.DB.prepare('SELECT record FROM stories WHERE id = ?').bind(imageUpload[1]).first();
-      if (!row || JSON.parse(row.record).ownerEmail !== session.email) return json({ error: 'This is not your journey' }, 403, origin);
+      if (!row || (!session.admin && JSON.parse(row.record).ownerEmail !== session.email)) return json({ error: 'This is not your journey' }, 403, origin);
       if (Number(request.headers.get('Content-Length')) > imageLimit) return json({ error: 'Image must be under 700 KB' }, 413, origin);
       const bytes = new Uint8Array(await request.arrayBuffer());
       const mime = (request.headers.get('Content-Type') || '').split(';')[0].toLowerCase();
@@ -217,10 +241,10 @@ export default {
 
     const match = /^\/stories\/(journey-[A-Za-z0-9-]{8,70})$/.exec(path);
     if (!match || !['PUT', 'DELETE'].includes(request.method)) return json({ error: 'Not found' }, 404, origin);
-    const session = await sessionFor(request, env.DB);
+    const session = await sessionFor(request, env);
     if (!session) return json({ error: 'Sign in again' }, 401, origin);
     const existing = await env.DB.prepare('SELECT record, revision FROM stories WHERE id = ?').bind(match[1]).first();
-    if (existing && JSON.parse(existing.record).ownerEmail !== session.email) return json({ error: 'This is not your journey' }, 403, origin);
+    if (existing && !session.admin && JSON.parse(existing.record).ownerEmail !== session.email) return json({ error: 'This is not your journey' }, 403, origin);
     try {
       if (Number(request.headers.get('Content-Length')) > 23000) throw new Error('Story is too long');
       const body = await request.text();
@@ -238,11 +262,12 @@ export default {
       const story = cleanStory(payload.story, match[1]);
       const imageIds = [story.origin, ...story.hops].map(moment => moment.imageId).filter(Boolean);
       for (const id of imageIds) {
-        const row = await env.DB.prepare('SELECT id FROM story_images WHERE id = ? AND story_id = ? AND owner_email = ?').bind(id, story.id, session.email).first();
+        const row = await env.DB.prepare('SELECT id FROM story_images WHERE id = ? AND story_id = ?').bind(id, story.id).first();
         if (!row) throw new Error('Image is not part of this journey');
       }
       const timestamp = new Date().toISOString();
-      const record = JSON.stringify({ ...story, ownerEmail: session.email });
+      const ownerEmail = existing ? JSON.parse(existing.record).ownerEmail : session.email;
+      const record = JSON.stringify({ ...story, ownerEmail });
       if (revision === 0) {
         if (existing) return json({ error: 'Story changed elsewhere. Reload before saving.' }, 409, origin);
         const count = await env.DB.prepare('SELECT COUNT(*) AS total FROM stories').first();

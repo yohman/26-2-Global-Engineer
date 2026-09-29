@@ -31,12 +31,12 @@
   function readJourney(){try{const v=JSON.parse(localStorage.getItem(storageKey)||'null');return v&&Array.isArray(v.hops)&&v.origin?v:null}catch{return null}}
   function writeJourney(v){try{localStorage.setItem(storageKey,JSON.stringify(v));return true}catch{return false}}
   function readSession(){try{const value=JSON.parse(sessionStorage.getItem(sessionKey)||'null');return value?.token&&Date.parse(value.expiresAt)>Date.now()?value:null}catch{return null}}
-  function storeSession(value){session=value;try{if(value)sessionStorage.setItem(sessionKey,JSON.stringify(value));else sessionStorage.removeItem(sessionKey)}catch{}ui.signOut.hidden=!value;$('atlas-my-journeys-toggle').hidden=!value;if(!value)$('atlas-my-journeys').hidden=true}
+  function storeSession(value){session=value;try{if(value)sessionStorage.setItem(sessionKey,JSON.stringify(value));else sessionStorage.removeItem(sessionKey)}catch{}ui.signOut.hidden=!value;$('atlas-my-journeys-toggle').hidden=!value;const label=t(value?.admin?'All journeys':'My journeys');$('atlas-my-journeys-toggle').textContent=label;$('atlas-my-journeys').setAttribute('aria-label',label);$('atlas-my-journeys-heading').textContent=label;if(!value)$('atlas-my-journeys').hidden=true}
   function authHeaders(){return session?{Authorization:`Bearer ${session.token}`}:{}}
   function canEdit(route){return Boolean(session&&route?.editable)}
   async function restoreSession(){
     if(!session)return;
-    try{const response=await fetch(`${workerUrl}/session`,{headers:authHeaders(),cache:'no-store'});if(!response.ok)throw new Error('expired');storeSession(session)}
+    try{const response=await fetch(`${workerUrl}/session`,{headers:authHeaders(),cache:'no-store'});if(!response.ok)throw new Error('expired');const data=await response.json();storeSession({...session,admin:Boolean(data.admin)})}
     catch{storeSession(null)}
   }
   async function loadSharedStories(){
@@ -68,6 +68,13 @@
       ui.accessForm.reset();ui.access.close();
       showStudio();$('atlas-my-journeys').hidden=false;buildMyJourneys();
     }catch(error){ui.accessStatus.textContent=t(error.message)}
+  }
+  function updateAccessPrompt(){
+    const instructor=ui.accessForm.elements.email.value.trim().toLowerCase()==='ykawano@reitaku-u.co.jp';
+    $('atlas-access-kicker').textContent=t(instructor?'INSTRUCTOR ACCESS':'CLASS ACCESS');
+    $('atlas-access-title').textContent=t(instructor?'Manage class journeys':'Add my journey');
+    $('atlas-password-label').textContent=t(instructor?'Instructor password':'Class password');
+    $('atlas-access-note').textContent=t(instructor?'Use your instructor password to manage every published class journey.':'Use the class password and your email to enter author mode. Your email is saved privately; it is not shown on the map.');
   }
   async function publishStory(story){
     if(!session)return {ok:false,error:'Sign in again'};
@@ -654,12 +661,13 @@
   ui.world.addEventListener('click',()=>{studioWorldView=true;renderStudioMarkers();map?.fitBounds([[-178,-58],[178,78]],{padding:{top:70,bottom:Math.min(300,ui.studio.getBoundingClientRect().height+35),left:40,right:40},duration:850})});
   ui.search.addEventListener('change',()=>{const feature=features.find(f=>f.properties.name.toLowerCase()===ui.search.value.trim().toLowerCase());if(feature){useCountry(feature);ui.search.value=''}});
   ui.addJourney.addEventListener('click',()=>{
-    if(!session){ui.accessStatus.textContent='';ui.accessForm.reset();ui.access.showModal();ui.accessForm.elements.email.focus();return}
+    if(!session){ui.accessStatus.textContent='';ui.accessForm.reset();updateAccessPrompt();ui.access.showModal();ui.accessForm.elements.email.focus();return}
     startAuthor();
   });
   $('atlas-my-journeys-toggle').addEventListener('click',()=>{const panel=$('atlas-my-journeys');panel.hidden=!panel.hidden;if(!panel.hidden){buildMyJourneys();panel.scrollIntoView({block:'nearest',behavior:'smooth'})}});
   $('atlas-my-journeys-new').addEventListener('click',startAuthor);
   ui.accessForm.addEventListener('submit',signIn);
+  ui.accessForm.elements.email.addEventListener('input',updateAccessPrompt);
   $('atlas-access-cancel').addEventListener('click',()=>ui.access.close());
   ui.signOut.addEventListener('click',async()=>{
     const token=session?.token;storeSession(null);journey=null;origin=null;activeRoute=null;
@@ -715,6 +723,7 @@
   localizeAttributes();
   window.addEventListener('course-language-change',()=>{
     localizeAttributes();
+    updateAccessPrompt();storeSession(session);
     if(['origin','choose'].includes(stage))setStage(stage);
     if(stage==='selected'){
       ui.selectedName.textContent=t(selected?.name||'');
