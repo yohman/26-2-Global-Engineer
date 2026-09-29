@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="assets/atlas.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-journey.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-filmstrip.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-overview.css?v=map-7">
+  <link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="assets/atlas.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-journey.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-filmstrip.css?v=journeys-5"><link rel="stylesheet" href="assets/atlas-overview.css?v=map-7"><link rel="stylesheet" href="assets/atlas-form.css?v=form-1">
 </head>
 <body class="atlas-page"><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><a class="wordmark" href="index.html"><span>2026-2</span> Global Engineer</a><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" class="site-nav" aria-label="Course navigation"><a href="agenda.html">Agenda</a><a href="groups.html">Groups</a><a href="make.html">MAKE</a><a href="resources.html">Read / View</a><a href="guests.html">Guests</a><a href="exhibition.html">Exhibition</a></nav></header>
@@ -25,13 +25,13 @@
       <p id="atlas-welcome-copy">Choose a place you know. This is your anchor, not a claim that your idea began here.</p>
       <form id="atlas-origin-form" novalidate>
         <label>Your name or alias<input name="alias" required maxlength="60" placeholder="How should we identify your story?"></label>
-        <div class="atlas-marker-author">
+        <label>Your starting place<input name="place" required maxlength="100" placeholder="A town, campus, kitchen, station…"></label>
+        <label class="atlas-check"><input name="anywhere" type="checkbox"> Start anywhere, not necessarily in Japan</label>
+        <details class="atlas-optional"><summary>Customize my marker <span>optional</span></summary><div class="atlas-marker-author">
           <label>Marker color<input name="markerColor" type="color" value="#20567c"></label>
           <label>Marker symbol <span>one emoji or character</span><input name="markerSymbol" maxlength="12" placeholder="旅 / 🌱 / M"></label>
           <span class="atlas-marker-preview" id="atlas-origin-marker-preview" aria-label="Marker preview">✦</span>
-        </div>
-        <label>Your starting place<input name="place" required maxlength="100" placeholder="A town, campus, kitchen, station…"></label>
-        <label class="atlas-check"><input name="anywhere" type="checkbox"> Start anywhere, not necessarily in Japan</label>
+        </div></details>
         <p class="atlas-map-note" id="atlas-origin-map-note">Tap a place in Japan on the map, or use Reitaku campus as your starting point.</p>
         <p class="atlas-author-status" id="atlas-origin-status" role="status"></p>
         <div class="atlas-form-actions"><button type="button" id="atlas-author-cancel">Cancel</button><button class="atlas-primary" type="submit">Choose a connection →</button></div>
@@ -43,10 +43,11 @@
     <div class="atlas-selected" hidden>
       <div class="atlas-selected-head"><p class="atlas-kicker">YOUR JOURNEY · STEP 02</p><button type="button" id="atlas-connection-cancel">Cancel</button></div>
       <h2 id="atlas-selected-name"></h2>
-      <p class="atlas-selected-prompt">What engineering connection brought this place to mind?</p><p class="atlas-connection-source" id="atlas-selected-source"></p>
+      <p class="atlas-connection-source" id="atlas-selected-source"></p>
       <form id="atlas-form" novalidate>
-        <label>Engineering idea<textarea name="reason" required maxlength="500" rows="3" placeholder="A technology, borrowed infrastructure, story, or shared problem…"></textarea></label>
-        <fieldset><legend>Tags <span>choose any</span></legend><div class="atlas-lenses">
+        <label>What connects this place?<textarea name="reason" required maxlength="500" rows="4" placeholder="A technology, idea, or shared problem…"></textarea></label>
+        <details class="atlas-optional"><summary>Add time, evidence, or an image <span>optional</span></summary>
+        <fieldset><legend>Tags <span>optional</span></legend><div class="atlas-lenses">
           <label><input type="checkbox" name="tag" value="Technology"><span>Technology</span></label>
           <label><input type="checkbox" name="tag" value="Infrastructure"><span>Infrastructure</span></label>
           <label><input type="checkbox" name="tag" value="People / story"><span>People / story</span></label>
@@ -55,6 +56,7 @@
         <div class="atlas-form-pair"><label>Year <span>optional</span><input name="year" type="number" min="1900" max="2100" placeholder="Year, if known"></label><label>Link or video <span>optional</span><input name="mediaUrl" type="url" maxlength="500" placeholder="https://…"></label></div>
         <label>Evidence, effect, or open question <span>optional</span><textarea name="trace" maxlength="700" rows="2" placeholder="What changed—or might change?"></textarea></label>
         <label class="atlas-upload">Add an image <span>optional · JPEG, PNG, or WebP</span><input name="image" type="file" accept="image/jpeg,image/png,image/webp"><small>We resize it before uploading. Only use images you have permission to share.</small></label>
+        </details>
         <p id="atlas-form-status" role="status"></p>
         <div class="atlas-form-actions"><button type="button" id="atlas-connection-back">← Choose another country</button><button class="atlas-primary" type="submit">Publish connection</button></div>
       </form>
@@ -84,5 +86,5 @@
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<script src="assets/i18n.js?v=instructor-6"></script><script src="assets/site.js?v=instructor-6"></script><script src="assets/atlas-config.js?v=instructor-6"></script><script src="assets/atlas.js?v=instructor-6"></script>
+<script src="assets/i18n.js?v=form-1"></script><script src="assets/site.js?v=instructor-6"></script><script src="assets/atlas-config.js?v=instructor-6"></script><script src="assets/atlas.js?v=form-1"></script>
 </body></html>

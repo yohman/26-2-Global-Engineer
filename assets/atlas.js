@@ -167,6 +167,7 @@
   function startAuthor(){
     authorDraft=null;journey=null;origin=null;selected=null;connectionFromIndex=0;authorOriginPoint=[...japan];authorOriginCountry='Japan';
     ui.originForm.reset();ui.originForm.elements.markerColor.value='#20567c';
+    ui.originForm.querySelector('details').open=false;
     ui.originForm.elements.place.value='';
     ui.originMapNote.textContent=t('Tap a place in Japan on the map, or use Reitaku campus as your starting point.');
     ui.originStatus.textContent='';updateMarkerPreview();setStage('origin');
@@ -194,9 +195,8 @@
     const name=feature.properties.name;if(name===(journey?.hops[connectionFromIndex-1]?.country||origin.country))return;
     selected={name,feature,point:clickedPoint||pointFor(feature)};
     map.setFilter('atlas-selected-fill',['==',['get','name'],name]);
-    ui.selectedName.textContent=t(name);ui.form.reset();ui.status.textContent='';
+    ui.selectedName.textContent=t(name);ui.form.reset();ui.form.querySelector('details').open=false;ui.status.textContent='';
     $('atlas-selected-source').textContent=`${t('From')}: ${t(frameMoment(journey,connectionFromIndex).place||origin.country)} → ${t(name)}`;
-    ui.selected.querySelector('.atlas-selected-prompt').textContent=t('What engineering connection brought this place to mind?');
     setStage('selected');setCountryName(name);map?.easeTo({center:selected.point,zoom:2.5,duration:850});
   }
   function removeMarkers(){markers.forEach(m=>m.remove());markers=[]}
@@ -559,7 +559,7 @@
     if(!session||!selected||!origin){ui.status.textContent=t('Sign in again');return}
     const form=ui.form.elements,reason=form.reason.value.trim(),mediaUrl=form.mediaUrl.value.trim();
     const tags=[...ui.form.querySelectorAll('[name="tag"]:checked')].map(item=>item.value);
-    if(!reason||!tags.length){ui.status.textContent=t('Add an engineering idea and at least one tag.');return}
+    if(!reason){ui.status.textContent=t('Describe the connection before publishing.');return}
     if(mediaUrl&&!safeUrl(mediaUrl)){ui.status.textContent=t('Please use an http or https link, or leave it blank.');return}
     const yearText=form.year.value.trim(),year=yearText?Number(yearText):null;
     if(year&&(year<1900||year>2100)){ui.status.textContent=t('Please enter a year between 1900 and 2100.');return}

@@ -1,0 +1,30 @@
+.atlas-sheet .atlas-optional {
+  border-top: 1px solid #d7d2c8;
+  margin: .65rem 0 0;
+  padding-top: .55rem;
+}
+
+.atlas-sheet .atlas-optional summary {
+  color: var(--blue);
+  cursor: pointer;
+  font: 700 .72rem/1.4 var(--sans);
+  list-style-position: inside;
+  padding: .2rem 0;
+}
+
+.atlas-sheet .atlas-optional summary span {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.atlas-sheet .atlas-optional[open] summary {
+  margin-bottom: .7rem;
+}
+
+.atlas-sheet .atlas-optional .atlas-marker-author {
+  margin: 0;
+}
+
+.atlas-sheet .atlas-optional .atlas-upload {
+  margin-bottom: .2rem;
+}
