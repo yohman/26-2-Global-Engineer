@@ -6,7 +6,7 @@ const allowedOrigins = new Set([
 const storyIdPattern = /^journey-[A-Za-z0-9-]{8,70}$/;
 const imageIdPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const imageLimit = 700000;
-const instructorEmail = 'ykawano@reitaku.ac.jp';
+const instructorEmail = 'ykawano@reitaku-u.ac.jp';
 const builtinIds = new Set(['yoh-draft', 'simulated-mina']);
 
 function cors(origin) {

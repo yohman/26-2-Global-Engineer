@@ -87,7 +87,7 @@
     }catch(error){ui.accessStatus.textContent=t(error.message)}
   }
   function updateAccessPrompt(){
-    const instructor=ui.accessForm.elements.email.value.trim().toLowerCase()==='ykawano@reitaku.ac.jp';
+    const instructor=ui.accessForm.elements.email.value.trim().toLowerCase()==='ykawano@reitaku-u.ac.jp';
     $('atlas-access-kicker').textContent=t(instructor?'INSTRUCTOR ACCESS':'CLASS ACCESS');
     $('atlas-access-title').textContent=t(instructor?'Manage class journeys':'Add my journey');
     $('atlas-password-label').textContent=t(instructor?'Instructor password':'Class password');
