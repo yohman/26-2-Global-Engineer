@@ -209,9 +209,9 @@
     }else if(next==='choose'){
       ui.welcomeTitle.textContent=t('Choose a connection.');
       const source=journey?frameMoment(journey,connectionFromIndex):origin;
-      ui.welcomeCopy.textContent=t('Follow an engineering idea to another country. Select it on the map or search by name.');
+      ui.welcomeCopy.textContent=t('Click the map where your next story takes place. You can also search for a country.');
       $('atlas-connection-source').textContent=`${t('From')}: ${t(source?.place||source?.country||'Japan')}`;
-      ui.hint.textContent=t('Choose a nation');ui.count.textContent='02 / 02';
+      ui.hint.textContent=t('Click a map location');ui.count.textContent='02 / 02';
       setCountryName('The world');
     }
     renderRoutes();
@@ -244,10 +244,12 @@
   }
   function useCountry(feature,clickedPoint){
     if(!origin||!['choose','selected'].includes(stage))return;
-    const name=feature.properties.name;if(name===(journey?.hops[connectionFromIndex-1]?.country||origin.country))return;
-    selected={name,feature,point:clickedPoint||pointFor(feature)};
-    map.setFilter('atlas-selected-fill',['==',['get','name'],name]);
-    ui.selectedName.textContent=t(name);ui.form.reset();ui.status.textContent='';
+    const refining=stage==='selected';
+    const name=feature.properties.name;
+    selected={name,point:clickedPoint||pointFor(feature)};
+    map.setFilter('atlas-selected-fill',['==',['get','name'],name==='At sea'?'':name]);
+    ui.selectedName.textContent=t(name);if(!refining)ui.form.reset();ui.status.textContent='';
+    $('atlas-selected-coordinates').textContent=locationText(selected.point,name);
     $('atlas-selected-source').textContent=`${t('From')}: ${t(frameMoment(journey,connectionFromIndex).place||origin.country)} → ${t(name)}`;
     setStage('selected');setCountryName(name);map?.easeTo({center:selected.point,zoom:2.5,duration:850});
   }
@@ -310,6 +312,7 @@
     }else dot.textContent=activeRoute?.marker?.symbol||((activeRoute?.alias||label).slice(0,1).toUpperCase());
     if(activeRoute?.marker){const color=markerColor(activeRoute.marker.color);dot.style.backgroundColor=color;dot.style.color=markerInk(color)}
     host.append(dot);
+    if(!interactive)host.style.pointerEvents='none';
     const longitude=stage==='demo'&&routeCamera?longitudeNear(point[0],routeCamera.center.lng):point[0];
     const pin=new maplibregl.Marker({element:host,anchor:'center'}).setLngLat([longitude,point[1]]).addTo(map);
     if(interactive)dot.setAttribute('aria-label',`Show ${label} in the story`);
@@ -325,6 +328,7 @@
       route.hops.forEach((hop,i)=>addMarker(hop.point,`${route.alias} · ${hop.place||hop.country}`,'stop',route.photoUrl,i+1,hop.place||hop.country));
     }else if(origin)addMarker(origin.point,origin.place,'origin');
     else if(stage==='origin')addMarker(authorOriginPoint,ui.originForm.elements.place.value||authorOriginCountry,'origin');
+    if(stage==='selected'&&selected)addMarker(selected.point,selected.name,'candidate');
   }
   function studioProjects(){return [builtinRoute('yoh-draft'),builtinRoute('simulated-mina')].filter(route=>!hiddenBuiltins.includes(route.id)).concat(sharedStories)}
   function renderStudioMarkers(){
@@ -709,7 +713,7 @@
   }
   async function saveDraft(){
     if(!session||!selected||!origin){ui.status.textContent=t('Sign in again');return}
-    const form=ui.form.elements,reason=form.reason.value.trim(),mediaUrl=form.mediaUrl.value.trim();
+    const form=ui.form.elements,reason=form.reason.value.trim(),mediaUrl=form.mediaUrl.value.trim(),place=form.place.value.trim();
     const tags=[...ui.form.querySelectorAll('[name="tag"]:checked')].map(item=>item.value);
     if(!reason){ui.status.textContent=t('Describe the connection before publishing.');return}
     if(mediaUrl&&!safeUrl(mediaUrl)){ui.status.textContent=t('Please use an http or https link, or leave it blank.');return}
@@ -731,7 +735,7 @@
         if(oldIndex===insertAt&&parent===connectionFromIndex)hop.fromIndex=insertAt;
       });
     }
-    draft.hops.splice(insertAt-1,0,{country:selected.name,point:selected.point,fromIndex:connectionFromIndex,reason,lens:tags[0],tags,year,trace:'',mediaUrl:safeUrl(mediaUrl)});
+    draft.hops.splice(insertAt-1,0,{country:selected.name,place:place||selected.name,point:selected.point,fromIndex:connectionFromIndex,reason,lens:tags[0],tags,year,trace:'',mediaUrl:safeUrl(mediaUrl)});
     const submit=ui.form.querySelector('[type="submit"]');submit.disabled=true;ui.status.textContent=t('Publishing connection…');
     const result=await publishStory(draft);
     if(!result.ok){ui.status.textContent=t(result.error);submit.disabled=false;return}
@@ -830,13 +834,14 @@
           map.setFilter('atlas-hover',['==',['get','name'],'']);
           if(stage!=='demo')setCountryName(stage==='origin'?authorOriginCountry:selected?.name||(origin?'The world':'Japan'));
         });
-        map.on('click','atlas-hit',event=>{
-          const feature=event.features[0];if(!feature)return;
-          const name=feature.properties.name;
-          if(stage==='origin'&&(name==='Japan'||ui.originForm.elements.anywhere.checked))chooseOriginPoint([event.lngLat.lng,event.lngLat.lat],name);
-          else if(['choose','selected'].includes(stage))useCountry(feature,[event.lngLat.lng,event.lngLat.lat]);
+        map.on('click',event=>{
+          if(editorMoving){chooseMapPick(event);return}
+          const feature=map.getLayer('atlas-hit')?map.queryRenderedFeatures(event.point,{layers:['atlas-hit']})[0]:null;
+          const name=feature?.properties.name||'At sea';
+          const point=[((event.lngLat.lng+180)%360+360)%360-180,event.lngLat.lat];
+          if(stage==='origin'&&(name==='Japan'||ui.originForm.elements.anywhere.checked))chooseOriginPoint(point,name);
+          else if(['choose','selected'].includes(stage))useCountry(feature||{properties:{name}},point);
         });
-        map.on('click',chooseMapPick);
         await restoreSession();await loadSharedStories();
         showStudio();
         if(window.location.hash==='#yoh'&&!hiddenBuiltins.includes(yohStory.id))showJourney(builtinRoute('yoh-draft'));
@@ -924,6 +929,7 @@
     ui.originForm.elements.place.placeholder=t('A town, campus, kitchen, station…');
     ui.originForm.elements.alias.placeholder=t('How should we identify your story?');
     ui.form.elements.reason.placeholder=t('An invention, person, event, or idea you want to investigate…');
+    ui.form.elements.place.placeholder=t('City, site, or place');
     ui.form.elements.year.placeholder=t('Year');
     ui.originForm.elements.year.placeholder=t('When does your story begin?');
     ui.editorForm.elements.title.placeholder=t('Give your journey a title');
@@ -938,6 +944,7 @@
     if(['origin','choose'].includes(stage))setStage(stage);
     if(stage==='selected'){
       ui.selectedName.textContent=t(selected?.name||'');
+      $('atlas-selected-coordinates').textContent=locationText(selected.point,selected.name);
       $('atlas-selected-source').textContent=`${t('From')}: ${t(frameMoment(journey,connectionFromIndex).place||origin.country)} → ${t(selected?.name||'')}`;
     }
     if(stage==='demo'&&activeRoute){buildFilmstrip(activeRoute);setActiveMoment(activeMoment,false)}
