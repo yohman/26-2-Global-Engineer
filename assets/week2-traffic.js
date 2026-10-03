@@ -30,43 +30,83 @@
     return node;
   };
 
-  function carInkPath(variant, phase) {
-    const outline = [
-      [15, 1.8], [11.7, 2.5], [9.4, 4.7], [8.1, 8.3], [6.7, 13.7], [5.5, 18.5],
-      [4.9, 24], [5, 36], [5.5, 40.3], [7, 43.7], [10.2, 45.5], [15, 46.1],
-      [19.8, 45.5], [23, 43.7], [24.5, 40.3], [25, 36], [25.1, 24], [24.5, 18.5],
-      [23.3, 13.7], [21.9, 8.3], [20.6, 4.7], [18.3, 2.5]
-    ];
-    const point = ([x, y], index) => {
-      const edge = Math.min(index, outline.length - index);
-      const sideWeight = edge > 2 && edge < 15 ? 1 : .65;
-      const wave = Math.sin(index * 3.7 + variant * .91 + phase * 2.1) * .35
-        + Math.sin(index * 5.1 - variant * .47 + phase * 3.2) * .14;
-      return [x + wave * sideWeight, y + Math.sin(index * 3.3 + variant * .63 + phase * 2.6) * .18];
-    };
-    const p = outline.map(point);
-    const midpoint = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
-    const start = midpoint(p.at(-1), p[0]);
-    let path = `M${start[0].toFixed(2)} ${start[1].toFixed(2)}`;
-    for (let i = 0; i < p.length; i += 1) {
-      const end = midpoint(p[i], p[(i + 1) % p.length]);
-      path += `Q${p[i][0].toFixed(2)} ${p[i][1].toFixed(2)} ${end[0].toFixed(2)} ${end[1].toFixed(2)}`;
+  // Ten deliberately different silhouettes; the small redraws affect the ink, never vehicle position.
+  const carModels = [
+    { name: 'Sedan', half: 10, nose: 7, top: 2, end: 46, glass: 13, rear: 34 },
+    { name: 'Hatchback', half: 10.5, nose: 8, top: 4, end: 43, glass: 12, rear: 34 },
+    { name: 'Coupe', half: 9, nose: 5, top: 2, end: 46, glass: 17, rear: 31 },
+    { name: 'SUV', half: 12, nose: 11, top: 2, end: 46, glass: 11, rear: 36 },
+    { name: 'Station wagon', half: 10.5, nose: 8, top: 2, end: 46, glass: 12, rear: 39 },
+    { name: 'Pickup', half: 11.5, nose: 10, top: 2, end: 46, glass: 11, rear: 24 },
+    { name: 'Van', half: 11, nose: 10, top: 2, end: 46, glass: 7, rear: 39 },
+    { name: 'Roadster', half: 9.5, nose: 6, top: 3, end: 44, glass: 16, rear: 30 },
+    { name: 'Taxi', half: 10, nose: 8, top: 2, end: 46, glass: 12, rear: 34 },
+    { name: 'City car', half: 9.5, nose: 8, top: 7, end: 41, glass: 14, rear: 33 }
+  ];
+
+  function penStroke(points, closed, key, frame) {
+    // Short, independently redrawn pen segments, held between frames like traditional animation.
+    const sampled = [];
+    const segments = closed ? points.length : points.length - 1;
+    for (let edge = 0; edge < segments; edge += 1) {
+      const a = points[edge], b = points[(edge + 1) % points.length];
+      const steps = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 2.4));
+      for (let step = 0; step < steps; step += 1) {
+        const t = step / steps;
+        const mark = `${key}-${edge}-${step}`;
+        sampled.push([
+          a[0] + (b[0] - a[0]) * t + jitter(`${frame}-${mark}`, 'ink-x', .32),
+          a[1] + (b[1] - a[1]) * t + jitter(`${frame}-${mark}`, 'ink-y', .32)
+        ]);
+      }
     }
-    const glass = Math.sin(variant * .8 + phase * 2.2) * .15;
-    const rear = Math.cos(variant * .63 + phase * 2.7) * .14;
-    // Broad front windscreen, roof/cabin, and rear glass make the silhouette read as a sedan.
-    path += `ZM7.5 15.9Q8.1 11.8 10.7 ${(10.1 + glass).toFixed(2)}Q15 9.1 19.3 ${(10.1 - glass).toFixed(2)}Q21.9 11.8 22.5 15.9`;
-    path += `M8 17.6Q15 ${(16.7 + glass).toFixed(2)} 22 17.6`;
-    path += `M8.1 31.6Q15 ${(32.3 + rear).toFixed(2)} 21.9 31.6Q21.3 36.2 19 37.5Q15 38.6 11 37.5Q8.7 36.2 8.1 31.6Z`;
-    // Short, paired lamp marks; no trailing stroke or loose line ends.
-    path += 'M7.1 6.4q1-.8 2-.8m11.8 0q1 0 2 .8M6.2 40.2q1.1.5 2.1.5m13.4 0q1 0 2.1-.5';
-    return path;
+    if (!closed) sampled.push(points.at(-1));
+    return sampled.map(([x, y], index) => `${index ? 'L' : 'M'}${x.toFixed(2)} ${y.toFixed(2)}`).join('') + (closed ? 'Z' : '');
+  }
+
+  function carInkPath(variant, frame, side = false) {
+    const m = carModels[variant];
+    const strokes = [];
+    const draw = (points, closed = false) => strokes.push(penStroke(points, closed, `${variant}-${side}-${strokes.length}`, frame));
+    if (side) {
+      const roof = variant === 6 ? [[9, 11], [10, 4], [39, 4], [42, 12]]
+        : variant === 5 ? [[10, 11], [15, 5], [26, 5], [30, 12], [47, 12]]
+        : [[9, 12], [16, variant === 3 ? 3 : 5], [variant === 4 ? 37 : 31, variant === 3 ? 3 : 5], [42, 12]];
+      draw([[2, 18], [2, 13], ...roof, [49, 14], [50, 19], [44, 19], [41, 16], [37, 16], [34, 19], [15, 19], [12, 16], [8, 16], [5, 19]], true);
+      draw([[16, 11], [19, 7], [29, 7], [34, 11]], true);
+      draw([[25, 7], [25, 11]]);
+      for (const x of [10, 39]) draw(Array.from({ length: 10 }, (_, i) => [x + Math.cos(i * Math.PI / 5) * 3, 20 + Math.sin(i * Math.PI / 5) * 3]), true);
+      if (variant === 8) draw([[22, 4], [22, 1], [29, 1], [29, 4]], true);
+      if (variant === 5) draw([[31, 13], [46, 13]]);
+      return strokes.join('');
+    }
+    const l = 15 - m.half, r = 15 + m.half;
+    draw([[15 - m.nose, m.top + 1], [15, m.top], [15 + m.nose, m.top + 1], [r - 1, m.top + 6], [r, 18], [r - .4, m.end - 4], [r - 3, m.end], [l + 3, m.end - .2], [l, m.end - 4], [l, 18], [l + 1, m.top + 6]], true);
+    draw([[l + 2, m.glass + 4], [l + 4, m.glass], [r - 4, m.glass - .3], [r - 2, m.glass + 4]], true);
+    draw([[l + 2.5, m.glass + 5.5], [l + 2.5, m.rear - 2]]);
+    draw([[r - 2.5, m.glass + 5.5], [r - 2.5, m.rear - 2]]);
+    if (variant === 5) {
+      draw([[l + 2, 27], [r - 2, 27], [r - 2, 43], [l + 2, 43]], true);
+      draw([[l + 4, 29], [l + 4, 41]]); draw([[r - 4, 29], [r - 4, 41]]);
+    } else {
+      draw([[l + 3, m.rear], [r - 3, m.rear], [r - 4, m.rear + 4], [l + 4, m.rear + 4]], true);
+    }
+    if (variant === 4 || variant === 3) {
+      draw([[l + 4, m.glass + 7], [l + 4, m.rear - 3]]); draw([[r - 4, m.glass + 7], [r - 4, m.rear - 3]]);
+    }
+    if (variant === 7) {
+      draw([[10, 23], [13, 22], [13, 28], [10, 28]], true); draw([[17, 22], [20, 23], [20, 28], [17, 28]], true);
+    }
+    if (variant === 8) draw([[12, 23], [18, 23], [18, 26], [12, 26]], true);
+    draw([[l + 2, m.top + 4], [l + 5, m.top + 3.5]]); draw([[r - 5, m.top + 3.5], [r - 2, m.top + 4]]);
+    draw([[l + 1, m.end - 3], [l + 4, m.end - 3]]); draw([[r - 4, m.end - 3], [r - 1, m.end - 3]]);
+    return strokes.join('');
   }
 
   function createInkVariants() {
     const defs = document.querySelector('#traffic-defs');
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    for (let variant = 0; variant < 16; variant += 1) {
+    for (let variant = 0; variant < carModels.length; variant += 1) {
       const symbol = svgNode('symbol', { id: `line-car-${variant}`, viewBox: '0 0 30 48' });
       const path = svgNode('path', {
         d: carInkPath(variant, 0), fill: 'none', stroke: 'currentColor', 'stroke-width': '1.5',
@@ -74,18 +114,25 @@
       });
       if (!reduceMotion) path.append(svgNode('animate', {
         attributeName: 'd', values: [0, 1, 2, 0].map(phase => carInkPath(variant, phase)).join(';'),
-        dur: `${(.65 + (variant % 5) * .15).toFixed(2)}s`, begin: `-${(variant * .17 % 1.4).toFixed(2)}s`,
-        repeatCount: 'indefinite', calcMode: 'linear'
+        dur: `${(.4 + (variant % 3) * .04).toFixed(2)}s`, begin: `-${(variant * .07 % .4).toFixed(2)}s`,
+        repeatCount: 'indefinite', calcMode: 'discrete'
       }));
       symbol.append(path);
       defs.append(symbol);
+      const profile = svgNode('symbol', { id: `side-car-${variant}`, viewBox: '0 0 52 26' });
+      const profilePath = svgNode('path', { d: carInkPath(variant, 0, true), fill: 'none', stroke: 'currentColor', 'stroke-width': '1.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'vector-effect': 'non-scaling-stroke' });
+      if (!reduceMotion) profilePath.append(svgNode('animate', { attributeName: 'd', values: [0, 1, 2, 0].map(frame => carInkPath(variant, frame, true)).join(';'), dur: '.44s', begin: `-${variant * .03}s`, repeatCount: 'indefinite', calcMode: 'discrete' }));
+      profile.append(profilePath); defs.append(profile);
+      const skate = svgNode('symbol', { id: `skate-car-${variant}`, viewBox: '0 0 52 28' });
+      skate.append(svgNode('use', { href: `#side-car-${variant}`, width: 52, height: 26 }), svgNode('path', { d: 'M1 26h50m-44 1h5m28 0h5', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.3' }));
+      defs.append(skate);
     }
   }
 
   function inkVariant(key) {
     let hash = 0;
     for (const character of key) hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
-    return hash % 16;
+    return hash % carModels.length;
   }
 
   function jitter(key, axis, range) {
@@ -191,7 +238,7 @@
         const key = `${laneName}-${index}`;
         const centerY = positions[index];
         const isPersonal = index === personalIndex;
-        const variant = inkVariant(key);
+        const variant = isPersonal ? 0 : inkVariant(key);
         // Drivers hold a slightly different position within their lane, without swaying.
         const centerX = laneX + jitter(key, 'lane-position', 12);
         const maxSpeed = laneState.cruiseSpeed * (.85 + Math.abs(jitter(key, 'individual-speed', .3)));
@@ -304,7 +351,7 @@
       const x = 14 + index * 39;
       const isPersonal = index === 24;
       line.append(svgNode('use', {
-        href: '#side-car', x, y: 134, width: 34, height: 16,
+        href: `#side-car-${isPersonal ? 0 : inkVariant(`surface-${index}`)}`, x, y: 134, width: 34, height: 16,
         class: `surface-car${isPersonal ? ' personal-car' : ''}`,
         style: `animation-delay:-${index * .37}s`
       }));
@@ -324,7 +371,7 @@
         const x = lane.direction === 'eastbound' ? 60 : 1096;
         const duration = 1.35 + laneIndex * .15;
         const pod = svgNode('use', {
-          href: '#skate-car', x, y: lane.y - 20, width: 44, height: 20,
+          href: `#skate-car-${inkVariant(`pod-${laneIndex}-${index}`)}`, x, y: lane.y - 20, width: 44, height: 20,
           class: `pod-car ${lane.direction}`,
           style: `--zip-duration:${duration.toFixed(2)}s;--zip-delay:${index ? `${(-duration * index / 3).toFixed(2)}s` : '0s'}`
         });
