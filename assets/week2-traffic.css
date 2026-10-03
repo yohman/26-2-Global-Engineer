@@ -34,18 +34,21 @@ body.traffic-story .site-nav { position: fixed; z-index: 30; inset: 16px 20px au
 .direction-arrow { stroke: #e8c36d; fill: none; stroke-width: 1.5; opacity: .8; }
 
 .car-field { opacity: 0; transition: opacity .35s ease; }
-.traffic-car { color: var(--teal); opacity: .53; transition: opacity .3s ease, color .3s ease; animation: traffic-creep var(--flow-duration, 5s) ease-in-out var(--flow-delay, 0s) infinite alternate; }
+.traffic-car { color: var(--teal); opacity: .53; transition: opacity .3s ease, color .3s ease; animation: traffic-creep var(--flow-duration, 5s) linear var(--flow-delay, 0s) infinite; }
 .traffic-car.southbound { color: var(--coral); opacity: .49; }
 .traffic-car use { overflow: visible; }
-.focus-car { color: var(--gold); transform-box: fill-box; transform-origin: center; animation: focus-arrival 1s cubic-bezier(.18,.74,.25,1) both; transition: color .3s ease, opacity .3s ease; }
+.traffic-car.carpool { color: var(--gold); opacity: .9; animation-duration: var(--flow-duration, 2.5s); }
+.traffic-car.personal { color: var(--express); opacity: 1; }
+.focus-car { color: var(--express); transform-box: fill-box; transform-origin: center; animation: focus-arrival 1s cubic-bezier(.18,.74,.25,1) both; transition: color .3s ease, opacity .3s ease; }
 .focus-car use { overflow: visible; }
 @keyframes focus-arrival { from { transform: translateY(80px); opacity: 0; } 45% { opacity: .7; } to { transform: translateY(0); opacity: 1; } }
-@keyframes traffic-creep { to { translate: 0 -4px; } }
-@keyframes traffic-creep-south { to { translate: 0 4px; } }
+@keyframes traffic-creep { to { translate: 0 -900px; } }
+@keyframes traffic-creep-south { to { translate: 0 900px; } }
 .traffic-car.southbound { animation-name: traffic-creep-south; }
-.traffic-car.carpool { color: var(--gold); opacity: .8; }
-@keyframes carpool-north { to { translate: 0 -15px; } }
-@keyframes carpool-south { to { translate: 0 15px; } }
+.traffic-car.carpool.northbound { animation-name: carpool-north; }
+.traffic-car.carpool.southbound { animation-name: carpool-south; }
+@keyframes carpool-north { to { translate: 0 -900px; } }
+@keyframes carpool-south { to { translate: 0 900px; } }
 .section-scene { opacity: 0; transition: opacity .95s ease; }
 .section-label { fill: #d5dfd7; font: 600 11px 'Libre Franklin', sans-serif; letter-spacing: 2.3px; opacity: .64; }
 .soil-line { opacity: .45; stroke-dasharray: 2 11; animation: current 21s linear infinite; }
@@ -127,8 +130,7 @@ body.traffic-story[data-stage="5"] #road-lines { opacity: 1; }
 body.traffic-story[data-stage="5"] .traffic-camera { opacity: .98; }
 body.traffic-story[data-stage="5"] .hov-lane { opacity: .34; }
 body.traffic-story[data-stage="5"] .hov-divider, body.traffic-story[data-stage="5"] .hov-symbol { opacity: .96; }
-body.traffic-story[data-stage="5"] .traffic-car.carpool.northbound { animation-name: carpool-north; }
-body.traffic-story[data-stage="5"] .traffic-car.carpool.southbound { animation-name: carpool-south; }
+body.traffic-story[data-stage="2"] #focus-car { opacity: 0; }
 body.traffic-story[data-stage="6"] .traffic-camera, body.traffic-story[data-stage="7"] .traffic-camera, body.traffic-story[data-stage="8"] .traffic-camera, body.traffic-story[data-stage="9"] .traffic-camera { opacity: 0; }
 body.traffic-story[data-stage="6"] #car-field, body.traffic-story[data-stage="7"] #car-field, body.traffic-story[data-stage="8"] #car-field, body.traffic-story[data-stage="9"] #car-field { opacity: 0; }
 body.traffic-story[data-stage="6"] .section-scene, body.traffic-story[data-stage="7"] .section-scene, body.traffic-story[data-stage="8"] .section-scene, body.traffic-story[data-stage="9"] .section-scene { opacity: 1; }

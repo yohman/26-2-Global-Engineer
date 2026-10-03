@@ -8,7 +8,8 @@
   const progress = document.querySelector('#scroll-progress-fill');
   const language = () => document.documentElement.lang === 'ja' ? 'ja' : 'en';
   const currentCars = new Map();
-  const focus = { lane: 2, x: 696, y: 450 };
+  // Northbound lane 2 is centered at x=720; x=696 sat on the painted divider.
+  const focus = { lane: 2, x: 720, y: 450 };
   const road = { left: 216, center: 600, lanePitch: 48, edge: 984 };
   const scaleFor = { 1: 9.2, 2: 2.4, 3: 1, 4: 1 };
   let active = 1;
@@ -124,34 +125,30 @@
     const nextCars = new Map();
     const addCar = (lane, row, direction = 'northbound') => {
       const key = `${direction}-${lane}-${row}`;
-      if (direction === 'northbound' && lane === 2 && row === 10) return;
       // Keep both directions legible while narrowing the visual median gap.
       const isCarpool = direction === 'northbound' ? lane === 0 : lane === 7;
-      if (isCarpool && ![2, 7, 12, 17, 22].includes(row)) return;
+      // A hashed, sparse pattern keeps the express lanes from reading as neat pairs.
+      if (isCarpool && inkVariant(key) % 5 > 1) return;
       const laneX = direction === 'northbound' ? road.center + road.lanePitch / 2 + lane * road.lanePitch : road.left + road.lanePitch / 2 + lane * road.lanePitch;
-      const x = laneX + jitter(key, 'lane', 14);
-      const y = 100 + row * 35 + jitter(key, 'spacing', 8);
+      const x = laneX + jitter(key, 'lane', 12);
+      const y = 60 + row * 31 + jitter(key, 'spacing', 22);
       const variant = inkVariant(key);
-      const flowDuration = isCarpool ? 1.7 + (variant % 3) * .24 : 4.8 + (variant % 5) * .55;
-      const flowDelay = Math.abs(jitter(key, 'flow', 7)).toFixed(2);
+      const flowDuration = isCarpool ? 27 + (variant % 4) * 1.7 : 92 + (variant % 6) * 3.4;
+      const flowDelay = Math.abs(jitter(key, 'flow', flowDuration)).toFixed(2);
+      const isPersonal = direction === 'northbound' && lane === focus.lane && row === 12;
       const use = svgNode('use', {
         href: `#line-car-${variant}`, x: x - 12, y: y - 18, width: 24, height: 36,
-        class: `traffic-car ${direction}${isCarpool ? ' carpool' : ''}`,
+        class: `traffic-car ${direction}${isCarpool ? ' carpool' : ''}${isPersonal ? ' personal' : ''}`,
         style: `--flow-duration:${flowDuration.toFixed(2)}s;--flow-delay:-${flowDelay}s`
       });
       if (direction === 'southbound') use.setAttribute('transform', `rotate(180 ${x} ${y})`);
       nextCars.set(key, use);
     };
 
-    if (stage === 2) {
-      // Keep the close traffic reveal beside the northbound focus on the east/right carriageway.
-      for (let lane = 0; lane < 4; lane += 1) {
-        for (let row = 5; row <= 15; row += 1) addCar(lane, row);
-      }
-    } else if (stage >= 3) {
+    if (stage >= 2) {
       for (let lane = 0; lane < 8; lane += 1) {
-        for (let row = 0; row < 23; row += 1) addCar(lane, row);
-        for (let row = 0; row < 23; row += 1) addCar(lane, row, 'southbound');
+        for (let row = 0; row < 30; row += 1) addCar(lane, row);
+        for (let row = 0; row < 30; row += 1) addCar(lane, row, 'southbound');
       }
     }
 
