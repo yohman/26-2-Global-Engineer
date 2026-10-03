@@ -5,6 +5,14 @@
   const roadLines = document.querySelector('#road-lines');
   const carField = document.querySelector('#car-field');
   const focusCar = document.querySelector('#focus-car');
+  const mobileRendering = matchMedia('(max-width: 700px), (pointer: coarse)').matches;
+  const canvas = document.querySelector('#traffic-canvas');
+  const canvasContext = mobileRendering ? canvas.getContext('2d', { alpha: true }) : null;
+  const spriteCache = new Map();
+  let canvasRatio = 1;
+  let canvasCamera = { scale: 9.2, x: 0, y: 0 };
+  let cameraTween = null;
+  let resizeTimer = 0;
   const beats = [...document.querySelectorAll('.story-beat')];
   const progress = document.querySelector('#scroll-progress-fill');
   const language = () => document.documentElement.lang === 'ja' ? 'ja' : 'en';
@@ -112,7 +120,7 @@
         d: carInkPath(variant, 0), fill: 'none', stroke: 'currentColor', 'stroke-width': '1.5',
         'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'vector-effect': 'non-scaling-stroke'
       });
-      if (!reduceMotion) path.append(svgNode('animate', {
+      if (!reduceMotion && (!mobileRendering || variant === 0)) path.append(svgNode('animate', {
         attributeName: 'd', values: [0, 1, 2, 0].map(phase => carInkPath(variant, phase)).join(';'),
         dur: `${(.4 + (variant % 3) * .04).toFixed(2)}s`, begin: `-${(variant * .07 % .4).toFixed(2)}s`,
         repeatCount: 'indefinite', calcMode: 'discrete'
@@ -121,7 +129,7 @@
       defs.append(symbol);
       const profile = svgNode('symbol', { id: `side-car-${variant}`, viewBox: '0 0 52 26' });
       const profilePath = svgNode('path', { d: carInkPath(variant, 0, true), fill: 'none', stroke: 'currentColor', 'stroke-width': '1.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'vector-effect': 'non-scaling-stroke' });
-      if (!reduceMotion) profilePath.append(svgNode('animate', { attributeName: 'd', values: [0, 1, 2, 0].map(frame => carInkPath(variant, frame, true)).join(';'), dur: '.44s', begin: `-${variant * .03}s`, repeatCount: 'indefinite', calcMode: 'discrete' }));
+      if (!reduceMotion && (!mobileRendering || variant === 3)) profilePath.append(svgNode('animate', { attributeName: 'd', values: [0, 1, 2, 0].map(frame => carInkPath(variant, frame, true)).join(';'), dur: '.44s', begin: `-${variant * .03}s`, repeatCount: 'indefinite', calcMode: 'discrete' }));
       profile.append(profilePath); defs.append(profile);
       const skate = svgNode('symbol', { id: `skate-car-${variant}`, viewBox: '0 0 52 28' });
       skate.append(svgNode('use', { href: `#side-car-${variant}`, width: 52, height: 26 }), svgNode('path', { d: 'M1 26h50m-44 1h5m28 0h5', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.3' }));
@@ -155,6 +163,64 @@
     focusUse.setAttribute('width', carSize.width);
     focusUse.setAttribute('height', carSize.height);
     svg.setAttribute('viewBox', active >= 6 ? '0 0 1200 900' : `0 0 1200 ${sceneHeight}`);
+    if (canvasContext) {
+      canvasRatio = Math.min(2, devicePixelRatio || 1);
+      canvas.width = Math.round(innerWidth * canvasRatio);
+      canvas.height = Math.round(innerHeight * canvasRatio);
+      spriteCache.clear();
+    }
+  }
+
+  function carSprite(car) {
+    const zoom = active === 2 ? 2.4 : 1;
+    const key = `${car.variant}-${car.ink}-${zoom}`;
+    if (spriteCache.has(key)) return spriteCache.get(key);
+    const sprite = document.createElement('canvas');
+    const resolution = 3;
+    sprite.width = carSize.width * resolution;
+    sprite.height = carSize.height * resolution;
+    const context = sprite.getContext('2d');
+    context.scale(resolution, resolution);
+    context.strokeStyle = car.ink;
+    context.lineWidth = Math.min(3, 1.5 / (innerWidth / 1200 * zoom));
+    context.lineJoin = 'round';
+    context.lineCap = 'round';
+    context.stroke(new Path2D(carInkPath(car.variant, 0)));
+    spriteCache.set(key, sprite);
+    return sprite;
+  }
+
+  function drawCanvasTraffic(now) {
+    if (!canvasContext || active < 2 || active >= 6) return;
+    if (cameraTween) {
+      const t = Math.min(1, Math.max(0, (now - cameraTween.started) / 1050));
+      const ease = 1 - Math.pow(1 - t, 3);
+      for (const axis of ['scale', 'x', 'y']) canvasCamera[axis] = cameraTween.from[axis] + (cameraTween.to[axis] - cameraTween.from[axis]) * ease;
+      if (t === 1) cameraTween = null;
+    }
+    const ctx = canvasContext;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const unit = canvasRatio * innerWidth / 1200;
+    ctx.setTransform(unit * canvasCamera.scale, 0, 0, unit * canvasCamera.scale, unit * canvasCamera.x, unit * canvasCamera.y);
+    const visibleTop = -canvasCamera.y / canvasCamera.scale;
+    const visibleBottom = (sceneHeight - canvasCamera.y) / canvasCamera.scale;
+    const visibleLeft = -canvasCamera.x / canvasCamera.scale;
+    const visibleRight = (1200 - canvasCamera.x) / canvasCamera.scale;
+    for (const lane of trafficLanes) {
+      for (const car of lane.cars) {
+        const y = car.directionSign < 0 ? cycleHeight - car.progress : car.progress;
+        if (car.laneX + carSize.width < visibleLeft || car.laneX - carSize.width > visibleRight) continue;
+        if (y + carSize.height < visibleTop || y - carSize.height > visibleBottom) continue;
+        ctx.globalAlpha = car.personal ? 1 : lane.carpool ? .9 : .53;
+        ctx.save();
+        ctx.translate(car.laneX, y);
+        if (car.rotated) ctx.rotate(Math.PI);
+        ctx.drawImage(carSprite(car), -carSize.width / 2, -carSize.height / 2, carSize.width, carSize.height);
+        ctx.restore();
+      }
+    }
+    ctx.globalAlpha = 1;
   }
 
   function drawRoad() {
@@ -242,7 +308,7 @@
         // Drivers hold a slightly different position within their lane, without swaying.
         const centerX = laneX + jitter(key, 'lane-position', 12);
         const maxSpeed = laneState.cruiseSpeed * (.85 + Math.abs(jitter(key, 'individual-speed', .3)));
-        const car = svgNode('use', {
+        const car = mobileRendering ? null : svgNode('use', {
           href: `#line-car-${variant}`,
           x: centerX - carSize.width / 2,
           y: centerY - carSize.height / 2,
@@ -250,10 +316,12 @@
           height: carSize.height,
           class: `traffic-car ${direction}${isCarpool ? ' carpool' : ''}${isPersonal ? ' personal' : ''}`
         });
-        if (direction === 'southbound') car.setAttribute('transform', `rotate(180 ${centerX} ${centerY})`);
-        laneGroup.append(car);
+        if (car && direction === 'southbound') car.setAttribute('transform', `rotate(180 ${centerX} ${centerY})`);
+        if (car) laneGroup.append(car);
         laneState.cars.push({
           node: car,
+          variant,
+          ink: isPersonal ? '#f29b78' : isCarpool ? '#e8c36d' : direction === 'northbound' ? '#6dc0bf' : '#c98569',
           progress: ((directionSign * centerY) % cycleHeight + cycleHeight) % cycleHeight,
           directionSign,
           laneX: centerX,
@@ -267,6 +335,7 @@
           personal: isPersonal
         });
       }
+      laneState.cars.sort((a, b) => a.progress - b.progress);
       trafficLanes.push(laneState);
       carField.append(laneGroup);
     };
@@ -288,8 +357,8 @@
 
   function updateTrafficMotion(now) {
     motionFrame = 0;
-    if (!trafficLanes.length) return;
-    if (now - lastTrafficUpdate < 32) {
+    if (!trafficLanes.length || document.hidden) return;
+    if (now - lastTrafficUpdate < (mobileRendering ? 15 : 32)) {
       motionFrame = requestAnimationFrame(updateTrafficMotion);
       return;
     }
@@ -300,7 +369,9 @@
     for (const lane of trafficLanes) {
       const cars = lane.cars;
       if (!cars.length) continue;
-      cars.sort((a, b) => a.progress - b.progress);
+      if (lane.personalLane) continue;
+      // Drivers cannot overtake inside a lane; only the off-screen wrap changes the order.
+      while (cars.length > 1 && cars.at(-1).progress < cars[0].progress) cars.unshift(cars.pop());
       const pace = lanePace(lane, trafficTime);
       const safeGap = 2;
 
@@ -336,10 +407,13 @@
       for (const car of cars) {
         car.progress = (car.progress + car.advance) % cycleHeight;
         const centerY = car.directionSign < 0 ? cycleHeight - car.progress : car.progress;
-        car.node.setAttribute('y', centerY - carSize.height / 2);
-        if (car.rotated) car.node.setAttribute('transform', `rotate(180 ${car.laneX} ${centerY})`);
+        if (car.node) {
+          car.node.setAttribute('y', centerY - carSize.height / 2);
+          if (car.rotated) car.node.setAttribute('transform', `rotate(180 ${car.laneX} ${centerY})`);
+        }
       }
     }
+    drawCanvasTraffic(now);
     motionFrame = requestAnimationFrame(updateTrafficMotion);
   }
 
@@ -396,6 +470,10 @@
       camera.style.transformOrigin = '0px 0px';
       const offsetX = stage <= 2 ? 600 - focus.x * scale : 0;
       const offsetY = stage <= 2 ? focus.y - focus.y * scale : 0;
+      if (canvasContext) {
+        cameraTween = { from: { ...canvasCamera }, to: { scale, x: offsetX, y: offsetY }, started: performance.now() };
+        if (stage === 1) { canvasCamera = { scale, x: offsetX, y: offsetY }; cameraTween = null; }
+      }
       camera.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
       camera.style.opacity = '1';
       document.querySelector('#section-scene').style.opacity = '0';
@@ -406,6 +484,7 @@
       document.querySelector('#section-scene').style.opacity = '1';
     }
     renderCars(stage);
+    if (canvasContext) canvas.style.opacity = stage >= 2 && stage < 6 ? '1' : '0';
   }
 
   function findActiveBeat() {
@@ -446,7 +525,22 @@
   renderCars(1);
   setStage(1);
   addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onResize, { passive: true });
+  addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(onResize, 150);
+  }, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    body.classList.toggle('traffic-paused', document.hidden);
+    if (document.hidden) {
+      svg.pauseAnimations();
+      if (motionFrame) cancelAnimationFrame(motionFrame);
+      motionFrame = 0;
+    } else {
+      svg.unpauseAnimations();
+      lastTrafficUpdate = 0;
+      if (trafficLanes.length && !motionFrame) motionFrame = requestAnimationFrame(updateTrafficMotion);
+    }
+  });
   addEventListener('keydown', event => {
     if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.('a,button,input,summary')) return;
     if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); goBeat(1); }
