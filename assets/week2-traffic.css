@@ -95,10 +95,45 @@ body.traffic-paused *, body.traffic-paused *::before, body.traffic-paused *::aft
 
 .scroll-progress { position: fixed; z-index: 40; inset: 0 0 auto; height: 2px; background: rgba(212,225,214,.08); }
 .scroll-progress span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--teal), var(--gold), var(--coral)); box-shadow: 0 0 14px rgba(109,192,191,.5); }
+.county-map { position: absolute; inset: 0; width: 100%; height: 68%; opacity: 0; transition: opacity .7s; pointer-events: none; }
+.county-world { transform-origin: 430px 480px; transform: scale(3.2); transition: transform 2.1s cubic-bezier(.2,.6,.2,1); }
+body[data-stage="10"] .county-map { opacity: 1; }
+body[data-stage="10"] .county-world { transform: scale(1); }
+.county-boundary { fill: #0c1b1c; stroke: #456765; stroke-width: 1.5; }
+.county-route { fill: none; stroke: #e8ad83; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1200; stroke-dashoffset: 1200; }
+body[data-stage="10"] .county-route { animation: reveal-route 2.8s ease .4s forwards; }
+@keyframes reveal-route { to { stroke-dashoffset: 0; } }
+.harbor-link { fill: none; stroke: #d6bd75; stroke-width: 2; stroke-dasharray: 4 5; }
+.county-labels { fill: #d2d9cc; font: 18px 'Libre Franklin', sans-serif; }
+.county-labels path { fill: none; stroke: #738b80; stroke-width: .7; }
+.county-labels circle { fill: #e8ad83; }
+.county-heading { fill: #8aa79b; font: 16px 'Libre Franklin', sans-serif; letter-spacing: 4px; }
+.map-caption { fill: #8aa79b; font: 12px 'Libre Franklin', sans-serif; }
+.soundtrack-ink { color: #d9b967; letter-spacing: 1.5rem; font-size: 1.7rem; }
+.car-song { opacity: 0; font: 16px Georgia, serif; }
+body[data-beat="beat-soundtrack"] .car-song { opacity: .7; }
+.car-song text { animation: pen-song 2s steps(3) infinite; }
+.soundtrack-ink span { display: inline-block; animation: pen-song 2s steps(3) infinite; }
+@keyframes pen-song { 50% { transform: translateY(-4px) rotate(5deg); } }
+.transit-ink { color: #8fccc5; letter-spacing: .4rem; font-size: 1.7rem; }
+.transit-ink span { display: block; color: #d9b967; font-size: .8rem; }
+.commute-bars { width: min(100%, 28rem); margin: 1.5rem auto; text-align: left; }
+.commute-bars > div { position: relative; isolation: isolate; display: flex; justify-content: space-between; padding: .55rem .6rem; margin: .35rem 0; font: .85rem 'Libre Franklin', sans-serif; }
+.commute-bars > div::before { content: ''; position: absolute; z-index: -1; inset: 0 auto 0 0; width: var(--share); background: #376563; }
 .story-flow { position: relative; z-index: 2; }
 .story-beat { min-height: 112svh; box-sizing: border-box; display: flow-root; padding: 0 1.2rem 8vh; pointer-events: none; }
 .beat-card { position: sticky; top: 18vh; width: min(39rem, 76vw); max-height: 64svh; overflow-y: auto; box-sizing: border-box; margin: 68vh auto 0; padding: 1.1rem 2rem; border: 0; background: radial-gradient(ellipse, rgba(3,7,8,.98), rgba(3,7,8,.9) 66%, transparent 100%); text-align: center; opacity: 0; transform: translateY(32px); transition: opacity .25s ease, transform .3s ease-out; pointer-events: none; scrollbar-width: thin; }
 .story-beat.is-active .beat-card { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.question-beat { min-height: 165svh; }
+.question-beat .beat-card { top: 35vh; margin-top: 75vh; max-height: 35svh; padding: 1.8rem 1rem; }
+.question-beat .story-copy { font-size: clamp(1.45rem, 2.7vw, 2.3rem); }
+#beat-county { min-height: 150svh; }
+#beat-county .beat-card { top: 60vh; margin-top: 68vh; max-height: 37svh; width: min(56rem, 94vw); padding: .7rem 1rem; }
+#beat-county .story-copy { font-size: clamp(1rem, 1.6vw, 1.3rem); line-height: 1.55; }
+@media (max-width: 700px) {
+  .county-map { width: 200%; left: -25%; height: 65%; }
+  #beat-county .beat-card { top: 59vh; max-height: 39svh; }
+}
 .beat-whisper { display: none; }
 .story-copy { max-width: 31rem; margin: 0 auto; color: var(--paper); font: 400 clamp(1.2rem, 1.8vw, 1.55rem)/1.65 'Source Serif 4', Georgia, serif; letter-spacing: .005em; text-wrap: pretty; }
 .beat-card > p:not(.beat-whisper):not(.story-copy):not(.ask-the-room):not(.source-line):not(.volume-note) { max-width: 31rem; margin: 1rem auto 0; color: rgba(239,241,231,.8); font: 400 clamp(1rem, 1.35vw, 1.14rem)/1.65 'Source Serif 4', Georgia, serif; text-wrap: pretty; }

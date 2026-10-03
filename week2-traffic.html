@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css?v=journey-20260928">
-  <link rel="stylesheet" href="assets/week2-traffic.css?v=47">
+  <link rel="stylesheet" href="assets/week2-traffic.css?v=48">
 </head>
 <body class="traffic-story">
   <a class="skip-link" href="#beat-1">Skip to the story</a>
@@ -39,6 +39,7 @@
         <g id="road-lines" class="road-lines"></g>
         <g id="car-field" class="car-field"></g>
         <g id="focus-car" class="focus-car"><use href="#line-car-0" x="684" y="432" width="24" height="36"/></g>
+        <g class="car-song" fill="#e8c779"><text x="813" y="425">♪</text><text x="830" y="402">♫</text></g>
       </g>
 
       <g id="section-scene" class="section-scene">
@@ -71,6 +72,7 @@
       </g>
     </svg>
     <canvas id="traffic-canvas" class="traffic-canvas" aria-hidden="true"></canvas>
+    <svg class="county-map" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g class="county-world"><path class="county-boundary" d="M378.3,1194.5L370.2,1188.1L359.2,1165.2L352.2,1157.6L343.1,1151.0L333.4,1127.9L326.9,1123.7L319.3,1124.1L320.0,1114.5L328.3,1111.6L341.9,1112.8L346.3,1115.6L349.6,1118.1L349.5,1121.8L353.4,1129.1L367.2,1144.0L375.0,1150.0L398.3,1171.8L406.6,1177.9L411.1,1179.8L424.4,1186.2L434.3,1194.5L489.6,1227.6L501.5,1237.8L499.3,1240.6L496.4,1239.0L482.4,1236.3L477.1,1235.9L471.9,1236.7L467.1,1238.8L449.5,1250.4L446.8,1247.6L447.6,1246.7L435.7,1238.7L413.2,1226.2L404.7,1224.5L398.7,1220.4L391.0,1210.4L390.2,1208.7L390.8,1205.8L378.3,1195.8L378.3,1194.5ZM395.8,867.5L396.2,868.6L406.4,869.5L412.1,868.2L435.0,879.7L451.0,880.7L480.9,891.0L489.4,891.3L490.8,892.6L493.1,903.7L522.4,927.0L528.4,930.5L532.6,934.7L537.7,943.8L536.3,949.7L527.9,955.1L521.8,956.3L508.9,952.7L496.6,946.8L486.2,944.0L465.9,943.5L439.2,944.8L427.5,942.9L420.9,940.4L409.0,929.8L404.1,922.4L408.5,914.6L411.5,904.9L406.8,889.6L404.1,885.1L393.2,882.5L384.5,883.6L384.3,882.0L379.3,878.7L369.1,876.4L353.7,877.1L350.3,876.5L344.9,873.6L341.4,868.3L328.3,857.2L323.1,855.6L321.1,851.6L321.6,850.7L324.9,850.8L334.1,853.2L363.9,853.1L373.9,856.6L395.8,867.5ZM182.4,179.0L121.4,76.3L140.9,60.3L655.1,58.5L995.5,57.5L1001.7,282.9L1007.7,342.8L964.0,495.9L958.0,507.6L953.3,518.5L946.2,531.9L923.2,531.3L912.0,574.4L772.9,585.3L772.9,590.5L772.9,595.2L772.8,595.5L772.9,596.0L772.9,598.1L710.4,646.5L710.5,649.2L703.7,651.9L695.1,658.9L689.0,668.9L684.6,674.7L689.8,685.3L672.0,694.1L660.5,688.4L643.0,684.2L629.6,682.3L625.8,682.6L620.9,690.8L623.7,698.5L625.4,709.6L606.6,709.8L569.7,717.6L556.4,715.6L542.1,714.9L527.6,712.2L500.6,700.7L496.4,698.1L478.8,695.4L470.4,698.6L459.9,695.0L447.5,675.7L451.1,671.4L464.4,660.7L472.0,658.3L472.1,658.3L474.1,651.7L473.7,636.7L458.9,611.3L437.5,578.0L424.4,561.0L408.4,545.2L407.4,544.2L394.0,533.6L381.9,526.6L365.0,520.1L346.2,518.2L321.4,519.8L317.1,521.3L274.8,519.9L269.7,520.7L266.9,523.2L247.5,525.5L228.7,523.5L219.6,523.9L191.9,530.1L189.3,531.3L176.3,542.1L164.5,534.6L150.9,526.6L140.6,522.6L110.8,519.7L87.8,515.8L80.6,517.2L75.7,516.0L78.5,498.7L188.0,443.6L274.9,443.6L299.9,383.7L297.5,370.6L287.4,353.7L182.4,179.0Z"/><text x="500" y="130" class="county-heading">LOS ANGELES COUNTY</text><path class="county-route" d="M669.5999999999947,660.8000000000027L606.2399999999991,645.4600000000007L566.6399999999942,641.330000000002L504.71999999999525,625.99L479.5199999999977,577.0200000000009L464.39999999999714,537.4900000000008L436.31999999999607,522.150000000003L429.8399999999958,506.810000000001L414.71999999999525,496.7799999999993L414.71999999999525,468.46000000000237L417.5999999999988,448.99000000000166L418.3200000000022,424.2100000000007L421.91999999999894,383.49999999999915"/><path class="harbor-link" d="M600.4800000000023,687.9400000000023L606.2399999999991,645.4600000000007"/><g class="county-labels"><g><circle cx="606.2399999999991" cy="645.4600000000007" r="3"/><path d="M606.2399999999991,645.4600000000007l13,13"/><text x="626.2399999999991" y="665.4600000000007">Long Beach</text></g><g><circle cx="464.39999999999714" cy="537.4900000000008" r="3"/><path d="M464.39999999999714,537.4900000000008l16.25,11.700000000000001"/><text x="489.39999999999714" y="555.4900000000008">Culver City</text></g><g><circle cx="402.4799999999982" cy="530.9999999999992" r="3"/><path d="M402.4799999999982,530.9999999999992l-81.25,0"/><text x="277.4799999999982" y="530.9999999999992">Santa Monica</text></g><g><circle cx="435.60000000000286" cy="502.08999999999946" r="3"/><path d="M435.60000000000286,502.08999999999946l22.75,3.25"/><text x="470.60000000000286" y="507.08999999999946">UCLA · Westwood</text></g><g><circle cx="414.71999999999525" cy="496.7799999999993" r="3"/><path d="M414.71999999999525,496.7799999999993l-48.75,-5.2"/><text x="339.71999999999525" y="488.7799999999993">Getty</text></g><g><circle cx="414.71999999999525" cy="468.46000000000237" r="3"/><path d="M414.71999999999525,468.46000000000237l-94.25,-3.9000000000000004"/><text x="269.71999999999525" y="462.46000000000237">Sepulveda Pass</text></g><g><circle cx="421.91999999999894" cy="383.49999999999915" r="3"/><path d="M421.91999999999894,383.49999999999915l14.3,-7.800000000000001"/><text x="443.91999999999894" y="371.49999999999915">The Valley → I‑5</text></g><g><circle cx="600.4800000000023" cy="687.9400000000023" r="3"/><path d="M600.4800000000023,687.9400000000023l16.25,16.25"/><text x="625.4800000000023" y="712.9400000000023">Long Beach harbor</text></g></g><text x="760" y="770" class="map-caption">I‑405 · approximate corridor</text></g></svg>
     <div class="scene-vignette"></div>
   </div>
 
@@ -79,31 +81,38 @@
   <main id="story" class="story-flow">
     <section class="story-beat" id="beat-1" data-stage="1" aria-labelledby="beat-title-1">
       <div class="beat-card">
-        <p class="story-copy" id="beat-title-1">In 2017, during my years working at UCLA, I drove north on the 405 each weekday morning, heading for Westwood. The red lights were already there when my day began. Most mornings, I moved forward one car-length at a time.</p>
+        <p class="story-copy" id="beat-title-1">In 2017, during my years at UCLA, my mornings began with a drive north to Westwood. A sunny Los Angeles morning. The on-ramp curved ahead. I slipped into the queue, and joined everyone else going to work.</p>
       </div>
     </section>
+<section class="story-beat " id="beat-soundtrack" data-stage="2"><div class="beat-card"><p class="story-copy">And yet, that time alone could be a solace. Before the daily chaos, the car was mine. My music. My volume. My own soundtrack to work. The morning commute was a ritual, not just a delay.</p><div class="soundtrack-ink" aria-hidden="true">♪ <span>♫</span> ♪</div></div></section>
     <section class="story-beat" id="beat-2" data-stage="2" aria-labelledby="beat-title-2">
       <div class="beat-card">
-        <p class="story-copy" id="beat-title-2">From the driver’s seat, I saw only the taillights ahead. I knew millions of Angelenos were making their own way to work. We shared the same city and the same rush, though I could see only a few cars around me.</p>
+        <p class="story-copy" id="beat-title-2">When we stopped, I had time to look around. An expensive car beside an old one. People with very different lives, sharing the same few metres of asphalt. Occasionally, someone was singing with the abandon of a private karaoke room.</p>
       </div>
     </section>
+<section class="story-beat " id="beat-road-rage" data-stage="2"><div class="beat-card"><p class="story-copy">I kept an eye on the impatient drivers, too. A sudden move, an angry gesture. There was always someone trying to get ahead. I left a little space and stayed in my lane.</p></div></section>
     <section class="story-beat" id="beat-3" data-stage="3" aria-labelledby="beat-title-3">
       <div class="beat-card">
-        <p class="story-copy" id="beat-title-3">When I pull back, my commute becomes one small thread in a much larger pattern. Northbound and southbound, lane after lane, each car carries someone toward a day that matters to them.</p>
+        <p class="story-copy" id="beat-title-3">Complaining about the 405 was our daily punch line. We all knew the joke. This was how we navigated Los Angeles: through its veins, one slow pulse at a time.</p>
       </div>
     </section>
     <section class="story-beat" id="beat-4" data-stage="4" aria-labelledby="beat-title-4">
       <div class="beat-card">
-        <p class="story-copy" id="beat-title-4">This was my route to Westwood: the I‑405, running north–south through Los Angeles. LA Metro reports 289,000 vehicles a day through Sepulveda Pass. That is a daily total, not the number of cars in this drawing at one moment.</p>
-        <p class="volume-note"><strong>289,000 vehicles / day</strong><span>LA Metro’s reported volume through Sepulveda Pass. A daily total—not the number pictured at one moment.</span></p>
-        <p class="source-line"><a href="https://cloud.sfmc.metro.net/I405_FAQ_Eng" target="_blank" rel="noopener">LA Metro · I‑405 Sepulveda Pass ↗</a></p>
+        <p class="story-copy" id="beat-title-4">This was my route to Westwood. Four or five ordinary lanes each way along much of the corridor, plus a carpool lane—and still nowhere to go. Around Sepulveda Pass, Metro reported roughly 300,000 vehicles a day in 2017. I was one of them.</p>
+        <p class="volume-note"><strong>≈300,000 vehicles / day · 2017</strong><span>Sepulveda corridor daily traffic—not a simultaneous car count.</span></p>
+        <p class="source-line"><a href="https://thesourcearchives.metro.net/2017/04/26/metro-releases-rfp-to-study-sepulveda-pass-transit-options/" target="_blank" rel="noopener">LA Metro · I‑405 Sepulveda Pass ↗</a> · <a href="https://files.ceqanet.lci.ca.gov/143145-3/attachment/TgJ4QE5SE08xaC3mqJ2dxXXHm1smlhm2vYlVtTjShq4uWmrG_PdHKSioprZh3DSfz6RFCtMlwbjpwoLF0" target="_blank" rel="noopener">Lane context · environmental study ↗</a></p>
       </div>
     </section>
+<section class="story-beat " id="beat-county" data-stage="10"><div class="beat-card"><p class="story-copy">The road was much bigger than my morning. From Long Beach, linked to the harbor by the 710, the 405 sweeps past the South Bay and Culver City, inland of Santa Monica. My exit was Westwood, for UCLA. Beyond it: the Getty, Sepulveda Pass, the Valley, and the connection to the 5. So many different destinations, threaded onto one road.</p><p class="source-line"><a href="https://cloud.sfmc.metro.net/I405_FAQ_Eng" target="_blank" rel="noopener">Metro · corridor geography ↗</a> · <a href="https://github.com/plotly/datasets/blob/master/geojson-counties-fips.json" target="_blank" rel="noopener">County boundary ↗</a></p></div></section>
+<section class="story-beat " id="beat-back" data-stage="4"><div class="beat-card"><p class="story-copy">But the whole county was not what I needed to cross. I just needed to get to work. Back in my lane, the grand sweep of the map became a few metres of waiting.</p></div></section>
     <section class="story-beat" id="beat-5" data-stage="5" aria-labelledby="beat-title-5">
       <div class="beat-card">
-        <p class="story-copy" id="beat-title-5">Because I drove alone, the diamond-marked carpool lane was closed to me. I watched a few cars move past in a quicker stream while I edged north, one car-length at a time. In Los Angeles, the freeway was a way of life. Buses and trains were not how most of the people around me got to work. Some colleagues began their days at four in the morning, just to get ahead of the traffic.</p>
+        <p class="story-copy" id="beat-title-5">Because I drove alone, the diamond-marked carpool lane was not for me. I envied those cars slipping past. But did I really want someone else in my little room on wheels? I wanted their speed, and my solitude. I could not have both.</p>
       </div>
     </section>
+<section class="story-beat " id="beat-commute-data" data-stage="5"><div class="beat-card"><p class="story-copy">My car was not an unusual choice. An earlier Census survey put nearly three quarters of LA County workers in the driver’s seat, alone. Some of my colleagues started at four in the morning, trying to beat a system that so many of us depended on.</p><div class="commute-bars"><div style="--share:72.3%"><span>Drove alone</span><b>72.3%</b></div><div style="--share:10.5%"><span>Carpooled</span><b>10.5%</b></div><div style="--share:7.3%"><span>Public transit</span><b>7.3%</b></div></div><p class="source-line">LA County workers · 2011 ACS · selected modes<br><a href="https://www.census.gov/newsroom/archives/2013-pr/cb13-r13.html" target="_blank" rel="noopener">US Census · commute survey ↗</a></p></div></section>
+<section class="story-beat " id="beat-transit-data" data-stage="5"><div class="beat-card"><p class="story-copy">But our cars were not the whole city. In 2017, Metro recorded about 290 million bus boardings and 113 million rail boardings. These were rides, not unique people. A city of solitary drivers also had a city of people travelling together.</p><div class="transit-ink" aria-hidden="true">▱ ▱ ▱ <span>••••••••</span></div><p class="source-line">2017 annual boardings · bus includes BRT; rail includes light/heavy rail<br><a href="https://www.transit.dot.gov/sites/fta.dot.gov/files/transit_agency_profile_doc/2017/90154.pdf" target="_blank" rel="noopener">FTA · Metro agency profile ↗</a></p></div></section>
+<section class="story-beat " id="beat-choice" data-stage="5"><div class="beat-card"><p class="story-copy">I could choose the privacy of my car. Not everyone could. Metro’s rider research describes a public that is more likely to have low incomes, to be people of color, and to have fewer transport options than the county as a whole. My irritation and somebody else’s lack of choice were not the same thing.</p><p class="source-line"><a href="https://www.metro.net/documents/2025/01/2022-draft-public-participation-planpdf/" target="_blank" rel="noopener">Metro · 2022 rider research / participation plan ↗</a><br>Later research—not a 2017 demographic estimate.</p></div></section>
     <section class="story-beat" id="beat-life" data-stage="5" aria-labelledby="beat-title-life">
       <div class="beat-card">
         <p class="story-copy" id="beat-title-life">We were unhappy, of course. We wanted something better. But the freeway already swallowed so much of the city. Where would another lane go? Among the Angelenos I knew, we loved our cars. Many of us would rather sit alone behind a steering wheel than squeeze into a commuter train like sardines. So we lived with it. An hour of my life, each morning, given to the road.</p>
@@ -142,15 +151,21 @@
     <section class="story-beat" id="beat-9" data-stage="9" aria-labelledby="beat-title-9">
       <div class="beat-card">
         <p class="story-copy" id="beat-title-9">The Westside plan moved into the city approval process, then neighborhood groups sued over its environmental review. In November 2018, the Boring Company abandoned the proposal. It never became my way out of the morning line.</p>
-        <p>Among the Angelenos I knew, the announcement had made none of us excited. It left us asking: who would benefit, who would pay, and who would still be inching north toward Westwood?</p>
+
         <p class="source-line"><a href="https://www.wired.com/story/elon-musk-boring-company-sepulveda-tunnel/" target="_blank" rel="noopener">WIRED · Nov. 28, 2018 ↗</a> <span>·</span> <a href="https://boringcompany.com/projects/r-d-tunnels" target="_blank" rel="noopener">The Boring Company · R&amp;D tunnels ↗</a></p>
-        <details class="method-note"><summary>Sources and how to read the drawing</summary><div><p>The 405 scene is a line-art illustration, not a live feed, vehicle count, or surveyed lane plan. LA Metro reports 289,000 vehicles per day through Sepulveda Pass. The tunnel is shown as a proposal.</p><p><a href="https://www.humantransit.org/2017/12/elon-musk-responds.html" target="_blank" rel="noopener">Jarrett Walker · 2017 exchange and critique ↗</a></p></div></details>
+        <details class="method-note"><summary>Sources and how to read the drawing</summary><div><p>The 405 scene is a line-art illustration, not a live feed, vehicle count, or surveyed lane plan. Metro’s 2017 corridor study reported approximately 300,000 vehicles per day. The illustrated sixteen lanes are expressive, not an actual lane count. The county map uses a geographic boundary with an approximate corridor trace and landmark locations. Commute shares are from 2011; Metro boardings are from 2017; the equity research is from 2022. The tunnel is shown as a proposal.</p><p><a href="https://www.humantransit.org/2017/12/elon-musk-responds.html" target="_blank" rel="noopener">Jarrett Walker · 2017 exchange and critique ↗</a></p></div></details>
       </div>
     </section>
+<section class="story-beat question-beat" id="beat-question-1" data-stage="8"><div class="beat-card"><p class="story-copy">Who is this for?</p></div></section>
+<section class="story-beat question-beat" id="beat-question-2" data-stage="8"><div class="beat-card"><p class="story-copy">How many people can it really carry?</p></div></section>
+<section class="story-beat question-beat" id="beat-question-3" data-stage="8"><div class="beat-card"><p class="story-copy">At what cost—and who pays?</p></div></section>
+<section class="story-beat question-beat" id="beat-question-4" data-stage="8"><div class="beat-card"><p class="story-copy">Who gets their time back? Who is left waiting?</p></div></section>
+<section class="story-beat question-beat" id="beat-question-5" data-stage="8"><div class="beat-card"><p class="story-copy">Why this solution? Because he can?</p></div></section>
+<section class="story-beat question-beat" id="beat-question-6" data-stage="8"><div class="beat-card"><p class="story-copy">What would make the whole city’s morning better?</p></div></section>
     <div class="story-end" aria-hidden="true"></div>
   </main>
-  <script src="assets/i18n.js?v=week2-13"></script>
+  <script src="assets/i18n.js?v=week2-14"></script>
   <script src="assets/site.js?v=nav-3"></script>
-  <script src="assets/week2-traffic.js?v=44"></script>
+  <script src="assets/week2-traffic.js?v=45"></script>
 </body>
 </html>

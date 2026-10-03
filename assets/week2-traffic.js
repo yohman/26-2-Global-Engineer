@@ -458,6 +458,7 @@
 
   function setStage(stage, force = false, beatIndex = beats.findIndex(beat => Number(beat.dataset.stage) === stage)) {
     activeBeat = beatIndex;
+    body.dataset.beat = beats[beatIndex]?.id || '';
     beats.forEach((beat, index) => beat.classList.toggle('is-active', index === activeBeat));
     if (stage === active && body.dataset.stage && !force) {
       if (stage === 1 && carField.childElementCount) renderCars(1);
@@ -483,7 +484,7 @@
       camera.style.transformOrigin = '0px 0px';
       camera.style.transform = 'translate(0px, 0px) scale(1)';
       camera.style.opacity = '0';
-      document.querySelector('#section-scene').style.opacity = '1';
+      document.querySelector('#section-scene').style.opacity = stage === 10 ? '0' : '1';
     }
     renderCars(stage);
     if (canvasContext) canvas.style.opacity = stage >= 2 && stage < 6 ? '1' : '0';
