@@ -6,7 +6,6 @@
   const focusCar = document.querySelector('#focus-car');
   const beats = [...document.querySelectorAll('.story-beat')];
   const progress = document.querySelector('#scroll-progress-fill');
-  const capacityButtons = [...document.querySelectorAll('[data-capacity]')];
   const language = () => document.documentElement.lang === 'ja' ? 'ja' : 'en';
   const currentCars = new Map();
   const focus = { lane: 2, x: 696, y: 450 };
@@ -164,42 +163,15 @@
     nextCars.forEach((node, key) => currentCars.set(key, node));
   }
 
-  function drawPeople(served = 32) {
-    const wave = document.querySelector('#people-wave');
-    if (!wave.childElementCount) {
-      for (let index = 0; index < 96; index += 1) {
-        const col = index % 12;
-        const row = Math.floor(index / 12);
-        const x = 175 + col * 77 + jitter(`person-${index}`, 'x', 9);
-        const y = 485 + row * 42 + jitter(`person-${index}`, 'y', 5);
-        const person = svgNode('g', {
-          class: `person pose-${index % 3}`, 'data-person': index,
-          style: `--wait-duration:${(2.45 + (index % 7) * .23).toFixed(2)}s;--wait-delay:-${((index * .19) % 2.8).toFixed(2)}s`
-        });
-        const arms = [
-          `M${x} ${y + 8}q-4 1-6 5m6-5q4 1 6 5`,
-          `M${x} ${y + 8}q-5-3-7 0m7 0q5-3 7 0`,
-          `M${x} ${y + 8}q-4 3-5 6m5-6q4 3 5 6`
-        ][index % 3];
-        person.append(
-          svgNode('circle', { cx: x, cy: y, r: 3.7, fill: 'none', stroke: 'currentColor', 'stroke-width': 1.35 }),
-          svgNode('path', { d: `M${x} ${y + 5}q-1 3-.5 7.5 ${arms} M${x - .5} ${y + 12}q-.5 4-3 7m3-7q1 4 3.4 7`, fill: 'none', stroke: 'currentColor', 'stroke-width': 1.3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' })
-        );
-        wave.append(person);
-      }
-    }
-    wave.querySelectorAll('.person').forEach((person, index) => person.classList.toggle('served', index < served));
-  }
-
   function drawSurfaceCars() {
     const line = document.querySelector('#surface-cars');
     if (line.childElementCount) return;
-    for (let index = 0; index < 18; index += 1) {
-      const x = 108 + index * 55;
-      const isPersonal = index === 14;
-      const isTransferCar = index === 8;
+    for (let index = 0; index < 28; index += 1) {
+      const x = 108 + index * 36;
+      const isPersonal = index === 23;
+      const isTransferCar = index === 12;
       line.append(svgNode('use', {
-        href: '#side-car', x: isTransferCar ? 548 : x, y: 130, width: isTransferCar ? 44 : 48, height: isTransferCar ? 20 : 22,
+        href: '#side-car', x: isTransferCar ? 548 : x, y: 130, width: isTransferCar ? 44 : 34, height: isTransferCar ? 20 : 16,
         ...(isTransferCar ? { id: 'descending-car' } : {}),
         class: `surface-car${isPersonal ? ' personal-car' : ''}${isTransferCar ? ' transfer-car' : ''}`,
         style: `animation-delay:-${index * .37}s`
@@ -216,33 +188,18 @@
       { y: 850, direction: 'eastbound' }
     ];
     lanes.forEach((lane, laneIndex) => {
-      for (let index = 0; index < 9; index += 1) {
-        const x = lane.direction === 'eastbound' ? 148 + index * 106 : 1002 - index * 106;
+      for (let index = 0; index < 3; index += 1) {
+        const x = lane.direction === 'eastbound' ? 150 + index * 300 : 1050 - index * 300;
+        const duration = .9;
         const pod = svgNode('use', {
           href: '#side-car', x, y: lane.y - 10, width: 44, height: 20,
           class: `pod-car ${lane.direction}`,
-          style: `--zip-duration:${(.72 + (index % 4) * .09).toFixed(2)}s;--zip-delay:-${(index * .16 + laneIndex * .23).toFixed(2)}s`
+          style: `--zip-duration:${duration.toFixed(2)}s;--zip-delay:${index ? `${(-duration * index / 3).toFixed(2)}s` : '0s'}`
         });
         if (lane.direction === 'westbound') pod.setAttribute('transform', `translate(${2 * x + 44} 0) scale(-1 1)`);
         field.append(pod);
       }
     });
-  }
-
-  function setCapacity(seats) {
-    capacityButtons.forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.capacity) === seats)));
-    const served = Math.min(96, seats * 8);
-    const waiting = 96 - served;
-    const summary = document.querySelector('#scenario-summary');
-    const math = document.querySelector('#scenario-math');
-    if (language() === 'ja') {
-      summary.textContent = `${served}人が出発し、${waiting}人は待っています。`;
-      math.textContent = `${seats}人乗り × 8便で、96人中${served}人が移動できます（説明用の想定）。`;
-    } else {
-      summary.textContent = `${served} people depart; ${waiting} are still waiting.`;
-      math.textContent = `At ${seats} seats and 8 departures, ${served} of 96 people are served (illustrative assumption).`;
-    }
-    drawPeople(served);
   }
 
   function setStage(stage) {
@@ -266,7 +223,6 @@
       document.querySelector('#section-scene').style.opacity = '1';
     }
     renderCars(stage);
-    if (stage === 7) setCapacity(Number(document.querySelector('[data-capacity][aria-pressed="true"]')?.dataset.capacity || 4));
   }
 
   function findActiveBeat() {
@@ -297,12 +253,10 @@
 
   drawRoad();
   createInkVariants();
-  drawPeople();
   drawSurfaceCars();
   drawPodTraffic();
   renderCars(1);
   setStage(1);
-  capacityButtons.forEach(button => button.addEventListener('click', () => setCapacity(Number(button.dataset.capacity))));
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll, { passive: true });
   addEventListener('keydown', event => {
@@ -312,7 +266,6 @@
   });
   addEventListener('course-language-change', () => {
     drawRoad();
-    setCapacity(Number(document.querySelector('[data-capacity][aria-pressed="true"]')?.dataset.capacity || 4));
     setStage(findActiveBeat());
   });
   addEventListener('load', onScroll, { once: true });

@@ -46,12 +46,6 @@ body.traffic-story .skip-link { z-index: 50; }
 .traffic-car.carpool { color: var(--gold); opacity: .8; }
 @keyframes carpool-north { to { translate: 0 -15px; } }
 @keyframes carpool-south { to { translate: 0 15px; } }
-.people-wave { opacity: 0; transition: opacity 1s ease; }
-.person { color: #83aaa6; opacity: .52; transform-box: fill-box; transform-origin: center; animation: waiting-shift var(--wait-duration, 2.8s) ease-in-out var(--wait-delay, 0s) infinite; transition: opacity .45s ease, color .45s ease; }
-.person.served { color: var(--gold); opacity: .98; animation: board-step .9s cubic-bezier(.2,.7,.25,1) both; }
-@keyframes waiting-shift { 0%, 100% { translate: 0 0; rotate: 0deg; } 50% { translate: .55px -.3px; rotate: .45deg; } }
-@keyframes board-step { to { translate: 10px -2px; } }
-
 .section-scene { opacity: 0; transition: opacity .95s ease; }
 .section-label { fill: #d5dfd7; font: 600 11px 'Libre Franklin', sans-serif; letter-spacing: 2.3px; opacity: .64; }
 .soil-line { opacity: .45; stroke-dasharray: 2 11; animation: current 21s linear infinite; }
@@ -70,8 +64,8 @@ body.traffic-story .skip-link { z-index: 50; }
 .pod-traffic { opacity: 0; transition: opacity .8s ease 3.8s; }
 .pod-car { color: #a1ded5; opacity: .88; animation: pod-zip-east var(--zip-duration, .8s) linear var(--zip-delay, 0s) infinite; }
 .pod-car.westbound { color: #e4bb83; animation-name: pod-zip-west; }
-@keyframes pod-zip-east { to { translate: 106px 0; } }
-@keyframes pod-zip-west { to { translate: -106px 0; } }
+@keyframes pod-zip-east { to { translate: 900px 0; } }
+@keyframes pod-zip-west { to { translate: -900px 0; } }
 .tunnel-shell { fill: rgba(7,15,16,.88); stroke: #6a8172; stroke-width: 1.6; opacity: .82; }
 .lift-mechanism { opacity: 0; transition: opacity .65s ease 1.65s; }
 .lift-door { transform-box: fill-box; transform-origin: center; }
@@ -110,12 +104,8 @@ body.traffic-story .skip-link { z-index: 50; }
 .volume-note span { max-width: 33rem; margin-inline: auto; color: rgba(239,241,231,.67); font: 400 .82rem/1.55 'Source Serif 4', Georgia, serif; }
 .source-line { display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem .6rem; margin: .85rem 0; color: rgba(239,241,231,.5); font: 400 .75rem/1.5 'Source Serif 4', Georgia, serif; }
 .source-line a, .method-note a { color: #92c9c3; text-underline-offset: 3px; }
-.capacity-control { display: inline-flex; gap: .35rem; margin: .45rem 0 .55rem; }
-.capacity-control button { border: 1px solid rgba(180,208,198,.24); border-radius: 99px; padding: .48rem .72rem; color: rgba(239,241,231,.68); background: rgba(9,18,19,.8); cursor: pointer; font: 600 .63rem 'Libre Franklin', sans-serif; }
-.capacity-control button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
-.scenario-readout { display: grid; gap: .25rem; margin: .1rem 0 .65rem; }
-.scenario-readout strong { color: var(--gold); font: 600 .85rem 'Libre Franklin', sans-serif; }
-.scenario-readout span { color: rgba(239,241,231,.54); font: 400 .64rem/1.4 'Libre Franklin', sans-serif; }
+.scale-callout { margin: 1rem auto .65rem !important; color: var(--gold) !important; font: 600 .68rem/1.5 'Libre Franklin', sans-serif !important; letter-spacing: .11em; }
+.scale-callout span { color: var(--teal); }
 .method-note { margin: .9rem 0; border-top: 1px solid rgba(213,228,218,.15); }
 .method-note summary { padding: .65rem 0; color: rgba(239,241,231,.66); cursor: pointer; font: 600 .67rem 'Libre Franklin', sans-serif; }
 .method-note p { max-width: 34rem; color: rgba(239,241,231,.55); font: 400 .69rem/1.5 'Libre Franklin', sans-serif; }
@@ -150,7 +140,6 @@ body.traffic-story[data-stage="6"] #lift-platform, body.traffic-story[data-stage
 body.traffic-story[data-stage="6"] #descending-car, body.traffic-story[data-stage="7"] #descending-car, body.traffic-story[data-stage="8"] #descending-car, body.traffic-story[data-stage="9"] #descending-car { animation: transfer-cycle 12s linear 2.4s infinite; }
 body.traffic-story[data-stage="6"] .lift-shaft, body.traffic-story[data-stage="7"] .lift-shaft, body.traffic-story[data-stage="8"] .lift-shaft, body.traffic-story[data-stage="9"] .lift-shaft { opacity: 0; animation: shaft-reveal .8s ease-out 4.15s forwards; }
 @keyframes shaft-reveal { to { opacity: .8; } }
-body.traffic-story[data-stage="7"] .people-wave { opacity: 1; }
 
 @media (max-width: 700px) {
   .site-nav { inset: 12px 12px auto; }
@@ -160,7 +149,6 @@ body.traffic-story[data-stage="7"] .people-wave { opacity: 1; }
   .story-copy { max-width: 29rem; font-size: clamp(1.12rem, 5vw, 1.35rem); line-height: 1.58; }
   .beat-card > p:not(.beat-whisper):not(.story-copy):not(.ask-the-room):not(.source-line):not(.volume-note) { font-size: 1rem; }
   .volume-note span { font-size: .8rem; }
-  .capacity-control button { padding: .46rem .62rem; }
 }
 @media (max-height: 650px) and (orientation: landscape) {
   .story-beat { min-height: 112svh; padding-block: 0 8vh; }
@@ -169,6 +157,5 @@ body.traffic-story[data-stage="7"] .people-wave { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   body.traffic-story[data-stage="6"] #lift-platform, body.traffic-story[data-stage="7"] #lift-platform, body.traffic-story[data-stage="8"] #lift-platform, body.traffic-story[data-stage="9"] #lift-platform { transform: translateY(602px); opacity: .95; }
-  body.traffic-story[data-stage="6"] #descending-car, body.traffic-story[data-stage="7"] #descending-car, body.traffic-story[data-stage="8"] #descending-car, body.traffic-story[data-stage="9"] #descending-car { transform: translate(520px,602px); opacity: 1; }
-  body.traffic-story[data-stage="6"] .pod-traffic, body.traffic-story[data-stage="7"] .pod-traffic, body.traffic-story[data-stage="8"] .pod-traffic, body.traffic-story[data-stage="9"] .pod-traffic { opacity: 1; }
+  body.traffic-story[data-stage="6"] #descending-car, body.traffic-story[data-stage="7"] #descending-car, body.traffic-story[data-stage="8"] #descending-car, body.traffic-story[data-stage="9"] #descending-car { transform: translate(520px,650px); opacity: 1; }
 }
