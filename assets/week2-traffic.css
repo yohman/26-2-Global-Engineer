@@ -69,8 +69,8 @@ body.traffic-paused *, body.traffic-paused *::before, body.traffic-paused *::aft
 .lift-mechanism { opacity: 0; transition: opacity .65s ease 1.65s; }
 .lift-door { transform-box: fill-box; transform-origin: center; }
 .lift-door-left, .lift-door-right { animation: none; }
-@keyframes hatch-open-left { 0%, 13% { translate: 0 0; } 18%, 100% { translate: -48px 0; } }
-@keyframes hatch-open-right { 0%, 13% { translate: 0 0; } 18%, 100% { translate: 48px 0; } }
+@keyframes hatch-open-left { 0%, 13%, 70%, 100% { translate: 0 0; } 18%, 60% { translate: -48px 0; } }
+@keyframes hatch-open-right { 0%, 13%, 70%, 100% { translate: 0 0; } 18%, 60% { translate: 48px 0; } }
 .elevator-platform { fill: rgba(232,195,109,.12); stroke: var(--gold); stroke-width: 1.6; opacity: 0; animation: none; }
 @keyframes lift-cycle {
   0%, 12% { transform: translateY(0); opacity: 0; }

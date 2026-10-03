@@ -30,6 +30,7 @@
   let lastTrafficUpdate = 0;
   let trafficTime = 0;
   let active = 1;
+  let activeBeat = 0;
   let ticking = false;
 
   const svgNode = (name, attrs = {}) => {
@@ -455,7 +456,9 @@
     });
   }
 
-  function setStage(stage, force = false) {
+  function setStage(stage, force = false, beatIndex = beats.findIndex(beat => Number(beat.dataset.stage) === stage)) {
+    activeBeat = beatIndex;
+    beats.forEach((beat, index) => beat.classList.toggle('is-active', index === activeBeat));
     if (stage === active && body.dataset.stage && !force) {
       if (stage === 1 && carField.childElementCount) renderCars(1);
       return;
@@ -464,7 +467,6 @@
     body.dataset.stage = String(stage);
     focusCar.classList.toggle('is-visible', stage === 1);
     svg.setAttribute('viewBox', stage >= 6 ? '0 0 1200 900' : `0 0 1200 ${sceneHeight}`);
-    beats.forEach((beat, index) => beat.classList.toggle('is-active', index === stage - 1));
     if (stage < 6) {
       const scale = scaleFor[stage] || 1;
       camera.style.transformOrigin = '0px 0px';
@@ -498,7 +500,8 @@
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
-      setStage(findActiveBeat());
+      const index = findActiveBeat() - 1;
+      setStage(Number(beats[index].dataset.stage), false, index);
       const maxScroll = document.documentElement.scrollHeight - innerHeight;
       progress.style.width = `${maxScroll > 0 ? Math.min(100, scrollY / maxScroll * 100) : 0}%`;
       ticking = false;
@@ -508,12 +511,12 @@
   function onResize() {
     updateSceneDimensions();
     drawRoad();
-    setStage(active, true);
+    setStage(active, true, activeBeat);
     onScroll();
   }
 
   function goBeat(offset) {
-    const nextIndex = Math.max(0, Math.min(beats.length - 1, active - 1 + offset));
+    const nextIndex = Math.max(0, Math.min(beats.length - 1, activeBeat + offset));
     beats[nextIndex].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   }
 
@@ -548,7 +551,8 @@
   });
   addEventListener('course-language-change', () => {
     drawRoad();
-    setStage(findActiveBeat());
+    const index = findActiveBeat() - 1;
+    setStage(Number(beats[index].dataset.stage), false, index);
   });
   addEventListener('load', onScroll, { once: true });
   requestAnimationFrame(onScroll);
