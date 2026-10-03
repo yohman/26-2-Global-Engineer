@@ -24,8 +24,11 @@ body.traffic-story .skip-link { z-index: 50; }
 @keyframes current { to { stroke-dashoffset: -90; } }
 
 .road-lines { opacity: 0; transition: opacity 1.2s ease; }
+.hov-lane { fill: rgba(232,195,109,.2); opacity: 0; transition: opacity .7s ease; }
 .road-edge { fill: url(#road-glow); stroke: #6ebcb9; stroke-width: 1.35; opacity: .62; }
 .lane-path { fill: none; stroke: #69aaa7; stroke-width: 1; stroke-dasharray: 5 22; opacity: .4; animation: current 28s linear infinite; }
+.lane-path.hov-divider { stroke: #e8c36d; stroke-width: 1.5; stroke-dasharray: 13 10; opacity: 0; animation-duration: 8s; transition: opacity .7s ease; }
+.hov-symbol { color: var(--gold); opacity: 0; transition: opacity .7s ease; }
 .center-line { fill: none; stroke: #d4a17d; stroke-width: 1.2; opacity: .68; }
 .direction-label { fill: #dfe8dc; font: 600 12px 'Libre Franklin', sans-serif; letter-spacing: 3px; opacity: .7; }
 .direction-arrow { stroke: #e8c36d; fill: none; stroke-width: 1.5; opacity: .8; }
@@ -40,6 +43,9 @@ body.traffic-story .skip-link { z-index: 50; }
 @keyframes traffic-creep { to { translate: 0 -4px; } }
 @keyframes traffic-creep-south { to { translate: 0 4px; } }
 .traffic-car.southbound { animation-name: traffic-creep-south; }
+.traffic-car.carpool { color: var(--gold); opacity: .8; }
+@keyframes carpool-north { to { translate: 0 -15px; } }
+@keyframes carpool-south { to { translate: 0 15px; } }
 .people-wave { opacity: 0; transition: opacity 1s ease; }
 .person { color: #83aaa6; opacity: .52; transform-box: fill-box; transform-origin: center; animation: waiting-shift var(--wait-duration, 2.8s) ease-in-out var(--wait-delay, 0s) infinite; transition: opacity .45s ease, color .45s ease; }
 .person.served { color: var(--gold); opacity: .98; animation: board-step .9s cubic-bezier(.2,.7,.25,1) both; }
@@ -95,11 +101,20 @@ body.traffic-story[data-stage="2"] #car-field { opacity: .96; }
 body.traffic-story[data-stage="3"] #car-field, body.traffic-story[data-stage="4"] #car-field { opacity: 1; }
 body.traffic-story[data-stage="4"] #road-lines { opacity: 1; }
 body.traffic-story[data-stage="4"] .traffic-camera { opacity: .96; }
-body.traffic-story[data-stage="5"] .traffic-camera, body.traffic-story[data-stage="6"] .traffic-camera, body.traffic-story[data-stage="7"] .traffic-camera, body.traffic-story[data-stage="8"] .traffic-camera { opacity: .2; }
-body.traffic-story[data-stage="5"] #car-field { opacity: .8; }
-body.traffic-story[data-stage="5"] .section-scene, body.traffic-story[data-stage="6"] .section-scene, body.traffic-story[data-stage="7"] .section-scene, body.traffic-story[data-stage="8"] .section-scene { opacity: 1; }
-body.traffic-story[data-stage="5"] .descending-car { animation: descend 3.2s cubic-bezier(.18,.72,.28,1) both; }
-body.traffic-story[data-stage="6"] .people-wave { opacity: 1; }
+body.traffic-story[data-stage="4"] .hov-lane { opacity: .18; }
+body.traffic-story[data-stage="4"] .hov-divider { opacity: .72; }
+body.traffic-story[data-stage="4"] .hov-symbol { opacity: .54; }
+body.traffic-story[data-stage="5"] #road-lines { opacity: 1; }
+body.traffic-story[data-stage="5"] .traffic-camera { opacity: .98; }
+body.traffic-story[data-stage="5"] .hov-lane { opacity: .34; }
+body.traffic-story[data-stage="5"] .hov-divider, body.traffic-story[data-stage="5"] .hov-symbol { opacity: .96; }
+body.traffic-story[data-stage="5"] .traffic-car.carpool.northbound { animation-name: carpool-north; }
+body.traffic-story[data-stage="5"] .traffic-car.carpool.southbound { animation-name: carpool-south; }
+body.traffic-story[data-stage="6"] .traffic-camera, body.traffic-story[data-stage="7"] .traffic-camera, body.traffic-story[data-stage="8"] .traffic-camera, body.traffic-story[data-stage="9"] .traffic-camera { opacity: .2; }
+body.traffic-story[data-stage="6"] #car-field { opacity: .8; }
+body.traffic-story[data-stage="6"] .section-scene, body.traffic-story[data-stage="7"] .section-scene, body.traffic-story[data-stage="8"] .section-scene, body.traffic-story[data-stage="9"] .section-scene { opacity: 1; }
+body.traffic-story[data-stage="6"] .descending-car { animation: descend 3.2s cubic-bezier(.18,.72,.28,1) both; }
+body.traffic-story[data-stage="7"] .people-wave { opacity: 1; }
 
 @media (max-width: 700px) {
   .site-nav { inset: 12px 12px auto; }
