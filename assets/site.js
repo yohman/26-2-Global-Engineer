@@ -40,10 +40,31 @@ while (walker.nextNode()) {
   textNodes.push({ node, english: node.nodeValue });
 }
 
-const languageButton = document.createElement('button');
-languageButton.className = 'language-toggle';
-languageButton.type = 'button';
-nav?.append(languageButton);
+const isTrafficStory = document.body.classList.contains('traffic-story');
+let languageButton;
+let languageButtons = [];
+if (isTrafficStory) {
+  const languageSwitch = document.createElement('div');
+  languageSwitch.className = 'language-switch';
+  languageButtons = [
+    ['en', 'EN', 'English'],
+    ['ja', '日本語', '日本語']
+  ].map(([value, label, accessibleName]) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.dataset.language = value;
+    button.textContent = label;
+    button.setAttribute('aria-label', accessibleName);
+    languageSwitch.append(button);
+    return button;
+  });
+  nav?.append(languageSwitch);
+} else {
+  languageButton = document.createElement('button');
+  languageButton.className = 'language-toggle';
+  languageButton.type = 'button';
+  nav?.append(languageButton);
+}
 
 function savedLanguage() {
   try { return localStorage.getItem('ge-language') || 'en'; }
@@ -63,18 +84,32 @@ function applyLanguage(language) {
   document.title = language === 'ja' && translations[englishTitle]
     ? translations[englishTitle]
     : englishTitle;
-  languageButton.textContent = language === 'ja' ? 'EN' : 'JP';
-  languageButton.setAttribute('aria-label', language === 'ja' ? 'Switch to English' : '日本語に切り替える');
+  if (isTrafficStory) {
+    languageButtons.forEach((button) => {
+      const isActive = button.dataset.language === language;
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+  } else {
+    languageButton.textContent = language === 'ja' ? 'EN' : 'JP';
+    languageButton.setAttribute('aria-label', language === 'ja' ? 'Switch to English' : '日本語に切り替える');
+  }
   try { localStorage.setItem('ge-language', language); } catch {}
   window.dispatchEvent(new CustomEvent('course-language-change', { detail: { language } }));
 }
 
 let language = savedLanguage();
 applyLanguage(language);
-languageButton.addEventListener('click', () => {
-  language = language === 'en' ? 'ja' : 'en';
-  applyLanguage(language);
-});
+if (isTrafficStory) {
+  languageButtons.forEach((button) => button.addEventListener('click', () => {
+    language = button.dataset.language;
+    applyLanguage(language);
+  }));
+} else {
+  languageButton.addEventListener('click', () => {
+    language = language === 'en' ? 'ja' : 'en';
+    applyLanguage(language);
+  });
+}
 
 const filterButtons = document.querySelectorAll('[data-filter]');
 const resources = document.querySelectorAll('[data-kind]');
