@@ -22,7 +22,7 @@ body.traffic-story .skip-link { z-index: 50; }
 
 .road-lines { opacity: 0; transition: opacity 1.2s ease; }
 .road-edge { fill: url(#road-glow); stroke: #6ebcb9; stroke-width: 1.35; opacity: .62; }
-.lane-path { fill: none; stroke: #69aaa7; stroke-width: 1; stroke-dasharray: 3 15; opacity: .4; animation: current 13s linear infinite; }
+.lane-path { fill: none; stroke: #69aaa7; stroke-width: 1; stroke-dasharray: 5 18; opacity: .34; animation: current 18s linear infinite; }
 .center-line { fill: none; stroke: #d4a17d; stroke-width: 1.2; opacity: .68; }
 .direction-label { fill: #dfe8dc; font: 600 12px 'Libre Franklin', sans-serif; letter-spacing: 3px; opacity: .7; }
 .direction-arrow { stroke: #e8c36d; fill: none; stroke-width: 1.5; opacity: .8; }

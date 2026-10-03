@@ -10,6 +10,7 @@
   const language = () => document.documentElement.lang === 'ja' ? 'ja' : 'en';
   const currentCars = new Map();
   const focus = { lane: 7, x: 570, y: 450 };
+  const road = { left: 216, center: 600, lanePitch: 48, edge: 984 };
   const scaleFor = { 1: 9.2, 2: 2.4, 3: 1, 4: 1 };
   let active = 1;
   let ticking = false;
@@ -84,11 +85,11 @@
 
   function drawRoad() {
     roadLines.replaceChildren();
-    roadLines.append(svgNode('rect', { x: 120, y: 0, width: 960, height: 900, class: 'road-bed' }));
-    roadLines.append(svgNode('path', { d: 'M120 0 C130 145 112 278 120 430 S130 718 120 900 M1080 0 C1070 145 1088 278 1080 430 S1070 718 1080 900', class: 'road-edge' }));
+    roadLines.append(svgNode('rect', { x: road.left, y: 0, width: road.edge - road.left, height: 900, class: 'road-bed' }));
+    roadLines.append(svgNode('path', { d: `M${road.left} 0 C${road.left + 10} 145 ${road.left - 8} 278 ${road.left} 430 S${road.left + 10} 718 ${road.left} 900 M${road.edge} 0 C${road.edge - 10} 145 ${road.edge + 8} 278 ${road.edge} 430 S${road.edge - 10} 718 ${road.edge} 900`, class: 'road-edge' }));
     for (let lane = 1; lane < 8; lane += 1) {
-      const x = 120 + lane * 60;
-      const southX = 600 + lane * 60;
+      const x = road.left + lane * road.lanePitch;
+      const southX = road.center + lane * road.lanePitch;
       roadLines.append(svgNode('path', { d: `M${x} 0 C${x + 7} 150 ${x - 6} 280 ${x} 430 S${x + 6} 725 ${x} 900`, class: 'lane-path' }));
       roadLines.append(svgNode('path', { d: `M${southX} 0 C${southX - 6} 150 ${southX + 7} 280 ${southX} 430 S${southX - 5} 725 ${southX} 900`, class: 'lane-path' }));
     }
@@ -110,7 +111,8 @@
     const addCar = (lane, row, direction = 'northbound') => {
       const key = `${direction}-${lane}-${row}`;
       if (direction === 'northbound' && lane === 7 && row === 10) return;
-      const laneX = direction === 'northbound' ? 150 + lane * 60 : 630 + lane * 60;
+      // Keep both directions legible while narrowing the visual median gap.
+      const laneX = direction === 'northbound' ? road.left + road.lanePitch / 2 + lane * road.lanePitch : road.center + road.lanePitch / 2 + lane * road.lanePitch;
       const x = laneX + jitter(key, 'lane', 14);
       const y = 100 + row * 35 + jitter(key, 'spacing', 8);
       const variant = inkVariant(key);
