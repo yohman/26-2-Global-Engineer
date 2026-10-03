@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css?v=journey-20260928">
-  <link rel="stylesheet" href="assets/week2-traffic.css?v=44">
+  <link rel="stylesheet" href="assets/week2-traffic.css?v=45">
 </head>
 <body class="traffic-story">
   <a class="skip-link" href="#beat-1">Skip to the story</a>
@@ -18,6 +18,7 @@
   <div class="immersive-scene" aria-hidden="true">
     <svg class="traffic-svg" id="traffic-svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid meet">
       <defs id="traffic-defs">
+        <clipPath id="tunnel-clip"><rect x="104" y="688" width="992" height="202" rx="60"/></clipPath>
         <radialGradient id="night-glow"><stop stop-color="#122123"/><stop offset="1" stop-color="#030607"/></radialGradient>
         <linearGradient id="road-glow" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#68c4c3" stop-opacity=".08"/><stop offset=".5" stop-color="#68c4c3" stop-opacity=".015"/><stop offset="1" stop-color="#68c4c3" stop-opacity=".08"/></linearGradient>
         <symbol id="line-car" viewBox="0 0 30 48">
@@ -26,6 +27,7 @@
         <symbol id="side-car" viewBox="0 0 52 24">
           <path d="M2 17.2C2 15.4 2.4 13.8 2.4 12.2L8 10.1L13.1 4.3C13.8 3.6 14.5 3.5 15.7 3.5H32.8C34.3 3.5 35.2 4 36.2 5L43 10.1L49 12.3C50 13.2 50 15.2 50 17.1V19H2V17.2ZM15.8 10.2L18.8 6.2C19.4 5.4 20.1 5.2 21.2 5.2H29.7C30.8 5.2 31.6 5.6 32.5 6.3L36.5 10.2H15.8ZM10 17.1A3 3 0 1 0 10 17.2M39 17.1A3 3 0 1 0 39 17.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
         </symbol>
+        <symbol id="skate-car" viewBox="0 0 52 26"><use href="#side-car" width="52" height="24"/><path d="M1 24h50m-44 1h5m28 0h5" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
         <symbol id="hov-diamond" viewBox="0 0 24 24"><path d="M12 1.5 22.5 12 12 22.5 1.5 12 12 1.5Z" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
       </defs>
       <rect width="1200" height="900" fill="url(#night-glow)"/>
@@ -47,7 +49,6 @@
           <path class="lift-shaft" d="M540 162v650m60-650v650" fill="none" stroke="#eac66b" stroke-width="1.5" stroke-dasharray="4 8"/>
           <path class="lift-door lift-door-left" d="M520 152h50" fill="none" stroke="#eac66b" stroke-width="3"/>
           <path class="lift-door lift-door-right" d="M570 152h50" fill="none" stroke="#eac66b" stroke-width="3"/>
-          <rect id="lift-platform" class="elevator-platform" x="534" y="159" width="72" height="8" rx="2"/>
         </g>
         <g class="surface-cars" id="surface-cars"></g>
         <path class="soil-line soil-one" d="M80 400q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#45645b" stroke-width="1.4"/>
@@ -58,7 +59,14 @@
         <path class="pod-track pod-east" d="M150 750h900"/>
         <path class="pod-track pod-west" d="M150 800h900"/>
         <path class="pod-track pod-east" d="M150 850h900"/>
-        <g id="pod-traffic" class="pod-traffic"></g>
+        <g id="pod-traffic" class="pod-traffic" clip-path="url(#tunnel-clip)"></g>
+        <g id="lift-carriage">
+          <rect id="lift-platform" class="elevator-platform" x="534" y="155" width="72" height="6" rx="2"/>
+          <g id="descending-car">
+            <use href="#side-car" x="548" y="138" width="44" height="20"/>
+            <path d="M547 157h46m-39 2h4m25 0h4" class="transfer-skate" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </g>
+        </g>
         <text x="150" y="880" class="section-label">UNDERGROUND · EXPRESS PODS</text>
       </g>
     </svg>
@@ -97,14 +105,13 @@
     </section>
     <section class="story-beat" id="beat-6" data-stage="6" aria-labelledby="beat-title-6">
       <div class="beat-card">
-        <p class="story-copy" id="beat-title-6">In 2017, Elon Musk’s Boring Company proposed a tunnel beneath Sepulveda Boulevard, parallel to the 405, carrying cars on electric skates. I imagine what that promise might look like: the pavement parts, and an elevator rises to take a car from the surface—not mine. It carries that car below the queue into an underworld of pods on electric skates, zipping left and right at absurd speed. Above, every car still inches north. Beside that velocity, our overground commute almost seems silly. My car stays in the line.</p>
-        <p>It is someone else’s car that disappears below. I am still here with everyone else, wondering what this new route changes for us.</p>
+        <p class="story-copy" id="beat-title-6">In 2017, Musk’s Boring Company promised a way beneath this traffic: a tunnel under Sepulveda Boulevard, parallel to the 405. I imagine the road opening. An elevator takes someone else’s car below. It lands on an electric skate and disappears into a stream of cars flashing past. Up here, my hands are still on the wheel. I haven’t moved.</p>
         <p class="source-line"><a href="https://www.latimes.com/local/lanow/la-me-ln-elon-musk-boring-company-20171121-story.html" target="_blank" rel="noopener">Los Angeles Times · 2017 ↗</a> <span>·</span> <a href="https://blog.ted.com/what-will-the-future-look-like-elon-musk-speaks-at-ted2017/amp/" target="_blank" rel="noopener">TED · concept explanation ↗</a></p>
       </div>
     </section>
     <section class="story-beat" id="beat-7" data-stage="7" aria-labelledby="beat-title-7">
       <div class="beat-card">
-        <p class="story-copy" id="beat-title-7">A few cars peel away, one after another, and streak through the underworld. Above, the 405 looks exactly the same; my car has not advanced. LA Metro reports around 289,000 vehicles pass through Sepulveda Pass in a day—not all at once, but across the whole day. Imagine an elevator plucking a handful of riders from a packed commuter train in Japan and sending them down a private zipline. The train would still arrive almost as crowded as before. This drawing is not a capacity forecast. It asks a question of scale: can a fast route for a few change a commute shared by so many? In this imagined scene, no. The queue above does not thin.</p>
+        <p class="story-copy" id="beat-title-7">Another car disappears. Then another. The queue around me looks the same. I think of a packed commuter train in Japan: take a handful of people out and give them their own fast ride. What changes for everyone left inside? Beneath us, speed. Up here, the same morning.</p>
         <p class="scale-callout"><strong>FEW CARS BELOW.</strong> <span>THE SAME QUEUE ABOVE.</span></p>
         <p>And I still wanted to know what a ride would cost, who could reach it, and whether it would get anyone all the way home.</p>
       </div>
@@ -125,8 +132,8 @@
     </section>
     <div class="story-end" aria-hidden="true"></div>
   </main>
-  <script src="assets/i18n.js?v=week2-11"></script>
+  <script src="assets/i18n.js?v=week2-12"></script>
   <script src="assets/site.js?v=nav-3"></script>
-  <script src="assets/week2-traffic.js?v=40"></script>
+  <script src="assets/week2-traffic.js?v=41"></script>
 </body>
 </html>

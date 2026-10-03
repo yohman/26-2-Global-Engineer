@@ -300,15 +300,13 @@
     const line = document.querySelector('#surface-cars');
     if (line.childElementCount) return;
     for (let index = 0; index < 31; index += 1) {
-      if (index === 13 || index === 15) continue;
+      if (index >= 13 && index <= 15) continue;
       const x = 14 + index * 39;
       const isPersonal = index === 24;
-      const isTransferCar = index === 14;
       line.append(svgNode('use', {
-        href: '#side-car', x: isTransferCar ? 548 : x, y: isTransferCar ? 138 : 134, width: isTransferCar ? 44 : 34, height: isTransferCar ? 20 : 16,
-        ...(isTransferCar ? { id: 'descending-car' } : {}),
-        class: `surface-car${isPersonal ? ' personal-car' : ''}${isTransferCar ? ' transfer-car' : ''}`,
-        style: isTransferCar ? '' : `animation-delay:-${index * .37}s`
+        href: '#side-car', x, y: 134, width: 34, height: 16,
+        class: `surface-car${isPersonal ? ' personal-car' : ''}`,
+        style: `animation-delay:-${index * .37}s`
       }));
     }
   }
@@ -323,10 +321,10 @@
     ];
     lanes.forEach((lane, laneIndex) => {
       for (let index = 0; index < 3; index += 1) {
-        const x = lane.direction === 'eastbound' ? 150 + index * 300 : 1050 - index * 300;
-        const duration = .9;
+        const x = lane.direction === 'eastbound' ? 60 : 1096;
+        const duration = 1.35 + laneIndex * .15;
         const pod = svgNode('use', {
-          href: '#side-car', x, y: lane.y - 10, width: 44, height: 20,
+          href: '#skate-car', x, y: lane.y - 20, width: 44, height: 20,
           class: `pod-car ${lane.direction}`,
           style: `--zip-duration:${duration.toFixed(2)}s;--zip-delay:${index ? `${(-duration * index / 3).toFixed(2)}s` : '0s'}`
         });
@@ -365,12 +363,9 @@
 
   function findActiveBeat() {
     const anchor = innerHeight * .84;
-    const visibleBeats = beats.map((beat, index) => ({ index: index + 1, card: beat.querySelector('.beat-card').getBoundingClientRect() }))
-      .filter(({ card }) => card.top >= 0 && card.bottom <= innerHeight);
-    return visibleBeats.reduce((best, beat) => {
-      const distance = Math.abs(beat.card.top - anchor);
-      return distance < best.distance ? { index: beat.index, distance } : best;
-    }, { index: active, distance: Infinity }).index;
+    // Activate long paragraphs as they enter, even before the whole card fits.
+    return beats.reduce((current, beat, index) =>
+      beat.querySelector('.beat-card').getBoundingClientRect().top <= anchor ? index + 1 : current, 1);
   }
 
   function onScroll() {
