@@ -165,7 +165,7 @@
         carpool: isCarpool,
         node: laneGroup,
         cars: [],
-        cruiseSpeed: isCarpool ? 23 + Math.abs(jitter(laneName, 'pace', 28)) : 2.5 + Math.abs(jitter(laneName, 'pace', 19)),
+        cruiseSpeed: isCarpool ? 68 + Math.abs(jitter(laneName, 'pace', 28)) : 24 + Math.abs(jitter(laneName, 'pace', 20)),
         cycleSeconds: 10 + Math.abs(jitter(laneName, 'cycle', 16)),
         phaseSeconds: Math.abs(jitter(laneName, 'phase', 1)) * (10 + Math.abs(jitter(laneName, 'cycle', 16)))
       };
@@ -192,32 +192,30 @@
         const centerY = positions[index];
         const isPersonal = index === personalIndex;
         const variant = inkVariant(key);
-        const sideAmplitude = 3 + Math.abs(jitter(key, 'side-range', 38));
+        // Drivers hold a slightly different position within their lane, without swaying.
+        const centerX = laneX + jitter(key, 'lane-position', 12);
+        const maxSpeed = laneState.cruiseSpeed * (.85 + Math.abs(jitter(key, 'individual-speed', .3)));
         const car = svgNode('use', {
           href: `#line-car-${variant}`,
-          x: laneX - carSize.width / 2,
+          x: centerX - carSize.width / 2,
           y: centerY - carSize.height / 2,
           width: carSize.width,
           height: carSize.height,
           class: `traffic-car ${direction}${isCarpool ? ' carpool' : ''}${isPersonal ? ' personal' : ''}`
         });
-        if (direction === 'southbound') car.setAttribute('transform', `rotate(180 ${laneX} ${centerY})`);
+        if (direction === 'southbound') car.setAttribute('transform', `rotate(180 ${centerX} ${centerY})`);
         laneGroup.append(car);
         laneState.cars.push({
           node: car,
           progress: ((directionSign * centerY) % cycleHeight + cycleHeight) % cycleHeight,
           directionSign,
-          laneX,
+          laneX: centerX,
           rotated: direction === 'southbound',
-          maxSpeed: laneState.cruiseSpeed * (.76 + Math.abs(jitter(key, 'individual-speed', .48))),
+          maxSpeed,
           speedPhase: jitter(key, 'speed-phase', Math.PI * 2) + Math.PI,
           acceleration: 9 + Math.abs(jitter(key, 'acceleration', 20)),
           deceleration: 10 + Math.abs(jitter(key, 'deceleration', 24)),
-          sideAmplitude,
-          sidePhase: jitter(key, 'side-phase', Math.PI * 2) + Math.PI,
-          sidePeriod: 3.5 + Math.abs(jitter(key, 'side-period', 7)),
-          sideDrift: Math.abs(jitter(key, 'side-drift', 13)),
-          speed: 0,
+          speed: laneState.personalLane ? 0 : maxSpeed * .6,
           advance: 0,
           personal: isPersonal
         });
@@ -236,22 +234,9 @@
 
   function lanePace(lane, time) {
     if (lane.personalLane) return 0;
-    const cycle = ((time + lane.phaseSeconds) % lane.cycleSeconds) / lane.cycleSeconds;
-    if (lane.carpool) {
-      if (cycle < .16) return .58;
-      if (cycle < .25) return .22;
-      if (cycle < .38) return .05;
-      if (cycle < .62) return .72;
-      if (cycle < .72) return .38;
-      if (cycle < .88) return 1;
-      return .56;
-    }
-    if (cycle < .14) return .24;
-    if (cycle < .29) return 0;
-    if (cycle < .51) return .12;
-    if (cycle < .68) return .44;
-    if (cycle < .81) return .82;
-    return .28;
+    const phase = (time + lane.phaseSeconds) / lane.cycleSeconds * Math.PI * 2;
+    const wave = (Math.sin(phase) + 1) / 2;
+    return lane.carpool ? .76 + .24 * wave : .48 + .52 * wave;
   }
 
   function updateTrafficMotion(now) {
@@ -270,7 +255,7 @@
       if (!cars.length) continue;
       cars.sort((a, b) => a.progress - b.progress);
       const pace = lanePace(lane, trafficTime);
-      const safeGap = 3;
+      const safeGap = 2;
 
       for (let index = cars.length - 1; index >= 0; index -= 1) {
         const car = cars[index];
@@ -304,13 +289,8 @@
       for (const car of cars) {
         car.progress = (car.progress + car.advance) % cycleHeight;
         const centerY = car.directionSign < 0 ? cycleHeight - car.progress : car.progress;
-        const lateral = Math.sin(trafficTime * (Math.PI * 2 / car.sidePeriod) + car.sidePhase) * car.sideAmplitude
-          + Math.sin(trafficTime * .31 + car.sidePhase * .73) * car.sideDrift;
-        const laneOffsetLimit = (road.lanePitch - carSize.width) / 2 - 1;
-        const centerX = car.laneX + Math.max(-laneOffsetLimit, Math.min(laneOffsetLimit, lateral));
-        car.node.setAttribute('x', centerX - carSize.width / 2);
         car.node.setAttribute('y', centerY - carSize.height / 2);
-        if (car.rotated) car.node.setAttribute('transform', `rotate(180 ${centerX} ${centerY})`);
+        if (car.rotated) car.node.setAttribute('transform', `rotate(180 ${car.laneX} ${centerY})`);
       }
     }
     motionFrame = requestAnimationFrame(updateTrafficMotion);

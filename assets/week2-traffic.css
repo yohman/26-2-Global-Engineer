@@ -115,6 +115,9 @@ body.traffic-story[data-stage="1"] #focus-car { opacity: 1; }
 body.traffic-story[data-stage="1"] .night-lines { opacity: 0; }
 body.traffic-story[data-stage="1"] #car-field { opacity: 0; }
 body.traffic-story[data-stage="2"] #car-field { opacity: .96; }
+body.traffic-story[data-stage="2"] #road-lines, body.traffic-story[data-stage="3"] #road-lines { opacity: 1; }
+body.traffic-story[data-stage="2"] .hov-divider, body.traffic-story[data-stage="3"] .hov-divider { opacity: .72; }
+body.traffic-story[data-stage="2"] .hov-symbol, body.traffic-story[data-stage="3"] .hov-symbol { opacity: .54; }
 body.traffic-story[data-stage="3"] #car-field, body.traffic-story[data-stage="4"] #car-field { opacity: 1; }
 body.traffic-story[data-stage="4"] #road-lines { opacity: 1; }
 body.traffic-story[data-stage="4"] .traffic-camera { opacity: .96; }
