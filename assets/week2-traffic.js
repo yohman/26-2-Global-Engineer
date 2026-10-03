@@ -39,6 +39,11 @@
   }
 
   function renderCars(stage) {
+    if (stage === 1) {
+      currentCars.clear();
+      carField.replaceChildren();
+      return;
+    }
     const nextCars = new Map();
     const addCar = (lane, row, direction = 'northbound') => {
       const x = direction === 'northbound' ? 150 + lane * 60 : 630 + lane * 60;
@@ -121,7 +126,7 @@
 
   function setStage(stage) {
     if (stage === active && body.dataset.stage) {
-      if (stage === 1 && currentCars.size) renderCars(1);
+      if (stage === 1 && (currentCars.size || carField.childElementCount)) renderCars(1);
       return;
     }
     active = stage;
