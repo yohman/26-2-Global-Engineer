@@ -148,6 +148,7 @@
         const activity = document.createElement('section'); activity.className = 'agenda-work-card agenda-work-card--activity'; activity.innerHTML = '<header><span>02 / IN-CLASS ACTIVITIES</span><h3>Work together</h3></header>';
         week.sections.filter(section => sectionMatches(section, activityNames)).forEach(section => addSection(activity, section));
         if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = 'EXPLORE THE CLASS ATLAS ↗'; activity.append(link); }
+        if (week.week === 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button agenda-story-link'; link.href = 'week2-traffic.html'; link.textContent = 'OPEN THE SCROLL STORY ↗'; activity.append(link); }
         addResources(activity, week.resources.filter(resource => ['EXPLORE', 'TOOLS'].includes(resource.category)), 'Tools / explore');
         work.append(activity);
         const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = '<header><span>03 / HOMEWORK</span><h3>Carry it forward</h3></header>';
