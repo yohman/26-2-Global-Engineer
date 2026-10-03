@@ -459,6 +459,12 @@
   function setStage(stage, force = false, beatIndex = beats.findIndex(beat => Number(beat.dataset.stage) === stage)) {
     activeBeat = beatIndex;
     body.dataset.beat = beats[beatIndex]?.id || '';
+    const comparison = document.querySelector('#region-comparison');
+    const metric = beats[beatIndex]?.dataset.compare;
+    comparison.hidden = !metric;
+    comparison.querySelectorAll('.comparison-frame').forEach(frame => {
+      frame.hidden = frame.dataset.metric !== metric;
+    });
     beats.forEach((beat, index) => beat.classList.toggle('is-active', index === activeBeat));
     if (stage === active && body.dataset.stage && !force) {
       if (stage === 1 && carField.childElementCount) renderCars(1);
