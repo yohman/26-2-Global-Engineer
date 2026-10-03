@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css?v=journey-20260928">
-  <link rel="stylesheet" href="assets/week2-traffic.css?v=41">
+  <link rel="stylesheet" href="assets/week2-traffic.css?v=42">
 </head>
 <body class="traffic-story">
   <a class="skip-link" href="#beat-1">Skip to the story</a>
@@ -43,17 +43,17 @@
         <path class="ground-edge" d="M100 152 C270 145 410 158 520 152 M620 152 C790 146 950 151 1100 154" fill="none" stroke="#80c4bd" stroke-width="2"/>
         <path d="M100 160 C270 153 410 166 520 160 M620 160 C790 154 950 159 1100 162" fill="none" stroke="#416e70" stroke-width="1" stroke-dasharray="3 12" class="flow-line"/>
         <text x="108" y="124" class="section-label">SURFACE · STILL MOVING</text>
+        <g class="lift-mechanism">
+          <path class="lift-shaft" d="M540 162v650m60-650v650" fill="none" stroke="#eac66b" stroke-width="1.5" stroke-dasharray="4 8"/>
+          <path class="lift-door lift-door-left" d="M520 152h50" fill="none" stroke="#eac66b" stroke-width="3"/>
+          <path class="lift-door lift-door-right" d="M570 152h50" fill="none" stroke="#eac66b" stroke-width="3"/>
+          <rect id="lift-platform" class="elevator-platform" x="534" y="159" width="72" height="8" rx="2"/>
+        </g>
         <g class="surface-cars" id="surface-cars"></g>
         <path class="soil-line soil-one" d="M80 400q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#45645b" stroke-width="1.4"/>
         <path class="soil-line soil-two" d="M80 458q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#3b5d57" stroke-width="1.2"/>
         <path class="soil-line soil-three" d="M80 516q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#705846" stroke-width="1.2"/>
         <path class="soil-line soil-four" d="M80 574q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#45645b" stroke-width="1.2"/>
-        <g class="lift-mechanism">
-          <path class="lift-shaft" d="M540 162v650m60-650v650" fill="none" stroke="#eac66b" stroke-width="1.5" stroke-dasharray="4 8"/>
-          <path class="lift-door lift-door-left" d="M520 152h50" fill="none" stroke="#eac66b" stroke-width="3"/>
-          <path class="lift-door lift-door-right" d="M570 152h50" fill="none" stroke="#eac66b" stroke-width="3"/>
-          <path id="lift-platform" class="elevator-platform" d="M542 159h56"/>
-        </g>
         <path class="tunnel-shell" d="M104 890v-140c0-34 28-62 62-62h868c34 0 62 28 62 62v140z"/>
         <path class="pod-track pod-east" d="M150 750h900"/>
         <path class="pod-track pod-west" d="M150 800h900"/>
@@ -127,6 +127,6 @@
   </main>
   <script src="assets/i18n.js?v=week2-11"></script>
   <script src="assets/site.js?v=nav-3"></script>
-  <script src="assets/week2-traffic.js?v=36"></script>
+  <script src="assets/week2-traffic.js?v=37"></script>
 </body>
 </html>

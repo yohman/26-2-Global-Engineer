@@ -34,21 +34,19 @@ body.traffic-story .site-nav { position: fixed; z-index: 30; inset: 16px 20px au
 .direction-arrow { stroke: #e8c36d; fill: none; stroke-width: 1.5; opacity: .8; }
 
 .car-field { opacity: 0; transition: opacity .35s ease; }
-.traffic-car { color: var(--teal); opacity: .53; transition: opacity .3s ease, color .3s ease; animation: traffic-creep var(--flow-duration, 5s) linear var(--flow-delay, 0s) infinite; }
+.traffic-lane { animation: lane-flow var(--flow-duration, 100s) linear var(--flow-delay, 0s) infinite; }
+.traffic-lane.southbound { animation-name: lane-flow-south; }
+.traffic-lane.carpool { animation-duration: var(--flow-duration, 30s); }
+.traffic-car { color: var(--teal); opacity: .53; transition: opacity .3s ease, color .3s ease; }
 .traffic-car.southbound { color: var(--coral); opacity: .49; }
 .traffic-car use { overflow: visible; }
-.traffic-car.carpool { color: var(--gold); opacity: .9; animation-duration: var(--flow-duration, 2.5s); }
+.traffic-car.carpool { color: var(--gold); opacity: .9; }
 .traffic-car.personal { color: var(--express); opacity: 1; }
 .focus-car { color: var(--express); transform-box: fill-box; transform-origin: center; animation: focus-arrival 1s cubic-bezier(.18,.74,.25,1) both; transition: color .3s ease, opacity .3s ease; }
 .focus-car use { overflow: visible; }
 @keyframes focus-arrival { from { transform: translateY(80px); opacity: 0; } 45% { opacity: .7; } to { transform: translateY(0); opacity: 1; } }
-@keyframes traffic-creep { to { translate: 0 -900px; } }
-@keyframes traffic-creep-south { to { translate: 0 900px; } }
-.traffic-car.southbound { animation-name: traffic-creep-south; }
-.traffic-car.carpool.northbound { animation-name: carpool-north; }
-.traffic-car.carpool.southbound { animation-name: carpool-south; }
-@keyframes carpool-north { to { translate: 0 -900px; } }
-@keyframes carpool-south { to { translate: 0 900px; } }
+@keyframes lane-flow { to { translate: 0 var(--flow-distance); } }
+@keyframes lane-flow-south { to { translate: 0 var(--flow-distance); } }
 .section-scene { opacity: 0; transition: opacity .95s ease; }
 .section-label { fill: #d5dfd7; font: 600 11px 'Libre Franklin', sans-serif; letter-spacing: 2.3px; opacity: .64; }
 .soil-line { opacity: .45; stroke-dasharray: 2 11; animation: current 21s linear infinite; }
@@ -58,7 +56,7 @@ body.traffic-story .site-nav { position: fixed; z-index: 30; inset: 16px 20px au
 .bore-route { animation: current 14s linear infinite; }
 .surface-cars { color: var(--teal); opacity: .72; }
 .surface-cars use:nth-child(even) { color: var(--coral); }
-.surface-cars .personal-car { color: var(--gold); opacity: 1; }
+.surface-cars .personal-car { color: var(--express); opacity: 1; }
 .surface-cars .transfer-car { color: var(--teal); opacity: .78; }
 .surface-car { animation: surface-flow 6.5s ease-in-out infinite alternate; }
 @keyframes surface-flow { to { translate: -9px 0; } }
@@ -78,19 +76,20 @@ body.traffic-story .site-nav { position: fixed; z-index: 30; inset: 16px 20px au
 .elevator-platform { fill: rgba(232,195,109,.12); stroke: var(--gold); stroke-width: 1.6; opacity: 0; animation: none; }
 @keyframes lift-cycle {
   0%, 12% { transform: translateY(0); opacity: 0; }
-  15% { opacity: .95; }
-  40%, 54% { transform: translateY(602px); opacity: .95; }
-  63%, 100% { transform: translateY(602px); opacity: 0; }
+  15% { transform: translateY(0); opacity: .98; }
+  40%, 43% { transform: translateY(602px); opacity: .98; }
+  46%, 100% { transform: translateY(602px); opacity: 0; }
 }
 #descending-car { opacity: 0; animation: none; }
 @keyframes transfer-cycle {
-  0%, 11% { transform: translate(0,0); opacity: 0; }
-  14% { opacity: 1; }
-  39% { transform: translate(0,650px); opacity: 1; animation-timing-function: cubic-bezier(.35,.8,.2,1); }
-  46%, 49% { transform: translate(0,650px); opacity: 1; }
-  81% { transform: translate(360px,650px); opacity: 1; animation-timing-function: cubic-bezier(.2,.75,.15,1); }
-  93% { transform: translate(520px,650px); opacity: 1; }
-  98%, 100% { transform: translate(580px,650px); opacity: 0; }
+  0%, 12% { transform: translate(0,0); opacity: 0; }
+  15% { transform: translate(0,0); opacity: 1; }
+  40%, 43% { transform: translate(0,602px); opacity: 1; animation-timing-function: cubic-bezier(.35,.8,.2,1); }
+  45% { transform: translate(0,602px); opacity: 1; }
+  47% { transform: translate(110px,602px); opacity: 1; }
+  52% { transform: translate(570px,602px); opacity: 1; animation-timing-function: cubic-bezier(.2,.75,.15,1); }
+  58% { transform: translate(1120px,602px); opacity: .55; }
+  61%, 100% { transform: translate(1500px,602px); opacity: 0; }
 }
 
 .scroll-progress { position: fixed; z-index: 40; inset: 0 0 auto; height: 2px; background: rgba(212,225,214,.08); }
@@ -158,6 +157,7 @@ body.traffic-story[data-stage="6"] .lift-shaft, body.traffic-story[data-stage="7
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .traffic-lane { animation: none !important; }
   body.traffic-story[data-stage="6"] #lift-platform, body.traffic-story[data-stage="7"] #lift-platform, body.traffic-story[data-stage="8"] #lift-platform, body.traffic-story[data-stage="9"] #lift-platform { transform: translateY(602px); opacity: .95; }
-  body.traffic-story[data-stage="6"] #descending-car, body.traffic-story[data-stage="7"] #descending-car, body.traffic-story[data-stage="8"] #descending-car, body.traffic-story[data-stage="9"] #descending-car { transform: translate(520px,650px); opacity: 1; }
+  body.traffic-story[data-stage="6"] #descending-car, body.traffic-story[data-stage="7"] #descending-car, body.traffic-story[data-stage="8"] #descending-car, body.traffic-story[data-stage="9"] #descending-car { transform: translate(0,602px); opacity: 1; }
 }

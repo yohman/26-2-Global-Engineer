@@ -1,5 +1,6 @@
 (() => {
   const body = document.body;
+  const svg = document.querySelector('#traffic-svg');
   const camera = document.querySelector('#camera');
   const roadLines = document.querySelector('#road-lines');
   const carField = document.querySelector('#car-field');
@@ -7,11 +8,14 @@
   const beats = [...document.querySelectorAll('.story-beat')];
   const progress = document.querySelector('#scroll-progress-fill');
   const language = () => document.documentElement.lang === 'ja' ? 'ja' : 'en';
-  const currentCars = new Map();
-  // Northbound lane 2 is centered at x=720; x=696 sat on the painted divider.
-  const focus = { lane: 2, x: 720, y: 450 };
-  const road = { left: 216, center: 600, lanePitch: 48, edge: 984 };
+  // Sixteen lanes span the frame: eight southbound on the left, eight northbound on the right.
+  const focus = { lane: 2, x: 787.5, y: 450 };
+  const road = { left: 0, center: 600, lanePitch: 75, edge: 1200 };
+  const carSize = { width: 30, height: 48, pitch: 56 };
   const scaleFor = { 1: 9.2, 2: 2.4, 3: 1, 4: 1 };
+  let sceneHeight = 900;
+  let cycleRows = 20;
+  let cycleHeight = cycleRows * carSize.pitch;
   let active = 1;
   let ticking = false;
 
@@ -88,90 +92,113 @@
     return (((hash >>> 0) / 4294967295) - .5) * range;
   }
 
+  function updateSceneDimensions() {
+    sceneHeight = Math.max(1, Math.round(1200 * innerHeight / Math.max(1, innerWidth)));
+    cycleRows = Math.ceil(sceneHeight / carSize.pitch) + 3;
+    cycleHeight = cycleRows * carSize.pitch;
+    focus.y = sceneHeight / 2;
+    const focusUse = focusCar.querySelector('use');
+    focusUse.setAttribute('x', focus.x - carSize.width / 2);
+    focusUse.setAttribute('y', focus.y - carSize.height / 2);
+    focusUse.setAttribute('width', carSize.width);
+    focusUse.setAttribute('height', carSize.height);
+    svg.setAttribute('viewBox', active >= 6 ? '0 0 1200 900' : `0 0 1200 ${sceneHeight}`);
+  }
+
   function drawRoad() {
     roadLines.replaceChildren();
-    roadLines.append(svgNode('rect', { x: road.left, y: 0, width: road.edge - road.left, height: 900, class: 'road-bed' }));
+    roadLines.append(svgNode('rect', { x: road.left, y: 0, width: road.edge - road.left, height: sceneHeight, class: 'road-bed' }));
     roadLines.append(
-      svgNode('rect', { x: 552, y: 0, width: 48, height: 900, class: 'hov-lane southbound' }),
-      svgNode('rect', { x: 600, y: 0, width: 48, height: 900, class: 'hov-lane northbound' })
+      svgNode('rect', { x: 525, y: 0, width: 75, height: sceneHeight, class: 'hov-lane southbound' }),
+      svgNode('rect', { x: 600, y: 0, width: 75, height: sceneHeight, class: 'hov-lane northbound' })
     );
-    roadLines.append(svgNode('path', { d: `M${road.left} 0 C${road.left + 10} 145 ${road.left - 8} 278 ${road.left} 430 S${road.left + 10} 718 ${road.left} 900 M${road.edge} 0 C${road.edge - 10} 145 ${road.edge + 8} 278 ${road.edge} 430 S${road.edge - 10} 718 ${road.edge} 900`, class: 'road-edge' }));
+    roadLines.append(svgNode('path', { d: `M${road.left} 0V${sceneHeight} M${road.edge} 0V${sceneHeight}`, class: 'road-edge' }));
     for (let lane = 1; lane < 8; lane += 1) {
       const x = road.left + lane * road.lanePitch;
       const southX = road.center + lane * road.lanePitch;
-      roadLines.append(svgNode('path', { d: `M${x} 0 C${x + 7} 150 ${x - 6} 280 ${x} 430 S${x + 6} 725 ${x} 900`, class: lane === 7 ? 'lane-path hov-divider' : 'lane-path' }));
-      roadLines.append(svgNode('path', { d: `M${southX} 0 C${southX - 6} 150 ${southX + 7} 280 ${southX} 430 S${southX - 5} 725 ${southX} 900`, class: lane === 1 ? 'lane-path hov-divider' : 'lane-path' }));
+      roadLines.append(svgNode('path', { d: `M${x} 0 C${x + 3} ${sceneHeight * .3} ${x - 3} ${sceneHeight * .65} ${x} ${sceneHeight}`, class: lane === 7 ? 'lane-path hov-divider' : 'lane-path' }));
+      roadLines.append(svgNode('path', { d: `M${southX} 0 C${southX - 3} ${sceneHeight * .3} ${southX + 3} ${sceneHeight * .65} ${southX} ${sceneHeight}`, class: lane === 1 ? 'lane-path hov-divider' : 'lane-path' }));
     }
-    for (let y = 88; y < 900; y += 164) {
+    for (let y = 88; y < sceneHeight; y += 164) {
       roadLines.append(
-        svgNode('use', { href: '#hov-diamond', x: 564, y, width: 24, height: 24, class: 'hov-symbol southbound' }),
-        svgNode('use', { href: '#hov-diamond', x: 612, y, width: 24, height: 24, class: 'hov-symbol northbound' })
+        svgNode('use', { href: '#hov-diamond', x: 550.5, y, width: 24, height: 24, class: 'hov-symbol southbound' }),
+        svgNode('use', { href: '#hov-diamond', x: 625.5, y, width: 24, height: 24, class: 'hov-symbol northbound' })
       );
     }
-    roadLines.append(svgNode('path', { d: 'M594 0 C600 140 592 310 600 450 S608 730 600 900 M606 0 C600 140 608 310 600 450 S592 730 600 900', class: 'center-line' }));
+    roadLines.append(svgNode('path', { d: `M598 0 C600 ${sceneHeight * .3} 596 ${sceneHeight * .65} 600 ${sceneHeight} M602 0 C600 ${sceneHeight * .3} 604 ${sceneHeight * .65} 600 ${sceneHeight}`, class: 'center-line' }));
     const north = svgNode('text', { x: 780, y: 48, class: 'direction-label' });
     north.textContent = language() === 'ja' ? '北行き ↑' : 'NORTHBOUND ↑';
-    const south = svgNode('text', { x: 200, y: 865, class: 'direction-label', 'text-anchor': 'end' });
+    const south = svgNode('text', { x: 200, y: sceneHeight - 28, class: 'direction-label', 'text-anchor': 'end' });
     south.textContent = language() === 'ja' ? '南行き ↓' : 'SOUTHBOUND ↓';
     roadLines.append(north, south);
   }
 
   function renderCars(stage) {
-    if (stage === 1) {
-      currentCars.clear();
+    if (stage === 1 || stage >= 6) {
       carField.replaceChildren();
       return;
     }
-    const nextCars = new Map();
-    const addCar = (lane, row, direction = 'northbound') => {
-      const key = `${direction}-${lane}-${row}`;
-      // Keep both directions legible while narrowing the visual median gap.
+    carField.replaceChildren();
+    const rowCount = cycleRows;
+    const addLane = (lane, direction) => {
+      const laneName = `${direction}-${lane}`;
       const isCarpool = direction === 'northbound' ? lane === 0 : lane === 7;
-      // A hashed, sparse pattern keeps the express lanes from reading as neat pairs.
-      if (isCarpool && inkVariant(key) % 5 > 1) return;
-      const laneX = direction === 'northbound' ? road.center + road.lanePitch / 2 + lane * road.lanePitch : road.left + road.lanePitch / 2 + lane * road.lanePitch;
-      const x = laneX + jitter(key, 'lane', 12);
-      const y = 60 + row * 31 + jitter(key, 'spacing', 22);
-      const variant = inkVariant(key);
-      const flowDuration = isCarpool ? 27 + (variant % 4) * 1.7 : 92 + (variant % 6) * 3.4;
-      const flowDelay = Math.abs(jitter(key, 'flow', flowDuration)).toFixed(2);
-      const isPersonal = direction === 'northbound' && lane === focus.lane && row === 12;
-      const use = svgNode('use', {
-        href: `#line-car-${variant}`, x: x - 12, y: y - 18, width: 24, height: 36,
-        class: `traffic-car ${direction}${isCarpool ? ' carpool' : ''}${isPersonal ? ' personal' : ''}`,
-        style: `--flow-duration:${flowDuration.toFixed(2)}s;--flow-delay:-${flowDelay}s`
-      });
-      if (direction === 'southbound') use.setAttribute('transform', `rotate(180 ${x} ${y})`);
-      nextCars.set(key, use);
+      const laneX = direction === 'northbound'
+        ? road.center + road.lanePitch / 2 + lane * road.lanePitch
+        : road.left + road.lanePitch / 2 + lane * road.lanePitch;
+      const laneGroup = svgNode('g', { class: `traffic-lane ${direction}${isCarpool ? ' carpool' : ''}` });
+      const pixelsPerSecond = isCarpool ? 30 : 8;
+      const duration = cycleHeight / pixelsPerSecond;
+      const phase = Math.abs(jitter(laneName, 'phase', carSize.pitch));
+      const delay = Math.abs(jitter(laneName, 'flow', duration));
+      const move = direction === 'northbound' ? -cycleHeight : cycleHeight;
+      laneGroup.setAttribute('style', `--flow-distance:${move}px;--flow-duration:${duration.toFixed(2)}s;--flow-delay:-${delay.toFixed(2)}s`);
+      const copyA = svgNode('g');
+      const copyB = svgNode('g', { transform: `translate(0 ${direction === 'northbound' ? cycleHeight : -cycleHeight})` });
+      laneGroup.append(copyA, copyB);
+
+      for (let row = 0; row < rowCount; row += 1) {
+        const key = `${laneName}-${row}`;
+        // Skip seeded, irregular HOV slots; regular lanes stay bumper-to-bumper.
+        if (isCarpool && inkVariant(key) % 5 > 1) continue;
+        const centerY = phase - carSize.pitch + row * carSize.pitch;
+        const isPersonal = direction === 'northbound' && lane === focus.lane
+          && Math.abs(centerY - sceneHeight / 2) < carSize.pitch / 2;
+        const variant = inkVariant(key);
+        const car = svgNode('use', {
+          href: `#line-car-${variant}`,
+          x: laneX - carSize.width / 2,
+          y: centerY - carSize.height / 2,
+          width: carSize.width,
+          height: carSize.height,
+          class: `traffic-car ${direction}${isCarpool ? ' carpool' : ''}${isPersonal ? ' personal' : ''}`
+        });
+        if (direction === 'southbound') car.setAttribute('transform', `rotate(180 ${laneX} ${centerY})`);
+        copyA.append(car);
+        copyB.append(car.cloneNode(true));
+      }
+      carField.append(laneGroup);
     };
 
-    if (stage >= 2) {
-      for (let lane = 0; lane < 8; lane += 1) {
-        for (let row = 0; row < 30; row += 1) addCar(lane, row);
-        for (let row = 0; row < 30; row += 1) addCar(lane, row, 'southbound');
-      }
+    for (let lane = 0; lane < 8; lane += 1) {
+      addLane(lane, 'southbound');
+      addLane(lane, 'northbound');
     }
-
-    for (const [key, node] of currentCars) if (!nextCars.has(key)) node.remove();
-    for (const [key, node] of nextCars) {
-      if (!currentCars.has(key)) carField.append(node);
-    }
-    currentCars.clear();
-    nextCars.forEach((node, key) => currentCars.set(key, node));
   }
 
   function drawSurfaceCars() {
     const line = document.querySelector('#surface-cars');
     if (line.childElementCount) return;
-    for (let index = 0; index < 28; index += 1) {
-      const x = 108 + index * 36;
-      const isPersonal = index === 23;
-      const isTransferCar = index === 12;
+    for (let index = 0; index < 31; index += 1) {
+      if (index === 13 || index === 15) continue;
+      const x = 14 + index * 39;
+      const isPersonal = index === 24;
+      const isTransferCar = index === 14;
       line.append(svgNode('use', {
-        href: '#side-car', x: isTransferCar ? 548 : x, y: 130, width: isTransferCar ? 44 : 34, height: isTransferCar ? 20 : 16,
+        href: '#side-car', x: isTransferCar ? 548 : x, y: isTransferCar ? 138 : 134, width: isTransferCar ? 44 : 34, height: isTransferCar ? 20 : 16,
         ...(isTransferCar ? { id: 'descending-car' } : {}),
         class: `surface-car${isPersonal ? ' personal-car' : ''}${isTransferCar ? ' transfer-car' : ''}`,
-        style: `animation-delay:-${index * .37}s`
+        style: isTransferCar ? '' : `animation-delay:-${index * .37}s`
       }));
     }
   }
@@ -199,18 +226,21 @@
     });
   }
 
-  function setStage(stage) {
-    if (stage === active && body.dataset.stage) {
-      if (stage === 1 && (currentCars.size || carField.childElementCount)) renderCars(1);
+  function setStage(stage, force = false) {
+    if (stage === active && body.dataset.stage && !force) {
+      if (stage === 1 && carField.childElementCount) renderCars(1);
       return;
     }
     active = stage;
     body.dataset.stage = String(stage);
+    svg.setAttribute('viewBox', stage >= 6 ? '0 0 1200 900' : `0 0 1200 ${sceneHeight}`);
     beats.forEach((beat, index) => beat.classList.toggle('is-active', index === stage - 1));
     if (stage < 6) {
       const scale = scaleFor[stage] || 1;
       camera.style.transformOrigin = '0px 0px';
-      camera.style.transform = `translate(${790 - focus.x * scale}px, ${450 - focus.y * scale}px) scale(${scale})`;
+      const offsetX = stage <= 2 ? 600 - focus.x * scale : 0;
+      const offsetY = stage <= 2 ? focus.y - focus.y * scale : 0;
+      camera.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
       camera.style.opacity = '1';
       document.querySelector('#section-scene').style.opacity = '0';
     } else {
@@ -243,11 +273,19 @@
     });
   }
 
+  function onResize() {
+    updateSceneDimensions();
+    drawRoad();
+    setStage(active, true);
+    onScroll();
+  }
+
   function goBeat(offset) {
     const nextIndex = Math.max(0, Math.min(beats.length - 1, active - 1 + offset));
     beats[nextIndex].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   }
 
+  updateSceneDimensions();
   drawRoad();
   createInkVariants();
   drawSurfaceCars();
@@ -255,7 +293,7 @@
   renderCars(1);
   setStage(1);
   addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll, { passive: true });
+  addEventListener('resize', onResize, { passive: true });
   addEventListener('keydown', event => {
     if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.('a,button,input,summary')) return;
     if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); goBeat(1); }
