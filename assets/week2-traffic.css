@@ -5,7 +5,7 @@ body.traffic-story { margin: 0; overflow-x: hidden; background: var(--night); co
 body.traffic-story::selection { background: rgba(109,192,191,.35); }
 body.traffic-story .skip-link { z-index: 50; }
 
-.site-nav { position: fixed; z-index: 30; inset: 16px 20px auto; display: flex; align-items: center; justify-content: space-between; gap: .7rem; pointer-events: none; }
+body.traffic-story .site-nav { position: fixed; z-index: 30; inset: 16px 20px auto; display: flex; align-items: center; justify-content: space-between; gap: .7rem; padding: 0; background: transparent; box-shadow: none; flex-direction: row; pointer-events: none; }
 .site-nav a, .site-nav .language-toggle, .site-nav .language-switch button { pointer-events: auto; border: 1px solid rgba(213,228,218,.18); border-radius: 99px; padding: .48rem .8rem; color: rgba(232,238,227,.72); background: rgba(5,10,11,.28); backdrop-filter: blur(10px); text-decoration: none; font: 600 .63rem 'Libre Franklin', sans-serif; letter-spacing: .06em; }
 .site-nav a[href="agenda.html"] { margin-right: auto; }
 .site-nav a[href="atlas.html"] { display: none; }
@@ -142,7 +142,7 @@ body.traffic-story[data-stage="6"] .lift-shaft, body.traffic-story[data-stage="7
 @keyframes shaft-reveal { to { opacity: .8; } }
 
 @media (max-width: 700px) {
-  .site-nav { inset: 12px 12px auto; }
+  body.traffic-story .site-nav { inset: 12px 12px auto; padding: 0; }
   .site-nav a, .site-nav .language-toggle, .site-nav .language-switch button { padding: .42rem .68rem; font-size: .58rem; }
   .story-beat { min-height: 112svh; padding: 0 .7rem 8vh; }
   .beat-card { top: 14vh; width: min(100%, 34rem); max-height: 72svh; margin-top: 68vh; padding: .9rem 1.05rem; background: radial-gradient(ellipse, rgba(3,7,8,.99), rgba(3,7,8,.93) 70%, transparent 100%); }
