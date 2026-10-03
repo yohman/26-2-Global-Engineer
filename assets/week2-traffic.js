@@ -23,9 +23,10 @@
 
   function carInkPath(variant, phase) {
     const outline = [
-      [15, 1.8], [11.4, 2.7], [9, 7.4], [6.5, 15.5], [5.2, 20], [4.8, 27], [4.9, 38],
-      [6, 43.8], [10.2, 46.1], [15, 46.3], [19.8, 46.1], [24, 43.8], [25.1, 38],
-      [25.2, 27], [24.8, 20], [23.5, 15.5], [21, 7.4], [18.6, 2.7]
+      [15, 1.8], [11.7, 2.5], [9.4, 4.7], [8.1, 8.3], [6.7, 13.7], [5.5, 18.5],
+      [4.9, 24], [5, 36], [5.5, 40.3], [7, 43.7], [10.2, 45.5], [15, 46.1],
+      [19.8, 45.5], [23, 43.7], [24.5, 40.3], [25, 36], [25.1, 24], [24.5, 18.5],
+      [23.3, 13.7], [21.9, 8.3], [20.6, 4.7], [18.3, 2.5]
     ];
     const point = ([x, y], index) => {
       const edge = Math.min(index, outline.length - index);
@@ -42,10 +43,14 @@
       const end = midpoint(p[i], p[(i + 1) % p.length]);
       path += `Q${p[i][0].toFixed(2)} ${p[i][1].toFixed(2)} ${end[0].toFixed(2)} ${end[1].toFixed(2)}`;
     }
-    const glass = Math.sin(variant * .8 + phase * 2.2) * .2;
-    const rear = Math.cos(variant * .63 + phase * 2.7) * .18;
-    path += `ZM8.1 17.1C10.5 ${(16.2 + glass).toFixed(2)} 19.3 ${(16.4 - glass).toFixed(2)} 21.9 17.2`;
-    path += `M8.1 32.3C10.5 ${(33.2 + rear).toFixed(2)} 19.3 ${(33.1 - rear).toFixed(2)} 21.9 32.2`;
+    const glass = Math.sin(variant * .8 + phase * 2.2) * .15;
+    const rear = Math.cos(variant * .63 + phase * 2.7) * .14;
+    // Broad front windscreen, roof/cabin, and rear glass make the silhouette read as a sedan.
+    path += `ZM7.5 15.9Q8.1 11.8 10.7 ${(10.1 + glass).toFixed(2)}Q15 9.1 19.3 ${(10.1 - glass).toFixed(2)}Q21.9 11.8 22.5 15.9`;
+    path += `M8 17.6Q15 ${(16.7 + glass).toFixed(2)} 22 17.6`;
+    path += `M8.1 31.6Q15 ${(32.3 + rear).toFixed(2)} 21.9 31.6Q21.3 36.2 19 37.5Q15 38.6 11 37.5Q8.7 36.2 8.1 31.6Z`;
+    // Short, paired lamp marks; no trailing stroke or loose line ends.
+    path += 'M7.1 6.4q1-.8 2-.8m11.8 0q1 0 2 .8M6.2 40.2q1.1.5 2.1.5m13.4 0q1 0 2.1-.5';
     return path;
   }
 
@@ -116,9 +121,12 @@
       const x = laneX + jitter(key, 'lane', 14);
       const y = 100 + row * 35 + jitter(key, 'spacing', 8);
       const variant = inkVariant(key);
+      const flowDuration = 4.8 + (variant % 5) * .55;
+      const flowDelay = Math.abs(jitter(key, 'flow', 7)).toFixed(2);
       const use = svgNode('use', {
         href: `#line-car-${variant}`, x: x - 12, y: y - 18, width: 24, height: 36,
-        class: `traffic-car ${direction}`
+        class: `traffic-car ${direction}`,
+        style: `--flow-duration:${flowDuration.toFixed(2)}s;--flow-delay:-${flowDelay}s`
       });
       if (direction === 'southbound') use.setAttribute('transform', `rotate(180 ${x} ${y})`);
       nextCars.set(key, use);
