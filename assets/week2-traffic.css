@@ -34,19 +34,15 @@ body.traffic-story .site-nav { position: fixed; z-index: 30; inset: 16px 20px au
 .direction-arrow { stroke: #e8c36d; fill: none; stroke-width: 1.5; opacity: .8; }
 
 .car-field { opacity: 0; transition: opacity .35s ease; }
-.traffic-lane { animation: lane-flow var(--flow-duration, 100s) linear var(--flow-delay, 0s) infinite; }
-.traffic-lane.southbound { animation-name: lane-flow-south; }
-.traffic-lane.carpool { animation-duration: var(--flow-duration, 30s); }
 .traffic-car { color: var(--teal); opacity: .53; transition: opacity .3s ease, color .3s ease; }
 .traffic-car.southbound { color: var(--coral); opacity: .49; }
 .traffic-car use { overflow: visible; }
 .traffic-car.carpool { color: var(--gold); opacity: .9; }
 .traffic-car.personal { color: var(--express); opacity: 1; }
-.focus-car { color: var(--express); transform-box: fill-box; transform-origin: center; animation: focus-arrival 1s cubic-bezier(.18,.74,.25,1) both; transition: color .3s ease, opacity .3s ease; }
+.focus-car { color: var(--express); opacity: 0; transform-box: fill-box; transform-origin: center; transition: color .3s ease, opacity .3s ease; }
+.focus-car.is-visible { animation: focus-arrival 1s cubic-bezier(.18,.74,.25,1) both; opacity: 1; }
 .focus-car use { overflow: visible; }
 @keyframes focus-arrival { from { transform: translateY(80px); opacity: 0; } 45% { opacity: .7; } to { transform: translateY(0); opacity: 1; } }
-@keyframes lane-flow { to { translate: 0 var(--flow-distance); } }
-@keyframes lane-flow-south { to { translate: 0 var(--flow-distance); } }
 .section-scene { opacity: 0; transition: opacity .95s ease; }
 .section-label { fill: #d5dfd7; font: 600 11px 'Libre Franklin', sans-serif; letter-spacing: 2.3px; opacity: .64; }
 .soil-line { opacity: .45; stroke-dasharray: 2 11; animation: current 21s linear infinite; }
@@ -135,11 +131,11 @@ body.traffic-story[data-stage="6"] #car-field, body.traffic-story[data-stage="7"
 body.traffic-story[data-stage="6"] .section-scene, body.traffic-story[data-stage="7"] .section-scene, body.traffic-story[data-stage="8"] .section-scene, body.traffic-story[data-stage="9"] .section-scene { opacity: 1; }
 body.traffic-story[data-stage="6"] .lift-mechanism, body.traffic-story[data-stage="7"] .lift-mechanism, body.traffic-story[data-stage="8"] .lift-mechanism, body.traffic-story[data-stage="9"] .lift-mechanism { opacity: 1; }
 body.traffic-story[data-stage="6"] .pod-traffic, body.traffic-story[data-stage="7"] .pod-traffic, body.traffic-story[data-stage="8"] .pod-traffic, body.traffic-story[data-stage="9"] .pod-traffic { opacity: 1; }
-body.traffic-story[data-stage="6"] .lift-door-left, body.traffic-story[data-stage="7"] .lift-door-left, body.traffic-story[data-stage="8"] .lift-door-left, body.traffic-story[data-stage="9"] .lift-door-left { animation: hatch-open-left 12s linear 1.65s infinite; }
-body.traffic-story[data-stage="6"] .lift-door-right, body.traffic-story[data-stage="7"] .lift-door-right, body.traffic-story[data-stage="8"] .lift-door-right, body.traffic-story[data-stage="9"] .lift-door-right { animation: hatch-open-right 12s linear 1.65s infinite; }
-body.traffic-story[data-stage="6"] #lift-platform, body.traffic-story[data-stage="7"] #lift-platform, body.traffic-story[data-stage="8"] #lift-platform, body.traffic-story[data-stage="9"] #lift-platform { animation: lift-cycle 12s ease-in-out 2.4s infinite; }
-body.traffic-story[data-stage="6"] #descending-car, body.traffic-story[data-stage="7"] #descending-car, body.traffic-story[data-stage="8"] #descending-car, body.traffic-story[data-stage="9"] #descending-car { animation: transfer-cycle 12s linear 2.4s infinite; }
-body.traffic-story[data-stage="6"] .lift-shaft, body.traffic-story[data-stage="7"] .lift-shaft, body.traffic-story[data-stage="8"] .lift-shaft, body.traffic-story[data-stage="9"] .lift-shaft { opacity: 0; animation: shaft-reveal .8s ease-out 4.15s forwards; }
+body.traffic-story[data-stage="6"] .lift-door-left, body.traffic-story[data-stage="7"] .lift-door-left, body.traffic-story[data-stage="8"] .lift-door-left, body.traffic-story[data-stage="9"] .lift-door-left { animation: hatch-open-left 8s linear 1.2s infinite; }
+body.traffic-story[data-stage="6"] .lift-door-right, body.traffic-story[data-stage="7"] .lift-door-right, body.traffic-story[data-stage="8"] .lift-door-right, body.traffic-story[data-stage="9"] .lift-door-right { animation: hatch-open-right 8s linear 1.2s infinite; }
+body.traffic-story[data-stage="6"] #lift-platform, body.traffic-story[data-stage="7"] #lift-platform, body.traffic-story[data-stage="8"] #lift-platform, body.traffic-story[data-stage="9"] #lift-platform { animation: lift-cycle 8s ease-in-out 1.8s infinite; }
+body.traffic-story[data-stage="6"] #descending-car, body.traffic-story[data-stage="7"] #descending-car, body.traffic-story[data-stage="8"] #descending-car, body.traffic-story[data-stage="9"] #descending-car { animation: transfer-cycle 8s linear 1.8s infinite; }
+body.traffic-story[data-stage="6"] .lift-shaft, body.traffic-story[data-stage="7"] .lift-shaft, body.traffic-story[data-stage="8"] .lift-shaft, body.traffic-story[data-stage="9"] .lift-shaft { opacity: 0; animation: shaft-reveal .8s ease-out 3.4s forwards; }
 @keyframes shaft-reveal { to { opacity: .8; } }
 
 @media (max-width: 700px) {
@@ -157,7 +153,6 @@ body.traffic-story[data-stage="6"] .lift-shaft, body.traffic-story[data-stage="7
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-  .traffic-lane { animation: none !important; }
   body.traffic-story[data-stage="6"] #lift-platform, body.traffic-story[data-stage="7"] #lift-platform, body.traffic-story[data-stage="8"] #lift-platform, body.traffic-story[data-stage="9"] #lift-platform { transform: translateY(602px); opacity: .95; }
   body.traffic-story[data-stage="6"] #descending-car, body.traffic-story[data-stage="7"] #descending-car, body.traffic-story[data-stage="8"] #descending-car, body.traffic-story[data-stage="9"] #descending-car { transform: translate(0,602px); opacity: 1; }
 }

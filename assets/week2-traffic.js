@@ -16,6 +16,11 @@
   let sceneHeight = 900;
   let cycleRows = 20;
   let cycleHeight = cycleRows * carSize.pitch;
+  let renderedSceneHeight = 0;
+  let trafficLanes = [];
+  let motionFrame = 0;
+  let lastTrafficUpdate = 0;
+  let trafficTime = 0;
   let active = 1;
   let ticking = false;
 
@@ -136,9 +141,15 @@
   function renderCars(stage) {
     if (stage === 1 || stage >= 6) {
       carField.replaceChildren();
+      trafficLanes = [];
+      renderedSceneHeight = 0;
+      if (motionFrame) cancelAnimationFrame(motionFrame);
+      motionFrame = 0;
       return;
     }
+    if (renderedSceneHeight === sceneHeight && trafficLanes.length) return;
     carField.replaceChildren();
+    trafficLanes = [];
     const rowCount = cycleRows;
     const addLane = (lane, direction) => {
       const laneName = `${direction}-${lane}`;
@@ -147,22 +158,27 @@
         ? road.center + road.lanePitch / 2 + lane * road.lanePitch
         : road.left + road.lanePitch / 2 + lane * road.lanePitch;
       const laneGroup = svgNode('g', { class: `traffic-lane ${direction}${isCarpool ? ' carpool' : ''}` });
-      const pixelsPerSecond = isCarpool ? 30 : 8;
-      const duration = cycleHeight / pixelsPerSecond;
-      const phase = Math.abs(jitter(laneName, 'phase', carSize.pitch));
-      const delay = Math.abs(jitter(laneName, 'flow', duration));
-      const move = direction === 'northbound' ? -cycleHeight : cycleHeight;
-      laneGroup.setAttribute('style', `--flow-distance:${move}px;--flow-duration:${duration.toFixed(2)}s;--flow-delay:-${delay.toFixed(2)}s`);
-      const copyA = svgNode('g');
-      const copyB = svgNode('g', { transform: `translate(0 ${direction === 'northbound' ? cycleHeight : -cycleHeight})` });
-      laneGroup.append(copyA, copyB);
+      const laneState = {
+        name: laneName,
+        lane,
+        direction,
+        personalLane: direction === 'northbound' && lane === focus.lane,
+        carpool: isCarpool,
+        node: laneGroup,
+        cars: [],
+        cruiseSpeed: isCarpool ? 23 + Math.abs(jitter(laneName, 'pace', 28)) : 2.5 + Math.abs(jitter(laneName, 'pace', 19)),
+        cycleSeconds: 10 + Math.abs(jitter(laneName, 'cycle', 16)),
+        phaseSeconds: Math.abs(jitter(laneName, 'phase', 1)) * (10 + Math.abs(jitter(laneName, 'cycle', 16)))
+      };
+      const phase = jitter(laneName, 'spacing', carSize.pitch) + carSize.pitch / 2;
+      const directionSign = direction === 'northbound' ? -1 : 1;
 
       for (let row = 0; row < rowCount; row += 1) {
         const key = `${laneName}-${row}`;
         // Skip seeded, irregular HOV slots; regular lanes stay bumper-to-bumper.
         if (isCarpool && inkVariant(key) % 5 > 1) continue;
         const centerY = phase - carSize.pitch + row * carSize.pitch;
-        const isPersonal = direction === 'northbound' && lane === focus.lane
+        const isPersonal = laneState.personalLane
           && Math.abs(centerY - sceneHeight / 2) < carSize.pitch / 2;
         const variant = inkVariant(key);
         const car = svgNode('use', {
@@ -174,9 +190,20 @@
           class: `traffic-car ${direction}${isCarpool ? ' carpool' : ''}${isPersonal ? ' personal' : ''}`
         });
         if (direction === 'southbound') car.setAttribute('transform', `rotate(180 ${laneX} ${centerY})`);
-        copyA.append(car);
-        copyB.append(car.cloneNode(true));
+        laneGroup.append(car);
+        laneState.cars.push({
+          node: car,
+          progress: ((directionSign * centerY) % cycleHeight + cycleHeight) % cycleHeight,
+          directionSign,
+          laneX,
+          rotated: direction === 'southbound',
+          maxSpeed: laneState.cruiseSpeed * (1 + jitter(key, 'individual-speed', .72)),
+          speed: 0,
+          advance: 0,
+          personal: isPersonal
+        });
       }
+      trafficLanes.push(laneState);
       carField.append(laneGroup);
     };
 
@@ -184,6 +211,80 @@
       addLane(lane, 'southbound');
       addLane(lane, 'northbound');
     }
+    renderedSceneHeight = sceneHeight;
+    if (!motionFrame) motionFrame = requestAnimationFrame(updateTrafficMotion);
+  }
+
+  function lanePace(lane, time) {
+    if (lane.personalLane) return 0;
+    const cycle = ((time + lane.phaseSeconds) % lane.cycleSeconds) / lane.cycleSeconds;
+    if (lane.carpool) {
+      if (cycle < .16) return .58;
+      if (cycle < .25) return .22;
+      if (cycle < .38) return .05;
+      if (cycle < .62) return .72;
+      if (cycle < .72) return .38;
+      if (cycle < .88) return 1;
+      return .56;
+    }
+    if (cycle < .14) return .24;
+    if (cycle < .29) return 0;
+    if (cycle < .51) return .12;
+    if (cycle < .68) return .44;
+    if (cycle < .81) return .82;
+    return .28;
+  }
+
+  function updateTrafficMotion(now) {
+    motionFrame = 0;
+    if (!trafficLanes.length) return;
+    if (now - lastTrafficUpdate < 32) {
+      motionFrame = requestAnimationFrame(updateTrafficMotion);
+      return;
+    }
+    const delta = lastTrafficUpdate ? Math.min(.08, (now - lastTrafficUpdate) / 1000) : 0;
+    lastTrafficUpdate = now;
+    trafficTime += delta;
+
+    for (const lane of trafficLanes) {
+      const cars = lane.cars;
+      if (!cars.length) continue;
+      cars.sort((a, b) => a.progress - b.progress);
+      const pace = lanePace(lane, trafficTime);
+      const safeGap = carSize.pitch - carSize.height;
+
+      for (let index = cars.length - 1; index >= 0; index -= 1) {
+        const car = cars[index];
+        const leader = cars[(index + 1) % cars.length];
+        const distance = (leader.progress - car.progress + cycleHeight) % cycleHeight;
+        const gap = distance - carSize.height;
+        let target = car.maxSpeed * pace;
+        if (gap < 150) target = Math.min(target, leader.speed + Math.max(0, gap - safeGap) * .72);
+        car.speed = target < car.speed ? target : Math.min(target, car.speed + 22 * delta);
+        car.advance = car.speed * delta;
+      }
+
+      // Clamp every follower to the leader's actual frame movement plus only a safe fraction of its open gap.
+      let anchor = 0;
+      for (let index = 1; index < cars.length; index += 1) if (cars[index].advance < cars[anchor].advance) anchor = index;
+      for (let offset = 1; offset < cars.length; offset += 1) {
+        const index = (anchor - offset + cars.length) % cars.length;
+        const leader = cars[(index + 1) % cars.length];
+        const car = cars[index];
+        const distance = (leader.progress - car.progress + cycleHeight) % cycleHeight;
+        const gap = distance - carSize.height;
+        car.advance = Math.min(car.advance, leader.advance + Math.max(0, gap - safeGap) * .35);
+        car.speed = delta ? car.advance / delta : car.speed;
+      }
+
+      for (const car of cars) {
+        car.progress = (car.progress + car.advance) % cycleHeight;
+        const centerY = car.directionSign < 0 ? cycleHeight - car.progress : car.progress;
+        car.node.setAttribute('y', centerY - carSize.height / 2);
+        if (car.rotated) car.node.setAttribute('transform', `rotate(180 ${car.laneX} ${centerY})`);
+      }
+    }
+    motionFrame = requestAnimationFrame(updateTrafficMotion);
   }
 
   function drawSurfaceCars() {
@@ -233,6 +334,7 @@
     }
     active = stage;
     body.dataset.stage = String(stage);
+    focusCar.classList.toggle('is-visible', stage === 1);
     svg.setAttribute('viewBox', stage >= 6 ? '0 0 1200 900' : `0 0 1200 ${sceneHeight}`);
     beats.forEach((beat, index) => beat.classList.toggle('is-active', index === stage - 1));
     if (stage < 6) {
