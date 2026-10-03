@@ -14,7 +14,7 @@ body.traffic-story .skip-link { z-index: 50; }
 .immersive-scene { position: fixed; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; background: var(--night); }
 .traffic-svg { display: block; width: 100%; height: 100%; }
 .scene-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 47%, transparent 27%, rgba(2,5,6,.32) 75%, rgba(2,5,6,.78) 120%); }
-.traffic-camera { transform-box: view-box; transform-origin: 0 0; transition: transform .55s cubic-bezier(.2,.72,.18,1), opacity .4s ease; }
+.traffic-camera { transform-box: view-box; transform-origin: 0 0; transition: transform 1.05s cubic-bezier(.2,.72,.18,1), transform-origin 1.05s ease, opacity .65s ease; }
 .night-lines { opacity: .68; transition: opacity .7s ease; }
 .flow-line { animation: current 9s linear infinite; }
 .flow-slow { animation-duration: 15s; }
@@ -22,7 +22,7 @@ body.traffic-story .skip-link { z-index: 50; }
 
 .road-lines { opacity: 0; transition: opacity 1.2s ease; }
 .road-edge { fill: url(#road-glow); stroke: #6ebcb9; stroke-width: 1.35; opacity: .62; }
-.lane-path { fill: none; stroke: #69aaa7; stroke-width: 1; stroke-dasharray: 5 18; opacity: .34; animation: current 18s linear infinite; }
+.lane-path { fill: none; stroke: #69aaa7; stroke-width: 1; stroke-dasharray: 5 22; opacity: .4; animation: current 28s linear infinite; }
 .center-line { fill: none; stroke: #d4a17d; stroke-width: 1.2; opacity: .68; }
 .direction-label { fill: #dfe8dc; font: 600 12px 'Libre Franklin', sans-serif; letter-spacing: 3px; opacity: .7; }
 .direction-arrow { stroke: #e8c36d; fill: none; stroke-width: 1.5; opacity: .8; }
@@ -37,25 +37,25 @@ body.traffic-story .skip-link { z-index: 50; }
 @keyframes focus-arrival { from { transform: translateY(80px); opacity: 0; } 45% { opacity: .7; } to { transform: translateY(0); opacity: 1; } }
 @keyframes trace-breathe { to { opacity: .38; } }
 .people-wave { opacity: 0; transition: opacity 1s ease; }
-.person { color: #6fa5a4; opacity: .36; transition: opacity .45s ease, color .45s ease; }
-.person.served { color: var(--gold); opacity: .9; }
+.person { color: #83aaa6; opacity: .52; transform-box: fill-box; transform-origin: center; animation: waiting-shift var(--wait-duration, 2.8s) ease-in-out var(--wait-delay, 0s) infinite; transition: opacity .45s ease, color .45s ease; }
+.person.served { color: var(--gold); opacity: .98; animation: board-step .9s cubic-bezier(.2,.7,.25,1) both; }
+@keyframes waiting-shift { 0%, 100% { translate: 0 0; rotate: 0deg; } 50% { translate: .55px -.3px; rotate: .45deg; } }
+@keyframes board-step { to { translate: 10px -2px; } }
 
-.section-scene { opacity: 0; transition: opacity 1.3s ease; }
+.section-scene { opacity: 0; transition: opacity .95s ease; }
 .section-label { fill: #d5dfd7; font: 600 11px 'Libre Franklin', sans-serif; letter-spacing: 2.3px; opacity: .64; }
 .soil-line { opacity: .45; stroke-dasharray: 2 11; animation: current 21s linear infinite; }
 .soil-two { animation-direction: reverse; }
 .soil-three { animation-duration: 17s; }
 .soil-four { animation-duration: 24s; animation-direction: reverse; }
-.bore-route { animation: current 4s linear infinite; }
+.bore-route { animation: current 14s linear infinite; }
 .surface-cars { color: var(--teal); opacity: .72; }
 .surface-cars use:nth-child(even) { color: var(--coral); }
 .surface-car { animation: surface-flow 6.5s ease-in-out infinite alternate; }
 @keyframes surface-flow { to { translate: -9px 0; } }
 .descending-car { color: var(--gold); }
-.tunnel-car { color: var(--gold); opacity: .9; }
-.borer { transform-box: fill-box; transform-origin: center; animation: bore 14s linear infinite; color: var(--gold); }
-@keyframes bore { to { rotate: 360deg; } }
-@keyframes descend { 0%, 14% { transform: translate(0,0); } 75%, 100% { transform: translate(0,340px); } }
+.elevator-platform { fill: rgba(232,195,109,.08); stroke: currentColor; stroke-width: 1.35; }
+@keyframes descend { 0%, 16% { transform: translate(0,0); } 76% { transform: translateY(344px); } 100% { transform: translate(190px,344px); } }
 
 .scroll-progress { position: fixed; z-index: 40; inset: 0 0 auto; height: 2px; background: rgba(212,225,214,.08); }
 .scroll-progress span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--teal), var(--gold), var(--coral)); box-shadow: 0 0 14px rgba(109,192,191,.5); }
@@ -93,9 +93,10 @@ body.traffic-story[data-stage="3"] #car-field, body.traffic-story[data-stage="4"
 body.traffic-story[data-stage="2"] .focus-trace, body.traffic-story[data-stage="3"] .focus-trace, body.traffic-story[data-stage="4"] .focus-trace { opacity: 0; }
 body.traffic-story[data-stage="4"] #road-lines { opacity: 1; }
 body.traffic-story[data-stage="4"] .traffic-camera { opacity: .96; }
-body.traffic-story[data-stage="5"] .traffic-camera, body.traffic-story[data-stage="6"] .traffic-camera, body.traffic-story[data-stage="7"] .traffic-camera, body.traffic-story[data-stage="8"] .traffic-camera { opacity: .12; }
+body.traffic-story[data-stage="5"] .traffic-camera, body.traffic-story[data-stage="6"] .traffic-camera, body.traffic-story[data-stage="7"] .traffic-camera, body.traffic-story[data-stage="8"] .traffic-camera { opacity: .2; }
+body.traffic-story[data-stage="5"] #car-field { opacity: .8; }
 body.traffic-story[data-stage="5"] .section-scene, body.traffic-story[data-stage="6"] .section-scene, body.traffic-story[data-stage="7"] .section-scene, body.traffic-story[data-stage="8"] .section-scene { opacity: 1; }
-body.traffic-story[data-stage="5"] .descending-car { animation: descend 3.8s cubic-bezier(.2,.75,.3,1) both; }
+body.traffic-story[data-stage="5"] .descending-car { animation: descend 3.2s cubic-bezier(.18,.72,.28,1) both; }
 body.traffic-story[data-stage="6"] .people-wave { opacity: 1; }
 
 @media (max-width: 700px) {

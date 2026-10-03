@@ -149,12 +149,20 @@
       for (let index = 0; index < 96; index += 1) {
         const col = index % 12;
         const row = Math.floor(index / 12);
-        const x = 175 + col * 77;
-        const y = 485 + row * 42;
-        const person = svgNode('g', { class: 'person', 'data-person': index });
+        const x = 175 + col * 77 + jitter(`person-${index}`, 'x', 9);
+        const y = 485 + row * 42 + jitter(`person-${index}`, 'y', 5);
+        const person = svgNode('g', {
+          class: `person pose-${index % 3}`, 'data-person': index,
+          style: `--wait-duration:${(2.45 + (index % 7) * .23).toFixed(2)}s;--wait-delay:-${((index * .19) % 2.8).toFixed(2)}s`
+        });
+        const arms = [
+          `M${x} ${y + 8}q-4 1-6 5m6-5q4 1 6 5`,
+          `M${x} ${y + 8}q-5-3-7 0m7 0q5-3 7 0`,
+          `M${x} ${y + 8}q-4 3-5 6m5-6q4 3 5 6`
+        ][index % 3];
         person.append(
-          svgNode('circle', { cx: x, cy: y, r: 3.2, fill: 'none', stroke: 'currentColor', 'stroke-width': 1.25 }),
-          svgNode('path', { d: `M${x} ${y + 5}v9m-5-5h10m-8 5-3 6m9-6 3 6`, fill: 'none', stroke: 'currentColor', 'stroke-width': 1.25, 'stroke-linecap': 'round' })
+          svgNode('circle', { cx: x, cy: y, r: 3.7, fill: 'none', stroke: 'currentColor', 'stroke-width': 1.35 }),
+          svgNode('path', { d: `M${x} ${y + 5}q-1 3-.5 7.5 ${arms} M${x - .5} ${y + 12}q-.5 4-3 7m3-7q1 4 3.4 7`, fill: 'none', stroke: 'currentColor', 'stroke-width': 1.3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' })
         );
         wave.append(person);
       }
@@ -205,8 +213,8 @@
       document.querySelector('#section-scene').style.opacity = '0';
     } else {
       camera.style.transformOrigin = '600px 450px';
-      camera.style.transform = 'rotate(90deg) scale(.2)';
-      camera.style.opacity = '.12';
+      camera.style.transform = 'rotate(90deg) scale(.32)';
+      camera.style.opacity = '.24';
       document.querySelector('#section-scene').style.opacity = '1';
     }
     renderCars(stage);
