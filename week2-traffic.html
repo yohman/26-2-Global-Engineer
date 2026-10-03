@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css?v=journey-20260928">
-  <link rel="stylesheet" href="assets/week2-traffic.css?v=32">
+  <link rel="stylesheet" href="assets/week2-traffic.css?v=37">
 </head>
 <body class="traffic-story">
   <a class="skip-link" href="#beat-1">Skip to the story</a>
@@ -36,23 +36,30 @@
         </g>
         <g id="road-lines" class="road-lines"></g>
         <g id="car-field" class="car-field"></g>
-        <g id="focus-car" class="focus-car"><use href="#line-car-3" x="558" y="432" width="24" height="36"/></g>
+        <g id="focus-car" class="focus-car"><use href="#line-car-3" x="684" y="432" width="24" height="36"/></g>
       </g>
 
       <g id="section-scene" class="section-scene">
-        <path class="ground-edge" d="M100 292 C310 284 482 300 600 291 S900 286 1100 294" fill="none" stroke="#80c4bd" stroke-width="2"/>
-        <path d="M100 300 C310 292 482 308 600 299 S900 294 1100 302" fill="none" stroke="#416e70" stroke-width="1" stroke-dasharray="3 12" class="flow-line"/>
-        <text x="108" y="267" class="section-label">SURFACE · STILL MOVING</text>
+        <path class="ground-edge" d="M100 152 C270 145 410 158 520 152 M620 152 C790 146 950 151 1100 154" fill="none" stroke="#80c4bd" stroke-width="2"/>
+        <path d="M100 160 C270 153 410 166 520 160 M620 160 C790 154 950 159 1100 162" fill="none" stroke="#416e70" stroke-width="1" stroke-dasharray="3 12" class="flow-line"/>
+        <text x="108" y="124" class="section-label">SURFACE · STILL MOVING</text>
         <g class="surface-cars" id="surface-cars"></g>
-        <path class="soil-line soil-one" d="M80 380q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#45645b" stroke-width="1.4"/>
-        <path class="soil-line soil-two" d="M80 438q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#3b5d57" stroke-width="1.2"/>
-        <path class="soil-line soil-three" d="M80 496q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#705846" stroke-width="1.2"/>
-        <path class="soil-line soil-four" d="M80 554q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#45645b" stroke-width="1.2"/>
-        <path class="bore-route" d="M150 690 C330 675 420 708 600 690 S890 672 1050 690" fill="none" stroke="#d9ad60" stroke-width="2" stroke-dasharray="3 13"/>
-        <path d="M180 690c0-49 40-86 91-86h658c51 0 91 37 91 86" fill="none" stroke="#d9ad60" stroke-width="1.5" opacity=".65"/>
-        <text x="150" y="770" class="section-label">PROPOSED TUNNEL · A DIFFERENT ROUTE</text>
-        <path class="lift-shaft" d="M540 302v352m60-352v352" fill="none" stroke="#eac66b" stroke-width="1.5" stroke-dasharray="4 8"/>
-        <g id="descending-car" class="descending-car"><path class="elevator-platform" d="M542 299h56"/><use href="#side-car" x="548" y="276" width="44" height="20"/></g>
+        <path class="soil-line soil-one" d="M80 400q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#45645b" stroke-width="1.4"/>
+        <path class="soil-line soil-two" d="M80 458q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#3b5d57" stroke-width="1.2"/>
+        <path class="soil-line soil-three" d="M80 516q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#705846" stroke-width="1.2"/>
+        <path class="soil-line soil-four" d="M80 574q105-18 210 0t210 0 210 0 210 0 210 0" fill="none" stroke="#45645b" stroke-width="1.2"/>
+        <g class="lift-mechanism">
+          <path class="lift-shaft" d="M540 162v650m60-650v650" fill="none" stroke="#eac66b" stroke-width="1.5" stroke-dasharray="4 8"/>
+          <path class="lift-door lift-door-left" d="M520 152h50" fill="none" stroke="#eac66b" stroke-width="3"/>
+          <path class="lift-door lift-door-right" d="M570 152h50" fill="none" stroke="#eac66b" stroke-width="3"/>
+          <path id="lift-platform" class="elevator-platform" d="M542 159h56"/>
+        </g>
+        <path class="tunnel-shell" d="M104 890v-140c0-34 28-62 62-62h868c34 0 62 28 62 62v140z"/>
+        <path class="pod-track pod-east" d="M150 750h900"/>
+        <path class="pod-track pod-west" d="M150 800h900"/>
+        <path class="pod-track pod-east" d="M150 850h900"/>
+        <g id="pod-traffic" class="pod-traffic"></g>
+        <text x="150" y="880" class="section-label">UNDERGROUND · EXPRESS PODS</text>
       </g>
       <g id="people-wave" class="people-wave"></g>
     </svg>
@@ -91,8 +98,8 @@
     </section>
     <section class="story-beat" id="beat-6" data-stage="6" aria-labelledby="beat-title-6">
       <div class="beat-card">
-        <p class="story-copy" id="beat-title-6">That same year, Elon Musk’s tunnel proposal entered the conversation. It would run beneath Sepulveda Boulevard, parallel to the 405, carrying cars on electric skates. I pictured myself dropping below the queue and emerging closer to Westwood.</p>
-        <p>It was easy to picture one car getting out. I could not see what that would change for everyone still around me.</p>
+        <p class="story-copy" id="beat-title-6">In 2017, Elon Musk’s Boring Company proposed a tunnel beneath Sepulveda Boulevard, parallel to the 405, carrying cars on electric skates. I imagine what that promise might look like: the pavement parts, and an elevator rises to take a car from the surface—not mine. It carries that car below the queue into an underworld of pods on electric skates, zipping left and right at absurd speed. Above, every car still inches north. Beside that velocity, our overground commute almost seems silly. My car stays in the line.</p>
+        <p>It is someone else’s car that disappears below. I am still here with everyone else, wondering what this new route changes for us.</p>
         <p class="source-line"><a href="https://www.latimes.com/local/lanow/la-me-ln-elon-musk-boring-company-20171121-story.html" target="_blank" rel="noopener">Los Angeles Times · 2017 ↗</a> <span>·</span> <a href="https://blog.ted.com/what-will-the-future-look-like-elon-musk-speaks-at-ted2017/amp/" target="_blank" rel="noopener">TED · concept explanation ↗</a></p>
       </div>
     </section>
@@ -122,8 +129,8 @@
     </section>
     <div class="story-end" aria-hidden="true"></div>
   </main>
-  <script src="assets/i18n.js?v=week2-7"></script>
+  <script src="assets/i18n.js?v=week2-9"></script>
   <script src="assets/site.js?v=nav-3"></script>
-  <script src="assets/week2-traffic.js?v=28"></script>
+  <script src="assets/week2-traffic.js?v=32"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@
   const capacityButtons = [...document.querySelectorAll('[data-capacity]')];
   const language = () => document.documentElement.lang === 'ja' ? 'ja' : 'en';
   const currentCars = new Map();
-  const focus = { lane: 7, x: 570, y: 450 };
+  const focus = { lane: 2, x: 696, y: 450 };
   const road = { left: 216, center: 600, lanePitch: 48, edge: 984 };
   const scaleFor = { 1: 9.2, 2: 2.4, 3: 1, 4: 1 };
   let active = 1;
@@ -125,7 +125,7 @@
     const nextCars = new Map();
     const addCar = (lane, row, direction = 'northbound') => {
       const key = `${direction}-${lane}-${row}`;
-      if (direction === 'northbound' && lane === 7 && row === 10) return;
+      if (direction === 'northbound' && lane === 2 && row === 10) return;
       // Keep both directions legible while narrowing the visual median gap.
       const isCarpool = direction === 'northbound' ? lane === 0 : lane === 7;
       if (isCarpool && ![2, 7, 12, 17, 22].includes(row)) return;
@@ -195,11 +195,38 @@
     const line = document.querySelector('#surface-cars');
     if (line.childElementCount) return;
     for (let index = 0; index < 18; index += 1) {
+      const x = 108 + index * 55;
+      const isPersonal = index === 14;
+      const isTransferCar = index === 8;
       line.append(svgNode('use', {
-        href: '#side-car', x: 108 + index * 55, y: 276, width: 52, height: 24,
-        class: 'surface-car', style: `animation-delay:-${index * .37}s`
+        href: '#side-car', x: isTransferCar ? 548 : x, y: 130, width: isTransferCar ? 44 : 48, height: isTransferCar ? 20 : 22,
+        ...(isTransferCar ? { id: 'descending-car' } : {}),
+        class: `surface-car${isPersonal ? ' personal-car' : ''}${isTransferCar ? ' transfer-car' : ''}`,
+        style: `animation-delay:-${index * .37}s`
       }));
     }
+  }
+
+  function drawPodTraffic() {
+    const field = document.querySelector('#pod-traffic');
+    if (field.childElementCount) return;
+    const lanes = [
+      { y: 750, direction: 'eastbound' },
+      { y: 800, direction: 'westbound' },
+      { y: 850, direction: 'eastbound' }
+    ];
+    lanes.forEach((lane, laneIndex) => {
+      for (let index = 0; index < 9; index += 1) {
+        const x = lane.direction === 'eastbound' ? 148 + index * 106 : 1002 - index * 106;
+        const pod = svgNode('use', {
+          href: '#side-car', x, y: lane.y - 10, width: 44, height: 20,
+          class: `pod-car ${lane.direction}`,
+          style: `--zip-duration:${(.72 + (index % 4) * .09).toFixed(2)}s;--zip-delay:-${(index * .16 + laneIndex * .23).toFixed(2)}s`
+        });
+        if (lane.direction === 'westbound') pod.setAttribute('transform', `translate(${2 * x + 44} 0) scale(-1 1)`);
+        field.append(pod);
+      }
+    });
   }
 
   function setCapacity(seats) {
@@ -233,17 +260,12 @@
       camera.style.opacity = '1';
       document.querySelector('#section-scene').style.opacity = '0';
     } else {
-      camera.style.transformOrigin = '600px 450px';
-      camera.style.transform = 'rotate(90deg) scale(.32)';
-      camera.style.opacity = '.24';
+      camera.style.transformOrigin = '0px 0px';
+      camera.style.transform = 'translate(0px, 0px) scale(1)';
+      camera.style.opacity = '0';
       document.querySelector('#section-scene').style.opacity = '1';
     }
     renderCars(stage);
-    if (stage === 6) {
-      const car = document.querySelector('#descending-car');
-      car.style.animation = 'none';
-      requestAnimationFrame(() => { car.style.animation = ''; });
-    }
     if (stage === 7) setCapacity(Number(document.querySelector('[data-capacity][aria-pressed="true"]')?.dataset.capacity || 4));
   }
 
@@ -277,6 +299,7 @@
   createInkVariants();
   drawPeople();
   drawSurfaceCars();
+  drawPodTraffic();
   renderCars(1);
   setStage(1);
   capacityButtons.forEach(button => button.addEventListener('click', () => setCapacity(Number(button.dataset.capacity))));
