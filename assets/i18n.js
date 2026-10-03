@@ -824,6 +824,20 @@ window.COURSE_TRANSLATIONS = {
     '← Week 2 agenda': '← 第2週の授業計画',
     'SURFACE · STILL MOVING': '地上 · 交通は続く',
     'PROPOSED TUNNEL · A DIFFERENT ROUTE': '提案されたトンネル · 別のルート',
-    'SCHEMATIC · 8 LANES EACH WAY / LANE COUNTS VARY': '模式図 · 各方向8車線 / 車線数は区間によって異なる'
+    'SCHEMATIC · 8 LANES EACH WAY / LANE COUNTS VARY': '模式図 · 各方向8車線 / 車線数は区間によって異なる',
+    'Northbound': '北へ',
+    'I ease into the northbound lane. The 405 is already awake. Red lights stretch ahead, and the morning moves one car-length at a time.': '北行きの車線に入る。405号線はもう目を覚ましている。赤いテールライトが前へ続き、朝は車一台分ずつ進んでいく。',
+    'For a moment, I can only see the car ahead of me. Then the view opens, and I see my car is one among dozens. I have not changed; only the frame has.': 'しばらくは、前を走る車しか見えない。やがて視界が開き、自分の車も数十台のうちの一台だとわかる。変わったのは私ではなく、見える範囲だった。',
+    'I pull back again. More lanes appear, then more cars. Every outline stays the same size. Somewhere in that moving pattern, my small trip is still happening.': 'さらに視点を引く。車線が増え、車が増える。どの輪郭も同じ大きさのまま。その動く模様のどこかで、私の小さな移動は続いている。',
+    'Now I can see the road beneath us. This is the I‑405, running north–south through Los Angeles. The drawing gives each direction eight lanes; the real road changes from one stretch to another.': '今、私たちの下にある道路が見えてくる。ロサンゼルスを南北に走るI‑405だ。この図では両方向に8車線を描いたが、実際の車線数は区間ごとに異なる。',
+    'What might this same road feel like from inside one car?': '同じ道路も、一台の車の中からはどう感じられるだろう。',
+    'Then I turn the world sideways. In this 断面図, I imagine stepping out of the line: an elevator lowers my car onto an electric skate, and a tunnel carries it under the freeway.': 'そこで世界を横向きにする。この断面図では、列を離れる自分を想像する。エレベーターが車を電動スケートに載せ、高速道路の下のトンネルへ運んでいく。',
+    'My car goes down. Above me, the 405 keeps moving—and waiting. It was a proposal, not a route that was built.': '私の車は地下へ下りていく。その上では405号線が流れ、待ち続ける。これは提案だった。実際に造られたルートではない。',
+    'Who gets to leave the line? Who is still waiting above?': '列を離れるのは誰で、上で待ち続けるのは誰なのだろう。',
+    'Somewhere along the way, I stop counting cars and start imagining people. Ninety-six people are waiting. Eight vehicles depart. I change the number of seats and watch how many people can leave together.': 'いつしか車を数えるのをやめ、人を思い浮かべる。96人が待ち、8台が出発する。座席数を変えながら、何人が一緒に出発できるかを見てみる。',
+    'Even then, I still do not know who can reach the station, afford the fare, or make it all the way home.': 'それでも、誰が駅まで来られるのか、運賃を払えるのか、家までたどり着けるのかは、まだわからない。',
+    'But the tunnel is only one part of my trip. I still have to get to it, wait, transfer, and travel the last stretch. In 2018, Culver City Councilmember Meghan Sahli-Wells asked whether the Westside proposal would offer equitable access. I want to stay with that question, not rush to a verdict.': 'けれど、トンネルは移動の一部分にすぎない。そこまで行き、待ち、乗り換え、最後の区間を進まなければならない。2018年、カルバーシティ市議会議員メーガン・サーリ＝ウェルズは、ウェストサイドの計画が公平なアクセスをもたらすのかと問いかけた。私は結論を急がず、その問いと向き合いたい。',
+    'Later, I learn that the Westside tunnel proposal was abandoned in November 2018 after a settlement with neighborhood groups. A separate test track in Hawthorne opened the following month.': '後になって、近隣団体との和解を経て、ウェストサイドのトンネル案が2018年11月に撤回されたと知る。別の試験線は翌月、ホーソーンで完成した。',
+    'The proposed route disappeared from the map. The morning traffic did not. Aboveground, people kept moving through Los Angeles, one car-length at a time.': '計画されたルートは地図から消えた。朝の渋滞は消えなかった。地上では、人々が一台分ずつ、ロサンゼルスを進み続けていた。'
   }
 };

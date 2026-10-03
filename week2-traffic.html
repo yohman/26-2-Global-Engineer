@@ -4,35 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="An immersive scroll story follows one car northbound through the Los Angeles 405 commute, then asks what an underground shortcut can and cannot change.">
-  <title>Northbound · Week 2 · Global Engineer</title>
+  <title>Northbound</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css?v=journey-20260928">
-  <link rel="stylesheet" href="assets/week2-traffic.css?v=14">
+  <link rel="stylesheet" href="assets/week2-traffic.css?v=23">
 </head>
 <body class="traffic-story">
   <a class="skip-link" href="#beat-1">Skip to the story</a>
-  <nav id="site-nav" class="site-nav" aria-label="Course navigation"><a href="agenda.html">← Agenda</a></nav>
-
   <div class="immersive-scene" aria-hidden="true">
     <svg class="traffic-svg" id="traffic-svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid meet">
-      <defs>
+      <defs id="traffic-defs">
         <radialGradient id="night-glow"><stop stop-color="#122123"/><stop offset="1" stop-color="#030607"/></radialGradient>
         <linearGradient id="road-glow" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#68c4c3" stop-opacity=".08"/><stop offset=".5" stop-color="#68c4c3" stop-opacity=".015"/><stop offset="1" stop-color="#68c4c3" stop-opacity=".08"/></linearGradient>
         <symbol id="line-car" viewBox="0 0 30 48">
-          <path d="M15 1.5c-4 0-6.1 3-7.3 7.4L4.5 19v20.5c0 3.9 2.1 6.8 5 6.8h11c2.9 0 5-2.9 5-6.8V19l-3.2-10.1C21.1 4.5 19 1.5 15 1.5Z" fill="none" stroke="currentColor" stroke-width="1.7"/>
-          <path d="m8.1 15.5 1.7-5.3c.6-2 1.7-3.3 3.6-3.3h3.2c1.9 0 3 1.3 3.6 3.3l1.7 5.3zM8 19h14M8 34h14" fill="none" stroke="currentColor" stroke-width="1.3"/>
-          <path d="M7.5 21.5h15v10h-15z" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".72"/>
-          <path d="M5 23H2.5m25 0H25M5 31H2.5m25 0H25" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          <path d="M9 3.5h3M18 3.5h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>
+          <path d="M15 1.7C11.9 1.6 9.8 3.7 8.9 7.3L6.5 15.6C5.3 19.2 4.8 22.1 4.8 26.1L4.9 38.4C5 43.2 7.4 46.2 11.2 46.1C13.8 46 16.2 46.4 18.8 46.2C22.7 46.1 25.1 43.2 25.1 38.4L25.2 26.2C25.2 22.3 24.7 19 23.4 15.5L21.1 7.4C20 3.8 18.1 1.8 15 1.7ZM8.1 17.1C11.8 16.1 18.1 16.2 21.9 17.2M8.1 32.3C12.2 33.5 17.8 33.6 21.9 32.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
         </symbol>
         <symbol id="side-car" viewBox="0 0 52 24">
-          <path d="M2 17v-5l6-2 5-6h21l8 6 7 2 1 5v3H2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="m16 10 3-4h12l6 4zM10 20a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm29 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" fill="none" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M2 17.2C2 15.4 2.4 13.8 2.4 12.2L8 10.1L13.1 4.3C13.8 3.6 14.5 3.5 15.7 3.5H32.8C34.3 3.5 35.2 4 36.2 5L43 10.1L49 12.3C50 13.2 50 15.2 50 17.1V19H2V17.2ZM15.8 10.2L18.8 6.2C19.4 5.4 20.1 5.2 21.2 5.2H29.7C30.8 5.2 31.6 5.6 32.5 6.3L36.5 10.2H15.8ZM10 17.1A3 3 0 1 0 10 17.2M39 17.1A3 3 0 1 0 39 17.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
         </symbol>
-        <filter id="soft-halo" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
       </defs>
       <rect width="1200" height="900" fill="url(#night-glow)"/>
       <g id="camera" class="traffic-camera">
@@ -42,7 +34,7 @@
         </g>
         <g id="road-lines" class="road-lines"></g>
         <g id="car-field" class="car-field"></g>
-        <g id="focus-car" class="focus-car"><use href="#line-car" x="558" y="432" width="24" height="36"/></g>
+        <g id="focus-car" class="focus-car"><use href="#line-car-3" x="558" y="432" width="24" height="36"/></g>
         <path class="focus-trace" d="M570 469 C566 472 574 475 570 477 S566 480 570 483" fill="none" stroke="#eac66b" stroke-width="1.4" opacity=".65"/>
       </g>
 
@@ -59,7 +51,7 @@
         <path d="M180 690c0-49 40-86 91-86h658c51 0 91 37 91 86" fill="none" stroke="#d9ad60" stroke-width="1.5" opacity=".65"/>
         <text x="150" y="770" class="section-label">PROPOSED TUNNEL · A DIFFERENT ROUTE</text>
         <path class="lift-shaft" d="M556 302v312m28-312v312" fill="none" stroke="#eac66b" stroke-width="1.5" stroke-dasharray="4 8"/>
-        <g id="descending-car" class="descending-car"><use href="#line-car" x="558" y="300" width="24" height="36"/></g>
+        <g id="descending-car" class="descending-car"><use href="#line-car-11" x="558" y="300" width="24" height="36"/></g>
         <use href="#side-car" x="543" y="667" width="52" height="24" class="tunnel-car"/>
         <g class="borer" transform="translate(966 690)"><circle r="28" fill="none" stroke="#d9ad60" stroke-width="1.5"/><circle r="15" fill="none" stroke="#d9ad60" stroke-width="1.2"/><path d="M-18-18 18 18M18-18-18 18M-27 0h54M0-27v54" stroke="#d9ad60" stroke-width="1.1"/><circle r="4" fill="#eac66b"/></g>
       </g>
@@ -71,87 +63,63 @@
   <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-fill"></span></div>
 
   <main id="story" class="story-flow">
-    <section class="story-beat align-left" id="beat-1" data-stage="1" aria-labelledby="beat-title-1">
+    <section class="story-beat" id="beat-1" data-stage="1" aria-labelledby="beat-title-1">
       <div class="beat-card">
-        <p class="beat-whisper">A WEEKDAY MORNING</p>
-        <h1 id="beat-title-1">One car.<br>Heading north.</h1>
-        <p>A commute begins with a person inside a machine, moving through a city already in motion.</p>
-        <p class="ask-the-room">What do you notice first?</p>
+        <p class="story-copy" id="beat-title-1">I ease into the northbound lane. The 405 is already awake. Red lights stretch ahead, and the morning moves one car-length at a time.</p>
       </div>
     </section>
-    <section class="story-beat align-right" id="beat-2" data-stage="2" aria-labelledby="beat-title-2">
+    <section class="story-beat" id="beat-2" data-stage="2" aria-labelledby="beat-title-2">
       <div class="beat-card">
-        <p class="beat-whisper">THE FRAME OPENS</p>
-        <h2 id="beat-title-2">One car among many.</h2>
-        <p>The camera eases back. The car does not change size relative to the others; it only becomes one of the moving lights in a much larger stream.</p>
-        <p class="ask-the-room">When does “my commute” become a shared system?</p>
+        <p class="story-copy" id="beat-title-2">For a moment, I can only see the car ahead of me. Then the view opens, and I see my car is one among dozens. I have not changed; only the frame has.</p>
       </div>
     </section>
-    <section class="story-beat align-left" id="beat-3" data-stage="3" aria-labelledby="beat-title-3">
+    <section class="story-beat" id="beat-3" data-stage="3" aria-labelledby="beat-title-3">
       <div class="beat-card">
-        <p class="beat-whisper">PULL BACK AGAIN</p>
-        <h2 id="beat-title-3">Many. Many more.</h2>
-        <p>Cars gather in every lane. Their outlines stay the same size as the view widens: one is no longer alone, but still distinct.</p>
+        <p class="story-copy" id="beat-title-3">I pull back again. More lanes appear, then more cars. Every outline stays the same size. Somewhere in that moving pattern, my small trip is still happening.</p>
       </div>
     </section>
-    <section class="story-beat align-right" id="beat-4" data-stage="4" aria-labelledby="beat-title-4">
+    <section class="story-beat" id="beat-4" data-stage="4" aria-labelledby="beat-title-4">
       <div class="beat-card">
-        <p class="beat-whisper">LOS ANGELES · THE 405</p>
-        <h2 id="beat-title-4">Northbound.<br>Bumper to bumper.</h2>
-        <p>Now the freeway lines appear. The I‑405 runs north–south through Los Angeles; this drawing shows eight lanes in each direction as a schematic. The real configuration varies by segment.</p>
+        <p class="story-copy" id="beat-title-4">Now I can see the road beneath us. This is the I‑405, running north–south through Los Angeles. The drawing gives each direction eight lanes; the real road changes from one stretch to another.</p>
         <p class="volume-note"><strong>289,000 vehicles / day</strong><span>LA Metro’s reported volume through Sepulveda Pass. A daily total—not the number pictured at one moment.</span></p>
         <p class="source-line"><a href="https://cloud.sfmc.metro.net/I405_FAQ_Eng" target="_blank" rel="noopener">LA Metro · I‑405 Sepulveda Pass ↗</a></p>
-        <p class="ask-the-room">What does the single car experience inside this volume?</p>
       </div>
     </section>
-    <section class="story-beat align-left" id="beat-5" data-stage="5" aria-labelledby="beat-title-5">
+    <section class="story-beat" id="beat-5" data-stage="5" aria-labelledby="beat-title-5">
       <div class="beat-card">
-        <p class="beat-whisper">TURN THE WORLD SIDEWAYS · 断面図</p>
-        <h2 id="beat-title-5">What if one car could leave the line?</h2>
-        <p>The Boring Company’s proposal imagined an elevator lowering a car onto an electric skate, then carrying it through a tunnel under the freeway.</p>
-        <p>One car descends. Above it, the 405 keeps moving—and waiting. This is a proposal, not a built route.</p>
+        <p class="story-copy" id="beat-title-5">Then I turn the world sideways. In this 断面図, I imagine stepping out of the line: an elevator lowers my car onto an electric skate, and a tunnel carries it under the freeway.</p>
+        <p>My car goes down. Above me, the 405 keeps moving—and waiting. It was a proposal, not a route that was built.</p>
         <p class="source-line"><a href="https://www.latimes.com/local/lanow/la-me-ln-elon-musk-boring-company-20171121-story.html" target="_blank" rel="noopener">Los Angeles Times · 2017 ↗</a> <span>·</span> <a href="https://blog.ted.com/what-will-the-future-look-like-elon-musk-speaks-at-ted2017/amp/" target="_blank" rel="noopener">TED · concept explanation ↗</a></p>
-        <p class="ask-the-room">Who gets to leave the line? Who stays in the “real” world above?</p>
       </div>
     </section>
-    <section class="story-beat align-right" id="beat-6" data-stage="6" aria-labelledby="beat-title-6">
+    <section class="story-beat" id="beat-6" data-stage="6" aria-labelledby="beat-title-6">
       <div class="beat-card">
-        <p class="beat-whisper">COUNT PEOPLE, NOT JUST VEHICLES</p>
-        <h2 id="beat-title-6">A car is not a unit of access.</h2>
-        <p>This is a thought experiment, not traffic data. Imagine 96 people and eight departures. How many move if each vehicle has…</p>
+        <p class="story-copy" id="beat-title-6">Somewhere along the way, I stop counting cars and start imagining people. Ninety-six people are waiting. Eight vehicles depart. I change the number of seats and watch how many people can leave together.</p>
         <div class="capacity-control" role="group" aria-label="Choose illustrative vehicle capacity">
           <button type="button" data-capacity="1" aria-pressed="false">1 seat</button><button type="button" data-capacity="4" aria-pressed="true">4 seats</button><button type="button" data-capacity="16" aria-pressed="false">16 seats</button>
         </div>
         <div class="scenario-readout" aria-live="polite"><strong id="scenario-summary">32 people depart; 64 are still waiting.</strong><span id="scenario-math">At 4 seats and 8 departures, 32 of 96 people are served (illustrative assumption).</span></div>
-        <p>Capacity alone does not tell us who can reach a station, afford a fare, or complete the trip.</p>
+        <p>Even then, I still do not know who can reach the station, afford the fare, or make it all the way home.</p>
       </div>
     </section>
-    <section class="story-beat align-left" id="beat-7" data-stage="7" aria-labelledby="beat-title-7">
+    <section class="story-beat" id="beat-7" data-stage="7" aria-labelledby="beat-title-7">
       <div class="beat-card">
-        <p class="beat-whisper">THE JOURNEY IS A SYSTEM</p>
-        <h2 id="beat-title-7">The tunnel is one segment.</h2>
-        <p>A trip also includes getting to the station, waiting, transferring, and reaching the destination. A faster underground leg cannot answer those questions by itself.</p>
-        <p>A 2018 public comment from Culver City Councilmember Meghan Sahli-Wells asked whether the Westside proposal offered equitable access. That is a question to investigate—not a verdict on the technology.</p>
+        <p class="story-copy" id="beat-title-7">But the tunnel is only one part of my trip. I still have to get to it, wait, transfer, and travel the last stretch. In 2018, Culver City Councilmember Meghan Sahli-Wells asked whether the Westside proposal would offer equitable access. I want to stay with that question, not rush to a verdict.</p>
         <p class="source-line"><a href="https://cityclerk.lacity.org/onlinedocs/2017/17-1342-S1_pc_k_4-18-18.pdf" target="_blank" rel="noopener">Culver City public comment · 2018 ↗</a></p>
-        <p class="ask-the-room">If this route were near your home, what would you want to know?</p>
       </div>
     </section>
-    <section class="story-beat align-right" id="beat-8" data-stage="8" aria-labelledby="beat-title-8">
+    <section class="story-beat" id="beat-8" data-stage="8" aria-labelledby="beat-title-8">
       <div class="beat-card">
-        <p class="beat-whisper">A PROPOSAL IS NOT AN OUTCOME</p>
-        <h2 id="beat-title-8">What happened—and what did not?</h2>
-        <p>In November 2018, the company said it would abandon the proposed Westside proof-of-concept tunnel after settling a lawsuit with neighborhood groups. A separate Hawthorne test track was completed the following month.</p>
-        <p>One proposal ended; another test facility existed. Neither fact proves the broader mobility promise.</p>
+        <p class="story-copy" id="beat-title-8">Later, I learn that the Westside tunnel proposal was abandoned in November 2018 after a settlement with neighborhood groups. A separate test track in Hawthorne opened the following month.</p>
+        <p>The proposed route disappeared from the map. The morning traffic did not. Aboveground, people kept moving through Los Angeles, one car-length at a time.</p>
         <p class="source-line"><a href="https://www.wired.com/story/elon-musk-boring-company-sepulveda-tunnel/" target="_blank" rel="noopener">WIRED · Nov. 28, 2018 ↗</a> <span>·</span> <a href="https://boringcompany.com/projects/r-d-tunnels" target="_blank" rel="noopener">The Boring Company · R&amp;D tunnels ↗</a></p>
         <details class="method-note"><summary>Sources and how to read the drawing</summary><div><p>The 405 scene is a line-art illustration, not a live feed, vehicle count, or surveyed lane plan. LA Metro reports 289,000 vehicles per day through Sepulveda Pass. The tunnel is shown as a proposal.</p><p><a href="https://www.humantransit.org/2017/12/elon-musk-responds.html" target="_blank" rel="noopener">Jarrett Walker · 2017 exchange and critique ↗</a></p></div></details>
-        <p class="ask-the-room final-question">What would you measure or listen for before calling a project a transportation solution?</p>
-        <a class="return-agenda" href="agenda.html#week-2">← Week 2 agenda</a>
       </div>
     </section>
     <div class="story-end" aria-hidden="true"></div>
   </main>
   <script src="assets/i18n.js?v=week2-4"></script>
   <script src="assets/site.js?v=nav-2"></script>
-  <script src="assets/week2-traffic.js?v=9"></script>
+  <script src="assets/week2-traffic.js?v=19"></script>
 </body>
 </html>
