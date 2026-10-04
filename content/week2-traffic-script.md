@@ -16,7 +16,7 @@ In 2017, during my years at UCLA, my mornings began with a drive north to Westwo
 
 ### en
 
-And yet, that time alone could be a solace. Before the daily chaos, the car was mine. My music. My volume. My own soundtrack to work. The morning commute was a ritual, not just a delay.
+And yet, that time alone could be a solace, even meditative. it's an odd sensation, outside the confines of the vehicles lies the cacophony of congestion, impatience and anger linger in the air amidst the engine noise. but inside, this space is mine. As someone who also endured the Japanese commute. Before the daily chaos, the car was mine. My music. My volume. My own soundtrack to work. The morning commute was a ritual, not just a delay.
 
 ### ja
 
