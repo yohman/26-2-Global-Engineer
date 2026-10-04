@@ -13,6 +13,10 @@ make_id: make02
 
 Infrastructure is a network, not a list of inventions. What becomes visible when we map it across place and time?
 
+## Lecture
+
+Yoh’s morning commute on the 405 opens a comparison of LA and Tokyo: people, places, commuting choices, and transport capacity. Who benefits when a few cars can move faster while everyone else waits?
+
 ## In Class
 
 - MAP: 1950 → 1973 → 2026 — redraw a world system as constraints change.

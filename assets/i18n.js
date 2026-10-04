@@ -4,6 +4,15 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'This week': '今週',
+    'Week 2 · October 6': '第2週 · 10月6日',
+    'One commute. Two cities. Who benefits?': '一つの通勤。二つの街。誰のため？',
+    'Follow Yoh’s morning on the 405, compare LA and Tokyo, and question the promise of an underground shortcut. Share your global engineering story in the class Atlas.': 'Yohの405号線の朝をたどり、LAと東京を比べ、地下の抜け道という約束を問い直そう。クラスのAtlasで、自分のグローバル・エンジニアリングの物語を共有しよう。',
+    'Read the traffic story →': '通勤の物語を読む →',
+    'Explore the class Atlas →': 'クラスのAtlasを見る →',
+    'Open Week 2': '第2週を開く',
+    'My 405 commute · LA ↔ Tokyo ↗': '僕の405号線通勤 · LA ↔ 東京 ↗',
+    'Yoh’s morning commute on the 405 opens a comparison of LA and Tokyo: people, places, commuting choices, and transport capacity. Who benefits when a few cars can move faster while everyone else waits?': 'Yohの405号線での朝の通勤から、LAと東京の人々、場所、通勤手段、輸送力を比べる。数台だけが速く移動し、ほかの人が待ち続けるとき、誰が恩恵を受けるのだろう？',
     // Browser titles
     '2026-2 Global Engineer': '2026-2 グローバル・エンジニア',
     'Atlas · 2026-2 Global Engineer': 'アトラス · 2026-2 グローバル・エンジニア',

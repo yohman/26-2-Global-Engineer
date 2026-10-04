@@ -20,7 +20,8 @@
   const guestFiles = ['01-yoko-myers.md', '02-atsushi-koshio.md', '03-ke-seetha-ram.md', '04-kana-kudo.md', '05-alesha-unpingco.md'];
   const list = document.querySelector('#weekly-agenda');
   const mode = document.querySelector('#agenda-mode');
-  const planning = new URLSearchParams(location.search).has('planning');
+  const params = new URLSearchParams(location.search);
+  const planning = params.has('planning') || params.has('preview');
   const assignments = window.MAKE_SUBMISSIONS_CONFIG?.assignments || {};
   const t = value => document.documentElement.lang === 'ja' ? (window.COURSE_TRANSLATIONS?.ja?.[value] || value) : value;
   const guestImageUrl = value => value && !value.includes('/') ? `content/guests/${encodeURIComponent(value)}` : value;
@@ -141,6 +142,13 @@
         const lecture = document.createElement('section'); lecture.className = 'agenda-lecture-row';
         lecture.innerHTML = `<header class="agenda-row-heading"><span>01 / LECTURE MATERIALS</span><h3>Question, context, and conversation</h3><p>Proposed 100-minute flow</p></header>${scheduleHtml(week)}<div class="agenda-lecture-grid"><div class="agenda-lecture-copy"></div><aside class="agenda-lecture-aside" aria-label="Lecture slide preview">${slideCardHtml(week)}</aside></div>`;
         const lectureCopy = lecture.querySelector('.agenda-lecture-copy');
+        if (week.week === 2) {
+          const story = document.createElement('a');
+          story.className = 'button agenda-story-link';
+          story.href = 'week2-traffic.html';
+          story.textContent = t('My 405 commute · LA ↔ Tokyo ↗');
+          lectureCopy.append(story);
+        }
         week.sections.filter(section => sectionMatches(section, lectureNames)).forEach(section => addSection(lectureCopy, section));
         addResources(lectureCopy, week.resources.filter(resource => ['READ', 'VIEW', 'REFERENCE'].includes(resource.category)), 'Read / view');
         detail.append(lecture);
