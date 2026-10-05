@@ -16,11 +16,11 @@ In 2017, during my years at UCLA, my mornings began with a drive north to Westwo
 
 ### en
 
-And yet, that time alone could be a solace, even meditative. it's an odd sensation, outside the confines of the vehicles lies the cacophony of congestion, impatience and anger linger in the air amidst the engine noise. but inside, this space is mine. As someone who also endured the Japanese commute. Before the daily chaos, the car was mine. My music. My volume. My own soundtrack to work. The morning commute was a ritual, not just a delay.
+Outside, engines and impatience. Inside, my own little world. My music, my volume. Before the day began, this time alone was mine.
 
 ### ja
 
-それでも、一人の時間は安らぎにもなった。一日の慌ただしさが始まる前、車内は僕だけの場所だった。好きな音楽。好きな音量。仕事へ向かう、自分だけのサウンドトラック。朝の通勤は、ただの遅れではなく、儀式でもあった。
+外はエンジンの音と、いらだち。車内は僕だけの小さな世界。好きな音楽、好きな音量。一日が始まる前の、この一人の時間は僕のものだった。
 
 ## beat-2
 
@@ -86,11 +86,11 @@ LAの僕の朝を知るために、東京の朝を思い浮かべてほしい。
 
 ### en
 
-In LA, the distance between things could become part of the day itself. Home here. Work over there. Tokyo fits more residents into a much smaller administrative region. That does not explain everything, but it changes the ground on which a transport system must work.
+In LA, home and work could feel worlds apart. Tokyo holds more people in much less space. The distance changes how we travel.
 
 ### ja
 
-LAでは、場所と場所の距離そのものが一日の一部になった。家はここ、仕事は向こう。東京は、もっと小さな行政区域に、もっと多くの人が暮らしている。それですべてを説明できるわけではない。でも、交通の仕組みが働く土台は変わる。
+LAでは、家と職場が別世界のように遠い。東京では、もっと小さな場所に、もっと多くの人が暮らす。距離が違えば、移動も変わる。
 
 ## compare-density
 
@@ -116,21 +116,21 @@ The person beside me was not always another version of me. Older people. Women a
 
 ### en
 
-I saw a whole range of lives around me on the 405. Comparing LA with Tokyo makes me ask another question: whose differences do our statistics make visible? Race, nationality and birthplace are not the same thing. Before an engineer compares two cities, they have to notice what each city counts—and what it does not.
+On the 405, so many different lives sat side by side. These numbers show only part of that picture. The two cities do not even count our differences the same way.
 
 ### ja
 
-405号線で、僕の周りにはさまざまな暮らしが見えた。LAと東京を比べると、別の問いが浮かぶ。統計は、誰のどんな違いを見せるのだろう。人種、国籍、出生地は同じものではない。二つの街を比べる前に、エンジニアはそれぞれが何を数え、何を数えないかに気づく必要がある。
+405号線では、違う暮らしが隣り合っていた。数字に見えるのは、その一部だけ。二つの街では、人々の違いの数え方さえ同じではない。
 
 ## compare-education
 
 ### en
 
-My destination was a university. But a city is not made only of people with degrees, and a degree does not tell me whether somebody can afford a car, climb a station staircase, or spare an hour. Even these two education figures refuse to line up neatly. The people inside them matter more than the ranking.
+I was heading to a university. Others were heading somewhere very different. A degree told me little about the journey beside mine.
 
 ### ja
 
-僕の行き先は大学だった。でも、街は学位を持つ人だけでできてはいない。学位があっても、車を買えるか、駅の階段を上れるか、一時間の余裕があるかはわからない。教育の二つの数字も、きれいにはそろわない。順位よりも、その数字の中にいる人々が大切だ。
+僕は大学へ向かっていた。隣の人は、まったく違う場所へ。学位だけでは、その人の道のりはわからない。
 
 ## compare-car
 
@@ -176,11 +176,11 @@ I could choose the privacy of my car. Not everyone could. Metro’s rider resear
 
 ### en
 
-We were unhappy, of course. We wanted something better. But the freeway already swallowed so much of the city. Where would another lane go? Among the Angelenos I knew, we loved our cars. Many of us would rather sit alone behind a steering wheel than squeeze into a commuter train like sardines. So we lived with it. An hour of my life, each morning, given to the road.
+We wanted something better. But where would another lane go? We loved our cars, and our time alone. So we lived with it. An hour, every morning, given to the road.
 
 ### ja
 
-もちろん、僕たちは不満だった。もっといい方法がほしかった。でも、高速道路はすでに街の広い場所を占めている。これ以上、どこに車線を増やすのか。僕の知るアンジェリーノたちは車が大好きだった。すし詰めの通勤電車に押し込まれるくらいなら、一人でハンドルを握って渋滞にいるほうがいい。そう思う人も多かった。だから、僕たちはこの生活を受け入れた。毎朝、僕の人生の一時間を、この道路に渡していた。
+もっといい方法がほしかった。でも、どこに車線を増やすのか。僕たちは車も、一人の時間も好きだった。だから受け入れた。毎朝、一時間を道路に渡していた。
 
 ## beat-promise
 
@@ -226,11 +226,11 @@ Another car disappears. Then another. The queue around me looks the same. I thin
 
 ### en
 
-The questions I heard—and asked—were hard to shake: Who was this for? How many people could it really serve, at what capacity, and at what cost? Why this solution? Because it could be built? In 2018, Culver City Councilmember Meghan Sahli-Wells also questioned whether the Westside proposal would offer equitable access.
+Who was this for? How many of us could use it? Who would pay? I was not the only one asking.
 
 ### ja
 
-僕が耳にし、自分でも問いかけた疑問は頭から離れなかった。これは誰のためなのか。本当に何人を、どのような輸送力で、いくらで運べるのか。なぜこの方法なのか。実現できるからだろうか。2018年、カルバーシティ市議会議員メーガン・サーリ＝ウェルズも、ウェストサイドの計画が公平なアクセスをもたらすのかと問いかけた。
+これは誰のため？ 僕たちの何人が使える？ 誰が払う？ そう聞いていたのは、僕だけではなかった。
 
 ## beat-9
 
@@ -307,139 +307,28 @@ What would make the whole city’s morning better?
 
 ### en
 
-The traffic fades below me. I leave Los Angeles behind and cross the Pacific, into another memory. A different shore. A different journey. This time, I am not behind the wheel. I am a passenger, in Japan.
+Another memory. Across the Pacific, in Japan. This time, I was a passenger.
 
 ### ja
 
-僕の下で、渋滞が遠ざかる。ロサンゼルスを離れ、太平洋を越えて、別の記憶へ。違う岸。違う旅。今度はハンドルを握っていない。日本で、乗客になっている。
+別の記憶へ。太平洋を越えて、日本へ。今度は、僕が乗客だった。
 
 ## aqua-arrival
 
 ### en
 
-I was on an airport limousine bus in Chiba, looking through the front window. We were on a bridge. The land fell behind us, and ahead I could see nothing but ocean. I remember thinking: this is a bridge to nowhere. What is going to happen to us?
+I was on an airport limousine bus in Chiba. Through the front window, a bridge stretched into the ocean. No land ahead. A bridge to nowhere, I thought. What was going to happen to us?
 
 ### ja
 
-千葉で乗った空港リムジンバスの、前の窓を見ていた。僕たちは橋の上にいた。陸が後ろへ遠ざかり、前には海しか見えない。僕は思った。これは、どこにもつながらない橋だ。この先、僕たちはどうなるのだろう。
+千葉で乗った空港リムジンバス。前の窓から、海へ伸びる橋が見えた。その先に陸はない。どこにもつながらない橋だ、と思った。僕たちは、どうなるのだろう。
 
 ## aqua-bridge
 
 ### en
 
-The bus kept going. Cars moved alongside us. I searched the horizon for the rest of the road. Then an island appeared—Umihotaru. The road began to dip. The ocean was still there, right in front of us. And suddenly, it felt as though the sea had swallowed our bus.
+Then came Umihotaru. The road dipped, and the sea swallowed our bus. We were in a tunnel, heading for Kawasaki. The road did lead somewhere—I just couldn’t see it. Unlike that LA dream, I was already on this ride. But who else could it bring along?
 
 ### ja
 
-バスは走り続けた。隣を車が走る。僕は水平線に道路の続きを探していた。やがて島が現れた。海ほたるだ。道が下り始める。でも、その先にはまだ海がある。そして突然、海にバスごと飲み込まれたように感じた。
-
-## aqua-undersea
-
-### en
-
-We had not fallen into the water. We were travelling beneath it. The bridge had become a tunnel under the seabed, carrying us toward Kawasaki. What had looked like a road to nowhere was a connection I could not see. I was a passenger inside an engineering idea—and the bus, not just private cars, could use it.
-
-### ja
-
-水に落ちたのではなかった。僕たちは、水の下を走っていた。橋は海底の下のトンネルになり、川崎へ向かっていた。どこにもつながらないように見えた道は、僕には見えなかったつながりだった。僕は一つの工学の構想の中にいる乗客だった。そして自家用車だけでなく、バスもこの道を使えた。
-
-## aqua-history
-
-### en
-
-Nobody simply announced this road and dug it overnight. The Ministry of Construction began studying the crossing in 1966. Special legislation and a public–private company followed in 1986. Groundbreaking came in 1989; the road opened on December 18, 1997. Government, engineers, local authorities and private finance had to make a connection work together. The invisible part of this bridge is not only its tunnel. It is thirty years of decisions.
-
-### ja
-
-誰かが発表して、一晩で掘った道路ではない。建設省が調査を始めたのは1966年。1986年には特別措置法と官民出資の会社ができた。1989年に起工し、1997年12月18日に開通した。行政、技術者、自治体、民間資金が、一つの横断路を成立させる必要があった。この橋の見えない部分は、トンネルだけではない。約30年にわたる決定も、そこにある。
-
-## aqua-access
-
-### en
-
-This crossing gave two shores a shorter connection. But a tunnel is not a promise that traffic will disappear. The Aqua-Line has congestion, too; time-dependent toll experiments try to change when people travel. I return to my morning on the 405. Perhaps the question is not whether we can dig. It is what becomes possible after we do—and for whom.
-
-### ja
-
-この横断路は、二つの岸をより短い道で結んだ。でも、トンネルができれば渋滞が消えるという約束ではない。アクアラインにも渋滞があり、時間帯別料金の社会実験で移動する時刻を変えようとしている。僕は405号線の朝を思い出す。問うべきなのは、掘れるかどうかだけではない。掘ったあと、何が可能になり、それは誰のためなのか。
-
-## aqua-discuss
-
-### en
-
-If you were deciding whether to build this crossing, whose journeys would you count first? A driver’s, a bus passenger’s, a freight worker’s—or the lives along the shore? What evidence would show that the benefit is shared? And if the new road fills up, is the next answer more road, different prices, more buses, or something else?
-
-### ja
-
-この横断路をつくるか判断するとしたら、誰の移動を最初に数えるだろう。運転手、バスの乗客、物流を担う人、それとも岸辺で暮らす人々か。恩恵が共有されていると、どんな証拠で判断できるだろう。そして新しい道路がいっぱいになったら、次の答えは道路の追加か、料金の変更か、バスの増便か。それとも、別の方法か。
-
-
-## case-vegas
-
-### en
-
-In Las Vegas, the car-in-a-tunnel idea did become a service. The convention-centre Loop carries attendees between halls in Tesla vehicles. That is a real, bounded task—not proof that a whole city’s rush hour has been solved. I would ask: when does a short dedicated connection make sense, and when do we need a shared network?
-
-### ja
-
-ラスベガスでは、車をトンネルに走らせる構想が実際のサービスになった。コンベンションセンターのLoopは、テスラ車で来場者を展示棟の間に運ぶ。限られた区間の移動を担う仕組みであり、街全体の渋滞解消を証明するものではない。短い専用ルートが役立つのはどんな場面か。共有する交通網が必要なのは、どんな場面か。
-
-## case-heathrow
-
-### en
-
-At Heathrow, small driverless pods connect Terminal 5 with a car park. Four passengers and luggage, on a dedicated guideway. The launch system had 21 pods over 3.8 kilometres. Here the little vehicle has a specific job. I am less interested in whether it looks futuristic than whether it is the right tool for that journey.
-
-### ja
-
-ヒースローでは、小さな無人ポッドが第5ターミナルと駐車場を結ぶ。専用の軌道で、4人と荷物を運ぶ。導入時は21台、3.8キロメートルの仕組みだった。小さな乗り物に、はっきりした仕事がある。未来的に見えるかよりも、その移動に合った道具なのかを考えたい。
-
-## case-aramis
-
-### en
-
-Paris tried an earlier dream: small automated cabins that could separate and regroup into trains. Aramis remained an experimental project, rather than becoming a public service. In 1987, contemporary reporting described the gap between technical achievement and commercial viability. A prototype can move beautifully while the institutions, funding and everyday purpose needed to keep it moving never come together.
-
-### ja
-
-パリには、もっと以前の夢があった。小さな自動運転の車両が分かれ、再び集まって列車になるAramis。公共の交通サービスにはならず、実験計画で終わった。1987年の報道は、技術的な成果と事業としての成立の隔たりを伝えている。試作車が見事に動いても、それを動かし続ける制度、資金、日常の役割がまとまるとは限らない。
-
-## case-yurikamome
-
-### en
-
-Back in Tokyo, Yurikamome offers another version of automated transport: people sharing a train rather than each keeping a private car. It opened in 1995 and serves the waterfront. It is not a universal answer either. Its stations, fares and connections decide who can use it. Automation alone does not tell me whether a system serves the people who need it.
-
-### ja
-
-東京に戻ると、自動化された交通の別の形がある。自分の車を一台ずつ運ぶのではなく、列車を共有するゆりかもめだ。1995年に開業し、臨海部を結ぶ。これも万能の答えではない。駅の位置、運賃、ほかの交通との接続が、誰に使えるのかを決める。自動化だけでは、必要な人を運ぶ仕組みかどうかはわからない。
-
-## case-chuo
-
-### en
-
-Japan is also digging a very different fast route: the Chūō Shinkansen, using superconducting maglev. JR Central has said that a 2027 opening to Nagoya cannot be achieved. This is not an abandoned scheme, and it is not a car tunnel. It is a useful contrast: speed between cities, construction impacts, funding, and the people whose journeys may—or may not—change.
-
-### ja
-
-日本でも、別の高速ルートを掘っている。超電導リニアを使う中央新幹線だ。JR東海は、名古屋までの2027年開業は実現できないとしている。中止された計画でも、車用トンネルでもない。都市間の速さ、工事の影響、資金、そして移動が変わる人と変わらない人を考えるための対照例になる。
-
-## case-aqualine
-
-### en
-
-Then there is the road that seems to vanish into the sea. The Tokyo Bay Aqua-Line opened in 1997, connecting Kawasaki and Kisarazu. From the Chiba side, a 4.4-kilometre bridge reaches Umihotaru; the road then becomes a roughly 9.5-kilometre tunnel beneath the bay. Unlike a private escape from the queue, it creates a new crossing between two shores. But a spectacular crossing can still have queues. Toll prices, access and traffic management shape whose time it saves.
-
-### ja
-
-海へ消えていくように見える道路もある。1997年に開通した東京湾アクアラインは、川崎と木更津を結ぶ。千葉側から4.4キロメートルの橋で海ほたるに到着すると、道は東京湾の下を通る約9.5キロメートルのトンネルになる。列から誰かだけを逃がす道とは違い、二つの岸を結ぶ新しい横断路だ。でも、壮大な横断路にも渋滞は起きる。料金、アクセス、交通の管理が、誰の時間を節約できるのかを左右する。
-
-## case-dreamland
-
-### en
-
-A future can also open, and then stop. Yokohama’s Dreamland monorail began in 1966 but suspended service after only a year and four months. The city’s history records cracked bridge girders and overweight vehicles; formal abolition followed in 2002. The lesson is not simply to fear ambitious ideas. It is to ask who verifies the whole system—and who is left waiting when its promise fails.
-
-### ja
-
-未来の乗り物が、開業してから止まることもある。横浜のドリームランド線は1966年に開業したが、わずか1年4か月で休止した。市の記録には、橋げたの亀裂と車両の重量オーバーが記され、2002年に正式に廃止された。大胆な構想をただ恐れるのではない。仕組み全体を誰が検証し、約束が破れたとき誰が待たされるのかを問いたい。
+やがて海ほたるが現れた。道が下り、海がバスを飲み込んだ。トンネルの中を、川崎へ向かっていた。道はつながっていた。僕に見えなかっただけだ。LAの夢とは違って、僕はもう乗っていた。でも、この道は、ほかに誰を運べるのだろう。
