@@ -12,7 +12,9 @@
     },
     diversity: {
       // 2020 Census, LA County redistricting report, Table A.2-1. All race groups below are non-Hispanic.
-      la: [category(47.98,'Latino, any race','ラティーノ・人種不問'), category(25.60,'White, non-Latino','白人・非ラティーノ'), category(7.60,'Black, non-Latino','黒人・非ラティーノ'), category(14.72,'Asian, non-Latino','アジア系・非ラティーノ'), category(4.10,'Other / multiracial, non-Latino','その他・複数人種・非ラティーノ')]
+      la: [category(47.98,'Latino, any race','ラティーノ・人種不問'), category(25.60,'White, non-Latino','白人・非ラティーノ'), category(7.60,'Black, non-Latino','黒人・非ラティーノ'), category(14.72,'Asian, non-Latino','アジア系・非ラティーノ'), category(4.10,'Other / multiracial, non-Latino','その他・複数人種・非ラティーノ')],
+      // Right-hand panel is LA Metro, not Tokyo. Unlisted remainder is not an invented survey category.
+      tokyo: [category(58,'Latino / Hispanic','ラティーノ・ヒスパニック'), category(12,'White / Caucasian','白人'), category(14,'Black / African American','黒人・アフリカ系アメリカ人'), category(8,'Asian / Pacific Islander','アジア系・太平洋諸島系'), category(8,'Remaining share (not detailed)','残りの割合・内訳未掲載')]
     },
     education: {
       la: [category(36,'Bachelor’s or higher','学士以上'), category(64,'Below bachelor’s','学士未満')],

@@ -462,6 +462,10 @@
     body.dataset.aqua = beats[beatIndex]?.dataset.aqua || '';
     const comparison = document.querySelector('#region-comparison');
     const metric = beats[beatIndex]?.dataset.compare;
+    const ja = document.documentElement.lang === 'ja';
+    const labels = comparison.querySelectorAll('.comparison-region-labels span');
+    labels[0].textContent = metric === 'diversity' ? (ja ? 'LA郡の住民 · 2020' : 'LA COUNTY · 2020') : 'LOS ANGELES';
+    labels[1].textContent = metric === 'diversity' ? (ja ? 'LA METROの乗客 · 2022' : 'LA METRO RIDERS · 2022') : 'TOKYO · 東京';
     comparison.hidden = !metric;
     comparison.querySelectorAll('.comparison-frame').forEach(frame => {
       frame.hidden = frame.dataset.metric !== metric;
