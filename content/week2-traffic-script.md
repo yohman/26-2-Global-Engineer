@@ -303,35 +303,45 @@ What would make the whole city’s morning better?
 街全体の朝を、どうすれば変えられる？
 
 
+## aqua-jump
+
+### en
+
+The traffic fades below me. I leave Los Angeles behind and cross the Pacific, into another memory. A different shore. A different journey. This time, I am not behind the wheel. I am a passenger, in Japan.
+
+### ja
+
+僕の下で、渋滞が遠ざかる。ロサンゼルスを離れ、太平洋を越えて、別の記憶へ。違う岸。違う旅。今度はハンドルを握っていない。日本で、乗客になっている。
+
 ## aqua-arrival
 
 ### en
 
-I leave that Los Angeles morning behind for a moment. Now we are on the other side of the Pacific: Chiba, looking west across Tokyo Bay toward Kawasaki. This is not another version of Musk’s elevator. It is a road between two shores—and, from here, it looks as if somebody has built a bridge to nowhere.
+I was on an airport limousine bus in Chiba, looking through the front window. We were on a bridge. The land fell behind us, and ahead I could see nothing but ocean. I remember thinking: this is a bridge to nowhere. What is going to happen to us?
 
 ### ja
 
-あのロサンゼルスの朝から、少し離れてみる。今度は太平洋の反対側。千葉から東京湾を越え、西の川崎を見ている。マスクのエレベーターを別の場所に置いたのではない。二つの岸を結ぶ道路だ。でも、ここからは、誰かが行き先のない橋を架けたように見える。
+千葉で乗った空港リムジンバスの、前の窓を見ていた。僕たちは橋の上にいた。陸が後ろへ遠ざかり、前には海しか見えない。僕は思った。これは、どこにもつながらない橋だ。この先、僕たちはどうなるのだろう。
 
 ## aqua-bridge
 
 ### en
 
-A car heads out over the water. A bus follows. The shore falls behind them, but the far shore is still out of sight. Ahead is Umihotaru, an artificial island. And then the bridge ends. Where could the road possibly go?
+The bus kept going. Cars moved alongside us. I searched the horizon for the rest of the road. Then an island appeared—Umihotaru. The road began to dip. The ocean was still there, right in front of us. And suddenly, it felt as though the sea had swallowed our bus.
 
 ### ja
 
-一台の車が、水の上へ走り出す。バスが続く。岸は後ろへ遠ざかるのに、向こう岸はまだ見えない。前方に海ほたるという人工島が現れる。そして、橋が終わる。道路は、この先どこへ行くのだろう。
+バスは走り続けた。隣を車が走る。僕は水平線に道路の続きを探していた。やがて島が現れた。海ほたるだ。道が下り始める。でも、その先にはまだ海がある。そして突然、海にバスごと飲み込まれたように感じた。
 
 ## aqua-undersea
 
 ### en
 
-The vehicles do not fall into the sea. The road bends downward into a tunnel beneath the seabed. From Kisarazu, 4.4 kilometres of bridge reach Umihotaru; roughly 9.5 kilometres of tunnel continue toward Kawasaki. The surface hides the connection. Down below, the journey continues. The bus shares that road: this crossing is not only for people in private cars.
+We had not fallen into the water. We were travelling beneath it. The bridge had become a tunnel under the seabed, carrying us toward Kawasaki. What had looked like a road to nowhere was a connection I could not see. I was a passenger inside an engineering idea—and the bus, not just private cars, could use it.
 
 ### ja
 
-車もバスも、海へ落ちるわけではない。道路が下り坂になり、海底の下のトンネルへ入っていく。木更津から4.4キロメートルの橋で海ほたるへ。そこから約9.5キロメートルのトンネルが川崎へ続く。水面からはつながりが見えない。でも、下では旅が続いている。バスも同じ道を走る。この横断路は、自家用車に乗る人だけのものではない。
+水に落ちたのではなかった。僕たちは、水の下を走っていた。橋は海底の下のトンネルになり、川崎へ向かっていた。どこにもつながらないように見えた道は、僕には見えなかったつながりだった。僕は一つの工学の構想の中にいる乗客だった。そして自家用車だけでなく、バスもこの道を使えた。
 
 ## aqua-history
 
