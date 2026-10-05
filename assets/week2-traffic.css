@@ -240,6 +240,12 @@ body.traffic-story[data-stage="9"] .lift-door { animation: none; }
 .aqua-scene { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .7s ease; background: #030607; }
 body[data-aqua]:not([data-aqua=""]) .aqua-scene { opacity: 1; visibility: visible; }
 .aqua-scene img { position: absolute; width: 100%; height: 68vh; top: 6vh; object-fit: contain; }
+.aqua-art { position: absolute; width: 100%; height: 68vh; top: 6vh; }
+.bus-window-art { display: none; position: absolute; width: 100%; height: 68vh; top: 4vh; }
+body[data-aqua="arrival"] .bus-window-art { display: block; }
+body[data-aqua="arrival"] .aqua-art,
+body[data-aqua="jump"] .aqua-art { display: none; }
+.aqua-scene[data-window-ready="true"]::after { display: none; }
 .aqua-region { position: absolute; z-index: 2; top: 11vh; width: 100%; text-align: center; font: 600 .8rem/1.7 'Libre Franklin', sans-serif; color: #e8c36d; letter-spacing: .06em; }
 .aqua-region small { display: block; font-size: .65rem; color: #80b7b1; }
 .aqua-caption { position: absolute; top: 64vh; width: 100%; text-align: center; font: .65rem/1.6 'Libre Franklin', sans-serif; color: #aaa; }

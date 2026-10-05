@@ -6,12 +6,11 @@
   </defs>
   <rect width="1200" height="760" fill="#030607"/>
   <g clip-path="url(#window)">
-    <rect x="70" y="55" width="1060" height="300" fill="url(#sky)"/>
-    <rect x="70" y="325" width="1060" height="290" fill="url(#sea)"/>
+    <rect x="70" y="55" width="1060" height="560" fill="#030607"/>
     <path d="M70 325Q330 322 600 325T1130 325" fill="none" stroke="#80b7b1" stroke-width="1.5"/>
     <g fill="none" stroke="#80b7b1" opacity=".25"><path d="M100 380h170m470 0h190M190 435h130m490 0h250M70 505h150m740 0h130"/></g>
     <!-- The roadway ends visually below the uninterrupted ocean horizon. -->
-    <path d="M260 590L577 367Q600 364 623 367L940 590Z" fill="#172124"/>
+    <path d="M260 590L577 367Q600 364 623 367L940 590Z" fill="#030607"/>
     <g fill="none" stroke="#e7e2cf" stroke-width="2">
       <path d="M245 590L575 367M955 590L625 367"/>
       <path d="M195 590L570 367M1005 590L630 367" stroke="#80b7b1"/>
@@ -23,11 +22,11 @@
   </g>
   <!-- Bus interior: windshield frame, mirror, wipers, dashboard and seats. -->
   <path d="M140 95Q600 55 1060 95L1110 555Q600 590 90 555Z" fill="none" stroke="#80b7b1" stroke-width="3"/>
-  <path d="M130 88L78 577M1070 88l52 489M80 578Q600 620 1120 578" fill="none" stroke="#33484a" stroke-width="15"/>
+  <path d="M130 88L78 577M1070 88l52 489M80 578Q600 620 1120 578" fill="none" stroke="#507e81" stroke-width="2"/>
   <path d="M485 549l-160-53m390 53 160-53" fill="none" stroke="#78908d" stroke-width="3"/>
   <rect x="537" y="105" width="126" height="38" rx="9" fill="#081113" stroke="#78908d" stroke-width="2"/>
   <path d="M600 80v25M80 624Q600 565 1120 624v136H80Z" fill="#091214" stroke="#33484a" stroke-width="2"/>
-  <path d="M0 760V630q0-75 90-75h110q70 0 70 75v130M1200 760V630q0-75-90-75h-110q-70 0-70 75v130" fill="#0c1c20" stroke="#507e81" stroke-width="3"/>
+  <path d="M0 760V630q0-75 90-75h110q70 0 70 75v130M1200 760V630q0-75-90-75h-110q-70 0-70 75v130" fill="#030607" stroke="#80b7b1" stroke-width="2"/>
   <path d="M36 660h195M969 660h195" stroke="#507e81" fill="none" stroke-width="2"/>
   <style>@media(prefers-reduced-motion:reduce){animate{display:none}}</style>
 </svg>
