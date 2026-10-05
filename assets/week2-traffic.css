@@ -206,6 +206,9 @@ body.traffic-story[data-stage="9"] .lift-door { animation: none; }
 .comparison-note { text-align: center; font: 400 .72rem/1.5 'Libre Franklin', sans-serif; color: #abb4ab; max-width: 48rem; margin: 1.1rem auto 0; }
 .comparison-dots { display: grid; grid-template-columns: repeat(16,6px); grid-auto-rows: 6px; gap: 5px; justify-content: center; min-height: 44px; align-content: start; }
 .comparison-dots i { border: 1px solid currentColor; border-radius: 50%; }
+.comparison-ink-dot { width: 100%; height: 100%; overflow: visible; }
+.area-square.is-ink { border: 0; background: none; }
+.comparison-ink-square { display: block; width: 100%; height: 100%; overflow: visible; }
 .area-square { border: 1px solid currentColor; margin: 0 auto; background: color-mix(in srgb,currentColor 8%,transparent); }
 .la-square { width: 95px; height: 95px; }
 .tokyo-square { width: 43.4px; height: 43.4px; }

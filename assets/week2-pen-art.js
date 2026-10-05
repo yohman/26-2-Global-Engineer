@@ -31,7 +31,7 @@
         const probe = document.createElementNS(ns, 'path');
         probe.setAttribute('d', part);
         const length = probe.getTotalLength();
-        const count = Math.max(2, Math.min(240, Math.ceil(length / 7)));
+        const count = Math.max(/[zZ]\s*$/.test(part) ? 16 : 2, Math.min(240, Math.ceil(length / 7)));
         return { closed: !part.includes('m') && /[zZ]\s*$/.test(part), step: length / count, points: Array.from({ length: count + 1 }, (_, n) => probe.getPointAtLength(length * n / count)) };
       });
       const frames = [0, 1, 2].map(frame => strokes.map(({ points, closed, step }) => {
@@ -87,4 +87,39 @@
     }
   });
   document.querySelectorAll('.pacific-jump svg, #section-scene, .case-ink, .comparison-train, .comparison-road').forEach(ink);
+  // Shared animated circle templates keep hundreds of chart marks inexpensive.
+  const glyphs = document.createElementNS(ns, 'svg');
+  glyphs.setAttribute('width', '0'); glyphs.setAttribute('height', '0');
+  glyphs.style.position = 'absolute'; glyphs.setAttribute('aria-hidden', 'true');
+  const defs = document.createElementNS(ns, 'defs'); glyphs.append(defs);
+  document.body.append(glyphs);
+  for (let variant = 0; variant < 3; variant++) {
+    const group = document.createElementNS(ns, 'g');
+    group.id = `comparison-ink-dot-${variant}`;
+    const path = document.createElementNS(ns, 'path');
+    path.setAttribute('d', 'M3 10C3 1 17 1 17 10C17 19 3 19 3 10Z');
+    path.setAttribute('fill', 'none'); path.setAttribute('stroke', 'currentColor');
+    path.setAttribute('stroke-width', '2.6');
+    group.append(path); defs.append(group); ink(group);
+    group.querySelector('animate')?.setAttribute('begin', `-${variant * .13}s`);
+  }
+  document.querySelectorAll('.comparison-dots i').forEach((dot, index) => {
+    const mark = document.createElementNS(ns, 'svg');
+    mark.setAttribute('viewBox', '0 0 20 20'); mark.setAttribute('class', 'comparison-ink-dot');
+    mark.setAttribute('aria-hidden', 'true');
+    const use = document.createElementNS(ns, 'use');
+    use.setAttribute('href', `#comparison-ink-dot-${index % 3}`);
+    mark.append(use); dot.replaceWith(mark);
+  });
+  document.querySelectorAll('.area-square').forEach(square => {
+    const outline = document.createElementNS(ns, 'svg');
+    outline.setAttribute('viewBox', '0 0 100 100');
+    outline.setAttribute('class', 'comparison-ink-square');
+    outline.setAttribute('aria-hidden', 'true');
+    const path = document.createElementNS(ns, 'path');
+    path.setAttribute('d', 'M2 2H98V98H2Z');
+    path.setAttribute('stroke', 'currentColor'); path.setAttribute('fill', 'none');
+    path.setAttribute('stroke-width', '1'); path.setAttribute('vector-effect', 'non-scaling-stroke');
+    outline.append(path); square.append(outline); square.classList.add('is-ink'); ink(outline);
+  });
 })();
