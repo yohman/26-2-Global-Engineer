@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650">
+  <style>@media (prefers-reduced-motion: reduce) { .vehicles { display: none; } }</style>
+  <defs>
+    <path id="route" d="M-80 275H535C575 275 600 420 700 420H1280"/>
+    <g id="car" fill="#030607" stroke="#e8c36d" stroke-width="2" stroke-linejoin="round"><path d="M-22-5l7-12h22l11 12h8v10h-52V-5zM-12-14H5l8 9h-30z"/><circle cx="-15" cy="6" r="4"/><circle cx="17" cy="6" r="4"/></g>
+    <g id="bus" fill="#030607" stroke="#6dc0bf" stroke-width="2" stroke-linejoin="round"><rect x="-34" y="-23" width="68" height="28" rx="4"/><path d="M-27-17h10v10h-10zm17 0H0v10h-10zm17 0h10v10H7zm17 0h5V1h-5"/><circle cx="-22" cy="6" r="5"/><circle cx="22" cy="6" r="5"/></g>
+  </defs>
+  <path d="M0 287h90l28 62v191H0" fill="#142a29"/>
+  <path d="M100 300H1200V370H120Z" fill="#123c48" opacity=".4"/>
+  <path d="M110 370q90 12 180 0t180 0t180 0t180 0t180 0t190 0V545H110Z" fill="#1b2528"/>
+  <g stroke="#6dc0bf" stroke-width="1.5" fill="none" opacity=".6"><path d="M115 305q30-5 60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0"><animate attributeName="stroke-dashoffset" from="0" to="40" dur="4s" repeatCount="indefinite"/></path></g>
+  <g fill="none" stroke="#d6d8c9" stroke-width="2"><path d="M0 287H535C575 287 600 432 700 432H1200"/><path d="M555 287C590 287 610 395 700 395H1200" opacity=".55"/><path d="M135 287v77m70-77v77m70-77v77m70-77v77m70-77v77m70-77v77"/></g>
+  <path d="M478 287l12-35h63l16 35" fill="#142a29" stroke="#e8c36d" stroke-width="2"/>
+  <g fill="none" stroke="#80b7b1" stroke-width="2" transform="translate(890 300)"><path d="M-55-12H55L40 0h-80zM-20-12v-20h35v20m-5-20v-9"/></g>
+  <g class="vehicles"><use href="#car"><animateMotion dur="18s" begin="-2s" repeatCount="indefinite" rotate="auto"><mpath href="#route"/></animateMotion></use><use href="#bus"><animateMotion dur="18s" begin="-6s" repeatCount="indefinite" rotate="auto"><mpath href="#route"/></animateMotion></use><use href="#car"><animateMotion dur="18s" begin="-10s" repeatCount="indefinite" rotate="auto"><mpath href="#route"/></animateMotion></use><use href="#car"><animateMotion dur="18s" begin="-14s" repeatCount="indefinite" rotate="auto"><mpath href="#route"/></animateMotion></use><use href="#bus"><animateMotion dur="18s" begin="-18s" repeatCount="indefinite" rotate="auto"><mpath href="#route"/></animateMotion></use></g>
+</svg>

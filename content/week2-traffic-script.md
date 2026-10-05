@@ -303,6 +303,67 @@ What would make the whole city’s morning better?
 街全体の朝を、どうすれば変えられる？
 
 
+## aqua-arrival
+
+### en
+
+I leave that Los Angeles morning behind for a moment. Now we are on the other side of the Pacific: Chiba, looking west across Tokyo Bay toward Kawasaki. This is not another version of Musk’s elevator. It is a road between two shores—and, from here, it looks as if somebody has built a bridge to nowhere.
+
+### ja
+
+あのロサンゼルスの朝から、少し離れてみる。今度は太平洋の反対側。千葉から東京湾を越え、西の川崎を見ている。マスクのエレベーターを別の場所に置いたのではない。二つの岸を結ぶ道路だ。でも、ここからは、誰かが行き先のない橋を架けたように見える。
+
+## aqua-bridge
+
+### en
+
+A car heads out over the water. A bus follows. The shore falls behind them, but the far shore is still out of sight. Ahead is Umihotaru, an artificial island. And then the bridge ends. Where could the road possibly go?
+
+### ja
+
+一台の車が、水の上へ走り出す。バスが続く。岸は後ろへ遠ざかるのに、向こう岸はまだ見えない。前方に海ほたるという人工島が現れる。そして、橋が終わる。道路は、この先どこへ行くのだろう。
+
+## aqua-undersea
+
+### en
+
+The vehicles do not fall into the sea. The road bends downward into a tunnel beneath the seabed. From Kisarazu, 4.4 kilometres of bridge reach Umihotaru; roughly 9.5 kilometres of tunnel continue toward Kawasaki. The surface hides the connection. Down below, the journey continues. The bus shares that road: this crossing is not only for people in private cars.
+
+### ja
+
+車もバスも、海へ落ちるわけではない。道路が下り坂になり、海底の下のトンネルへ入っていく。木更津から4.4キロメートルの橋で海ほたるへ。そこから約9.5キロメートルのトンネルが川崎へ続く。水面からはつながりが見えない。でも、下では旅が続いている。バスも同じ道を走る。この横断路は、自家用車に乗る人だけのものではない。
+
+## aqua-history
+
+### en
+
+Nobody simply announced this road and dug it overnight. The Ministry of Construction began studying the crossing in 1966. Special legislation and a public–private company followed in 1986. Groundbreaking came in 1989; the road opened on December 18, 1997. Government, engineers, local authorities and private finance had to make a connection work together. The invisible part of this bridge is not only its tunnel. It is thirty years of decisions.
+
+### ja
+
+誰かが発表して、一晩で掘った道路ではない。建設省が調査を始めたのは1966年。1986年には特別措置法と官民出資の会社ができた。1989年に起工し、1997年12月18日に開通した。行政、技術者、自治体、民間資金が、一つの横断路を成立させる必要があった。この橋の見えない部分は、トンネルだけではない。約30年にわたる決定も、そこにある。
+
+## aqua-access
+
+### en
+
+This crossing gave two shores a shorter connection. But a tunnel is not a promise that traffic will disappear. The Aqua-Line has congestion, too; time-dependent toll experiments try to change when people travel. I return to my morning on the 405. Perhaps the question is not whether we can dig. It is what becomes possible after we do—and for whom.
+
+### ja
+
+この横断路は、二つの岸をより短い道で結んだ。でも、トンネルができれば渋滞が消えるという約束ではない。アクアラインにも渋滞があり、時間帯別料金の社会実験で移動する時刻を変えようとしている。僕は405号線の朝を思い出す。問うべきなのは、掘れるかどうかだけではない。掘ったあと、何が可能になり、それは誰のためなのか。
+
+## aqua-discuss
+
+### en
+
+If you were deciding whether to build this crossing, whose journeys would you count first? A driver’s, a bus passenger’s, a freight worker’s—or the lives along the shore? What evidence would show that the benefit is shared? And if the new road fills up, is the next answer more road, different prices, more buses, or something else?
+
+### ja
+
+この横断路をつくるか判断するとしたら、誰の移動を最初に数えるだろう。運転手、バスの乗客、物流を担う人、それとも岸辺で暮らす人々か。恩恵が共有されていると、どんな証拠で判断できるだろう。そして新しい道路がいっぱいになったら、次の答えは道路の追加か、料金の変更か、バスの増便か。それとも、別の方法か。
+
+
 ## case-vegas
 
 ### en

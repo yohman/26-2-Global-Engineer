@@ -237,3 +237,16 @@ body.traffic-story[data-stage="9"] .lift-door { animation: none; }
 .case-ink { width: min(100%, 320px); height: 70px; color: #80b7b1; margin: 1rem auto; }
 .case-ink--broken { color: #c18e75; opacity: .7; }
 .case-beat .story-copy { font-size: clamp(1rem, 1.5vw, 1.25rem); }
+.aqua-scene { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity .7s ease; background: #030607; }
+body[data-aqua]:not([data-aqua=""]) .aqua-scene { opacity: 1; visibility: visible; }
+.aqua-scene img { position: absolute; width: 100%; height: 68vh; top: 6vh; object-fit: contain; }
+.aqua-region { position: absolute; z-index: 2; top: 11vh; width: 100%; text-align: center; font: 600 .8rem/1.7 'Libre Franklin', sans-serif; color: #e8c36d; letter-spacing: .06em; }
+.aqua-region small { display: block; font-size: .65rem; color: #80b7b1; }
+.aqua-caption { position: absolute; top: 64vh; width: 100%; text-align: center; font: .65rem/1.6 'Libre Franklin', sans-serif; color: #aaa; }
+.aqua-beat { min-height: 135svh; }
+.aqua-beat .beat-card { z-index: 2; top: 70vh; margin-top: 78vh; max-height: 28svh; width: min(48rem, 94vw); padding: .5rem 1rem; }
+.aqua-beat .story-copy { font-size: clamp(.95rem,1.3vw,1.15rem); line-height: 1.6; }
+body[data-aqua="arrival"] .aqua-scene img { opacity: .25; transform: translateX(12%); }
+body[data-aqua="bridge"] .aqua-scene img { clip-path: inset(0 50% 0 0); }
+.aqua-scene img { transition: opacity 1s ease, transform 1s ease; }
+@media(max-width:700px) { .aqua-scene img { width: 150%; max-width: none; left: -25%; } .aqua-region { font-size: .66rem; } .aqua-caption { padding-inline: 1rem; box-sizing: border-box; } }
