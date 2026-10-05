@@ -327,8 +327,28 @@ I was on an airport limousine bus in Chiba. Through the front window, a bridge s
 
 ### en
 
-Then came Umihotaru. The road dipped, and the sea swallowed our bus. We were in a tunnel, heading for Kawasaki. The road did lead somewhere—I just couldn’t see it. Unlike that LA dream, I was already on this ride. But who else could it bring along?
+Then came Umihotaru. The road dipped, and the sea swallowed our bus. We were in a tunnel, heading for Kawasaki. The road did lead somewhere—I just couldn’t see it. The future felt as though it had already arrived.
 
 ### ja
 
-やがて海ほたるが現れた。道が下り、海がバスを飲み込んだ。トンネルの中を、川崎へ向かっていた。道はつながっていた。僕に見えなかっただけだ。LAの夢とは違って、僕はもう乗っていた。でも、この道は、ほかに誰を運べるのだろう。
+やがて海ほたるが現れた。道が下り、海がバスを飲み込んだ。トンネルの中を、川崎へ向かっていた。道はつながっていた。僕に見えなかっただけだ。未来は、もう来ているように感じた。
+
+## aqua-reflection
+
+### en
+
+Later, I learned this road had opened in 1997. Almost thirty years ago now. In LA, one man's audacious promise had stirred arguments about our future. In Tokyo Bay, I had ridden through something I hadn't thought possible. One future was being debated. Another was already carrying a bus full of people.
+
+### ja
+
+あとで、この道が1997年に開通したと知った。今から、もう30年近く前だ。LAでは、一人の男の大胆な約束が、未来をめぐる議論を巻き起こした。東京湾では、僕ができると思っていなかったことを、バスに乗って体験していた。一つの未来は議論の中にあり、もう一つは、すでにバスいっぱいの人を運んでいた。
+
+## aqua-ending
+
+### en
+
+Two shores. Two journeys beneath the ground. I keep coming back to both. What turns an extraordinary idea into an ordinary part of someone's day? And whose day gets better when it does?
+
+### ja
+
+二つの岸。地下へ向かう、二つの旅。僕は、どちらも思い返す。途方もない構想が、誰かの日常になる。その間には、何があるのだろう。そして、それで誰の一日がよくなるのだろう。
