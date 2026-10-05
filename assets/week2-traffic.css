@@ -258,6 +258,10 @@ body[data-aqua="jump"] .aqua-art { display: none; }
 .aqua-region small { display: block; font-size: .65rem; color: #80b7b1; }
 .aqua-caption { position: absolute; top: 64vh; width: 100%; text-align: center; font: .65rem/1.6 'Libre Franklin', sans-serif; color: #aaa; }
 .aqua-beat { min-height: 135svh; }
+/* Let phone narratives travel with the page, never inside a clipped sticky box. */
+@media(max-width:700px) {
+  body.traffic-story .story-beat .beat-card { position: relative; top: auto; max-height: none; overflow: visible; }
+}
 .aqua-beat .beat-card { z-index: 2; top: 70vh; margin-top: 78vh; max-height: 28svh; width: min(48rem, 94vw); padding: .5rem 1rem; }
 body[data-aqua="arrival"] .aqua-scene img,
 body[data-aqua="arrival"] .aqua-caption,

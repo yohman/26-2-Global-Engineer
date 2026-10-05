@@ -76,11 +76,11 @@ Because I drove alone, the diamond-marked carpool lane was not for me. I envied 
 
 ### en
 
-To understand my morning in LA, think about a morning in Tokyo. Not just Shinjuku or Shibuya: the whole of Tokyo Metropolis. Millions of people waking up, getting dressed, and finding a way to work. A familiar ritual, in a very different place.
+Across the Pacific, Tokyo was waking up too. Millions heading to work. The same morning ritual, a different way to travel.
 
 ### ja
 
-LAの僕の朝を知るために、東京の朝を思い浮かべてほしい。新宿や渋谷だけではなく、東京都全体。何百万人もの人が目を覚まし、着替え、仕事への道を選ぶ。同じような朝の儀式が、まったく違う場所で始まる。
+太平洋の向こうで、東京も目を覚ます。何百万人もの人が仕事へ向かう。同じ朝の儀式。でも、移動の仕方は違う。
 
 ## compare-area
 
@@ -96,21 +96,21 @@ LAでは、家と職場が別世界のように遠い。東京では、もっと
 
 ### en
 
-Put the same patch of ground beside itself. In one version, people are spread farther apart. In the other, many more lives share it. I begin to see why a morning built around individual cars might feel normal in one place, and a morning built around shared trains in another.
+More people sharing less space. I could see why Tokyo relied on trains—even when I missed my own seat and my own music.
 
 ### ja
 
-同じ広さの土地を二つ並べてみる。一方では、人々はより離れて暮らす。もう一方では、ずっと多くの暮らしがそこを共有する。個人の車を中心にした朝が、ある場所では当たり前で、別の場所では共有する電車が当たり前になる。その背景が少し見えてくる。
+狭い場所を、多くの人が共有する。東京で電車が頼りになる理由はわかる。それでも、自分の席と、自分の音楽が恋しくなる。
 
 ## compare-age
 
 ### en
 
-The person beside me was not always another version of me. Older people. Women and men. People caring for somebody else before their own day could begin. A transport system has to carry their mornings, too—not only the quickest, easiest trip in its designer’s imagination.
+Not everyone’s morning looked like mine. Some had children to care for. Some needed a seat. The city had to carry their mornings, too.
 
 ### ja
 
-隣の人が、僕と同じような人とは限らない。高齢の人。女性も男性も。自分の一日を始める前に、誰かの世話をする人。交通の仕組みは、その人たちの朝も運ばなくてはならない。設計者が思い描く、最速で簡単な移動だけではなく。
+みんなの朝が僕と同じわけではない。子どもの世話をする人。座席が必要な人。街は、その人たちの朝も運ばなくてはならない。
 
 ## compare-diversity
 
@@ -136,41 +136,41 @@ I was heading to a university. Others were heading somewhere very different. A d
 
 ### en
 
-My solitary car was a common LA morning. In Tokyo, the car-only trip was much less common. It was not simply that one group liked cars and the other liked trains. The places we lived, the networks already built, and the options within reach had helped write the routine before we woke up.
+Driving alone was normal in LA. Much less so in Tokyo. We chose from the roads, trains, and possibilities already around us.
 
 ### ja
 
-僕の一人きりの車は、LAではよくある朝だった。東京では、車だけの移動はずっと少なかった。一方が車好きで、もう一方が電車好きだから、というだけではない。暮らす場所、すでに造られたネットワーク、手の届く選択肢が、目覚める前から日課を書いていた。
+LAでは、一人で車に乗るのが普通だった。東京では、そうでもない。僕たちは、すでにそこにある道路や電車の中から選んでいた。
 
 ## compare-rail
 
 ### en
 
-The packed train I used to contrast with my private car was carrying many mornings at once. Not perfectly. Not comfortably for everyone. But it already answered a question a private shortcut had to face: how do you move a great many people, rather than make a few vehicles very fast?
+The packed train was not my private little room. But it carried so many of us at once. That mattered.
 
 ### ja
 
-僕が自分の車と対比していた満員電車は、一度にたくさんの朝を運んでいた。完璧ではない。誰にとっても快適なわけでもない。でも、個人の近道が向き合わなくてはならない問いに、すでに答えていた。少数の車を速くするのではなく、多くの人をどう運ぶか。
+満員電車は、僕だけの小さな部屋ではない。でも、一度にこんなに多くの人を運んでいた。それは大きな違いだった。
 
 ## compare-volume
 
 ### en
 
-Even one part of Tokyo’s railway system was carrying millions of journeys a day. LA had a substantial bus and rail public, too. I look back at the cars around me. A tunnel’s dazzling speed is only the beginning of the question. What matters is how many ordinary mornings it can actually change.
+Millions of journeys, every day. I looked back at my queue. How many of our mornings could one tunnel really change?
 
 ### ja
 
-東京の鉄道網の一部だけでも、一日に何百万もの移動を運んでいた。LAにも、多くのバス・鉄道利用者がいた。僕は周りの車に目を戻す。トンネルの華々しい速度は、問いの始まりにすぎない。大切なのは、普通の朝を実際にどれだけ変えられるかだ。
+毎日、何百万もの移動。僕は、自分の列に目を戻す。一つのトンネルで、どれだけの朝が変わるのだろう。
 
 ## beat-choice
 
 ### en
 
-I could choose the privacy of my car. Not everyone could. Metro’s rider research describes a public that is more likely to have low incomes, to be people of color, and to have fewer transport options than the county as a whole. My irritation and somebody else’s lack of choice were not the same thing.
+I could choose my own car. Not everyone could. My frustration was not the same as having no other way to work.
 
 ### ja
 
-僕は車内のプライバシーを選べた。誰もがそうではない。メトロの乗客調査は、郡全体に比べて低所得の人、有色人種の人、交通手段の選択肢が少ない人が多いと示している。僕のいらだちと、誰かの選択肢のなさは、同じものではなかった。
+僕は自分の車を選べた。誰もがそうではない。僕のいらだちと、ほかに通勤手段がないことは、同じではなかった。
 
 ## beat-life
 
@@ -337,11 +337,11 @@ Then came Umihotaru. The road dipped, and the sea swallowed our bus. We were in 
 
 ### en
 
-Later, I learned this road had opened in 1997. Almost thirty years ago now. In LA, one man's audacious promise had stirred arguments about our future. In Tokyo Bay, I had ridden through something I hadn't thought possible. One future was being debated. Another was already carrying a bus full of people.
+This road opened in 1997. Almost thirty years ago now. In LA, we argued over one man’s promise of the future. In Tokyo Bay, I was already riding through it.
 
 ### ja
 
-あとで、この道が1997年に開通したと知った。今から、もう30年近く前だ。LAでは、一人の男の大胆な約束が、未来をめぐる議論を巻き起こした。東京湾では、僕ができると思っていなかったことを、バスに乗って体験していた。一つの未来は議論の中にあり、もう一つは、すでにバスいっぱいの人を運んでいた。
+この道は、1997年に開通した。今から、もう30年近く前だ。LAでは、一人の男が約束する未来を議論していた。東京湾では、僕はもう、その未来の中を走っていた。
 
 ## aqua-ending
 
