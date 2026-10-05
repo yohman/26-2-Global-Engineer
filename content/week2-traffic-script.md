@@ -72,96 +72,6 @@ Because I drove alone, the diamond-marked carpool lane was not for me. I envied 
 
 一人で運転していた僕は、ひし形のマークがあるカープール車線を使えなかった。横を抜けていく車がうらやましい。でも、この車輪のついた小さな自分の部屋に、誰かを招きたかっただろうか。速さも、一人の時間も欲しかった。両方は手に入らなかった。
 
-## compare-scale
-
-### en
-
-Across the Pacific, Tokyo was waking up too. Millions heading to work. The same morning ritual, a different way to travel.
-
-### ja
-
-太平洋の向こうで、東京も目を覚ます。何百万人もの人が仕事へ向かう。同じ朝の儀式。でも、移動の仕方は違う。
-
-## compare-area
-
-### en
-
-In LA, home and work could feel worlds apart. Tokyo holds more people in much less space. The distance changes how we travel.
-
-### ja
-
-LAでは、家と職場が別世界のように遠い。東京では、もっと小さな場所に、もっと多くの人が暮らす。距離が違えば、移動も変わる。
-
-## compare-density
-
-### en
-
-More people sharing less space. I could see why Tokyo relied on trains—even when I missed my own seat and my own music.
-
-### ja
-
-狭い場所を、多くの人が共有する。東京で電車が頼りになる理由はわかる。それでも、自分の席と、自分の音楽が恋しくなる。
-
-## compare-age
-
-### en
-
-Not everyone’s morning looked like mine. Some had children to care for. Some needed a seat. The city had to carry their mornings, too.
-
-### ja
-
-みんなの朝が僕と同じわけではない。子どもの世話をする人。座席が必要な人。街は、その人たちの朝も運ばなくてはならない。
-
-## compare-diversity
-
-### en
-
-On the 405, so many different lives sat side by side. These numbers show only part of that picture. The two cities do not even count our differences the same way.
-
-### ja
-
-405号線では、違う暮らしが隣り合っていた。数字に見えるのは、その一部だけ。二つの街では、人々の違いの数え方さえ同じではない。
-
-## compare-education
-
-### en
-
-I was heading to a university. Others were heading somewhere very different. A degree told me little about the journey beside mine.
-
-### ja
-
-僕は大学へ向かっていた。隣の人は、まったく違う場所へ。学位だけでは、その人の道のりはわからない。
-
-## compare-car
-
-### en
-
-Driving alone was normal in LA. Much less so in Tokyo. We chose from the roads, trains, and possibilities already around us.
-
-### ja
-
-LAでは、一人で車に乗るのが普通だった。東京では、そうでもない。僕たちは、すでにそこにある道路や電車の中から選んでいた。
-
-## compare-rail
-
-### en
-
-The packed train was not my private little room. But it carried so many of us at once. That mattered.
-
-### ja
-
-満員電車は、僕だけの小さな部屋ではない。でも、一度にこんなに多くの人を運んでいた。それは大きな違いだった。
-
-## compare-volume
-
-### en
-
-Millions of journeys, every day. I looked back at my queue. How many of our mornings could one tunnel really change?
-
-### ja
-
-毎日、何百万もの移動。僕は、自分の列に目を戻す。一つのトンネルで、どれだけの朝が変わるのだろう。
-
 ## beat-choice
 
 ### en
@@ -307,11 +217,101 @@ What would make the whole city’s morning better?
 
 ### en
 
-Another memory. Across the Pacific, in Japan. This time, I was a passenger.
+I carried those questions across the Pacific. Tokyo offered another way to move through a city. Before I tell you what happened on that bus, look at the two worlds these journeys belonged to.
 
 ### ja
 
-別の記憶へ。太平洋を越えて、日本へ。今度は、僕が乗客だった。
+その問いを抱えて、太平洋を越える。東京には、街を移動する別の形があった。バスで何が起きたかを話す前に、この二つの旅が生まれた街を見てみよう。
+
+## compare-scale
+
+### en
+
+LA County and Tokyo Metropolis. Millions of people in each, trying to get somewhere. What choices did each place put within reach?
+
+### ja
+
+LA郡と東京都。どちらにも、どこかへ向かう何百万人もの人がいる。それぞれの街には、どんな選択肢があったのだろう。
+
+## compare-car
+
+### en
+
+Driving alone was normal in LA. Much less so in Tokyo. We chose from the roads, trains, and possibilities already around us.
+
+### ja
+
+LAでは、一人で車に乗るのが普通だった。東京では、そうでもない。僕たちは、すでにそこにある道路や電車の中から選んでいた。
+
+## compare-rail
+
+### en
+
+The packed train was not my private little room. But it carried so many of us at once. That mattered.
+
+### ja
+
+満員電車は、僕だけの小さな部屋ではない。でも、一度にこんなに多くの人を運んでいた。それは大きな違いだった。
+
+## compare-volume
+
+### en
+
+Millions of journeys, every day. That was what the promise in LA had to face. Not just how fast one car could go, but how many people could get where they needed to be.
+
+### ja
+
+毎日、何百万もの移動。LAの約束が向き合うべきなのは、その規模だった。一台の車の速さだけではない。必要な場所へ、何人を運べるのか。
+
+## compare-area
+
+### en
+
+In LA, home and work could feel worlds apart. Tokyo holds more people in much less space. The distance changes how we travel.
+
+### ja
+
+LAでは、家と職場が別世界のように遠い。東京では、もっと小さな場所に、もっと多くの人が暮らす。距離が違えば、移動も変わる。
+
+## compare-density
+
+### en
+
+More people sharing less space. I could see why Tokyo relied on trains—even when I missed my own seat and my own music.
+
+### ja
+
+狭い場所を、多くの人が共有する。東京で電車が頼りになる理由はわかる。それでも、自分の席と、自分の音楽が恋しくなる。
+
+## compare-age
+
+### en
+
+Not everyone’s morning looked like mine. Some had children to care for. Some needed a seat. The city had to carry their mornings, too.
+
+### ja
+
+みんなの朝が僕と同じわけではない。子どもの世話をする人。座席が必要な人。街は、その人たちの朝も運ばなくてはならない。
+
+## compare-diversity
+
+### en
+
+On the 405, so many different lives sat side by side. These numbers show only part of that picture. The two cities do not even count our differences the same way.
+
+### ja
+
+405号線では、違う暮らしが隣り合っていた。数字に見えるのは、その一部だけ。二つの街では、人々の違いの数え方さえ同じではない。
+
+## compare-education
+
+### en
+
+I was heading to a university. Others were heading somewhere very different. A degree told me little about the journey beside mine.
+
+### ja
+
+僕は大学へ向かっていた。隣の人は、まったく違う場所へ。学位だけでは、その人の道のりはわからない。
 
 ## aqua-arrival
 
