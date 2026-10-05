@@ -83,16 +83,6 @@ Because I drove alone, the diamond-marked carpool lane was not for me. I envied 
 
 一人で運転していた僕は、ひし形のマークがあるカープール車線を使えなかった。横を抜けていく車がうらやましい。でも、この車輪のついた小さな自分の部屋に、誰かを招きたかっただろうか。速さも、一人の時間も欲しかった。両方は手に入らなかった。
 
-## beat-choice
-
-### en
-
-I could choose my own car. Not everyone could. My frustration was not the same as having no other way to work.
-
-### ja
-
-僕は自分の車を選べた。誰もがそうではない。僕のいらだちと、ほかに通勤手段がないことは、同じではなかった。
-
 ## beat-life
 
 ### en
