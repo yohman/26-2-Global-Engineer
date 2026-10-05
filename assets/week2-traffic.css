@@ -217,7 +217,7 @@ body.traffic-story[data-stage="9"] .lift-door { animation: none; }
 @keyframes regional-train { from { transform: translateX(-54px); } to { transform: translateX(0); } }
 .comparison-beat { min-height: 145svh; }
 .comparison-beat .beat-card { top: 59vh; margin-top: 70vh; width: min(56rem,94vw); max-height: 38svh; padding: 1rem; }
-.comparison-beat .story-copy { max-width: 43rem; font-size: clamp(1rem,1.6vw,1.3rem); line-height: 1.6; }
+.comparison-beat .story-copy { max-width: 31rem; }
 @media (max-width:700px) {
   .region-comparison { top: 12vh; inset-inline: 1rem; }
   .comparison-region-labels { font-size: .61rem; letter-spacing: .1em; }
@@ -228,7 +228,6 @@ body.traffic-story[data-stage="9"] .lift-door { animation: none; }
   .comparison-note { font-size: .62rem; line-height: 1.5; margin-top: .7rem; }
   .comparison-dots { grid-template-columns: repeat(8,5px); grid-auto-rows: 5px; gap: 4px; min-height: 68px; }
   .comparison-beat .beat-card { top: 60vh; max-height: 38svh; padding: .6rem .3rem; }
-  .comparison-beat .story-copy { font-size: .98rem; line-height: 1.65; }
 }
 @media (prefers-reduced-motion:reduce) { .train-flow { animation: none; } }
 .case-beat .beat-card { width: min(44rem, 94vw); max-height: 78svh; top: 10vh; }
@@ -251,7 +250,6 @@ body[data-aqua="jump"] .aqua-art { display: none; }
 .aqua-caption { position: absolute; top: 64vh; width: 100%; text-align: center; font: .65rem/1.6 'Libre Franklin', sans-serif; color: #aaa; }
 .aqua-beat { min-height: 135svh; }
 .aqua-beat .beat-card { z-index: 2; top: 70vh; margin-top: 78vh; max-height: 28svh; width: min(48rem, 94vw); padding: .5rem 1rem; }
-.aqua-beat .story-copy { font-size: clamp(.95rem,1.3vw,1.15rem); line-height: 1.6; }
 body[data-aqua="arrival"] .aqua-scene img,
 body[data-aqua="arrival"] .aqua-caption,
 body[data-aqua="arrival"] .aqua-region { display: none; }
