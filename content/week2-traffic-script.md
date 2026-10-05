@@ -56,11 +56,11 @@ Complaining about the 405 was our daily punch line. We all knew the joke. This w
 
 ### en
 
-This was my route to Westwood. Four or five ordinary lanes each way along much of the corridor, plus a carpool lane—and still nowhere to go. Around Sepulveda Pass, Metro reported roughly 300,000 vehicles a day in 2017. I was one of them.
+This was my route to Westwood. Lanes upon lanes in both directions—a highway on a scale I could hardly imagine in Japan. And still, we barely moved. Around Sepulveda Pass, roughly 300,000 vehicles passed each day. I was one of them.
 
 ### ja
 
-これが僕のウェストウッドへの道だった。多くの区間で片側4〜5車線にカープール車線。それでも、進む場所がない。2017年、メトロによればセプルベダ・パスを通る車は一日およそ30万台。僕もその一台だった。
+これが僕のウェストウッドへの道だった。両方向に、車線が何本も広がる。日本では想像しにくいほど巨大な高速道路。それでも、僕たちはほとんど動かない。セプルベダ・パスを通る車は、一日およそ30万台。僕もその一台だった。
 
 ## beat-5
 
