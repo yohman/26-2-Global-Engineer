@@ -1,6 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <title>Yoh — Global Engineer</title>
-  <path d="M4 14h10l10 15 9-15h10L29 37v6c0 11-7 17-20 17H4V50h5c7 0 9-3 9-8v-5Z" fill="#2b211d"/>
-  <path d="M46 26Q55 6 64 20l-4 4q-5-10-10 5Z" fill="#177c73"/>
-  <circle cx="55" cy="8" r="4.5" fill="#177c73"/>
+  <title>Global Engineer — a connected world</title>
+  <rect width="64" height="64" rx="14" fill="#143c63"/>
+  <g fill="none" stroke="#f7f4ed" stroke-width="3" stroke-linecap="round">
+    <circle cx="32" cy="32" r="22"/>
+    <ellipse cx="32" cy="32" rx="10" ry="22"/>
+    <path d="M10 32h44M14 20q18 9 36 0M14 44q18-9 36 0"/>
+  </g>
+  <path d="M16 44Q28 12 49 23" fill="none" stroke="#e2b73b" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="16" cy="44" r="4.5" fill="#e2b73b"/>
+  <circle cx="49" cy="23" r="4.5" fill="#e2b73b"/>
 </svg>
