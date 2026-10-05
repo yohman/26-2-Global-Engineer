@@ -231,3 +231,9 @@ body.traffic-story[data-stage="9"] .lift-door { animation: none; }
   .comparison-beat .story-copy { font-size: .98rem; line-height: 1.65; }
 }
 @media (prefers-reduced-motion:reduce) { .train-flow { animation: none; } }
+.case-beat .beat-card { width: min(44rem, 94vw); max-height: 78svh; top: 10vh; }
+.case-location { color: #e2b73b !important; font: 600 .95rem/1.4 'Libre Franklin', sans-serif !important; }
+.case-status { font: 400 .75rem/1.4 'Libre Franklin', sans-serif !important; }
+.case-ink { width: min(100%, 320px); height: 70px; color: #80b7b1; margin: 1rem auto; }
+.case-ink--broken { color: #c18e75; opacity: .7; }
+.case-beat .story-copy { font-size: clamp(1rem, 1.5vw, 1.25rem); }

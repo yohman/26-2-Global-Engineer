@@ -4,6 +4,20 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Tokyo Bay · Aqua-Line': '東京湾 · アクアライン',
+    'Operating · opened 1997': '運行中 · 1997年開通',
+    "Las Vegas · LVCC Loop": "ラスベガス · LVCC Loop",
+    "Operating · opened 2021": "運行中 · 2021年開業",
+    "London · Heathrow pods": "ロンドン · ヒースローのポッド",
+    "Operating · launched 2011": "運行中 · 2011年導入",
+    "Paris · Aramis": "パリ · Aramis",
+    "Abandoned · 1987": "中止 · 1987年",
+    "Tokyo · Yurikamome": "東京 · ゆりかもめ",
+    "Operating · opened 1995": "運行中 · 1995年開業",
+    "Japan · Chūō Shinkansen": "日本 · リニア中央新幹線",
+    "Under construction · delayed, not abandoned": "建設中 · 遅延、中止ではない",
+    "Yokohama · Dreamland monorail": "横浜 · ドリームランド線",
+    "Suspended after 16 months · abolished 2002": "開業16か月で休止 · 2002年廃止",
     'This week': '今週',
     'Week 2 · October 6': '第2週 · 10月6日',
     'One commute. Two cities. Who benefits?': '一つの通勤。二つの街。誰のため？',

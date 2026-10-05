@@ -301,3 +301,74 @@ What would make the whole city’s morning better?
 ### ja
 
 街全体の朝を、どうすれば変えられる？
+
+
+## case-vegas
+
+### en
+
+In Las Vegas, the car-in-a-tunnel idea did become a service. The convention-centre Loop carries attendees between halls in Tesla vehicles. That is a real, bounded task—not proof that a whole city’s rush hour has been solved. I would ask: when does a short dedicated connection make sense, and when do we need a shared network?
+
+### ja
+
+ラスベガスでは、車をトンネルに走らせる構想が実際のサービスになった。コンベンションセンターのLoopは、テスラ車で来場者を展示棟の間に運ぶ。限られた区間の移動を担う仕組みであり、街全体の渋滞解消を証明するものではない。短い専用ルートが役立つのはどんな場面か。共有する交通網が必要なのは、どんな場面か。
+
+## case-heathrow
+
+### en
+
+At Heathrow, small driverless pods connect Terminal 5 with a car park. Four passengers and luggage, on a dedicated guideway. The launch system had 21 pods over 3.8 kilometres. Here the little vehicle has a specific job. I am less interested in whether it looks futuristic than whether it is the right tool for that journey.
+
+### ja
+
+ヒースローでは、小さな無人ポッドが第5ターミナルと駐車場を結ぶ。専用の軌道で、4人と荷物を運ぶ。導入時は21台、3.8キロメートルの仕組みだった。小さな乗り物に、はっきりした仕事がある。未来的に見えるかよりも、その移動に合った道具なのかを考えたい。
+
+## case-aramis
+
+### en
+
+Paris tried an earlier dream: small automated cabins that could separate and regroup into trains. Aramis remained an experimental project, rather than becoming a public service. In 1987, contemporary reporting described the gap between technical achievement and commercial viability. A prototype can move beautifully while the institutions, funding and everyday purpose needed to keep it moving never come together.
+
+### ja
+
+パリには、もっと以前の夢があった。小さな自動運転の車両が分かれ、再び集まって列車になるAramis。公共の交通サービスにはならず、実験計画で終わった。1987年の報道は、技術的な成果と事業としての成立の隔たりを伝えている。試作車が見事に動いても、それを動かし続ける制度、資金、日常の役割がまとまるとは限らない。
+
+## case-yurikamome
+
+### en
+
+Back in Tokyo, Yurikamome offers another version of automated transport: people sharing a train rather than each keeping a private car. It opened in 1995 and serves the waterfront. It is not a universal answer either. Its stations, fares and connections decide who can use it. Automation alone does not tell me whether a system serves the people who need it.
+
+### ja
+
+東京に戻ると、自動化された交通の別の形がある。自分の車を一台ずつ運ぶのではなく、列車を共有するゆりかもめだ。1995年に開業し、臨海部を結ぶ。これも万能の答えではない。駅の位置、運賃、ほかの交通との接続が、誰に使えるのかを決める。自動化だけでは、必要な人を運ぶ仕組みかどうかはわからない。
+
+## case-chuo
+
+### en
+
+Japan is also digging a very different fast route: the Chūō Shinkansen, using superconducting maglev. JR Central has said that a 2027 opening to Nagoya cannot be achieved. This is not an abandoned scheme, and it is not a car tunnel. It is a useful contrast: speed between cities, construction impacts, funding, and the people whose journeys may—or may not—change.
+
+### ja
+
+日本でも、別の高速ルートを掘っている。超電導リニアを使う中央新幹線だ。JR東海は、名古屋までの2027年開業は実現できないとしている。中止された計画でも、車用トンネルでもない。都市間の速さ、工事の影響、資金、そして移動が変わる人と変わらない人を考えるための対照例になる。
+
+## case-aqualine
+
+### en
+
+Then there is the road that seems to vanish into the sea. The Tokyo Bay Aqua-Line opened in 1997, connecting Kawasaki and Kisarazu. From the Chiba side, a 4.4-kilometre bridge reaches Umihotaru; the road then becomes a roughly 9.5-kilometre tunnel beneath the bay. Unlike a private escape from the queue, it creates a new crossing between two shores. But a spectacular crossing can still have queues. Toll prices, access and traffic management shape whose time it saves.
+
+### ja
+
+海へ消えていくように見える道路もある。1997年に開通した東京湾アクアラインは、川崎と木更津を結ぶ。千葉側から4.4キロメートルの橋で海ほたるに到着すると、道は東京湾の下を通る約9.5キロメートルのトンネルになる。列から誰かだけを逃がす道とは違い、二つの岸を結ぶ新しい横断路だ。でも、壮大な横断路にも渋滞は起きる。料金、アクセス、交通の管理が、誰の時間を節約できるのかを左右する。
+
+## case-dreamland
+
+### en
+
+A future can also open, and then stop. Yokohama’s Dreamland monorail began in 1966 but suspended service after only a year and four months. The city’s history records cracked bridge girders and overweight vehicles; formal abolition followed in 2002. The lesson is not simply to fear ambitious ideas. It is to ask who verifies the whole system—and who is left waiting when its promise fails.
+
+### ja
+
+未来の乗り物が、開業してから止まることもある。横浜のドリームランド線は1966年に開業したが、わずか1年4か月で休止した。市の記録には、橋げたの亀裂と車両の重量オーバーが記され、2002年に正式に廃止された。大胆な構想をただ恐れるのではない。仕組み全体を誰が検証し、約束が破れたとき誰が待たされるのかを問いたい。
