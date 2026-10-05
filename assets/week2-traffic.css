@@ -246,7 +246,10 @@ body[data-aqua]:not([data-aqua=""]) .aqua-scene { opacity: 1; visibility: visibl
 .aqua-beat { min-height: 135svh; }
 .aqua-beat .beat-card { z-index: 2; top: 70vh; margin-top: 78vh; max-height: 28svh; width: min(48rem, 94vw); padding: .5rem 1rem; }
 .aqua-beat .story-copy { font-size: clamp(.95rem,1.3vw,1.15rem); line-height: 1.6; }
-body[data-aqua="arrival"] .aqua-scene img { opacity: .55; }
+body[data-aqua="arrival"] .aqua-scene img,
+body[data-aqua="arrival"] .aqua-caption,
+body[data-aqua="arrival"] .aqua-region { display: none; }
+body[data-aqua="arrival"] .aqua-scene::after { content: ''; position: absolute; inset: 4vh 0 auto; height: 68vh; background: url('week2-bus-window.svg') center / contain no-repeat; }
 body[data-aqua="bridge"] .aqua-scene img { opacity: 1; }
 .aqua-scene img { transition: opacity 1s ease, transform 1s ease; }
 @media(max-width:700px) { .aqua-scene img { width: 100%; max-width: none; left: 0; } .aqua-region { font-size: .66rem; } .aqua-caption { padding-inline: 1rem; box-sizing: border-box; } }
