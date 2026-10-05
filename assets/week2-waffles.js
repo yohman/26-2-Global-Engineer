@@ -58,5 +58,15 @@
     }));
   }
   render();
+  const volumeGrid = document.querySelector('.freeway-volume-grid');
+  if (volumeGrid) {
+    for (let i = 0; i < 100; i++) {
+      const mark = document.createElementNS(ns, 'svg');
+      mark.setAttribute('viewBox', '0 0 20 20');
+      const use = document.createElementNS(ns, 'use');
+      use.setAttribute('href', `#comparison-ink-dot-${i % 3}`);
+      mark.append(use); volumeGrid.append(mark);
+    }
+  }
   addEventListener('course-language-change',render);
 })();
