@@ -118,7 +118,7 @@ body[data-beat="beat-soundtrack"] .car-song { opacity: .7; }
 .beat-card > p:not(.beat-whisper):not(.story-copy):not(.ask-the-room):not(.source-line):not(.volume-note) { max-width: 31rem; margin: 1rem auto 0; color: rgba(239,241,231,.8); font: 400 clamp(1rem, 1.35vw, 1.14rem)/1.65 'Source Serif 4', Georgia, serif; text-wrap: pretty; }
 .volume-note { display: flex; flex-direction: column; gap: .32rem; margin: 1rem auto .6rem; }
 .freeway-volume { max-width: 27rem; margin: 1rem auto; }
-.freeway-volume-grid { display: grid; grid-template-columns: repeat(20, 1fr); gap: 4px; max-width: 22rem; margin: 0 auto .6rem; color: var(--gold); }
+.freeway-volume-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; max-width: 11rem; margin: 0 auto .6rem; color: var(--gold); }
 .freeway-volume-grid svg { width: 100%; height: auto; display: block; }
 .freeway-volume figcaption, .freeway-volume small { display: block; color: rgba(239,241,231,.67); font: 400 .75rem/1.5 'Source Serif 4', Georgia, serif; }
 .freeway-volume p { font: 400 1rem/1.5 'Source Serif 4', Georgia, serif; margin: .65rem 0 .3rem; }
