@@ -4,8 +4,7 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
-    'LOS ANGELES → TOKYO BAY': 'ロサンゼルス → 東京湾',
-    'CHIBA / KISARAZU → KAWASAKI · 1997': '千葉・木更津 → 川崎 · 1997年',
+    'Los Angeles → Tokyo': 'ロサンゼルス → 東京',
     'Bridge → Umihotaru → undersea tunnel · schematic, not to scale': '橋 → 海ほたる → 海底トンネル · 模式図、縮尺は一定ではない',
     'Tokyo Bay · Aqua-Line': '東京湾 · アクアライン',
     'Operating · opened 1997': '運行中 · 1997年開通',
