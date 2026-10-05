@@ -69,6 +69,7 @@
     for (let i = 0; i < 100; i++) {
       const mark = document.createElementNS(ns, 'svg');
       mark.setAttribute('viewBox', '0 0 20 20');
+      mark.style.color = i < 15 ? '#e8c36d' : '#80b7b1';
       const use = document.createElementNS(ns, 'use');
       use.setAttribute('href', `#comparison-ink-dot-${i % 3}`);
       mark.append(use); volumeGrid.append(mark);

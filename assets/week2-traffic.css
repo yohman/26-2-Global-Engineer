@@ -122,6 +122,10 @@ body[data-beat="beat-soundtrack"] .car-song { opacity: .7; }
 .freeway-volume-grid svg { width: 100%; height: auto; display: block; }
 .freeway-volume figcaption, .freeway-volume small { display: block; color: rgba(239,241,231,.67); font: 400 .75rem/1.5 'Source Serif 4', Georgia, serif; }
 .freeway-volume p { font: 400 1rem/1.5 'Source Serif 4', Georgia, serif; margin: .65rem 0 .3rem; }
+.freeway-volume-legend { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-bottom: .7rem; }
+.freeway-volume-legend p { font-size: .85rem; }
+.volume-shared { color: var(--gold); }
+.volume-other { color: #80b7b1; }
 body.traffic-story #beat-4 .beat-card { position: relative; top: auto; max-height: none; overflow: visible; }
 .volume-note strong { color: var(--gold); font: 500 1rem 'Source Serif 4', Georgia, serif; letter-spacing: .03em; }
 .volume-note span { max-width: 33rem; margin-inline: auto; color: rgba(239,241,231,.67); font: 400 .82rem/1.55 'Source Serif 4', Georgia, serif; }
