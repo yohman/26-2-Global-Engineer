@@ -331,6 +331,10 @@ a { color: inherit; }
 .preview-fallback-open { overflow: hidden; }
 .lecture-preview-hint { color: var(--muted); font: .78rem/1.5 var(--sans); }
 .lecture-preview-error { align-self: center; padding: 2rem; color: var(--white); text-align: center; }
+.agenda-week-jumps { display: grid; grid-template-columns: repeat(14,minmax(0,1fr)); gap: .5rem; margin-block: 0 2rem; }
+.agenda-week-jumps a { display: flex; align-items: center; justify-content: center; min-height: 44px; border: 1px solid currentColor; color: inherit; text-decoration: none; font: 600 .85rem 'Libre Franklin',sans-serif; transition: background .15s,color .15s; }
+.agenda-week-jumps a:hover, .agenda-week-jumps a:focus-visible { background: #183e40; color: #fff; outline: 2px solid #b89a55; outline-offset: 2px; }
+@media(max-width:720px) { .agenda-week-jumps { grid-template-columns: repeat(7,minmax(0,1fr)); gap: .4rem; } }
 @media (max-width: 720px) {
   .lecture-preview-heading { align-items: start; flex-direction: column; }
   .lecture-preview-stage { min-height: 320px; height: 65vh; }
