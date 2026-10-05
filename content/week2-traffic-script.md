@@ -12,16 +12,6 @@ In 2017, during my years at UCLA, my mornings began with a drive north to Westwo
 
 2017年、UCLAで働いていたころ、僕の朝はウェストウッドへ北上するドライブから始まった。晴れたロサンゼルスの朝。目の前で合流ランプが曲がっている。僕は列に入り、仕事へ向かうみんなと合流した。
 
-## beat-soundtrack
-
-### en
-
-Outside, engines and impatience. Inside, my own little world. My music, my volume. Before the day began, this time alone was mine.
-
-### ja
-
-外はエンジンの音と、いらだち。車内は僕だけの小さな世界。好きな音楽、好きな音量。一日が始まる前の、この一人の時間は僕のものだった。
-
 ## beat-2
 
 ### en
@@ -32,6 +22,17 @@ When we stopped, I had time to look around. An expensive car beside an old one. 
 
 止まっていると、周りを見る時間があった。高級車の隣に年季の入った車。まったく違う暮らしをする人たちが、同じ数メートルのアスファルトを共有している。ときには、車内を一人のカラオケルームにして、思いきり歌っている人もいた。
 
+## compare-diversity
+
+### en
+
+But my windscreen did not show the whole city. Years later, a Metro survey showed a different mix of people on buses and trains. Whose journey was missing from my view?
+
+### ja
+
+でも、窓の向こうに見えたのは街のすべてではない。後年のMetroの調査では、バスや電車には違う顔ぶれが乗っていた。僕の視界から抜け落ちていたのは、誰の移動だったのだろう。
+
+
 ## beat-road-rage
 
 ### en
@@ -41,6 +42,16 @@ I kept an eye on the impatient drivers, too. A sudden move, an angry gesture. Th
 ### ja
 
 せっかちなドライバーにも気をつけた。急な動き、怒った身振り。少しでも先へ行こうとする人がいつもいた。僕は少し距離を置き、自分の車線にとどまった。
+
+## beat-soundtrack
+
+### en
+
+Outside, engines and impatience. Inside, my own little world. My music, my volume. Before the day began, this time alone was mine.
+
+### ja
+
+外はエンジンの音と、いらだち。車内は僕だけの小さな世界。好きな音楽、好きな音量。一日が始まる前の、この一人の時間は僕のものだった。
 
 ## beat-3
 
@@ -292,16 +303,6 @@ Not everyone’s morning looked like mine. Some had children to care for. Some n
 ### ja
 
 みんなの朝が僕と同じわけではない。子どもの世話をする人。座席が必要な人。街は、その人たちの朝も運ばなくてはならない。
-
-## compare-diversity
-
-### en
-
-On the 405, so many different lives sat side by side. These numbers show only part of that picture. The two cities do not even count our differences the same way.
-
-### ja
-
-405号線では、違う暮らしが隣り合っていた。数字に見えるのは、その一部だけ。二つの街では、人々の違いの数え方さえ同じではない。
 
 ## compare-education
 
