@@ -993,7 +993,7 @@ window.COURSE_TRANSLATIONS = {
     "Latest available estimates, with different reference dates. County / metropolis—not the wider metro regions. One circle ≈333,333 residents.": "最新の公表推計。基準日は異なります。郡・都の人口であり、広域都市圏ではありません。丸1つ≈333,333人。",
     "residents / km² · July 2025 estimate": "人/km² · 2025年7月人口推計",
     "residents / km² · Sept. 2026 estimate": "人/km² · 2026年9月人口推計",
-    "One dot ≈100 residents/km². Calculated from the updated populations / displayed rounded areas (10,513 and 2,194 km²). Regional averages, not neighbourhood density.": "1点≈100人/km²。更新した人口÷表示の概数面積（10,513・2,194km²）で計算。地域平均であり、街区の密度ではありません。",
+    "One dot ≈100 residents/km². Calculated from the updated populations / displayed areas (LA: rounded 10,513 km²; Tokyo: GSI July 2024, 2,199.94 km²). Regional averages, not neighbourhood density.": "1点≈100人/km²。更新した人口÷表示の面積（LA：概数10,513km²、東京：国土地理院2024年7月、2,199.94km²）で計算。地域平均であり、街区の密度ではありません。",
     "≈1.03M": "約103万回",
     "7.56M": "756万回",
     "LOS ANGELES": "ロサンゼルス",
