@@ -186,41 +186,41 @@ We wanted something better. But where would another lane go? We loved our cars, 
 
 ### en
 
-Then, in 2017, a billionaire announced a way out. Elon Musk would dig beneath Los Angeles: a network of tunnels carrying cars at 200 kilometres an hour. The ambition was audacious. To my ears, the confidence sounded pompous, too—as if one rich man could rescue us all from the morning line.
+Then, in 2017, Elon Musk promised a way out. Tunnels under LA. Cars at 200 kilometres an hour. One rich man, promising to save our mornings.
 
 ### ja
 
-そんな2017年、ある億万長者が抜け道を発表した。イーロン・マスク。ロサンゼルスの地下を掘り、時速200キロで車を運ぶトンネル網をつくるという。大胆な構想だった。僕には、その自信が尊大にも聞こえた。一人の大金持ちが、朝の渋滞から僕たち全員を救えるかのように。
+そんな2017年、イーロン・マスクが抜け道を約束した。LAの地下にトンネル。車は時速200キロ。一人の大金持ちが、僕たちの朝を救うという。
 
 ## beat-five-minutes
 
 ### en
 
-He pictured Westwood to LAX in five or six minutes. I thought about my own hour behind the wheel. What would it feel like to get that time back? An hour becoming five minutes. It sounded almost like a magic trick. I kept coming back to the same question: how?
+Westwood to LAX in five or six minutes, he said. I thought of my hour in traffic. It sounded like magic. But how?
 
 ### ja
 
-彼は、ウェストウッドからロサンゼルス国際空港まで5〜6分で行けると語った。僕は、毎朝ハンドルを握る一時間を思った。その時間が戻ってきたら、どんな気持ちだろう。一時間が、五分になる。まるで手品のようだった。でも、同じ疑問に戻ってしまう。どうやって？
+ウェストウッドから空港まで5〜6分、と彼は言った。僕は渋滞の一時間を思った。まるで魔法だ。でも、どうやって？
 
 ## beat-6
 
 ### en
 
-I imagine a patch of asphalt opening beside me. An elevator appears, takes a car from the surface, and lowers it into another Los Angeles. Down there, electric skates carry cars through the tunnels, flashing past at the promised speed. A private escape to somewhere else. The pavement closes. Up here, my hands are still on the wheel. The car taken underground wasn’t mine.
+I imagined the road opening. An elevator lowered a car onto an electric skate. It sped away underground. I stayed where I was. It wasn’t my car.
 
 ### ja
 
-僕の横で、アスファルトが開く光景を想像する。エレベーターが現れ、地上の車を一台、もう一つのロサンゼルスへ下ろしていく。地下では、電動スケートが車を運び、約束された速さでトンネルを駆け抜ける。どこかへ抜け出す、誰かだけの道。路面が閉じる。地上では、僕はまだハンドルを握っている。地下へ運ばれたのは、僕の車ではなかった。
+道路が開く光景を想像した。エレベーターが一台の車を電動スケートへ下ろす。車は地下を走り去る。僕は、動かない。僕の車ではなかった。
 
 ## beat-7
 
 ### en
 
-Another car disappears. Then another. The queue around me looks the same. I think of a packed commuter train in Japan: take a handful of people out and give them their own fast ride. What changes for everyone left inside? Beneath us, speed. Up here, the same morning.
+Another car disappeared. My queue stayed the same. Like taking a few people out of a packed train. What changed for everyone left behind?
 
 ### ja
 
-また一台、車が消える。そして、もう一台。僕のまわりの列は変わらない。日本の満員電車を思い浮かべる。そこから数人だけを取り出して、速い乗り物に乗せたら。車内に残ったみんなには、何が変わるのだろう。地下では、速さ。地上では、いつもの朝。
+また一台、車が消える。僕の列は変わらない。満員電車から、数人だけを取り出すように。残されたみんなには、何が変わる？
 
 ## beat-8
 
@@ -236,11 +236,11 @@ Who was this for? How many of us could use it? Who would pay? I was not the only
 
 ### en
 
-The Westside plan moved into the city approval process, then neighborhood groups sued over its environmental review. In November 2018, the Boring Company abandoned the proposal. It never became my way out of the morning line.
+After a legal challenge, the Westside plan was dropped in November 2018. My morning stayed the same.
 
 ### ja
 
-ウェストサイド計画は市の承認手続きに進んだが、環境審査をめぐり地域団体が訴訟を起こした。2018年11月、ボーリング・カンパニーは計画を断念した。それは、僕を朝の渋滞から救い出す道にはならなかった。
+訴訟を経て、2018年11月、ウェストサイド計画は断念された。僕の朝は、変わらなかった。
 
 ## beat-question-1
 
