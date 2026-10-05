@@ -2,39 +2,33 @@
 week: 2
 date: 2026-10-06
 publish_at: 2026-10-04T00:00:00+09:00
-title: Global Engineering Atlas
-subtitle: Map systems across time and place
-kind: Participatory studio
+title: My 405 commute
+subtitle: Los Angeles ↔ Tokyo Bay · Two journeys, two futures
+kind: Stories and dialogue
 lead: Everyone
-make_id: make02
+lecture_preview: week2-traffic.html
+slide_image: lectures/assets/week2-traffic-thumbnail.svg
 ---
 
 ## Overview / Big Question
 
-Infrastructure is a network, not a list of inventions. What becomes visible when we map it across place and time?
+What turns an extraordinary engineering idea into an ordinary part of someone’s day—and whose day gets better?
 
 ## Lecture
 
-Yoh’s morning commute on the 405 opens a comparison of LA and Tokyo: people, places, commuting choices, and transport capacity. Who benefits when a few cars can move faster while everyone else waits?
+**My 405 commute.** Yoh’s visual story moves from a morning stuck in Los Angeles traffic to an airport bus disappearing beneath Tokyo Bay. One future was being debated; another was already carrying passengers. Follow the story, then talk about what connects these experiences.
 
 ## In Class
 
-- MAP: 1950 → 1973 → 2026 — redraw a world system as constraints change.
-- MAKE: build a physical/global map with routes, dependencies, and missing voices.
+- Share your global vision through your Atlas journey: what interests you, and what would you like to investigate?
+- Experience Yoh’s transportation story together.
+- Discuss: what does this story reveal about engineering, possibility, and who benefits?
 
-## Scenario / Activity
+## Homework
 
-Use Google Earth to trace one material, person, signal, or route. What crosses borders? What gets left behind?
-
-## MAKE
-
-**Local Spatial Problem.** Map or sketch one nearby issue that becomes clearer spatially: data idea + stakeholder + question.
-
-## Atlas
-
-Choose one slide from your story to deepen. Follow a connection, branch in another direction, and ask what evidence could change your first impression.
+- **Prepare for Yoko Myers (October 13).** Read her guest profile and study her role leading the County of Santa Clara GIS team. Bring interview questions about her work, public service, and how technology serves communities.
+- **Create your own visual narrative.** Like Yoh’s story, lead us through something that interests you and leave us with a question or inquiry. Use a tool of your choice: slides, an illustrated sequence, a video, a map, or an interactive story. Bring it to share next week.
 
 ## Resources
 
-- [Google Earth](https://earth.google.com/web/) — Google | Explore places, layers, and stories {TOOLS}
-- [KML Reference](https://developers.google.com/kml/documentation/kmlreference) — Google Developers | A compact guide for KML/KMZ work {REFERENCE}
+- [County of Santa Clara GIS](https://gis.santaclaracounty.gov/) — County of Santa Clara | Explore GIS in public service before Yoko’s visit {EXPLORE}

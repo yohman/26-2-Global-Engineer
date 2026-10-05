@@ -28,7 +28,7 @@
     (() => {
       const params = new URLSearchParams(location.search);
       const requestedFile = params.get('file') || '';
-      const file = /^lectures\/[A-Za-z0-9_-]+\.html$/.test(requestedFile) ? requestedFile : '';
+      const file = requestedFile === 'week2-traffic.html' || /^lectures\/[A-Za-z0-9_-]+\.html$/.test(requestedFile) ? requestedFile : '';
       const week = Number(params.get('week'));
       const safeWeek = Number.isInteger(week) && week >= 1 && week <= 14 ? week : null;
       const label = safeWeek ? `Week ${safeWeek} · lecture slides` : 'Lecture slides';
