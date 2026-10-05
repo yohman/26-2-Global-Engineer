@@ -1,9 +1,15 @@
 (() => {
   const ns = 'http://www.w3.org/2000/svg';
-  const palette = ['#e8c36d', '#80b7b1', '#e59c7a', '#a99bd3', '#b8c5d2'];
+  const palette = ['#e8c36d', '#80b7b1', '#e59c7a', '#a99bd3', '#b8c5d2', '#c4a878', '#819fcd'];
   const category = (value, en, ja) => ({ value, en, ja });
-  const laTravel = [category(72.3,'Drove alone','一人で車'), category(10.5,'Carpool','相乗り'), category(7.3,'Public transit','公共交通'), category(.8,'Bicycle','自転車'), category(9.1,'Other / worked at home','その他・在宅勤務')];
-  const tokyoTravel = [category(9.4,'Car only','車のみ'), category(44.5,'Rail only','鉄道のみ'), category(7.3,'Rail + bus','鉄道＋バス'), category(2.5,'Bus only','バスのみ'), category(36.3,'Other modes / combinations / unknown','その他の手段・組合せ・不詳')];
+  // ACS 2024 1-year B08301; denominator 4,834,507 workers 16+. Shares rounded to 0.1%.
+  // Counts: solo 3,212,482; carpool 477,000; transit 199,487; home 697,352;
+  // walk 122,507; bicycle 25,059; other 100,620. Retrieved via Census Reporter mirror;
+  // primary table: https://data.census.gov/table/ACSDT1Y2024.B08301?g=050XX00US06037
+  const laTravel = [category(66.4,'Drove alone','一人で車'), category(9.9,'Carpool','相乗り'), category(4.1,'Public transit','公共交通'), category(14.4,'Worked from home','在宅勤務'), category(2.5,'Walked','徒歩'), category(.5,'Bicycle','自転車'), category(2.2,'Other travel modes','その他の交通手段')];
+  // Tokyo 2020 Census Table 29; published shares exclude unknown modes.
+  // https://www.toukei.metro.tokyo.lg.jp/tyukanj/2020/tj20gaiyou.pdf (printed p.23).
+  const tokyoTravel = [category(8.8,'Car only','車のみ'), category(48,'Rail only','鉄道のみ'), category(6.6,'Rail + bus','鉄道＋バス'), category(2.5,'Bus only','バスのみ'), category(14.9,'Motorcycle / bicycle only','オートバイ・自転車のみ'), category(8.8,'Walk only','徒歩のみ'), category(10.4,'Other modes / combinations','その他の手段・組合せ')];
   // Preserve each panel's original year and denominator; do not equate LA workers with Tokyo work/school travellers.
   const charts = {
     age: {
