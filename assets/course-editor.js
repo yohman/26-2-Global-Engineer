@@ -17,7 +17,7 @@
   dialog.querySelectorAll('[data-close]').forEach(button => button.onclick = () => dialog.close());
   const toggle = document.createElement('button'); toggle.type = 'button'; toggle.className = 'course-admin-toggle';
   const update = () => { document.body.classList.toggle('course-editing', Boolean(session)); toggle.textContent = session ? label('Finish editing', '編集を終了') : label('Instructor edit', '教員用編集'); };
-  document.querySelector('#main').prepend(toggle); update();
+  (document.querySelector('#main') || document.querySelector('#story') || document.body).prepend(toggle); update();
   toggle.onclick = () => {
     if (session) { request('/session', { method: 'DELETE' }).catch(() => {}); session = null; update(); return; }
     current = null; status.textContent = ''; dialog.querySelector('h2').textContent = label('Instructor sign in', '教員ログイン');
@@ -54,7 +54,7 @@
       const stored = content[section.editId]; original = stored?.en || section.originalContent; translated = original;
       form.elements.en.value = original;
       form.elements.automatic.checked = true;
-      form.elements.ja.value = stored?.ja || original.split('\n').map(line => { const bullet = line.startsWith('- ') ? '- ' : ''; return bullet + (window.COURSE_TRANSLATIONS?.ja?.[line.slice(bullet.length)] || line.slice(bullet.length)); }).join('\n');
+      form.elements.ja.value = stored?.ja || section.originalJa || original.split('\n').map(line => { const bullet = line.startsWith('- ') ? '- ' : ''; return bullet + (window.COURSE_TRANSLATIONS?.ja?.[line.slice(bullet.length)] || line.slice(bullet.length)); }).join('\n');
       status.textContent = ''; dialog.querySelector('h2').textContent = label('Edit: ', '編集：') + section.title;
       dialog.querySelector('[data-login]').hidden = true; dialog.querySelector('[data-edit]').hidden = false;
       dialog.querySelector('[data-save]').textContent = label('Save & publish', '保存して公開'); dialog.showModal();

@@ -27,7 +27,8 @@
     if (!scenes) return;
     const language = document.documentElement.lang === 'ja' ? 'ja' : 'en';
     for (const target of targets) {
-      const paragraphs = scenes.get(target.dataset.storyScene)[language].join('\n').trim().split(/\n\s*\n/);
+      const saved = window.COURSE_EDITOR?.get(`week-2:story/${target.dataset.storyScene}`);
+      const paragraphs = (saved?.[language] || scenes.get(target.dataset.storyScene)[language].join('\n')).trim().split(/\n\s*\n/);
       // Text nodes keep authored text safe; blank lines become paragraph breaks.
       target.replaceChildren();
       paragraphs.forEach((text, index) => {
@@ -37,12 +38,19 @@
     }
   }
   addEventListener('course-language-change', render);
-  fetch('content/week2-traffic-script.md', { cache: 'no-cache' })
+  addEventListener('course-content-change', render);
+  Promise.resolve(window.COURSE_EDITOR?.ready).then(() => fetch('content/week2-traffic-script.md', { cache: 'no-cache' }))
     .then(response => {
       if (!response.ok) throw new Error(`Script request failed: ${response.status}`);
       return response.text();
     })
-    .then(markdown => { scenes = parseScript(markdown); render(); })
+    .then(markdown => {
+      scenes = parseScript(markdown); render();
+      targets.forEach(target => {
+        const id = target.dataset.storyScene, source = scenes.get(id);
+        window.COURSE_EDITOR?.attach(target.parentElement, { editId: `week-2:story/${id}`, title: id, originalContent: source.en.join('\n').trim(), originalJa: source.ja.join('\n').trim() });
+      });
+    })
     .catch(error => {
       console.error('Narrative could not load', error);
       for (const target of targets) target.textContent = document.documentElement.lang === 'ja'
