@@ -557,7 +557,7 @@
     }
   });
   addEventListener('keydown', event => {
-    if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.('a,button,input,summary')) return;
+    if (document.querySelector('dialog[open]') || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.('a,button,input,textarea,select,summary,[contenteditable]:not([contenteditable="false"])')) return;
     if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); goBeat(1); }
     if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); goBeat(-1); }
   });

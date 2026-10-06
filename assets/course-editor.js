@@ -10,6 +10,8 @@
   const dialog = document.createElement('dialog'); dialog.className = 'course-editor-dialog';
   dialog.innerHTML = `<form><header><h2></h2><button type="button" data-close aria-label="Close">×</button></header><div data-login><label>Email / メール<input type="email" name="email" value="ykawano@reitaku-u.ac.jp" required autocomplete="username"></label><label>Admin password / 管理者パスワード<input type="password" name="password" autocomplete="current-password"></label></div><div data-edit hidden><p>Markdown: - bullets · **bold** · [link](https://…)</p><label>English<textarea name="en" rows="9" maxlength="12000"></textarea></label><label>日本語<textarea name="ja" rows="9" maxlength="12000"></textarea></label><button type="button" data-translate>English → 日本語</button><p>English changes are translated before saving. Review Japanese before publishing.</p></div><p role="status" aria-live="polite"></p><footer><button type="button" data-close>Cancel / キャンセル</button><button type="submit" data-save>Sign in / ログイン</button></footer></form>`;
   document.body.append(dialog);
+  // Keep typing, selection and Escape local to the modal; don't trigger story shortcuts.
+  ['keydown', 'keyup', 'keypress'].forEach(type => dialog.addEventListener(type, event => event.stopPropagation()));
   const automatic = document.createElement('label'); automatic.innerHTML = '<input type="checkbox" name="automatic" checked> Auto-translate English / 英語を自動翻訳';
   dialog.querySelector('[data-edit]').append(automatic);
   const form = dialog.querySelector('form'), status = dialog.querySelector('[role="status"]');
