@@ -1,5 +1,9 @@
 # Class Atlas service
 
+## Agenda editing
+
+The agenda's **Instructor edit** button uses the existing instructor email and `ADMIN_PASSWORD`. Section edits are bilingual D1 overrides in `course_content`; the repository Markdown remains the fallback. Saves use optimistic revisions to reject stale tabs. They are published directly from D1, not automatically committed to GitHub. English edits call Workers AI through the `AI` binding in `wrangler.jsonc`; review the generated Japanese and save again to publish. If translation is unavailable, Japanese may be entered manually after an explicit translation error, or configure the AI binding and retry. Do not put credentials into site JavaScript.
+
 The course Atlas is hosted on GitHub Pages. Its small story service deploys from this folder to Cloudflare Worker `global-engineer-atlas`, with D1 bound as `DB`. Set `CLASS_PASSWORD` for students and a **different** `ADMIN_PASSWORD` for instructor access in Cloudflare Runtime variables and secrets. Do not put either password in GitHub. Student access keeps working if `ADMIN_PASSWORD` is not set, but instructor sign-in remains unavailable until it is configured.
 
 The landing view is public. `GET /stories` returns the class journeys without author email addresses. `POST /session` accepts an email and the class password, saves the normalized email in the D1 `authors` table, and returns a 12-hour random bearer token. The browser keeps the token in session storage; D1 stores only its SHA-256 hash. `GET /stories` with this token marks only that email's stories as editable. `PUT /stories/:id` and `DELETE /stories/:id` enforce ownership and revision checks. A new browser or an expired session requires signing in again.

@@ -12,7 +12,7 @@
   <section class="wrap agenda-week-list" id="weekly-agenda" aria-live="polite"></section>
 </main>
 <footer class="site-footer"><div class="wrap footer-grid"><p><strong>2026-2 Global Engineer</strong><br>Instructor: Yoh</p><p>Fall 2026 · Tuesdays<br>9/29–1/12</p><p><a href="groups.html">Group sessions</a><br><a href="resources.html">Reading & viewing</a></p></div></footer>
-<script src="assets/make-submissions-config.js?v=story-1"></script><script src="assets/i18n.js?v=homework-design-5"></script><script src="assets/site.js?v=nav-2"></script><script>
+<script src="assets/make-submissions-config.js?v=story-1"></script><script src="assets/i18n.js?v=homework-design-5"></script><script src="assets/site.js?v=nav-2"></script><script src="assets/course-editor.js?v=1"></script><script>
 (() => {
   const weekFiles = [
     '01-global-engineer.md', '02-global-engineering-atlas.md', '03-gis-data-public-service.md', '04-human-centered-ui-ux.md',
@@ -64,8 +64,10 @@
   const publishDate = value => new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' }).format(new Date(value));
   const addSection = (target, section) => {
     const block = document.createElement('section'); block.className = 'agenda-detail-block';
-    const content = section.content.split('\n').map(line => { const bullet = line.startsWith('- ') ? '- ' : ''; return bullet + t(line.slice(bullet.length)); }).join('\n');
+    const saved = window.COURSE_EDITOR?.get(section.editId);
+    const content = saved ? (document.documentElement.lang === 'ja' ? saved.ja : saved.en) : section.content.split('\n').map(line => { const bullet = line.startsWith('- ') ? '- ' : ''; return bullet + t(line.slice(bullet.length)); }).join('\n');
     block.innerHTML = `<h4>${escapeHtml(t(section.title))}</h4>${markdownHtml(content)}`; target.append(block);
+    if (section.editId) window.COURSE_EDITOR?.attach(block, section);
   };
   const addResources = (target, resources, heading = 'Resources') => {
     if (!resources.length) return;
@@ -196,7 +198,9 @@
   const load = async file => {
     const response = await fetch(`content/weeks/${file}`, { cache: 'no-cache' });
     if (!response.ok) throw new Error(`${file} could not be loaded.`);
-    return parseWeek(await response.text());
+    const week = parseWeek(await response.text());
+    week.sections.forEach(section => { section.editId = `week-${week.week}:${section.title}`; section.originalContent = section.content; });
+    return week;
   };
   const loadGuest = async file => {
     const response = await fetch(`content/guests/${file}`, { cache: 'no-cache' });
@@ -205,7 +209,8 @@
   };
   let loadedAgenda = null;
   window.addEventListener('course-language-change', () => { if (loadedAgenda) render(...loadedAgenda); });
-  Promise.all([Promise.all(weekFiles.map(load)), Promise.all(guestFiles.map(loadGuest))])
+  window.addEventListener('course-content-change', () => { if (loadedAgenda) render(...loadedAgenda); });
+  Promise.resolve(window.COURSE_EDITOR?.ready).then(() => Promise.all([Promise.all(weekFiles.map(load)), Promise.all(guestFiles.map(loadGuest))]))
     .then(([weeks, guestList]) => {
       loadedAgenda = [weeks, new Map(guestList.map(guest => [guest.id, guest]))];
       render(...loadedAgenda);

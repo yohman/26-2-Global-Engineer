@@ -3,6 +3,24 @@ import assert from 'node:assert/strict';
 import worker from '../src/worker.js';
 
 const siteOrigin = 'https://yohman.github.io';
+test('course content is admin-only, bilingual, and protected against stale writes', async () => {
+  const db = database(), env = { DB: db, CLASS_PASSWORD: 'class-secret', ADMIN_PASSWORD: 'admin-secret', AI: { run: async () => ({ response: '日本語の授業内容' }) } };
+  const entry = { id: 'week-2:Visual story', en: 'A visual story', ja: '物語', revision: 0 };
+  assert.equal((await worker.fetch(request('/content', 'PUT', entry), env)).status, 403);
+  const student = await login(db);
+  assert.equal((await worker.fetch(request('/content', 'PUT', entry, student.data.token), env)).status, 403);
+  const signed = await worker.fetch(request('/session', 'POST', { email: 'ykawano@reitaku-u.ac.jp', password: 'admin-secret' }), env);
+  const { token } = await signed.json();
+  assert.equal((await worker.fetch(request('/content', 'PUT', entry, token), env)).status, 200);
+  assert.equal((await worker.fetch(request('/content', 'PUT', entry, token), env)).status, 409);
+  assert.equal((await worker.fetch(request('/content', 'PUT', { ...entry, revision: 1 }, token), env)).status, 200);
+  const published = await (await worker.fetch(request('/content'), env)).json();
+  assert.equal(published.content[entry.id].revision, 2);
+  assert.equal(published.content[entry.id].ja, '物語');
+  const translation = await worker.fetch(request('/content/translate', 'POST', { en: 'Course text' }, token), env);
+  assert.equal((await translation.json()).ja, '日本語の授業内容');
+  assert.equal((await worker.fetch(request('/content/translate', 'POST', { en: 'Course text' }, token), { ...env, AI: undefined })).status, 503);
+});
 const story = {
   id: 'journey-test1234', alias: 'Student', marker: { color: '#20567c', symbol: '旅' },
   origin: { country: 'Japan', place: 'Kashiwa', point: [139.9, 35.8] },
@@ -10,7 +28,7 @@ const story = {
 };
 
 function database() {
-  const authors = new Map(), sessions = new Map(), adminSessions = new Map(), stories = new Map(), images = new Map(), hiddenBuiltins = new Map(), builtinOverrides = new Map();
+  const authors = new Map(), sessions = new Map(), adminSessions = new Map(), stories = new Map(), images = new Map(), hiddenBuiltins = new Map(), builtinOverrides = new Map(), courseContent = new Map();
   return {
     authors, stories,
     prepare(query) {
@@ -31,12 +49,22 @@ function database() {
           return null;
         },
         async all() {
+          if (query.includes('FROM course_content')) return { results: [...courseContent.entries()].map(([id, row]) => ({ id, ...row })) };
           if (query.includes('FROM hidden_builtins')) return { results: [...hiddenBuiltins.keys()].map(id => ({ id })) };
           if (query.includes('FROM builtin_overrides')) return { results: [...builtinOverrides.entries()].map(([id, row]) => ({ id, ...row })) };
           return { results: [...stories.values()] };
         },
         async run() {
           if (query.startsWith('CREATE TABLE')) return { meta: { changes: 0 } };
+          if (query.startsWith('INSERT OR IGNORE INTO course_content')) {
+            if (courseContent.has(args[0])) return { meta: { changes: 0 } };
+            courseContent.set(args[0], { record: args[1], revision: 1 }); return { meta: { changes: 1 } };
+          }
+          if (query.startsWith('UPDATE course_content')) {
+            const row = courseContent.get(args[2]);
+            if (!row || row.revision !== args[3]) return { meta: { changes: 0 } };
+            courseContent.set(args[2], { record: args[0], revision: row.revision + 1 }); return { meta: { changes: 1 } };
+          }
           if (query.startsWith('INSERT OR IGNORE INTO authors')) { authors.set(args[0], { email: args[0] }); return { meta: { changes: 1 } }; }
           if (query.startsWith('INSERT INTO sessions')) { sessions.set(args[0], { email: args[1], expires_at: args[2] }); return { meta: { changes: 1 } }; }
           if (query.startsWith('INSERT INTO admin_sessions')) { adminSessions.set(args[0], { email: args[1], expires_at: args[2] }); return { meta: { changes: 1 } }; }
