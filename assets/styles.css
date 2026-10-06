@@ -261,6 +261,7 @@ a { color: inherit; }
 .homework-tabs button[aria-selected="true"] { background: var(--red); color: white; }
 .homework-links { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1rem; }
 .homework-tabs + [role="tabpanel"] h4, [role="tabpanel"] .agenda-detail-block h4 { display: none; }
+[role="tabpanel"] .agenda-detail-block h4.homework-requirements-heading { display: block; margin-top: 1rem; }
 [role="tabpanel"][hidden] { display: none; }
 /* Agenda: lecture across the first row, then studio and homework side by side. */
 .agenda-page .agenda-week-detail { display: block; margin-top: 2rem; }
