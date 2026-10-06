@@ -26,9 +26,13 @@ What turns an extraordinary engineering idea into an ordinary part of someone’
 - **Imagine a solution (10 minutes).** If you could change one thing about that journey, what would it be? What if money or permissions weren’t an obstacle? Enjoy ambitious ideas first; hold off on evaluating one another’s proposals.
 - **Yoh’s LA story and dialogue (25 minutes).** “That desire to escape an annoying commute is something I remember very well from LA in 2017…” Experience the story, then revisit your ideas: who benefits, who is left out, and what would make a solution worthwhile?
 
-## Homework
+## Prepare for Yoko
 
 - **Prepare for Yoko Myers (October 13).** Read her guest profile and study her role leading the County of Santa Clara GIS team. Bring interview questions about her work, public service, and how technology serves communities.
+- **Submit your interview questions.** Send at least two questions before class on October 13. You may add two more. Read your classmates’ questions before the conversation.
+
+## Visual story
+
 - **Visualize a commute.** Tell the story of your journey to campus—or another commute. Show the route, transport, transfers, waiting, and a moment that matters. Use any visual tool: slides, drawings, video, maps, or an interactive story.
 - **Give the story evidence and a global connection.** Add statistics that reveal something about the commute, then compare it with a commute in another country. Cite source webpages and dates; make clear what each number counts. Let the comparison deepen your story, not just decorate it.
 - **Leave us with a question.** What would you change, and who would benefit—or be left out? Bring your visual commute story to share on October 13.

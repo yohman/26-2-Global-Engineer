@@ -1,0 +1,16 @@
+.questions-page { max-width: 850px; padding-top: 3rem; padding-bottom: 5rem; }
+.questions-page h1 { font-size: clamp(2.5rem,7vw,4.5rem); }
+.questions-page section { margin-top: 3rem; scroll-margin-top: 6rem; }
+.questions-page p { line-height: 1.65; }
+.questions-nav { padding-bottom: 1rem; border-bottom: 2px solid var(--red); }
+.question-notice { font-size: .9rem; opacity: .8; }
+#question-form { display: grid; gap: .65rem; }
+#question-form label { font-weight: 600; margin-top: .6rem; }
+#question-form input, #question-form textarea { width: 100%; box-sizing: border-box; border: 1px solid #898377; background: #fffdf7; padding: .8rem; font: inherit; }
+#question-form textarea { resize: vertical; }
+#question-form button { justify-self: start; margin-top: 1rem; }
+.question-list-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.question-submission { border-top: 1px solid #b4ab98; padding: 1rem 0; }
+.question-submission h3 { color: var(--red); margin: .5rem 0; }
+.question-submission li { margin: .8rem 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+button:disabled { opacity: .65; cursor: wait; }
