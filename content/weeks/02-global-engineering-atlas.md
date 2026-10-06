@@ -16,13 +16,15 @@ What turns an extraordinary engineering idea into an ordinary part of someone’
 
 ## Lecture
 
-**My 405 commute.** Yoh’s visual story moves from a morning stuck in Los Angeles traffic to an airport bus disappearing beneath Tokyo Bay. One future was being debated; another was already carrying passengers. Follow the story, then talk about what connects these experiences.
+**My 405 commute.** Begin with your own journey to campus and the change you wish you could make. Then follow Yoh from Los Angeles traffic to a bus disappearing beneath Tokyo Bay. What makes an imagined solution worth building—and for whom?
 
 ## In Class
 
-- Share your global vision through your Atlas journey: what interests you, and what would you like to investigate?
-- Experience Yoh’s transportation story together.
-- Discuss: what does this story reveal about engineering, possibility, and who benefits?
+- **Refine your Atlas story (20 minutes).** Turn country labels and short phrases into specific events, inventions, or engineering stories that interest you. Add a relevant source link and image to each of your at least five stops; explain why you chose it. Credit the image source.
+- **Present and discuss (30 minutes).** Each student has 4 minutes to share their story and 2 minutes for questions and dialogue.
+- **Your journey to campus (10 minutes).** Walk us through transport, transfers, waiting, and walking. Which part frustrates you most? What makes a good day different from a bad one? Elaborate and compare experiences.
+- **Imagine a solution (10 minutes).** If you could change one thing about that journey, what would it be? What if money or permissions weren’t an obstacle? Enjoy ambitious ideas first; hold off on evaluating one another’s proposals.
+- **Yoh’s LA story and dialogue (25 minutes).** “That desire to escape an annoying commute is something I remember very well from LA in 2017…” Experience the story, then revisit your ideas: who benefits, who is left out, and what would make a solution worthwhile?
 
 ## Homework
 
