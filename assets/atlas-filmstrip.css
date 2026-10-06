@@ -60,6 +60,11 @@
 .atlas-marker-author input[type="color"]{height:2.55rem;width:100%;padding:.2rem;background:var(--white);border:1px solid #b9b8b0}
 .atlas-marker-preview{display:grid;place-items:center;width:2.7rem;height:2.7rem;border:2px solid var(--white);border-radius:50%;font:700 1.15rem var(--sans);box-shadow:0 1px 7px #0003}
 .atlas-studio[hidden]{display:none}
+.atlas-studio.is-minimized > :not(.atlas-studio-head){display:none}
+.atlas-studio.is-minimized .atlas-studio-head h2{display:none}
+.atlas-studio.is-minimized{padding:.65rem 1rem;max-height:none}
+.atlas-studio.is-minimized .atlas-studio-head{align-items:center}
+#atlas-studio-collapse{min-width:36px;min-height:36px;font-size:1.1rem}
 .atlas-studio{position:absolute;z-index:7;left:1.5rem;right:1.5rem;bottom:1.35rem;max-height:43vh;overflow:auto;padding:1rem 1.25rem 1.15rem;background:rgba(247,244,237,.97);border-top:3px solid var(--red);box-shadow:0 8px 28px #14232b2b;font-family:var(--sans)}
 .atlas-studio-head{display:flex;justify-content:space-between;align-items:start;gap:1rem}
 .atlas-studio-head h2{font:700 1.15rem var(--serif);margin:.15rem 0 .25rem}

@@ -4,6 +4,9 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Log in to add your journey': 'ログインして旅を追加',
+    'Expand Studio Atlas': 'スタジオ・アトラスを開く',
+    'Minimize Studio Atlas': 'スタジオ・アトラスを最小化',
     'Learn about Yoko’s work at the County of Santa Clara. What would you like to ask her?': 'サンタクララ郡でのYokoさんの仕事を調べよう。どんなことを聞いてみたいですか？',
     'Read her profile and explore the county’s GIS work.': 'ゲスト紹介と郡のGISの仕事を調べる。',
     'Submit two interview questions; two more are optional.': '質問を二つ提出する。さらに二つ追加してもよい。',

@@ -42,8 +42,22 @@
   function readJourney(){try{const v=JSON.parse(localStorage.getItem(storageKey)||'null');return v&&Array.isArray(v.hops)&&v.origin?v:null}catch{return null}}
   function writeJourney(v){try{localStorage.setItem(storageKey,JSON.stringify(v));return true}catch{return false}}
   function readSession(){try{const value=JSON.parse(sessionStorage.getItem(sessionKey)||'null');return value?.token&&Date.parse(value.expiresAt)>Date.now()?value:null}catch{return null}}
-  function storeSession(value){session=value;try{if(value)sessionStorage.setItem(sessionKey,JSON.stringify(value));else sessionStorage.removeItem(sessionKey)}catch{}ui.signOut.hidden=!value;$('atlas-my-journeys-toggle').hidden=!value;const label=t(value?.admin?'All journeys':'My journeys');$('atlas-my-journeys-toggle').textContent=label;$('atlas-my-journeys').setAttribute('aria-label',label);$('atlas-my-journeys-heading').textContent=label;if(!value)$('atlas-my-journeys').hidden=true}
+  function storeSession(value){session=value;try{if(value)sessionStorage.setItem(sessionKey,JSON.stringify(value));else sessionStorage.removeItem(sessionKey)}catch{}ui.signOut.hidden=!value;$('atlas-my-journeys-toggle').hidden=!value;const label=t(value?.admin?'All journeys':'My journeys');$('atlas-my-journeys-toggle').textContent=label;$('atlas-my-journeys').setAttribute('aria-label',label);$('atlas-my-journeys-heading').textContent=label;if(!value)$('atlas-my-journeys').hidden=true;updateStudioControls()}
   function authHeaders(){return session?{Authorization:`Bearer ${session.token}`}:{}}
+  const studioCollapse = document.createElement('button'); studioCollapse.type = 'button'; studioCollapse.id = 'atlas-studio-collapse';
+  studioCollapse.setAttribute('aria-expanded', 'true'); studioCollapse.setAttribute('aria-controls', 'atlas-studio-years atlas-studio-lanes');
+  document.querySelector('.atlas-studio-actions').append(studioCollapse);
+  function updateStudioControls() {
+    ui.addJourney.textContent = t(session ? '+ Add my journey' : 'Log in to add your journey');
+    const collapsed = ui.studio.classList.contains('is-minimized');
+    studioCollapse.textContent = collapsed ? '＋' : '−';
+    studioCollapse.setAttribute('aria-label', t(collapsed ? 'Expand Studio Atlas' : 'Minimize Studio Atlas'));
+    studioCollapse.title = t(collapsed ? 'Expand Studio Atlas' : 'Minimize Studio Atlas');
+    studioCollapse.setAttribute('aria-expanded', String(!collapsed));
+  }
+  studioCollapse.onclick = () => { ui.studio.classList.toggle('is-minimized'); updateStudioControls(); };
+  window.addEventListener('course-language-change', updateStudioControls);
+  updateStudioControls();
   function canEdit(route){return Boolean(session&&(route?.editable||(session.admin&&isBuiltin(route))))}
   function isBuiltin(route){return route?.id==='yoh-draft'||route?.id==='simulated-mina'}
   function canRemove(route){return canEdit(route)||Boolean(session?.admin&&isBuiltin(route))}
