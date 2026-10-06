@@ -8,6 +8,7 @@ window.COURSE_TRANSLATIONS = {
     'Read her profile and explore the county’s GIS work.': 'ゲスト紹介と郡のGISの仕事を調べる。',
     'Submit two interview questions; two more are optional.': '質問を二つ提出する。さらに二つ追加してもよい。',
     'Read your classmates’ questions before class.': '授業前にクラスメイトの質問を読む。',
+    'Be ready to ask Yoko your questions directly during the next class.': '次回の授業で、Yokoさんに直接質問できるよう準備する。',
     'Turn a commute into a visual story. Use your own journey—or someone else’s—to ask what could change and for whom.': '通学・通勤を視覚的な物語にしよう。自分や誰かの道のりから、何を、誰のために変えられるかを問いかけよう。',
     'Show the route and one meaningful moment.': '経路と、印象に残る一場面を示す。',
     'Add relevant statistics, with source links and years.': '関連する統計を加え、出典リンクと年を示す。',

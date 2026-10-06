@@ -32,7 +32,7 @@ Learn about Yoko’s work at the County of Santa Clara. What would you like to a
 
 - Read her profile and explore the county’s GIS work.
 - Submit two interview questions; two more are optional.
-- Read your classmates’ questions before class.
+- Be ready to ask Yoko your questions directly during the next class.
 
 ## Visual story
 
