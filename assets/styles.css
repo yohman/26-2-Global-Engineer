@@ -263,6 +263,18 @@ a { color: inherit; }
 .homework-tabs + [role="tabpanel"] h4, [role="tabpanel"] .agenda-detail-block h4 { display: none; }
 [role="tabpanel"] .agenda-detail-block h4.homework-requirements-heading { display: block; margin-top: 1rem; }
 [role="tabpanel"][hidden] { display: none; }
+.agenda-work-card--homework .homework-deadline { margin: 1.3rem 0 1.1rem; border: 0; border-left: 3px solid var(--red); padding: .6rem .8rem; background: rgba(255,255,255,.45); font: 600 .78rem/1.6 var(--sans); }
+.agenda-work-card--homework .homework-tabs { gap: .3rem; margin: 0 0 1.4rem; padding: .25rem; border: 1px solid rgba(180,50,40,.18); border-radius: .45rem; background: rgba(255,255,255,.3); }
+.agenda-work-card--homework .homework-tabs button { min-height: 44px; padding: .65rem .55rem; border-radius: .3rem; font: 600 .82rem/1.4 var(--sans); }
+.agenda-work-card--homework .homework-tabs button[aria-selected="true"] { background: var(--white); color: var(--red); box-shadow: 0 1px 4px #00000012; }
+.agenda-work-card--homework [role="tabpanel"] .agenda-detail-block { margin-bottom: 0; }
+.agenda-work-card--homework [role="tabpanel"] .agenda-detail-block p { font-size: 1rem; line-height: 1.65; }
+.agenda-work-card--homework [role="tabpanel"] .agenda-detail-block ul { margin: .6rem 0 1.2rem; padding-left: 1.15rem; font: .85rem/1.65 var(--sans); }
+.agenda-work-card--homework [role="tabpanel"] .agenda-detail-block li { padding-left: .15rem; margin-bottom: .45rem; }
+.agenda-work-card--homework [role="tabpanel"] .agenda-detail-block li::marker { color: var(--red); }
+.agenda-work-card--homework .homework-links { gap: .65rem 1rem; padding-top: 1rem; border-top: 1px solid #00000018; font: .76rem/1.5 var(--sans); }
+.agenda-work-card--homework .homework-links .button { order: -1; flex-basis: 100%; width: fit-content; max-width: fit-content; padding: .65rem 1rem; background: var(--red); color: white; border-color: var(--red); }
+.agenda-work-card--homework .homework-links a:not(.button) { text-decoration-color: #00000040; text-underline-offset: .2em; }
 /* Agenda: lecture across the first row, then studio and homework side by side. */
 .agenda-page .agenda-week-detail { display: block; margin-top: 2rem; }
 .agenda-lecture-row { padding: clamp(1.3rem, 2.8vw, 2.25rem); border-left: 5px solid var(--blue); background: #e9eef1; }
