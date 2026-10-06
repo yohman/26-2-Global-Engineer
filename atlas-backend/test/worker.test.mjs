@@ -17,9 +17,6 @@ test('course content is admin-only, bilingual, and protected against stale write
   const published = await (await worker.fetch(request('/content'), env)).json();
   assert.equal(published.content[entry.id].revision, 2);
   assert.equal(published.content[entry.id].ja, '物語');
-  const translation = await worker.fetch(request('/content/translate', 'POST', { en: 'Course text' }, token), env);
-  assert.equal((await translation.json()).ja, '日本語の授業内容');
-  assert.equal((await worker.fetch(request('/content/translate', 'POST', { en: 'Course text' }, token), { ...env, AI: undefined })).status, 503);
 });
 const story = {
   id: 'journey-test1234', alias: 'Student', marker: { color: '#20567c', symbol: '旅' },

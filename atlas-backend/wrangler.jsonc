@@ -2,7 +2,6 @@
   "name": "global-engineer-atlas",
   "main": "src/worker.js",
   "compatibility_date": "2026-09-28",
-  "ai": { "binding": "AI" },
   "d1_databases": [
     {
       "binding": "DB",
