@@ -221,7 +221,8 @@ export default {
       }
       if (path === '/content' && request.method === 'PUT') {
         if (!/^week-(?:[1-9]|1[0-4]):[^\n]{1,100}$/.test(body.id || '') || typeof body.en !== 'string' || typeof body.ja !== 'string' || !body.en.trim() || !body.ja.trim() || body.en.length > 12000 || body.ja.length > 12000 || !Number.isInteger(body.revision) || body.revision < 0) return json({ error: 'Invalid content' }, 400, origin);
-        const record = JSON.stringify({ en: body.en.trim(), ja: body.ja.trim() });
+        if (body.deleted && !/^week-2:story\/[\w-]+$/.test(body.id)) return json({ error: 'Only story panels can be deleted' }, 400, origin);
+        const record = JSON.stringify({ en: body.en.trim(), ja: body.ja.trim(), deleted: body.deleted === true });
         const now = new Date().toISOString();
         const result = body.revision === 0
           ? await env.DB.prepare('INSERT OR IGNORE INTO course_content (id, record, revision, updated_at) VALUES (?, ?, 1, ?)').bind(body.id, record, now).run()

@@ -13,7 +13,11 @@
   let canvasCamera = { scale: 9.2, x: 0, y: 0 };
   let cameraTween = null;
   let resizeTimer = 0;
-  const beats = [...document.querySelectorAll('.story-beat')];
+  let beats = [...document.querySelectorAll('.story-beat')];
+  addEventListener('story-panels-change', () => {
+    beats = [...document.querySelectorAll('.story-beat:not([hidden])')];
+    if (beats.length) onScroll();
+  });
   const progress = document.querySelector('#scroll-progress-fill');
   const language = () => document.documentElement.lang === 'ja' ? 'ja' : 'en';
   // Sixteen lanes span the frame: eight southbound on the left, eight northbound on the right.
@@ -509,9 +513,10 @@
   }
 
   function onScroll() {
-    if (ticking) return;
+    if (ticking || !beats.length) return;
     ticking = true;
     requestAnimationFrame(() => {
+      if (!beats.length) { ticking = false; return; }
       const index = findActiveBeat() - 1;
       setStage(Number(beats[index].dataset.stage), false, index);
       const maxScroll = document.documentElement.scrollHeight - innerHeight;
@@ -528,6 +533,7 @@
   }
 
   function goBeat(offset) {
+    if (!beats.length) return;
     const nextIndex = Math.max(0, Math.min(beats.length - 1, activeBeat + offset));
     beats[nextIndex].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   }
@@ -562,6 +568,7 @@
     if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); goBeat(-1); }
   });
   addEventListener('course-language-change', () => {
+    if (!beats.length) return;
     drawRoad();
     const index = findActiveBeat() - 1;
     setStage(Number(beats[index].dataset.stage), false, index);

@@ -28,6 +28,9 @@
     const language = document.documentElement.lang === 'ja' ? 'ja' : 'en';
     for (const target of targets) {
       const saved = window.COURSE_EDITOR?.get(`week-2:story/${target.dataset.storyScene}`);
+      const beat = target.closest('.story-beat');
+      if (beat) beat.hidden = Boolean(saved?.deleted);
+      if (saved?.deleted) continue;
       const paragraphs = (saved?.[language] || scenes.get(target.dataset.storyScene)[language].join('\n')).trim().split(/\n\s*\n/);
       // Text nodes keep authored text safe; blank lines become paragraph breaks.
       target.replaceChildren();
@@ -36,6 +39,7 @@
         target.append(document.createTextNode(text.replace(/\n/g, ' ')));
       });
     }
+    window.dispatchEvent(new Event('story-panels-change'));
   }
   addEventListener('course-language-change', render);
   addEventListener('course-content-change', render);

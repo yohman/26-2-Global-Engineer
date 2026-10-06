@@ -15,6 +15,18 @@
   const automatic = document.createElement('label'); automatic.innerHTML = '<input type="checkbox" name="automatic" checked> Auto-translate English / 英語を自動翻訳';
   dialog.querySelector('[data-edit]').append(automatic);
   const form = dialog.querySelector('form'), status = dialog.querySelector('[role="status"]');
+  const remove = document.createElement('button'); remove.type = 'button'; remove.hidden = true;
+  remove.textContent = label('Delete narrative', 'この文章を削除'); dialog.querySelector('footer').prepend(remove);
+  remove.onclick = async () => {
+    if (!current || !confirm(label('Delete this entire narrative panel from the public story?', 'この文章パネル全体を公開ストーリーから削除しますか？'))) return;
+    busy(true);
+    try {
+      const record = { id: current.id, revision: current.revision, en: original, ja: form.elements.ja.value || original, deleted: true };
+      const result = await request('/content', { method: 'PUT', body: JSON.stringify(record) });
+      content[current.id] = { ...record, revision: result.revision };
+      dialog.close(); window.dispatchEvent(new Event('course-content-change'));
+    } catch (error) { status.textContent = error.message; } finally { busy(false); }
+  };
   const busy = value => dialog.querySelectorAll('button').forEach(button => button.disabled = value);
   dialog.querySelectorAll('[data-close]').forEach(button => button.onclick = () => dialog.close());
   const toggle = document.createElement('button'); toggle.type = 'button'; toggle.className = 'course-admin-toggle';
@@ -22,7 +34,7 @@
   (document.querySelector('#main') || document.querySelector('#story') || document.body).prepend(toggle); update();
   toggle.onclick = () => {
     if (session) { request('/session', { method: 'DELETE' }).catch(() => {}); session = null; update(); return; }
-    current = null; status.textContent = ''; dialog.querySelector('h2').textContent = label('Instructor sign in', '教員ログイン');
+    current = null; remove.hidden = true; status.textContent = ''; dialog.querySelector('h2').textContent = label('Instructor sign in', '教員ログイン');
     dialog.querySelector('[data-login]').hidden = false; dialog.querySelector('[data-edit]').hidden = true;
     dialog.querySelector('[data-save]').textContent = label('Sign in', 'ログイン'); dialog.showModal();
   };
@@ -53,6 +65,7 @@
     const button = document.createElement('button'); button.type = 'button'; button.className = 'course-section-edit'; button.textContent = label('✎ Edit', '✎ 編集');
     button.onclick = () => {
       if (!session) return; current = { id: section.editId, revision: content[section.editId]?.revision || 0 };
+      remove.hidden = !section.editId.startsWith('week-2:story/');
       const stored = content[section.editId]; original = stored?.en || section.originalContent; translated = original;
       form.elements.en.value = original;
       form.elements.automatic.checked = true;

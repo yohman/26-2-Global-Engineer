@@ -273,6 +273,7 @@ a { color: inherit; }
 .traffic-story .course-section-edit { float: none; margin-bottom: .65rem; background: #10191e; color: #f0eee6; border-color: #ffffff40; pointer-events: auto; }
 .traffic-story .course-editor-dialog { color: #111; background: #f7f5ef; color-scheme: light; z-index: 100; }
 .traffic-story .course-editor-dialog input, .traffic-story .course-editor-dialog textarea { color: #111; }
+.traffic-story .story-beat[hidden] { display: none !important; }
 .homework-deadline { border: 2px solid var(--red); padding: .8rem; color: var(--red); font-weight: 700; line-height: 1.5; }
 .homework-tabs button { flex: 1; padding: .75rem .5rem; border: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
 .homework-tabs button[aria-selected="true"] { background: var(--red); color: white; }
