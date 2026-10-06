@@ -29,7 +29,9 @@ What turns an extraordinary engineering idea into an ordinary part of someone’
 ## Homework
 
 - **Prepare for Yoko Myers (October 13).** Read her guest profile and study her role leading the County of Santa Clara GIS team. Bring interview questions about her work, public service, and how technology serves communities.
-- **Create your own visual narrative.** Like Yoh’s story, lead us through something that interests you and leave us with a question or inquiry. Use a tool of your choice: slides, an illustrated sequence, a video, a map, or an interactive story. Bring it to share next week.
+- **Visualize a commute.** Tell the story of your journey to campus—or another commute. Show the route, transport, transfers, waiting, and a moment that matters. Use any visual tool: slides, drawings, video, maps, or an interactive story.
+- **Give the story evidence and a global connection.** Add statistics that reveal something about the commute, then compare it with a commute in another country. Cite source webpages and dates; make clear what each number counts. Let the comparison deepen your story, not just decorate it.
+- **Leave us with a question.** What would you change, and who would benefit—or be left out? Bring your visual commute story to share on October 13.
 
 ## Resources
 

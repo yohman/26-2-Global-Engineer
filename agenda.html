@@ -12,7 +12,7 @@
   <section class="wrap agenda-week-list" id="weekly-agenda" aria-live="polite"></section>
 </main>
 <footer class="site-footer"><div class="wrap footer-grid"><p><strong>2026-2 Global Engineer</strong><br>Instructor: Yoh</p><p>Fall 2026 · Tuesdays<br>9/29–1/12</p><p><a href="groups.html">Group sessions</a><br><a href="resources.html">Reading & viewing</a></p></div></footer>
-<script src="assets/make-submissions-config.js?v=story-1"></script><script src="assets/i18n.js?v=week2-refine-dialogue"></script><script src="assets/site.js?v=nav-2"></script><script>
+<script src="assets/make-submissions-config.js?v=story-1"></script><script src="assets/i18n.js?v=commute-assignment-1"></script><script src="assets/site.js?v=nav-2"></script><script>
 (() => {
   const weekFiles = [
     '01-global-engineer.md', '02-global-engineering-atlas.md', '03-gis-data-public-service.md', '04-human-centered-ui-ux.md',
@@ -152,15 +152,8 @@
         const activityNames = ['In Class', 'Scenario / Activity', 'Participatory Class Activity', 'Discussion'];
         const homeworkNames = ['MAKE', 'Homework', 'Atlas', 'Read / View'];
         const lecture = document.createElement('section'); lecture.className = 'agenda-lecture-row';
-        lecture.innerHTML = `<header class="agenda-row-heading"><span>01 / LECTURE MATERIALS</span><h3>Question, context, and conversation</h3><p>Proposed 100-minute flow</p></header>${scheduleHtml(week)}<div class="agenda-lecture-grid"><div class="agenda-lecture-copy"></div><aside class="agenda-lecture-aside" aria-label="Lecture slide preview">${slideCardHtml(week)}</aside></div>`;
+        lecture.innerHTML = `<header class="agenda-row-heading"><span>01 / LECTURE MATERIALS</span><h3>Question, context, and conversation</h3>${week.week === 2 ? '' : '<p>Proposed 100-minute flow</p>'}</header>${week.week === 2 ? '' : scheduleHtml(week)}<div class="agenda-lecture-grid"><div class="agenda-lecture-copy"></div><aside class="agenda-lecture-aside" aria-label="Lecture slide preview">${slideCardHtml(week)}</aside></div>`;
         const lectureCopy = lecture.querySelector('.agenda-lecture-copy');
-        if (week.week === 2) {
-          const story = document.createElement('a');
-          story.className = 'button agenda-story-link';
-          story.href = 'week2-traffic.html';
-          story.textContent = t('My 405 commute · LA ↔ Tokyo ↗');
-          lectureCopy.append(story);
-        }
         week.sections.filter(section => sectionMatches(section, lectureNames)).forEach(section => addSection(lectureCopy, section));
         addResources(lectureCopy, week.resources.filter(resource => ['READ', 'VIEW', 'REFERENCE'].includes(resource.category)), 'Read / view');
         detail.append(lecture);
@@ -168,7 +161,6 @@
         const activity = document.createElement('section'); activity.className = 'agenda-work-card agenda-work-card--activity'; activity.innerHTML = '<header><span>02 / IN-CLASS ACTIVITIES</span><h3>Work together</h3></header>';
         week.sections.filter(section => sectionMatches(section, activityNames)).forEach(section => addSection(activity, section));
         if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = 'EXPLORE THE CLASS ATLAS ↗'; activity.append(link); }
-        if (week.week === 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button agenda-story-link'; link.href = 'week2-traffic.html'; link.textContent = 'OPEN THE SCROLL STORY ↗'; activity.append(link); }
         addResources(activity, week.resources.filter(resource => ['EXPLORE', 'TOOLS'].includes(resource.category)), 'Tools / explore');
         work.append(activity);
         const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = '<header><span>03 / HOMEWORK</span><h3>Carry it forward</h3></header>';
