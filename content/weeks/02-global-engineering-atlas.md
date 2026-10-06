@@ -28,16 +28,23 @@ What turns an extraordinary engineering idea into an ordinary part of someone’
 
 ## Prepare for Yoko
 
-- **Prepare for Yoko Myers (October 13).** Read her guest profile and study her role leading the County of Santa Clara GIS team. Bring interview questions about her work, public service, and how technology serves communities.
-- **Submit your interview questions.** Send at least two questions by Monday, October 12, 23:59 JST (midnight before Tuesday’s class). You may add two more. Read your classmates’ questions before the conversation.
+Learn about Yoko’s work at the County of Santa Clara. What would you like to ask her?
+
+- Read her profile and explore the county’s GIS work.
+- Submit two interview questions; two more are optional.
+- Read your classmates’ questions before class.
 
 ## Visual story
 
-- **Tell a visual commute story.** Your journey to campus—or another commute. Show the route, transport, transfers, waiting, and one moment that matters. Use any tool: slides, drawings, video, maps, or an interactive story.
-- **Support it with statistics.** Use relevant data to deepen the story. Cite the source webpage and year; explain what each number counts.
-- **Add a global comparison.** Compare your commute with one in another country. Explain what the comparison reveals.
-- **End with an inquiry.** What would you change? Who would benefit, and who might be left out?
-- **Submit a viewable link.** Share your finished visual story, with viewing permissions enabled. Use the same name when resubmitting; your latest submission counts. Be ready to discuss it on October 13.
+Turn a commute into a visual story. Use your own journey—or someone else’s—to ask what could change and for whom.
+
+- Show the route and one meaningful moment.
+- Add relevant statistics, with source links and years.
+- Compare with a commute in another country.
+- End with a question for class discussion.
+- Use any visual tool; submit a viewable link.
+
+Your latest submission counts. Resubmit using the same name. Be ready to share on October 13.
 
 ## Resources
 

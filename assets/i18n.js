@@ -4,6 +4,17 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Learn about Yoko’s work at the County of Santa Clara. What would you like to ask her?': 'サンタクララ郡でのYokoさんの仕事を調べよう。どんなことを聞いてみたいですか？',
+    'Read her profile and explore the county’s GIS work.': 'ゲスト紹介と郡のGISの仕事を調べる。',
+    'Submit two interview questions; two more are optional.': '質問を二つ提出する。さらに二つ追加してもよい。',
+    'Read your classmates’ questions before class.': '授業前にクラスメイトの質問を読む。',
+    'Turn a commute into a visual story. Use your own journey—or someone else’s—to ask what could change and for whom.': '通学・通勤を視覚的な物語にしよう。自分や誰かの道のりから、何を、誰のために変えられるかを問いかけよう。',
+    'Show the route and one meaningful moment.': '経路と、印象に残る一場面を示す。',
+    'Add relevant statistics, with source links and years.': '関連する統計を加え、出典リンクと年を示す。',
+    'Compare with a commute in another country.': '他の国の通学・通勤と比較する。',
+    'End with a question for class discussion.': 'クラスで話し合う問いで締めくくる。',
+    'Use any visual tool; submit a viewable link.': 'ツールは自由。閲覧できるリンクを提出する。',
+    'Your latest submission counts. Resubmit using the same name. Be ready to share on October 13.': '最新の提出を採用します。再提出は同じ名前で。10月13日に紹介できるよう準備してください。',
     'The class list is not published yet. Submissions are saved in the course response sheet.': 'クラス一覧はまだ公開されていません。提出内容は授業の回答シートに保存されます。',
     'Check the Google receipt below to confirm your submission. Your latest submission counts.': '下のGoogleの確認画面で提出完了を確認してください。最新の提出を採用します。',
     'Visual story submission · Global Engineer': 'ビジュアルストーリーの提出 · グローバル・エンジニア',
