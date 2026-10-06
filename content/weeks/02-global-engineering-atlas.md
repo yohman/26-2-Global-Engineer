@@ -7,7 +7,7 @@ subtitle: Los Angeles ↔ Tokyo Bay · Two journeys, two futures
 kind: Stories and dialogue
 lead: Everyone
 lecture_preview: week2-traffic.html
-slide_image: lectures/assets/week2-traffic-thumbnail.svg
+slide_image: lectures/assets/week2-traffic-pen-car.svg
 ---
 
 ## Overview / Big Question
