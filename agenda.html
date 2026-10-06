@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="The 14-week agenda for 2026-2 Global Engineer."><title>Agenda · 2026-2 Global Engineer</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=yoko-homework-1"></head>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=homework-deadline-2"></head>
 <body class="agenda-page"><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><a class="wordmark" href="index.html"><span>2026-2</span> Global Engineer</a><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" class="site-nav" aria-label="Course navigation"><a href="agenda.html">Agenda</a><a href="groups.html">Groups</a><a href="make.html">MAKE</a><a href="resources.html">Read / View</a><a href="guests.html">Guests</a><a href="exhibition.html">Exhibition</a></nav></header>
 <main id="main">
@@ -12,7 +12,7 @@
   <section class="wrap agenda-week-list" id="weekly-agenda" aria-live="polite"></section>
 </main>
 <footer class="site-footer"><div class="wrap footer-grid"><p><strong>2026-2 Global Engineer</strong><br>Instructor: Yoh</p><p>Fall 2026 · Tuesdays<br>9/29–1/12</p><p><a href="groups.html">Group sessions</a><br><a href="resources.html">Reading & viewing</a></p></div></footer>
-<script src="assets/make-submissions-config.js?v=story-1"></script><script src="assets/i18n.js?v=yoko-homework-1"></script><script src="assets/site.js?v=nav-2"></script><script>
+<script src="assets/make-submissions-config.js?v=story-1"></script><script src="assets/i18n.js?v=homework-deadline-2"></script><script src="assets/site.js?v=nav-2"></script><script>
 (() => {
   const weekFiles = [
     '01-global-engineer.md', '02-global-engineering-atlas.md', '03-gis-data-public-service.md', '04-human-centered-ui-ux.md',
@@ -176,7 +176,10 @@
             button.addEventListener('keydown', event => { if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return; event.preventDefault(); const next = event.key === 'Home' ? 0 : event.key === 'End' ? 1 : 1 - index; tabs.children[next].click(); tabs.children[next].focus(); });
             tabs.append(button); panels.push(panel);
           });
-          homework.append(tabs, ...panels);
+          const deadline = document.createElement('p'); deadline.className = 'homework-deadline'; deadline.textContent = t('BOTH ASSIGNMENTS DUE · Monday, October 12, 23:59 JST · Midnight before Tuesday’s class');
+          const requirements = document.createElement('h4'); requirements.textContent = t('Requirements'); panels[1].prepend(requirements);
+          panels[1].insertAdjacentHTML('beforeend', `<div class="homework-links"><a class="button" href="visual-story-submit.html#submit">${t('Submit visual story ↗')}</a><a href="visual-story-submit.html#stories">${t('View latest stories ↗')}</a></div>`);
+          homework.append(deadline, tabs, ...panels);
         } else week.sections.filter(section => sectionMatches(section, homeworkNames)).forEach(section => addSection(homework, section));
         if (week.week === 1) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = t('ADD YOUR STORY ↗'); homework.append(link); }
         const formUrl = week.make_form_url || assignments[week.make_id]?.formUrl;
