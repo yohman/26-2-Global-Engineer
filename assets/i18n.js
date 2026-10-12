@@ -4,6 +4,8 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Midterms': '中間課題',
+    'Finals': '期末課題',
     'Midterms / Finals': '中間・期末課題',
     'Week 3 · UI/UX': '第3週・UI/UX',
     'DUE · Monday, October 19, 23:59 JST': '締切：10月19日（月）23:59（日本時間）',

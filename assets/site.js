@@ -8,7 +8,14 @@ if (nav) {
   nav.querySelector('a[href="make.html"]')?.remove();
   nav.querySelector('a[href="resources.html"]')?.remove();
   const assessments = nav.querySelector('a[href="projects.html"]');
-  if (assessments) assessments.textContent = 'Midterms / Finals';
+  if (assessments) {
+    assessments.href = 'projects.html#midterm';
+    assessments.textContent = 'Midterms';
+    const finals = document.createElement('a');
+    finals.href = 'projects.html#final';
+    finals.textContent = 'Finals';
+    assessments.after(finals);
+  }
 }
 if (['groups.html', 'exhibition.html'].includes(location.pathname.split('/').pop())) {
   location.replace('projects.html' + (location.pathname.endsWith('groups.html') ? '#midterm' : '#final'));
