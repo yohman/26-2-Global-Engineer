@@ -4,6 +4,13 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Week 3 · October 13': '第3週 · 10月13日',
+    'Maps, people, and public service.': '地図、人々、公共サービス。',
+    'Meet Yoko Myers and explore how GIS and data serve a community. Bring your interview questions and a community problem to map: whose needs are visible, and who is missing?': 'Yoko Myersさんと、GISやデータが地域にどう役立つかを考えます。質問と、地図で考えたい身近な課題を持ち寄ろう。誰のニーズが見え、誰が見落とされているでしょうか？',
+    'Meet Yoko →': 'Yokoさんの紹介 →',
+    'Review class questions →': 'クラスの質問を確認 →',
+    'Explore county open data →': '郡のオープンデータを見る →',
+    'Open Week 3': '第3週を開く',
     'Log in to add your journey': 'ログインして旅を追加',
     'Expand Studio Atlas': 'スタジオ・アトラスを開く',
     'Minimize Studio Atlas': 'スタジオ・アトラスを最小化',
