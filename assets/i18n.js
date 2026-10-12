@@ -4,6 +4,21 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Midterms / Finals': '中間・期末課題',
+    'Week 3 · UI/UX': '第3週・UI/UX',
+    'DUE · Monday, October 19, 23:59 JST': '締切：10月19日（月）23:59（日本時間）',
+    'Submit a website or online presentation—not a PDF or uploaded file. Google Slides or Sheets, PowerPoint Online, Canva, and other browser-viewable tools are welcome.': 'PDFやファイルではなく、ウェブサイトまたはオンライン発表資料を提出します。Googleスライド・スプレッドシート、PowerPoint Online、Canvaなど、ブラウザで閲覧できる形式を使用してください。',
+    'Enable “anyone with the link can view” and test your link in a private browser window. Prepare five slides or equivalent sections and a five-minute presentation for October 20.': '「リンクを知っている全員が閲覧可」に設定し、プライベートウィンドウで確認してください。5枚のスライドまたは相当する構成を準備し、10月20日に5分間で発表します。',
+    'Your name, title, and link are saved in the course Google response sheet. Resubmit with the same name; your latest Week 3 submission counts. No new public listing is enabled.': '名前・タイトル・リンクを授業のGoogle回答シートに保存します。同じ名前で再提出でき、第3週の最新提出を採用します。新たな公開一覧は有効にしていません。',
+    'Submit your work': '課題を提出',
+    'Presentation title': '発表タイトル',
+    'Website or online presentation link': 'ウェブサイト・オンライン発表資料のリンク',
+    'Submit presentation': '発表資料を提出',
+    'Submit presentation →': '発表資料を提出 →',
+    '[Submit your website or online presentation →](ui-ux-submit.html)': '[ウェブサイト・オンライン発表資料を提出 →](ui-ux-submit.html)',
+    'Please submit a website or online presentation, not a downloadable file.': 'ダウンロード用ファイルではなく、ウェブサイトまたはオンライン発表資料を提出してください。',
+    'Create a website or online presentation with five slides or equivalent visual sections; prepare a five-minute presentation for October 20. No file uploads or PDFs.': 'ウェブサイト、または5枚のスライドに相当するオンライン発表資料を作成し、10月20日の5分間の発表を準備します。ファイルのアップロードやPDFは不可です。',
+    'Submit a website or online presentation link by Monday, October 19, 23:59 JST (midnight before class). Google Slides or Sheets, PowerPoint Online, Canva, or another browser-viewable tool is welcome. Enable viewing access and test your link. Resubmit with the same name; your latest Week 3 submission counts. Be ready to present on October 20.': '10月19日（月）23:59（日本時間・授業前日の深夜）までにウェブサイトまたはオンライン発表資料のリンクを提出。Googleスライド・スプレッドシート、PowerPoint Online、Canvaなど、ブラウザで閲覧できる形式を使用します。閲覧権限を設定し、リンクを確認。同じ名前で再提出でき、第3週の最新提出を採用します。10月20日に発表できるよう準備してください。',
     'Small individual artifacts accumulate into a shared Atlas, sharper questions, and individual final installations.': '毎週の小さな個人制作が、共有アトラス、深い問い、個人の期末作品へとつながります。',
     'Mid-term + final': '中間・期末課題',
     'Individual installation': '個人の期末作品',

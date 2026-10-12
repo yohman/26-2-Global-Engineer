@@ -69,7 +69,18 @@
     if (pending) { event.preventDefault(); return; }
     // Native POST into an invisible frame avoids a cross-origin fetch that cannot confirm saving.
     const fields = [...form.querySelectorAll('input,textarea')]; fields.forEach(field => field.value = field.value.trim());
+    const urlField = form.querySelector('input[type="url"]');
+    if (config.onlineOnly && urlField) {
+      let valid = false;
+      try {
+        const url = new URL(urlField.value);
+        valid = ['https:', 'http:'].includes(url.protocol) && !/\.(pdf|pptx?|ppsx?|docx?|xlsx?|zip)(?:\/|$)/i.test(url.pathname) && !/\/file\/d\//.test(url.pathname) && !/\/(?:export|download)(?:\/|$)/i.test(url.pathname) && !url.searchParams.has('export') && url.searchParams.get('download') !== '1';
+      } catch {}
+      urlField.setCustomValidity(valid ? '' : t('Please submit a website or online presentation, not a downloadable file.'));
+    }
     if (!form.reportValidity()) { event.preventDefault(); return; }
+    const titleField = form.querySelector('#story-title');
+    if (config.titlePrefix && titleField && !titleField.value.startsWith(config.titlePrefix)) titleField.value = config.titlePrefix + titleField.value;
     pending = fields.map(field => field.value); pendingCount = allRows.filter(row => matches(row, pending)).length; submit.disabled = true;
     submissionMessage = 'Sending… Your text stays here until saving is confirmed.'; render();
     if (config.publicationPending) {
@@ -96,6 +107,7 @@
     submissionMessage = 'Sent to Google; checking the class page. Published submissions may take a minute to appear.'; render();
   });
   document.querySelector('#refresh-questions').addEventListener('click', load);
+  form.querySelector('input[type="url"]')?.addEventListener('input', event => event.target.setCustomValidity(''));
   window.addEventListener('course-language-change', render);
   load();
 })();

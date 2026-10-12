@@ -32,7 +32,7 @@ Yoko’s visit is confirmed for October 13. Bring your submitted questions and o
 
 **Requirements**
 
-- Create five slides or equivalent visual presentation material; prepare a five-minute presentation for October 20.
+- Create a website or online presentation with five slides or equivalent visual sections; prepare a five-minute presentation for October 20. No file uploads or PDFs.
 - Slide 1: the task, a specific user, and why you chose it. Connect to one insight from Yoko’s visit.
 - Slides 2–3: the Japanese and overseas cases. Include annotated images, source links, and the country for each.
 - Slide 4: compare the experience. Who can use each easily, and who may struggle? Support your observations with evidence; label assumptions.
@@ -40,9 +40,11 @@ Yoko’s visit is confirmed for October 13. Bring your submitted questions and o
 
 ## Homework
 
-Submit a viewable slide/PDF/presentation link by Monday, October 19, 23:59 JST (midnight before class). Enable viewing permissions. Be ready to present it yourself on October 20; any visual tool is welcome. The submission link will be announced in class.
+Submit a website or online presentation link by Monday, October 19, 23:59 JST (midnight before class). Google Slides or Sheets, PowerPoint Online, Canva, or another browser-viewable tool is welcome. Enable viewing access and test your link. Resubmit with the same name; your latest Week 3 submission counts. Be ready to present on October 20.
 
 ## Atlas
+
+[Submit your website or online presentation →](ui-ux-submit.html)
 
 Optional: add the two interface case-study locations to your Atlas journey.
 

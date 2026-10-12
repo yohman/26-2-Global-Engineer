@@ -5,6 +5,10 @@ if (nav) {
   const groups = nav.querySelector('a[href="groups.html"]');
   if (groups) { groups.href = 'projects.html'; groups.textContent = 'Projects'; }
   nav.querySelector('a[href="exhibition.html"]')?.remove();
+  nav.querySelector('a[href="make.html"]')?.remove();
+  nav.querySelector('a[href="resources.html"]')?.remove();
+  const assessments = nav.querySelector('a[href="projects.html"]');
+  if (assessments) assessments.textContent = 'Midterms / Finals';
 }
 if (['groups.html', 'exhibition.html'].includes(location.pathname.split('/').pop())) {
   location.replace('projects.html' + (location.pathname.endsWith('groups.html') ? '#midterm' : '#final'));
