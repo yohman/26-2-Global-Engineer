@@ -20,7 +20,7 @@ What kind of global engineer will you become when your work has to meet a real a
 
 ## MAKE
 
-**Final installation due.** Submit or update the exhibition record using the course MAKE form.
+**Individual final installation due.** Bring your working installation, source list, process record, and reflection. Include a link or documentation of the experience. See [final deliverables](projects.html#final); Yoh will confirm the submission channel in class.
 
 ## Discussion
 

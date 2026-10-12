@@ -2,30 +2,28 @@
 week: 8
 date: 2026-11-17
 publish_at: 2026-11-16T00:00:00+09:00
-title: 国際開発・持続可能性
-subtitle: International Development & Sustainability
-kind: Group 03 · student-led
-lead: Group 3
+title: 学生主導セッション A・B
+subtitle: Mid-term sessions A & B
+kind: Mid-term · student-led
+lead: Students A + B
 make_id: make08
 ---
 
-## Group Theme / Big Question
+## Overview / Big Question
 
-International development and sustainability. When can an appropriate technology outperform an impressive technology?
+Two students lead individual 30-minute inquiries. Topics are chosen with Yoh; each connects engineering across places and invites the class to participate.
 
-## Group Preparation
+## Lecture
 
-- Research: create a real place profile.
-- Position: define “appropriate” from the community’s point of view.
-- Prototype / Installation v0.5: bring a locally maintainable intervention model.
+Presenters A and B: bring visual material, at least three credible sources, and a facilitation plan. Submit these by 23:59 JST on November 16. [Mid-term requirements](projects.html#midterm).
 
 ## Participatory Class Activity
 
-Design under constraints: ¥10M, unreliable power, local maintenance, two years.
+Join both student-led activities. Compare whose needs, constraints, and perspectives each engineering decision includes.
 
 ## MAKE
 
-**Appropriate Intervention.** Name a place, a constraint, and a durable response.
+Use the remaining studio time to develop your individual installation. Presenters reflect on their session within one week.
 
 ## Resources
 

@@ -1,5 +1,14 @@
 const menuButton = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.site-nav');
+// One assessment hub replaces the old group/exhibition navigation.
+if (nav) {
+  const groups = nav.querySelector('a[href="groups.html"]');
+  if (groups) { groups.href = 'projects.html'; groups.textContent = 'Projects'; }
+  nav.querySelector('a[href="exhibition.html"]')?.remove();
+}
+if (['groups.html', 'exhibition.html'].includes(location.pathname.split('/').pop())) {
+  location.replace('projects.html' + (location.pathname.endsWith('groups.html') ? '#midterm' : '#final'));
+}
 
 if (menuButton && nav) {
   menuButton.addEventListener('click', () => {

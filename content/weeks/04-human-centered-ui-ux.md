@@ -4,16 +4,16 @@ date: 2026-10-20
 publish_at: 2026-10-19T00:00:00+09:00
 title: 人間中心の技術・UI/UX
 subtitle: Human-Centered Technology / UI/UX
-kind: Group 01 · student-led
-lead: Group 1
+kind: Workshop
+lead: Everyone
 make_id: make04
 ---
 
-## Group Theme / Big Question
+## Overview / Big Question
 
 Human-centered design and UI/UX. Who is excluded when a public interface is designed for an imaginary “average” user?
 
-## Group Preparation
+## Lecture
 
 Bring your five-slide “Who is this designed for?” inquiry assigned in Week 3. Each student presents for five minutes: a Japanese and overseas interface, the people each serves or excludes, and one proposed improvement. We will use these cases to begin our design dialogue.
 
@@ -27,7 +27,7 @@ Redesign one public interface for five radically different users. Make the trade
 
 ## Homework
 
-Revise from feedback. Your group session is a test—not the final installation deadline.
+Revise from feedback. These short presentations are practice, not the mid-term. Explore the [individual mid-term and final installation brief](projects.html) and bring possible topics to Week 6.
 
 ## Resources
 

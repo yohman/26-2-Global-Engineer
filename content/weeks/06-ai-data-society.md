@@ -4,20 +4,18 @@ date: 2026-11-03
 publish_at: 2026-11-02T00:00:00+09:00
 title: AI・データ・社会
 subtitle: AI, Data & Society
-kind: Group 02 · student-led
-lead: Group 2
+kind: Workshop
+lead: Yoh + everyone
 make_id: make06
 ---
 
-## Group Theme / Big Question
+## Overview / Big Question
 
 AI, data, and society. The question is not only “Can we use AI?” but “Should we—and under whose rules?”
 
-## Group Preparation
+## Lecture
 
-- Research: one societal AI decision, its data, risks, and accountability.
-- Position: write the rule you would defend.
-- Prototype / Installation v0.5: make an audit, ethics decision, or data-visibility artifact.
+Explore one AI decision: its data, risks, and accountability. Then plan your two individual assessments with Yoh.
 
 ## Participatory Class Activity
 
@@ -26,6 +24,10 @@ AI grades 30% of learning: design, audit, appeal, or reject the system.
 ## MAKE
 
 **AI Impact Card.** Make benefit, harm, data, oversight, and red line inspectable.
+
+## Homework
+
+Bring first and second choices of mid-term topic and slot, plus a short final-installation proposal today. Confirm your slot with Yoh in class. See [Projects: choices, requirements, and milestones](projects.html).
 
 ## Resources
 

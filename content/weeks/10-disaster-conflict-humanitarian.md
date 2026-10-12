@@ -2,30 +2,28 @@
 week: 10
 date: 2026-12-01
 publish_at: 2026-11-30T00:00:00+09:00
-title: 災害・紛争・人道支援
-subtitle: Disaster, Conflict & Humanitarian Response
-kind: Group 04 · student-led
-lead: Group 4
+title: 学生主導セッション C・D
+subtitle: Mid-term sessions C & D
+kind: Mid-term · student-led
+lead: Students C + D
 make_id: make10
 ---
 
-## Group Theme / Big Question
+## Overview / Big Question
 
-Disaster, conflict, and humanitarian response. How do we make useful decisions with incomplete information?
+Two more students lead individual 30-minute inquiries. How does engineering change when we listen to people in different places?
 
-## Group Preparation
+## Lecture
 
-- Research: trace the crisis through people, data, logistics, and ethics.
-- Position: state the first priority and why.
-- Prototype / Installation v0.5: bring a response map, system, game, or information tool.
+Presenters C and D: submit visual material, at least three credible sources, and your facilitation plan by 23:59 JST on November 30. [Mid-term requirements](projects.html#midterm).
 
 ## Participatory Class Activity
 
-First 72 Hours: M7.9, 300,000 displaced, 30% network, heavy rain—then an aftershock.
+Participate, question the evidence, and give each presenter useful feedback. Then test one interaction from your installation.
 
 ## MAKE
 
-**First 72 Hours.** Build a response map, system, prototype, or information tool for immediate use.
+Document your installation test and the change it suggests. Presenters reflect on their session within one week.
 
 ## Resources
 

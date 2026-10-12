@@ -2,26 +2,24 @@
 week: 12
 date: 2026-12-15
 publish_at: 2026-12-14T00:00:00+09:00
-title: グローバルビジネス・イノベーション
-subtitle: Global Business & Innovation
-kind: Group 05 · student-led
-lead: Group 5
+title: 学生主導セッション E・制作スタジオ
+subtitle: Mid-term session E + installation studio
+kind: Mid-term + Studio
+lead: Student E + everyone
 make_id: make12
 ---
 
-## Group Theme / Big Question
+## Overview / Big Question
 
-Global business and innovation. How must a product change with its place?
+Our fifth student leads a 30-minute inquiry. Then everyone brings their global engineering position into a testable installation.
 
-## Group Preparation
+## Lecture
 
-- Research: market, language, price, infrastructure, culture, and competitors.
-- Position: choose the adaptation you will defend.
-- Prototype / Installation v0.5: bring an early public-facing product or service form.
+Presenter E: submit visual material, at least three credible sources, and your facilitation plan by 23:59 JST on December 14. Everyone: bring a testable installation prototype. [Project brief](projects.html).
 
 ## Participatory Class Activity
 
-¥50M / three years: adapt one Japanese product for an assigned destination market.
+Join the final mid-term session, then try each other's prototypes. What can a visitor do, understand, or question in three to five minutes?
 
 ## MAKE
 
