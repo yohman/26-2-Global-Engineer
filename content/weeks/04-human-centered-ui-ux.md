@@ -15,9 +15,7 @@ Human-centered design and UI/UX. Who is excluded when a public interface is desi
 
 ## Group Preparation
 
-- Research: compare a Japanese and international interface.
-- Position: name the users left out and what must change.
-- Prototype / Installation v0.5: bring a rough interaction, interface, or physical test.
+Bring your five-slide “Who is this designed for?” inquiry assigned in Week 3. Each student presents for five minutes: a Japanese and overseas interface, the people each serves or excludes, and one proposed improvement. We will use these cases to begin our design dialogue.
 
 ## Participatory Class Activity
 

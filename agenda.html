@@ -12,7 +12,7 @@
   <section class="wrap agenda-week-list" id="weekly-agenda" aria-live="polite"></section>
 </main>
 <footer class="site-footer"><div class="wrap footer-grid"><p><strong>2026-2 Global Engineer</strong><br>Instructor: Yoh</p><p>Fall 2026 · Tuesdays<br>9/29–1/12</p><p><a href="groups.html">Group sessions</a><br><a href="resources.html">Reading & viewing</a></p></div></footer>
-<script src="assets/make-submissions-config.js?v=story-1"></script><script src="assets/i18n.js?v=homework-design-5"></script><script src="assets/site.js?v=nav-2"></script><script src="assets/course-editor.js?v=manual-4"></script><script>
+<script src="assets/make-submissions-config.js?v=yoko-visit-3"></script><script src="assets/i18n.js?v=yoko-visit-3"></script><script src="assets/site.js?v=nav-2"></script><script src="assets/course-editor.js?v=manual-4"></script><script>
 (() => {
   const weekFiles = [
     '01-global-engineer.md', '02-global-engineering-atlas.md', '03-gis-data-public-service.md', '04-human-centered-ui-ux.md',
@@ -92,6 +92,13 @@
       ['50–75', 'Conversation', 'Hear five stories, dreams, and engineering curiosities.'],
       ['75–95', 'Atlas story studio', 'Begin a journey of global engineering inspirations.'],
       ['95–100', 'Share', 'Show one story frame and why it matters.']
+    ];
+    if (week.week === 3) return [
+      ['00–25', 'Meet the students', 'A place, a curiosity, a possibility.'],
+      ['25–55', 'Yoko’s journey + projects', '15 minutes on her path; 15 minutes on meaningful work.'],
+      ['55–80', 'Students interview Yoko', 'One question and a follow-up from each student.'],
+      ['80–90', 'What stays with us?', 'One insight and one open question each.'],
+      ['90–100', 'Next: human-centered design', 'Introduce the global interface comparison assignment.']
     ];
     if (/^Guest/.test(week.kind)) return [
       ['00–10', 'Opening question', week.subtitle],

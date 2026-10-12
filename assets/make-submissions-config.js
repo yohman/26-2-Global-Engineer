@@ -6,7 +6,7 @@ window.MAKE_SUBMISSIONS_CONFIG = {
   assignments: {
     make01: { title: 'My Global Engineering Story', formUrl: '' },
     make02: { title: 'Local Spatial Problem', formUrl: '' },
-    make03: { title: 'Fix My Community', formUrl: '' },
+    make03: { title: 'Who is this designed for?', formUrl: '' },
     make04: { title: 'Redesign It', formUrl: '' },
     make05: { title: 'My Doraemon', formUrl: '' },
     make06: { title: 'AI Impact Card', formUrl: '' },
