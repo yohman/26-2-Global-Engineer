@@ -216,6 +216,19 @@
         article.append(detail);
       }
       list.append(article);
+      const detail = article.querySelector('.agenda-week-detail');
+      if (detail) {
+        const expanded = planning || week.week === Number(location.hash.match(/^#week-(\d+)$/)?.[1] || 3);
+        detail.hidden = !expanded;
+        detail.id = `week-${week.week}-content`;
+        const toggle = document.createElement('button');
+        toggle.type = 'button'; toggle.className = 'button';
+        toggle.setAttribute('aria-controls', detail.id);
+        const setExpanded = value => { detail.hidden = !value; toggle.setAttribute('aria-expanded', String(value)); toggle.textContent = value ? '−' : '+'; toggle.setAttribute('aria-label', `${value ? 'Collapse' : 'Expand'} Week ${week.week}`); };
+        setExpanded(expanded);
+        toggle.addEventListener('click', () => setExpanded(detail.hidden));
+        heading.append(toggle);
+      }
     });
     if (/^#week-(?:[1-9]|1[0-4])$/.test(location.hash)) {
       requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
@@ -234,6 +247,7 @@
     return parseWeek(await response.text());
   };
   let loadedAgenda = null;
+  window.addEventListener('hashchange', () => { if (loadedAgenda) render(...loadedAgenda); });
   window.addEventListener('course-language-change', () => { if (loadedAgenda) render(...loadedAgenda); });
   window.addEventListener('course-content-change', () => { if (loadedAgenda) render(...loadedAgenda); });
   Promise.resolve(window.COURSE_EDITOR?.ready).then(() => Promise.all([Promise.all(weekFiles.map(load)), Promise.all(guestFiles.map(loadGuest))]))
