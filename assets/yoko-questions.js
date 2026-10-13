@@ -133,5 +133,4 @@
   const gallerySubmissionLink = document.querySelector('.live-footer a');
   if (document.querySelector('#assignment-week') && gallerySubmissionLink) gallerySubmissionLink.href = config.titlePrefix ? 'ui-ux-submit.html#submit' : 'visual-story-submit.html#submit';
   load();
-  if (config.autoRefresh) setInterval(() => { if (!document.hidden && !pending) load(); }, 30000);
 })();
