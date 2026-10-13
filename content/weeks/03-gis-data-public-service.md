@@ -20,11 +20,12 @@ Yoko’s visit is confirmed for October 13. Bring your submitted questions and o
 
 ## In Class
 
-- **00–25 · A place, a curiosity, a possibility.** Take two minutes to choose an Atlas image or place. Each student then has about four minutes: introduce yourself, explain what draws you to it, and share something you hope to explore or become. Yoko asks a follow-up; another student names a connection they noticed. No overseas experience needed. Yoh welcomes everyone and goes first with a brief example.
-- **25–55 · Yoko’s journey and meaningful work.** About 15 minutes on her path from Japan to Silicon Valley, followed by 15 minutes on projects that mattered to her: the people, decisions, and lessons behind the technology.
-- **55–80 · Students interview Yoko.** Each student asks one submitted question directly, listens, and asks a follow-up. Allow about five minutes each. Yoh helps quieter voices enter; second questions can follow if time allows.
-- **80–90 · What stays with us?** Each student shares one moment that changed their thinking and one question they are taking away. Yoko offers a closing thought; thank her together.
-- **90–100 · From public service to human-centered design.** What makes a service work for the person using it? Introduce next week’s UI/UX inquiry and the five-slide assignment.
+- **00–10 · Meet the students.** Each student briefly shares their name, a place, and an engineering curiosity. Yoh welcomes Yoko and begins.
+- **10–40 · Yoko’s journey and meaningful work.** Fifteen minutes on her path from Japan to Silicon Valley, then fifteen minutes on meaningful projects and the people behind them.
+- **40–55 · Students interview Yoko.** Each student asks one question directly. Listen and follow up as time allows. [Open the class questions](yoko-live.html).
+- **55–60 · Thank you, Yoko.** Share a closing reflection, hear Yoko’s final thoughts, and thank her together. Total guest time: 60 minutes.
+- **60–95 · Present your visual homework.** Open the [class visual stories](visual-stories.html). Each student has five minutes to present and two minutes for dialogue: what does the commute reveal, and what does the global comparison change?
+- **95–100 · Next week.** Introduce the human-centered UI/UX assignment and confirm the submission deadline. The final 40 minutes are for student stories, dialogue, and the next assignment.
 
 ## MAKE
 

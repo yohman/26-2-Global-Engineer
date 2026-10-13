@@ -12,7 +12,7 @@
   <section class="wrap agenda-week-list" id="weekly-agenda" aria-live="polite"></section>
 </main>
 <footer class="site-footer"><div class="wrap footer-grid"><p><strong>2026-2 Global Engineer</strong><br>Instructor: Yoh</p><p>Fall 2026 · Tuesdays<br>9/29–1/12</p><p><a href="projects.html">Mid-term + final</a><br><a href="resources.html">Reading & viewing</a></p></div></footer>
-<script src="assets/make-submissions-config.js?v=yoko-visit-3"></script><script src="assets/i18n.js?v=yoko-live-1"></script><script src="assets/site.js?v=separate-assessments-1"></script><script src="assets/course-editor.js?v=manual-4"></script><script>
+<script src="assets/make-submissions-config.js?v=yoko-visit-3"></script><script src="assets/i18n.js?v=stories-live-1"></script><script src="assets/site.js?v=separate-assessments-1"></script><script src="assets/course-editor.js?v=manual-4"></script><script>
 (() => {
   const weekFiles = [
     '01-global-engineer.md', '02-global-engineering-atlas.md', '03-gis-data-public-service.md', '04-human-centered-ui-ux.md',
@@ -94,11 +94,12 @@
       ['95–100', 'Share', 'Show one story frame and why it matters.']
     ];
     if (week.week === 3) return [
-      ['00–25', 'Meet the students', 'A place, a curiosity, a possibility.'],
-      ['25–55', 'Yoko’s journey + projects', '15 minutes on her path; 15 minutes on meaningful work.'],
-      ['55–80', 'Students interview Yoko', 'One question and a follow-up from each student.'],
-      ['80–90', 'What stays with us?', 'One insight and one open question each.'],
-      ['90–100', 'Next: human-centered design', 'Introduce the global interface comparison assignment.']
+      ['00–10', 'Meet the students', 'A place, a curiosity, a possibility.'],
+      ['10–40', 'Yoko’s journey + projects', '15 minutes on her path; 15 minutes on meaningful work.'],
+      ['40–55', 'Students interview Yoko', 'One question from each student; follow up as time allows.'],
+      ['55–60', 'Thank you, Yoko', 'A closing reflection and thanks.'],
+      ['60–95', 'Visual story presentations', 'Five students: five minutes to present and two minutes of dialogue each.'],
+      ['95–100', 'Next: human-centered design', 'Introduce the global interface comparison assignment.']
     ];
     if ([8, 10, 12].includes(week.week)) return week.week === 12 ? [
       ['00–10', 'Mid-term sessions', 'Student-led inquiry and installation studio.'],
@@ -203,7 +204,7 @@
           });
           const deadline = document.createElement('p'); deadline.className = 'homework-deadline'; deadline.textContent = t('BOTH ASSIGNMENTS DUE · Monday, October 12, 23:59 JST · Midnight before Tuesday’s class');
           panels.forEach(panel => { const requirements = document.createElement('h4'); requirements.className = 'homework-requirements-heading'; requirements.textContent = t('Requirements'); const requirementList = panel.querySelector('ul'); if (requirementList) requirementList.before(requirements); });
-          panels[1].insertAdjacentHTML('beforeend', `<div class="homework-links"><a class="button" href="visual-story-submit.html#submit">${t('Submit visual story ↗')}</a><a href="visual-story-submit.html#stories">${t('View latest stories ↗')}</a></div>`);
+          panels[1].insertAdjacentHTML('beforeend', `<div class="homework-links"><a class="button" href="visual-story-submit.html#submit">${t('Submit visual story ↗')}</a><a href="visual-stories.html">${t('View latest stories ↗')}</a></div>`);
           homework.append(deadline, tabs, ...panels);
         } else week.sections.filter(section => sectionMatches(section, homeworkNames)).forEach(section => addSection(homework, section));
         if (week.week === 1) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = t('ADD YOUR STORY ↗'); homework.append(link); }

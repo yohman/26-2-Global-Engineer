@@ -4,6 +4,20 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Class visual stories': 'クラスのビジュアルストーリー',
+    'Open a story to present it. Each student’s latest submission is shown.': '作品を開いて発表しましょう。各学生の最新の提出を表示しています。',
+    'Today’s agenda ↗': '今日の授業計画 ↗',
+    'One question from each student; follow up as time allows.': '一人一つ質問し、時間があれば追加の質問をします。',
+    'Thank you, Yoko': 'Yokoさんへのお礼',
+    'A closing reflection and thanks.': '振り返りと感謝を伝えます。',
+    'Visual story presentations': 'ビジュアルストーリーの発表',
+    'Five students: five minutes to present and two minutes of dialogue each.': '5人が各5分で発表し、2分間対話します。',
+    '**00–10 · Meet the students.** Each student briefly shares their name, a place, and an engineering curiosity. Yoh welcomes Yoko and begins.': '**00–10・学生の自己紹介。** 名前、気になる場所、工学への関心を一人ずつ短く共有します。YohがYokoさんを迎えて始めます。',
+    '**10–40 · Yoko’s journey and meaningful work.** Fifteen minutes on her path from Japan to Silicon Valley, then fifteen minutes on meaningful projects and the people behind them.': '**10–40・Yokoさんの歩みと仕事。** 日本からシリコンバレーへの歩みを15分、印象深いプロジェクトと関わる人々について15分お話しいただきます。',
+    '**40–55 · Students interview Yoko.** Each student asks one question directly. Listen and follow up as time allows. [Open the class questions](yoko-live.html).': '**40–55・学生からのインタビュー。** 一人一つ直接質問し、答えを聞いて時間があれば追加の質問をします。[クラスの質問を開く](yoko-live.html)。',
+    '**55–60 · Thank you, Yoko.** Share a closing reflection, hear Yoko’s final thoughts, and thank her together. Total guest time: 60 minutes.': '**55–60・Yokoさんへのお礼。** 振り返りと最後の言葉を共有し、全員で感謝を伝えます。ゲストとの時間は合計60分です。',
+    '**60–95 · Present your visual homework.** Open the [class visual stories](visual-stories.html). Each student has five minutes to present and two minutes for dialogue: what does the commute reveal, and what does the global comparison change?': '**60–95・ビジュアル課題の発表。** [クラスの作品一覧](visual-stories.html)を開きます。一人5分の発表と2分の対話。通学・通勤から何が見え、海外との比較で考えはどう変わるでしょうか。',
+    '**95–100 · Next week.** Introduce the human-centered UI/UX assignment and confirm the submission deadline. The final 40 minutes are for student stories, dialogue, and the next assignment.': '**95–100・次週に向けて。** 人間中心のUI/UX課題と締切を確認します。後半40分は学生の作品発表、対話、次の課題の案内に使います。',
     'October 13 · County of Santa Clara': '10月13日・サンタクララ郡',
     'Ask your question, listen, then follow the conversation.': '自分の質問をし、答えに耳を傾け、対話を深めましょう。',
     'Meet Yoko ↗': 'Yokoさんの紹介 ↗',
