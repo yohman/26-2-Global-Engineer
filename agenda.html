@@ -224,7 +224,7 @@
         const toggle = document.createElement('button');
         toggle.type = 'button'; toggle.className = 'button';
         toggle.setAttribute('aria-controls', detail.id);
-        const setExpanded = value => { detail.hidden = !value; toggle.setAttribute('aria-expanded', String(value)); toggle.textContent = value ? '−' : '+'; toggle.setAttribute('aria-label', `${value ? 'Collapse' : 'Expand'} Week ${week.week}`); };
+        const setExpanded = value => { detail.hidden = !value; detail.style.display = value ? '' : 'none'; toggle.setAttribute('aria-expanded', String(value)); toggle.textContent = value ? '−' : '+'; toggle.setAttribute('aria-label', `${value ? 'Collapse' : 'Expand'} Week ${week.week}`); };
         setExpanded(expanded);
         toggle.addEventListener('click', () => setExpanded(detail.hidden));
         heading.append(toggle);
