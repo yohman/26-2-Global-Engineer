@@ -4,6 +4,13 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    '**Who is this designed for?** Explore how technology feels to the people who use it. Begin with something that interests, frustrates, or surprises you, and look beyond Japan for another perspective. Create something that shares your inquiry and invites a conversation. Yoko’s stories might offer a starting point.': '**これは誰のためのデザイン？** 技術を使う人の体験を探究しましょう。気になること、不便に感じること、驚いたことから始め、日本の外にも目を向けてみてください。自分の問いを伝え、対話を生むものをつくりましょう。Yokoさんの話が出発点になるかもしれません。',
+    '**Your creation**': '**つくるもの**',
+    'Choose your own form and scope. A storytelling website is encouraged; slides, video, sketches, a prototype, or another creative form are welcome. There is no required slide count or fixed presentation length.': '形式も規模も自由です。ストーリーを伝えるウェブサイトをおすすめしますが、スライド、映像、スケッチ、試作品など、自分に合う表現を選んでください。スライド枚数や発表だけの時間は指定しません。',
+    'Share the sources that inform your inquiry, and bring something you want to discuss—not necessarily an answer.': '探究の参考にした資料を示し、話し合いたいことを持ってきてください。答えが出ていなくても構いません。',
+    'On October 20, each student has about 15 minutes in total to share their creation and have a dialogue with the class. Decide how to use that time.': '10月20日は、一人あたり発表とクラスでの対話を合わせて約15分です。その時間の使い方も自分で考えてください。',
+    'Bring your “Who is this designed for?” creation assigned in Week 3. Each student has about 15 minutes in total to share their inquiry and have a dialogue with the class. The form, scope, and balance of presenting and conversation are yours to choose.': '第3週の課題「これは誰のためのデザイン？」でつくったものを持参してください。一人あたり、探究の共有とクラスでの対話を合わせて約15分です。形式、規模、発表と対話の時間配分は自由です。',
+    'Enable viewing access and test your link. On October 20, each student has about 15 minutes in total to share their creation and have a dialogue with the class. Choose your own form and scope; there is no required slide count or fixed presentation length.': '閲覧権限を設定し、リンクを確認してください。10月20日は、一人あたり作品の共有とクラスでの対話を合わせて約15分です。形式も規模も自由で、スライド枚数や発表だけの時間は指定しません。',
     'Student assignments': '学生の課題作品',
     'Assignment': '課題',
     'Week 2 · Your commute story': '第2週・あなたの通学・通勤の物語',

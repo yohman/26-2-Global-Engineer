@@ -15,7 +15,7 @@ Human-centered design and UI/UX. Who is excluded when a public interface is desi
 
 ## Lecture
 
-Bring your five-slide “Who is this designed for?” inquiry assigned in Week 3. Each student presents for five minutes: a Japanese and overseas interface, the people each serves or excludes, and one proposed improvement. We will use these cases to begin our design dialogue.
+Bring your “Who is this designed for?” creation assigned in Week 3. Each student has about 15 minutes in total to share their inquiry and have a dialogue with the class. The form, scope, and balance of presenting and conversation are yours to choose.
 
 ## Participatory Class Activity
 

@@ -29,15 +29,13 @@ Yoko’s visit is confirmed for October 13. Bring your submitted questions and o
 
 ## MAKE
 
-**Who is this designed for?** Choose an everyday interface—such as a ticket machine, campus system, public-service website, or app. Compare a Japanese example with one overseas that serves the same task. Show whose experience could be better.
+**Who is this designed for?** Explore how technology feels to the people who use it. Begin with something that interests, frustrates, or surprises you, and look beyond Japan for another perspective. Create something that shares your inquiry and invites a conversation. Yoko’s stories might offer a starting point.
 
-**Requirements**
+**Your creation**
 
-- A storytelling website, like last week’s, is encouraged. Online slides, video, or another shareable visual format are also welcome. Prepare five slides or equivalent sections and present for five minutes on October 20.
-- Slide 1: the task, a specific user, and why you chose it. Connect to one insight from Yoko’s visit.
-- Slides 2–3: the Japanese and overseas cases. Include annotated images, source links, and the country for each.
-- Slide 4: compare the experience. Who can use each easily, and who may struggle? Support your observations with evidence; label assumptions.
-- Slide 5: sketch one improvement and end with a question for the class.
+- Choose your own form and scope. A storytelling website is encouraged; slides, video, sketches, a prototype, or another creative form are welcome. There is no required slide count or fixed presentation length.
+- Share the sources that inform your inquiry, and bring something you want to discuss—not necessarily an answer.
+- On October 20, each student has about 15 minutes in total to share their creation and have a dialogue with the class. Decide how to use that time.
 
 ## Homework
 
