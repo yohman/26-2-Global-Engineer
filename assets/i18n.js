@@ -4,6 +4,16 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Student assignments': '学生の課題作品',
+    'Assignment': '課題',
+    'Week 2 · Your commute story': '第2週・あなたの通学・通勤の物語',
+    'Week 3 · Who is this designed for?': '第3週・これは誰のためのデザイン？',
+    'Open story ↗': '作品を開く ↗',
+    'View submissions →': '提出作品を見る →',
+    'A storytelling website is encouraged. Online slides, video, or another shareable visual format are also welcome. Submit a viewable link rather than uploading a file.': 'ストーリーを伝えるウェブサイトをおすすめします。オンラインスライド、映像など、共有できる視覚的な形式でも構いません。ファイルではなく閲覧可能なリンクを提出してください。',
+    'Your name, title, and link will appear in the class assignment gallery. Resubmit with the same name; your latest Week 3 submission counts.': '名前・タイトル・リンクはクラスの課題ギャラリーに表示されます。同じ名前で再提出でき、第3週の最新提出を採用します。',
+    'A storytelling website, like last week’s, is encouraged. Online slides, video, or another shareable visual format are also welcome. Prepare five slides or equivalent sections and present for five minutes on October 20.': '先週のようなストーリーを伝えるウェブサイトをおすすめします。オンラインスライド、映像など、共有できる視覚的な形式でも構いません。5枚のスライドまたは相当する構成を準備し、10月20日に5分間で発表します。',
+    'Submit a viewable link by Monday, October 19, 23:59 JST. Enable viewing access and test your link. Your latest submission counts. Everyone presents next week, October 20.': '10月19日（月）23:59（日本時間）までに閲覧可能なリンクを提出。閲覧権限を設定し、リンクを確認してください。最新の提出を採用し、全員が次週10月20日に発表します。',
     '**00–10 · Introductions** — students meet Yoko.': '**00–10・自己紹介** — 学生とYokoさんの顔合わせ。',
     '**10–40 · Yoko’s story** — Japan → Silicon Valley; meaningful projects.': '**10–40・Yokoさんの物語** — 日本からシリコンバレーへ。印象深いプロジェクト。',
     '**40–55 · Student Q&A** — [class questions](yoko-live.html).': '**40–55・学生からの質問** — [クラスの質問](yoko-live.html)。',

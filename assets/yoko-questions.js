@@ -26,7 +26,7 @@
   }
   function render() {
     status.textContent = t(message); if (receipt) receipt.textContent = t(submissionMessage);
-    const signature = JSON.stringify(rows);
+    const signature = JSON.stringify([rows, t('Open story')]);
     if (list.dataset.signature === signature) return;
     list.dataset.signature = signature; list.replaceChildren();
     rows.forEach(row => {
@@ -34,9 +34,18 @@
       const name = document.createElement('h3'); name.textContent = row[1];
       article.append(name);
       if (storyMode) {
-        const link = document.createElement('a'); link.textContent = row[2];
+        const link = document.createElement('a'); link.textContent = config.titlePrefix ? row[2].slice(config.titlePrefix.length) : row[2];
         try { const url = new URL(row[3]); if (!['http:', 'https:'].includes(url.protocol)) throw new Error('Invalid URL'); link.href = url.href; link.target = '_blank'; link.rel = 'noopener'; } catch { link.textContent += ' (' + t('Invalid link') + ')'; }
         const description = document.createElement('p'); description.textContent = row[4] || ''; article.append(link, description);
+        if (config.thumbnails && link.href) {
+          const preview = document.createElement('a'); preview.href = link.href; preview.target = '_blank'; preview.rel = 'noopener'; preview.className = 'story-thumbnail'; preview.setAttribute('aria-label', row[2]);
+          const cover = document.createElement('strong'); cover.textContent = link.textContent; preview.append(cover);
+          const url = new URL(link.href);
+          if (/\.(github\.io|vercel\.app)$/.test(url.hostname)) {
+            const frame = document.createElement('iframe'); frame.src = link.href; frame.title = row[2]; frame.loading = 'lazy'; frame.tabIndex = -1; frame.setAttribute('sandbox', 'allow-scripts'); frame.referrerPolicy = 'no-referrer'; preview.append(frame);
+          }
+          const caption = document.createElement('span'); caption.textContent = url.hostname + ' · ' + t('Open story ↗'); preview.append(caption); article.insertBefore(preview, link);
+        }
       } else {
         const questions = document.createElement('ol'); row.slice(2, 6).filter(value => value.trim()).forEach(value => { const li = document.createElement('li'); li.textContent = value; questions.append(li); }); article.append(questions);
       }
@@ -57,7 +66,7 @@
       if (config.publicFieldsOnly) table = table.map(row => ['', ...row]);
       if (!table[0]?.some(cell => cell.includes(storyMode ? 'Story title' : 'Question 1'))) throw new Error('Unexpected fields');
       const latest = new Map();
-      allRows = table.slice(1).filter(row => row[1]?.trim() && row[2]?.trim() && row[3]?.trim() && (!config.excludeTitlePrefix || !row[2].startsWith(config.excludeTitlePrefix)));
+      allRows = table.slice(1).filter(row => row[1]?.trim() && row[2]?.trim() && row[3]?.trim() && (!config.excludeTitlePrefix || !row[2].startsWith(config.excludeTitlePrefix)) && (!config.titlePrefix || row[2].startsWith(config.titlePrefix)));
       // Google's response sheet appends rows in submission order; later rows replace earlier ones.
       allRows.forEach(row => { const key = nameKey(row); latest.delete(key); latest.set(key, row); });
       rows = [...latest.values()].reverse();
@@ -110,8 +119,19 @@
     submissionMessage = 'Sent to Google; checking the class page. Published submissions may take a minute to appear.'; render();
   });
   document.querySelector('#refresh-questions').addEventListener('click', load);
+  document.querySelector('#assignment-week')?.addEventListener('change', event => {
+    const week = event.target.value;
+    config.titlePrefix = week === '3' ? '[Week 3 UI/UX] ' : '';
+    config.excludeTitlePrefix = week === '2' ? '[Week 3 UI/UX] ' : '';
+    const submissionLink = document.querySelector('.live-footer a');
+    if (submissionLink) submissionLink.href = week === '3' ? 'ui-ux-submit.html#submit' : 'visual-story-submit.html#submit';
+    const url = new URL(location.href); url.searchParams.set('week', week); history.replaceState(null, '', url);
+    rows = []; message = 'Loading submissions…'; render(); load();
+  });
   form?.querySelector('input[type="url"]')?.addEventListener('input', event => event.target.setCustomValidity(''));
   window.addEventListener('course-language-change', render);
+  const gallerySubmissionLink = document.querySelector('.live-footer a');
+  if (document.querySelector('#assignment-week') && gallerySubmissionLink) gallerySubmissionLink.href = config.titlePrefix ? 'ui-ux-submit.html#submit' : 'visual-story-submit.html#submit';
   load();
   if (config.autoRefresh) setInterval(() => { if (!document.hidden && !pending) load(); }, 30000);
 })();
