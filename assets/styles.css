@@ -114,6 +114,10 @@ a { color: inherit; }
 .agenda-week { padding-block: 3rem; box-shadow: inset 0 1px 0 rgba(17,17,17,.18); scroll-margin-top: 90px; }
 .agenda-week:first-child { box-shadow: none; }
 .agenda-week-heading { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 5rem); }
+.agenda-week-heading { position: relative; padding-right: 3.25rem; }
+.agenda-week-toggle { position: absolute; top: 0; right: 0; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 1px solid var(--line, #d2cec4); border-radius: 50%; background: transparent; color: var(--muted); font: 400 1.4rem/1 var(--sans); cursor: pointer; }
+.agenda-week-toggle:hover { color: var(--red); border-color: var(--red); }
+.agenda-week-toggle:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 .agenda-week-title > p { margin: 0 0 .35rem; color: var(--muted); font: 600 .71rem var(--sans); letter-spacing: .06em; text-transform: uppercase; }
 .agenda-week-title h2 { margin: 0; max-width: 900px; font-size: clamp(2rem, 4vw, 3.7rem); line-height: .98; letter-spacing: -.04em; }
 .agenda-title-line { display: flex; align-items: center; gap: 1rem; }
