@@ -20,12 +20,12 @@ Yoko’s visit is confirmed for October 13. Bring your submitted questions and o
 
 ## In Class
 
-- **00–10 · Meet the students.** Each student briefly shares their name, a place, and an engineering curiosity. Yoh welcomes Yoko and begins.
-- **10–40 · Yoko’s journey and meaningful work.** Fifteen minutes on her path from Japan to Silicon Valley, then fifteen minutes on meaningful projects and the people behind them.
-- **40–55 · Students interview Yoko.** Each student asks one question directly. Listen and follow up as time allows. [Open the class questions](yoko-live.html).
-- **55–60 · Thank you, Yoko.** Share a closing reflection, hear Yoko’s final thoughts, and thank her together. Total guest time: 60 minutes.
-- **60–95 · Present your visual homework.** Open the [class visual stories](visual-stories.html). Each student has five minutes to present and two minutes for dialogue: what does the commute reveal, and what does the global comparison change?
-- **95–100 · Next week.** Introduce the human-centered UI/UX assignment and confirm the submission deadline. The final 40 minutes are for student stories, dialogue, and the next assignment.
+- **00–10 · Introductions** — students meet Yoko.
+- **10–40 · Yoko’s story** — Japan → Silicon Valley; meaningful projects.
+- **40–55 · Student Q&A** — [class questions](yoko-live.html).
+- **55–60 · Closing with Yoko** — reflections and thanks.
+- **60–95 · Visual stories + dialogue** — [student work](visual-stories.html); 5-minute presentations + 2-minute discussions.
+- **95–100 · Next week** — human-centered technology / UI/UX.
 
 ## MAKE
 

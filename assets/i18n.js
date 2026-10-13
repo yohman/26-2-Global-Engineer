@@ -4,6 +4,12 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    '**00–10 · Introductions** — students meet Yoko.': '**00–10・自己紹介** — 学生とYokoさんの顔合わせ。',
+    '**10–40 · Yoko’s story** — Japan → Silicon Valley; meaningful projects.': '**10–40・Yokoさんの物語** — 日本からシリコンバレーへ。印象深いプロジェクト。',
+    '**40–55 · Student Q&A** — [class questions](yoko-live.html).': '**40–55・学生からの質問** — [クラスの質問](yoko-live.html)。',
+    '**55–60 · Closing with Yoko** — reflections and thanks.': '**55–60・Yokoさんとのまとめ** — 振り返りと感謝。',
+    '**60–95 · Visual stories + dialogue** — [student work](visual-stories.html); 5-minute presentations + 2-minute discussions.': '**60–95・ビジュアルストーリーと対話** — [学生の作品](visual-stories.html)。一人5分の発表＋2分の対話。',
+    '**95–100 · Next week** — human-centered technology / UI/UX.': '**95–100・次週に向けて** — 人間中心の技術・UI/UX。',
     'Class visual stories': 'クラスのビジュアルストーリー',
     'Open a story to present it. Each student’s latest submission is shown.': '作品を開いて発表しましょう。各学生の最新の提出を表示しています。',
     'Today’s agenda ↗': '今日の授業計画 ↗',
