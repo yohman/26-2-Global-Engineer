@@ -6,7 +6,7 @@
   const list = document.querySelector('#question-list');
   const status = document.querySelector('#questions-status');
   const receipt = document.querySelector('#submission-status');
-  const submit = form.querySelector('button');
+  const submit = form?.querySelector('button');
   const t = value => document.documentElement.lang === 'ja' ? window.COURSE_TRANSLATIONS?.ja?.[value] || value : value;
   let pending = null, pendingCount = 0, timer = null, rows = [], allRows = [], message = storyMode ? 'Loading submissions…' : 'Loading questions…', submissionMessage = '';
   const matches = (row, values) => values.every((value, index) => (row[index + 1] || '') === value);
@@ -25,7 +25,10 @@
     return result;
   }
   function render() {
-    status.textContent = t(message); receipt.textContent = t(submissionMessage); list.replaceChildren();
+    status.textContent = t(message); if (receipt) receipt.textContent = t(submissionMessage);
+    const signature = JSON.stringify(rows);
+    if (list.dataset.signature === signature) return;
+    list.dataset.signature = signature; list.replaceChildren();
     rows.forEach(row => {
       const article = document.createElement('article'); article.className = 'question-submission';
       const name = document.createElement('h3'); name.textContent = row[1];
@@ -54,7 +57,7 @@
       if (config.publicFieldsOnly) table = table.map(row => ['', ...row]);
       if (!table[0]?.some(cell => cell.includes(storyMode ? 'Story title' : 'Question 1'))) throw new Error('Unexpected fields');
       const latest = new Map();
-      allRows = table.slice(1).filter(row => row[1]?.trim() && row[2]?.trim() && row[3]?.trim());
+      allRows = table.slice(1).filter(row => row[1]?.trim() && row[2]?.trim() && row[3]?.trim() && (!config.excludeTitlePrefix || !row[2].startsWith(config.excludeTitlePrefix)));
       // Google's response sheet appends rows in submission order; later rows replace earlier ones.
       allRows.forEach(row => { const key = nameKey(row); latest.delete(key); latest.set(key, row); });
       rows = [...latest.values()].reverse();
@@ -65,7 +68,7 @@
     } catch { message = storyMode ? 'Submissions could not be loaded. Please try Refresh.' : 'Questions could not be loaded. Please try Refresh.'; }
     render();
   }
-  form.addEventListener('submit', event => {
+  form?.addEventListener('submit', event => {
     if (pending) { event.preventDefault(); return; }
     // Native POST into an invisible frame avoids a cross-origin fetch that cannot confirm saving.
     const fields = [...form.querySelectorAll('input,textarea')]; fields.forEach(field => field.value = field.value.trim());
@@ -97,7 +100,7 @@
     };
     timer = setTimeout(check, 3000);
   });
-  document.querySelector('#question-receipt').addEventListener('load', () => {
+  document.querySelector('#question-receipt')?.addEventListener('load', () => {
     if (!pending) return;
     if (config.publicationPending) {
       pending = null; submit.disabled = false;
@@ -107,7 +110,8 @@
     submissionMessage = 'Sent to Google; checking the class page. Published submissions may take a minute to appear.'; render();
   });
   document.querySelector('#refresh-questions').addEventListener('click', load);
-  form.querySelector('input[type="url"]')?.addEventListener('input', event => event.target.setCustomValidity(''));
+  form?.querySelector('input[type="url"]')?.addEventListener('input', event => event.target.setCustomValidity(''));
   window.addEventListener('course-language-change', render);
   load();
+  if (config.autoRefresh) setInterval(() => { if (!document.hidden && !pending) load(); }, 30000);
 })();

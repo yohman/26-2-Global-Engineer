@@ -12,7 +12,7 @@
   <section class="wrap agenda-week-list" id="weekly-agenda" aria-live="polite"></section>
 </main>
 <footer class="site-footer"><div class="wrap footer-grid"><p><strong>2026-2 Global Engineer</strong><br>Instructor: Yoh</p><p>Fall 2026 · Tuesdays<br>9/29–1/12</p><p><a href="projects.html">Mid-term + final</a><br><a href="resources.html">Reading & viewing</a></p></div></footer>
-<script src="assets/make-submissions-config.js?v=yoko-visit-3"></script><script src="assets/i18n.js?v=separate-assessments-1"></script><script src="assets/site.js?v=separate-assessments-1"></script><script src="assets/course-editor.js?v=manual-4"></script><script>
+<script src="assets/make-submissions-config.js?v=yoko-visit-3"></script><script src="assets/i18n.js?v=yoko-live-1"></script><script src="assets/site.js?v=separate-assessments-1"></script><script src="assets/course-editor.js?v=manual-4"></script><script>
 (() => {
   const weekFiles = [
     '01-global-engineer.md', '02-global-engineering-atlas.md', '03-gis-data-public-service.md', '04-human-centered-ui-ux.md',
@@ -196,7 +196,7 @@
             const button = document.createElement('button'); button.type = 'button'; button.id = `homework-tab-${index}`; button.setAttribute('role', 'tab'); button.setAttribute('aria-selected', String(index === 0)); button.tabIndex = index === 0 ? 0 : -1; button.textContent = t(title);
             const panel = document.createElement('div'); panel.id = `homework-panel-${index}`; panel.setAttribute('role', 'tabpanel'); panel.setAttribute('aria-labelledby', button.id); panel.hidden = index !== 0; button.setAttribute('aria-controls', panel.id);
             const section = week.sections.find(section => section.title === title); if (section) addSection(panel, section);
-            if (index === 0) panel.insertAdjacentHTML('beforeend', `<div class="homework-links"><a href="guests.html#yoko-myers">${t('MEET YOKO ↗')}</a><a href="https://gis.santaclaracounty.gov/" target="_blank" rel="noopener">${t('County of Santa Clara GIS ↗')}</a><a class="button" href="yoko-questions.html#submit">${t('Submit questions ↗')}</a><a href="yoko-questions.html#questions">${t('Read class questions ↗')}</a></div>`);
+            if (index === 0) panel.insertAdjacentHTML('beforeend', `<div class="homework-links"><a href="guests.html#yoko-myers">${t('MEET YOKO ↗')}</a><a href="https://gis.santaclaracounty.gov/" target="_blank" rel="noopener">${t('County of Santa Clara GIS ↗')}</a><a class="button" href="yoko-questions.html#submit">${t('Submit questions ↗')}</a><a href="yoko-live.html#questions">${t('Read class questions ↗')}</a></div>`);
             button.addEventListener('click', () => { [...tabs.children].forEach((tab, selected) => { tab.setAttribute('aria-selected', String(selected === index)); tab.tabIndex = selected === index ? 0 : -1; panels[selected].hidden = selected !== index; }); });
             button.addEventListener('keydown', event => { if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return; event.preventDefault(); const next = event.key === 'Home' ? 0 : event.key === 'End' ? 1 : 1 - index; tabs.children[next].click(); tabs.children[next].focus(); });
             tabs.append(button); panels.push(panel);

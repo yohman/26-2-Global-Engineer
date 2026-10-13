@@ -4,6 +4,10 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'October 13 · County of Santa Clara': '10月13日・サンタクララ郡',
+    'Ask your question, listen, then follow the conversation.': '自分の質問をし、答えに耳を傾け、対話を深めましょう。',
+    'Meet Yoko ↗': 'Yokoさんの紹介 ↗',
+    'Updates every 30 seconds. Google may take a minute to publish new responses.': '30秒ごとに更新。新しい回答の反映には1分ほどかかる場合があります。',
     'Midterms': '中間課題',
     'Finals': '期末課題',
     'Midterms / Finals': '中間・期末課題',
