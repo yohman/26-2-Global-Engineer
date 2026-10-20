@@ -20,6 +20,8 @@ Share your previous assignment and lead a discussion: about 15 minutes each, inc
 
 With the time remaining, I’ll share Re:Mirai. Enter your thoughts on AI, then compare what we would—and wouldn’t—trust it with.
 
+**Reading in brief.** This NYT editorial argues that AI companies should not set their own rules. Drawing on nuclear regulation, it calls for democratic oversight, transparency, independent safety tests, and international cooperation. It also asks how governments themselves can be held in check. This is an argument to examine, not a conclusion you have to accept.
+
 ## Participatory Class Activity
 
 [Student stories](https://yohman.github.io/26-2-Global-Engineer/visual-stories.html?week=2)
@@ -36,8 +38,8 @@ Choose an AI article or book that interests you. Read it and create a reaction�
 
 ## Homework
 
-**Due October 26, 23:59 JST.** Submit a viewable link to your reaction. Also read the NYT editorial below. When AI causes harm, who should answer for it—the company, its leaders, or the people using it? Do you agree with the editorial’s argument?
+**Due October 26, 23:59 JST.** Submit a viewable link to your reaction. Also read the NYT editorial below. Who should set AI’s limits—and who holds those decision-makers accountable?
 
 ## Resources
 
-- [Hold A.I. Companies Liable](https://www.nytimes.com/2026/10/10/opinion/ai-companies-liability-laws.html) — The New York Times Editorial Board · October 10, 2026 · Opinion | Who should be accountable when AI causes harm? Subscription may be required. {READ}
+- [Humanity Has Avoided Apocalypse Before. Let’s Do It Again.](https://www.nytimes.com/2026/09/18/opinion/ai-tech-danger-apocalypse-government.html?unlocked_article_code=1.KFE.Jr7H.gWdKSa45vTT1&smid=url-share) — The New York Times Editorial Board · September 18, 2026 · Opinion | Gift article shared by Yoh. Who should govern AI? {READ}
