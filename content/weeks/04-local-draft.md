@@ -36,8 +36,8 @@ Choose an AI article or book that interests you. Read it and create a reaction�
 
 ## Homework
 
-**Due October 26, 23:59 JST.** Submit a viewable link to your reaction. Also read the short WHO article as a shared starting point for AI, robotics, and care.
+**Due October 26, 23:59 JST.** Submit a viewable link to your reaction. Also read the NYT editorial below. When AI causes harm, who should answer for it—the company, its leaders, or the people using it? Do you agree with the editorial’s argument?
 
 ## Resources
 
-- [WHO: AI in health — benefits, risks, and who gets a say](https://www.who.int/news/item/18-01-2024-who-releases-ai-ethics-and-governance-guidance-for-large-multi-modal-models) — WHO · January 18, 2024 | Read the short webpage, especially “Potential benefits and risks.” {READ}
+- [Hold A.I. Companies Liable](https://www.nytimes.com/2026/10/10/opinion/ai-companies-liability-laws.html) — The New York Times Editorial Board · October 10, 2026 · Opinion | Who should be accountable when AI causes harm? Subscription may be required. {READ}
