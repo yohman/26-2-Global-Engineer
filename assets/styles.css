@@ -343,29 +343,14 @@ a { color: inherit; }
 .agenda-work-card .agenda-resource { background: rgba(255,255,255,.65); }
 .agenda-lecture-copy .agenda-resource { background: var(--white); }
 
-/* Resource and assignment navigation share one treatment across agenda panels. */
-.agenda-page .agenda-week-detail a:not(.agenda-slide-card) {
-  background: transparent;
-  color: var(--blue);
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  padding: 0;
-  min-height: 0;
-  font: 600 .9rem/1.6 var(--sans);
-  text-transform: none;
-  letter-spacing: normal;
-  text-decoration: underline;
-  text-underline-offset: .2em;
-  text-decoration-thickness: 1px;
-}
-.agenda-page .agenda-week-detail a:not(.agenda-slide-card):hover { color: var(--red); }
-.agenda-page .agenda-week-detail a:not(.agenda-slide-card):focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
-.agenda-page .agenda-week-detail .agenda-resource { display: flex; flex-direction: column; align-items: flex-start; gap: .2rem; }
-.agenda-page .agenda-week-detail .agenda-resource strong { font: inherit; color: inherit; }
-.agenda-page .agenda-week-detail .agenda-resource span,
-.agenda-page .agenda-week-detail .agenda-resource small { color: var(--muted); font: 400 .72rem/1.5 var(--sans); }
-.agenda-page .agenda-week-detail .homework-links .button { order: initial; flex-basis: auto; max-width: none; width: auto; }
+/* Standalone navigation follows the existing agenda resource cards. */
+.agenda-page .agenda-week-detail .agenda-resource,
+.agenda-page .agenda-week-detail .homework-links a,
+.agenda-page .agenda-week-detail a.agenda-make-button { background: var(--white); color: var(--ink); border: 1px solid rgba(17,17,17,.14); border-radius: 0; box-shadow: none; padding: .9rem 1rem; font: 600 .85rem/1.5 var(--sans); text-decoration: none; letter-spacing: normal; text-transform: none; }
+.agenda-page .agenda-week-detail .agenda-resource:hover,
+.agenda-page .agenda-week-detail .homework-links a:hover,
+.agenda-page .agenda-week-detail a.agenda-make-button:hover { border-color: var(--blue); color: var(--blue); }
+.agenda-page .agenda-week-detail .homework-links .button { order: initial; flex-basis: auto; width: auto; max-width: none; }
 
 @media (max-width: 960px) {
   .agenda-time-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
