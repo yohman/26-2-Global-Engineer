@@ -185,7 +185,8 @@
         const activityNames = ['In Class', 'Scenario / Activity', 'Participatory Class Activity', 'Discussion'];
         const homeworkNames = ['MAKE', 'Homework', 'Atlas', 'Read / View'];
         const lecture = document.createElement('section'); lecture.className = 'agenda-lecture-row';
-        lecture.innerHTML = `<header class="agenda-row-heading"><span>01 / LECTURE MATERIALS</span><h3>Question, context, and conversation</h3>${week.week === 2 ? '' : '<p>Proposed 100-minute flow</p>'}</header>${week.week === 2 ? '' : scheduleHtml(week)}<div class="${week.week === 3 ? '' : 'agenda-lecture-grid'}"><div class="agenda-lecture-copy"></div>${week.week === 3 ? '' : `<aside class="agenda-lecture-aside" aria-label="Lecture slide preview">${slideCardHtml(week)}</aside>`}</div>`;
+        const hideSlides = [3, 4].includes(week.week);
+        lecture.innerHTML = `<header class="agenda-row-heading"><span>01 / LECTURE MATERIALS</span><h3>Question, context, and conversation</h3>${week.week === 2 ? '' : '<p>Proposed 100-minute flow</p>'}</header>${week.week === 2 ? '' : scheduleHtml(week)}<div class="${hideSlides ? '' : 'agenda-lecture-grid'}"><div class="agenda-lecture-copy"></div>${hideSlides ? '' : `<aside class="agenda-lecture-aside" aria-label="Lecture slide preview">${slideCardHtml(week)}</aside>`}</div>`;
         const lectureCopy = lecture.querySelector('.agenda-lecture-copy');
         week.sections.filter(section => sectionMatches(section, lectureNames)).forEach(section => addSection(lectureCopy, section));
         if (week.week !== 3) addResources(lectureCopy, week.resources.filter(resource => ['READ', 'VIEW', 'REFERENCE'].includes(resource.category)), 'Read / view');
@@ -193,6 +194,7 @@
         const work = document.createElement('div'); work.className = 'agenda-work-grid';
         const activity = document.createElement('section'); activity.className = 'agenda-work-card agenda-work-card--activity'; activity.innerHTML = '<header><span>02 / IN-CLASS ACTIVITIES</span><h3>Work together</h3></header>';
         if (week.week === 3) activity.insertAdjacentHTML('beforeend', `<div class="homework-links"><a class="button" href="yoko-live.html">${t('Read class questions ↗')}</a><a class="button" href="visual-stories.html?week=2">${t('View latest stories ↗')}</a></div>`);
+        else if (localDraft && week.week === 4) activity.insertAdjacentHTML('beforeend', `<div class="homework-links"><a class="button" href="visual-stories.html?week=2">${t('View latest stories ↗')}</a><a class="button" href="https://yohman.github.io/future/" target="_blank" rel="noopener">${t('Re:Mirai — add your thoughts on AI ↗')}</a></div>`);
         else week.sections.filter(section => sectionMatches(section, activityNames)).forEach(section => addSection(activity, section));
         if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = 'EXPLORE THE CLASS ATLAS ↗'; activity.append(link); }
         if (week.week !== 3) addResources(activity, week.resources.filter(resource => ['EXPLORE', 'TOOLS'].includes(resource.category)), 'Tools / explore');
