@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="The 14-week agenda for 2026-2 Global Engineer."><title>Agenda · 2026-2 Global Engineer</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=week-controls-2"></head>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/styles.css?v=consistent-links-1"></head>
 <body class="agenda-page"><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><a class="wordmark" href="index.html"><span>2026-2</span> Global Engineer</a><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" class="site-nav" aria-label="Course navigation"><a href="agenda.html">Agenda</a><a href="groups.html">Groups</a><a href="make.html">MAKE</a><a href="resources.html">Read / View</a><a href="guests.html">Guests</a><a href="exhibition.html">Exhibition</a></nav></header>
 <main id="main">
@@ -24,7 +24,6 @@
   const list = document.querySelector('#weekly-agenda');
   const mode = document.querySelector('#agenda-mode');
   const params = new URLSearchParams(location.search);
-  const localDraft = params.has('p') && ['localhost', '127.0.0.1', '::1', '[::1]'].includes(location.hostname);
   const planning = params.has('planning') || params.has('preview');
   const assignments = window.MAKE_SUBMISSIONS_CONFIG?.assignments || {};
   const t = value => document.documentElement.lang === 'ja' ? (window.LOCAL_DRAFT_TRANSLATIONS?.[value] || window.COURSE_TRANSLATIONS?.ja?.[value] || value) : value;
@@ -78,7 +77,7 @@
     section.append(grid); target.append(section);
   };
   const scheduleFor = week => {
-    if (localDraft && week.week === 4) return [
+    if (week.week === 4) return [
       ['00–60/85', "Student stories + dialogue", "About 15 minutes each, including discussion."],
       ['Next 10', 'RE: Mirai', "Yoh shares the site; students enter their own thoughts on AI."],
       ['Next 5–25', "What would you trust AI with?", "Compare hopes, doubts, and boundaries. Expand if time allows."],
@@ -173,11 +172,11 @@
     list.replaceChildren();
     mode.textContent = planning ? 'Planning mode · all weeks expanded' : 'Weekly course agenda';
     weeks.sort((a, b) => a.week - b.week).forEach(week => {
-      const open = planning || (localDraft && week.week === 4) || new Date() >= new Date(week.publish_at);
+      const open = planning || new Date() >= new Date(week.publish_at);
       const guest = guests.get(week.guest_id);
       const article = document.createElement('article'); article.className = `agenda-week${open ? '' : ' is-locked'}`; article.id = `week-${week.week}`;
       const guestIcon = guest?.image ? `<a class="agenda-guest-icon" href="guests.html#${escapeHtml(guest.id)}" aria-label="${escapeHtml(guest.name)} profile"><img src="${escapeHtml(guestImageUrl(guest.image))}" alt="${escapeHtml(guest.name)}"></a>` : '';
-      const heading = document.createElement('div'); heading.className = 'agenda-week-heading'; heading.innerHTML = `<div><div class="week-number">${String(week.week).padStart(2, '0')}</div><div class="week-date">${date(week.date)}</div></div><div class="agenda-week-title"><p>${escapeHtml(week.subtitle)}</p><div class="agenda-title-line"><h2>${escapeHtml(localDraft && week.week === 4 ? t('Student stories, then a conversation about AI') : week.title)}</h2>${guestIcon}</div><div class="week-meta"><span>${escapeHtml(t(week.kind))}</span><span>Lead: ${escapeHtml(week.lead)}</span></div></div>`; article.append(heading);
+      const heading = document.createElement('div'); heading.className = 'agenda-week-heading'; heading.innerHTML = `<div><div class="week-number">${String(week.week).padStart(2, '0')}</div><div class="week-date">${date(week.date)}</div></div><div class="agenda-week-title"><p>${escapeHtml(week.subtitle)}</p><div class="agenda-title-line"><h2>${escapeHtml(week.week === 4 ? t('Student stories, then a conversation about AI') : week.title)}</h2>${guestIcon}</div><div class="week-meta"><span>${escapeHtml(t(week.kind))}</span><span>Lead: ${escapeHtml(week.lead)}</span></div></div>`; article.append(heading);
       if (!open) { const locked = document.createElement('p'); locked.className = 'agenda-locked'; locked.innerHTML = `<strong>COMING SOON</strong> · Details publish ${publishDate(week.publish_at)}.`; article.append(locked); }
       else {
         const detail = document.createElement('div'); detail.className = 'agenda-week-detail';
@@ -194,11 +193,11 @@
         const work = document.createElement('div'); work.className = 'agenda-work-grid';
         const activity = document.createElement('section'); activity.className = 'agenda-work-card agenda-work-card--activity'; activity.innerHTML = '<header><span>02 / IN-CLASS ACTIVITIES</span><h3>Work together</h3></header>';
         if (week.week === 3) activity.insertAdjacentHTML('beforeend', `<div class="homework-links"><a class="button" href="yoko-live.html">${t('Read class questions ↗')}</a><a class="button" href="visual-stories.html?week=2">${t('View latest stories ↗')}</a></div>`);
-        else if (!(localDraft && week.week === 4)) week.sections.filter(section => sectionMatches(section, activityNames)).forEach(section => addSection(activity, section));
+        else if (!(week.week === 4)) week.sections.filter(section => sectionMatches(section, activityNames)).forEach(section => addSection(activity, section));
         if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = 'EXPLORE THE CLASS ATLAS ↗'; activity.append(link); }
         if (week.week !== 3) addResources(activity, week.resources.filter(resource => ['EXPLORE', 'TOOLS'].includes(resource.category)), 'Tools / explore');
         work.append(activity);
-        const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = `<header><span>03 / HOMEWORK</span><h3>${localDraft && week.week === 4 ? t('AI: something I read, something I questioned') : week.week === 3 ? t('Who is this designed for?') : t('Carry it forward')}</h3></header>`;
+        const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = `<header><span>03 / HOMEWORK</span><h3>${week.week === 4 ? t('AI: something I read, something I questioned') : week.week === 3 ? t('Who is this designed for?') : t('Carry it forward')}</h3></header>`;
         if (week.week === 2) {
           const tabs = document.createElement('div'); tabs.className = 'homework-tabs'; tabs.setAttribute('role', 'tablist'); tabs.setAttribute('aria-label', t('Two homework assignments'));
           const panels = [];
@@ -226,7 +225,7 @@
       list.append(article);
       const detail = article.querySelector('.agenda-week-detail');
       if (detail) {
-        const expanded = planning || week.week === Number(location.hash.match(/^#week-(\d+)$/)?.[1] || (localDraft ? 4 : 3));
+        const expanded = planning || week.week === Number(location.hash.match(/^#week-(\d+)$/)?.[1] || 4);
         detail.hidden = !expanded;
         detail.id = `week-${week.week}-content`;
         const toggle = document.createElement('button');
@@ -243,9 +242,9 @@
     }
   };
   const load = async file => {
-    const draftWeek = localDraft && file === '04-human-centered-ui-ux.md';
+    const draftWeek = file === '04-human-centered-ui-ux.md';
     if (draftWeek) window.LOCAL_DRAFT_TRANSLATIONS = await fetch('content/weeks/04-local-translations.json', { cache: 'no-cache' }).then(response => response.json());
-    const response = await fetch(`content/weeks/${draftWeek ? '04-local-draft.md' : file}`, { cache: 'no-cache' });
+    const response = await fetch(`content/weeks/${file}`, { cache: 'no-cache' });
     if (!response.ok) throw new Error(`${file} could not be loaded.`);
     const week = parseWeek(await response.text());
     week.sections.forEach(section => { if (!draftWeek) section.editId = `week-${week.week}:${section.title}`; section.originalContent = section.content; });
