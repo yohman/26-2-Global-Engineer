@@ -194,8 +194,7 @@
         const work = document.createElement('div'); work.className = 'agenda-work-grid';
         const activity = document.createElement('section'); activity.className = 'agenda-work-card agenda-work-card--activity'; activity.innerHTML = '<header><span>02 / IN-CLASS ACTIVITIES</span><h3>Work together</h3></header>';
         if (week.week === 3) activity.insertAdjacentHTML('beforeend', `<div class="homework-links"><a class="button" href="yoko-live.html">${t('Read class questions ↗')}</a><a class="button" href="visual-stories.html?week=2">${t('View latest stories ↗')}</a></div>`);
-        else if (localDraft && week.week === 4) activity.insertAdjacentHTML('beforeend', `<div class="homework-links"><a class="button" href="visual-stories.html?week=2">${t('View latest stories ↗')}</a><a class="button" href="https://yohman.github.io/future/" target="_blank" rel="noopener">${t('Re:Mirai — add your thoughts on AI ↗')}</a></div>`);
-        else week.sections.filter(section => sectionMatches(section, activityNames)).forEach(section => addSection(activity, section));
+        else if (!(localDraft && week.week === 4)) week.sections.filter(section => sectionMatches(section, activityNames)).forEach(section => addSection(activity, section));
         if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = 'EXPLORE THE CLASS ATLAS ↗'; activity.append(link); }
         if (week.week !== 3) addResources(activity, week.resources.filter(resource => ['EXPLORE', 'TOOLS'].includes(resource.category)), 'Tools / explore');
         work.append(activity);

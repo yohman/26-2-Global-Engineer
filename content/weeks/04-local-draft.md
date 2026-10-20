@@ -30,16 +30,20 @@ With the time remaining, I’ll share Re:Mirai. Enter your thoughts on AI, then 
 
 ## MAKE
 
-Choose an AI article or book that interests you. Read it and create a reaction—not just a summary. What stays with you? What do you question?
+Choose an AI article or book that interests you. Prepare a short summary in your own words, your reaction, and the questions you want to discuss next week.
 
-- Include the source and the part you read; a book chapter is fine.
-- Form and length are yours to choose.
-- Bring your reaction and a question for our guest to share next week.
+- Include the title, source link, and the part you read; a book chapter is fine.
+- Explain the main idea, then add your own response. Length is up to you.
+- Prepare questions to lead a discussion with the class and our guest.
 
 ## Homework
 
-**Due October 26, 23:59 JST.** Submit a viewable link to your reaction. Also read the NYT editorial below. Who should set AI’s limits—and who holds those decision-makers accountable?
+**Due October 26, 23:59 JST.** Prepare your reading, summary, reaction, and discussion questions. Be ready to share them next week. Also read the NYT gift article linked here.
+
+[Shared reading: NYT gift article](https://www.nytimes.com/2026/09/18/opinion/ai-tech-danger-apocalypse-government.html?unlocked_article_code=1.KFE.Jr7H.gWdKSa45vTT1&smid=url-share)
 
 ## Resources
 
+- [Student stories](https://yohman.github.io/26-2-Global-Engineer/visual-stories.html?week=2) — Class gallery | Open a story for presentation and dialogue. {EXPLORE}
+- [Re:Mirai](https://yohman.github.io/future/) — Yoh | Add your thoughts on AI. {EXPLORE}
 - [Humanity Has Avoided Apocalypse Before. Let’s Do It Again.](https://www.nytimes.com/2026/09/18/opinion/ai-tech-danger-apocalypse-government.html?unlocked_article_code=1.KFE.Jr7H.gWdKSa45vTT1&smid=url-share) — The New York Times Editorial Board · September 18, 2026 · Opinion | Gift article shared by Yoh. Who should govern AI? {READ}
