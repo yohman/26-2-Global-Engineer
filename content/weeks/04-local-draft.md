@@ -38,7 +38,11 @@ Choose an AI article or book that interests you. Prepare a short summary in your
 
 ## Homework
 
-**Due October 26, 23:59 JST.** Prepare your reading, summary, reaction, and discussion questions. Be ready to share them next week. Also read the NYT gift article linked here.
+**Due October 26, 23:59 JST.** Submit your reading, summary, reaction, and discussion questions using the form. Be ready to share them next week. Also read the NYT gift article linked here.
+
+[Submit your AI reading](https://yohman.github.io/26-2-Global-Engineer/ai-reading-submit.html)
+
+[View class reading responses](https://yohman.github.io/26-2-Global-Engineer/visual-stories.html?week=4)
 
 [Shared reading: NYT gift article](https://www.nytimes.com/2026/09/18/opinion/ai-tech-danger-apocalypse-government.html?unlocked_article_code=1.KFE.Jr7H.gWdKSa45vTT1&smid=url-share)
 

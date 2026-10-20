@@ -66,7 +66,7 @@
       if (config.publicFieldsOnly) table = table.map(row => ['', ...row]);
       if (!table[0]?.some(cell => cell.includes(storyMode ? 'Story title' : 'Question 1'))) throw new Error('Unexpected fields');
       const latest = new Map();
-      allRows = table.slice(1).filter(row => row[1]?.trim() && row[2]?.trim() && row[3]?.trim() && (!config.excludeTitlePrefix || !row[2].startsWith(config.excludeTitlePrefix)) && (!config.titlePrefix || row[2].startsWith(config.titlePrefix)));
+      allRows = table.slice(1).filter(row => row[1]?.trim() && row[2]?.trim() && row[3]?.trim() && (!config.excludeTitlePrefix || !row[2].startsWith(config.excludeTitlePrefix)) && (config.titlePrefix ? row[2].startsWith(config.titlePrefix) : !row[2].startsWith('[Week 4 AI] ')));
       // Google's response sheet appends rows in submission order; later rows replace earlier ones.
       allRows.forEach(row => { const key = nameKey(row); latest.delete(key); latest.set(key, row); });
       rows = [...latest.values()].reverse();
@@ -80,7 +80,7 @@
   form?.addEventListener('submit', event => {
     if (pending) { event.preventDefault(); return; }
     // Native POST into an invisible frame avoids a cross-origin fetch that cannot confirm saving.
-    const fields = [...form.querySelectorAll('input,textarea')]; fields.forEach(field => field.value = field.value.trim());
+    const fields = [...form.querySelectorAll('input[name],textarea[name]')]; fields.forEach(field => field.value = field.value.trim());
     const urlField = form.querySelector('input[type="url"]');
     if (config.onlineOnly && urlField) {
       let valid = false;
@@ -121,16 +121,16 @@
   document.querySelector('#refresh-questions').addEventListener('click', load);
   document.querySelector('#assignment-week')?.addEventListener('change', event => {
     const week = event.target.value;
-    config.titlePrefix = week === '3' ? '[Week 3 UI/UX] ' : '';
+    config.titlePrefix = week === '4' ? '[Week 4 AI] ' : week === '3' ? '[Week 3 UI/UX] ' : '';
     config.excludeTitlePrefix = week === '2' ? '[Week 3 UI/UX] ' : '';
     const submissionLink = document.querySelector('.live-footer a');
-    if (submissionLink) submissionLink.href = week === '3' ? 'ui-ux-submit.html#submit' : 'visual-story-submit.html#submit';
+    if (submissionLink) submissionLink.href = week === '4' ? 'ai-reading-submit.html' : week === '3' ? 'ui-ux-submit.html#submit' : 'visual-story-submit.html#submit';
     const url = new URL(location.href); url.searchParams.set('week', week); history.replaceState(null, '', url);
     rows = []; message = 'Loading submissions…'; render(); load();
   });
   form?.querySelector('input[type="url"]')?.addEventListener('input', event => event.target.setCustomValidity(''));
   window.addEventListener('course-language-change', render);
   const gallerySubmissionLink = document.querySelector('.live-footer a');
-  if (document.querySelector('#assignment-week') && gallerySubmissionLink) gallerySubmissionLink.href = config.titlePrefix ? 'ui-ux-submit.html#submit' : 'visual-story-submit.html#submit';
+  if (document.querySelector('#assignment-week') && gallerySubmissionLink) gallerySubmissionLink.href = config.titlePrefix === '[Week 4 AI] ' ? 'ai-reading-submit.html' : config.titlePrefix ? 'ui-ux-submit.html#submit' : 'visual-story-submit.html#submit';
   load();
 })();

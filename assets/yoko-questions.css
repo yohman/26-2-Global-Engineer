@@ -13,4 +13,5 @@
 .question-submission { border-top: 1px solid #b4ab98; padding: 1rem 0; }
 .question-submission h3 { color: var(--red); margin: .5rem 0; }
 .question-submission li { margin: .8rem 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.question-submission p { white-space: pre-wrap; overflow-wrap: anywhere; }
 button:disabled { opacity: .65; cursor: wait; }

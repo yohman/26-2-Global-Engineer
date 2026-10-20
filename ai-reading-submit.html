@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI reading submission · Global Engineer</title><link rel="icon" href="favicon.svg"><link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="assets/yoko-questions.css"></head><body>
+<header class="site-header"><a class="wordmark" href="index.html">2026-2 Global Engineer</a><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" class="site-nav"><a href="agenda.html">Agenda</a><a href="atlas.html">Atlas</a><a href="projects.html">Midterms / Finals</a><a href="guests.html">Guests</a></nav></header>
+<main class="wrap questions-page"><p class="eyebrow">Week 4 · AI reading</p><h1>AI: what I read and what I think</h1><p class="homework-deadline">DUE · October 26, 23:59 JST</p><p>Choose an AI article or book. Summarize its main idea, add your reaction, and prepare questions for next week.</p><p>Your name, reading, response, and questions will be public in the class gallery. Use the same name to resubmit; your latest submission counts.</p>
+<form id="question-form" action="https://docs.google.com/forms/d/e/1FAIpQLScMnACVgNNdy3TR0yoZR1NyH61rNB-mjA6GJAWJ3pNbK8SSTA/formResponse" method="post" target="question-receipt">
+<label for="story-name">Name</label><input id="story-name" name="entry.353120641" required maxlength="100" autocomplete="name">
+<label for="story-title">Article or book title</label><input id="story-title" name="entry.524778989" required maxlength="160">
+<label for="story-url">Source link</label><input id="story-url" name="entry.1745886152" type="url" required maxlength="2000" placeholder="https://…">
+<label for="reading-summary">Summary and your reaction</label><textarea id="reading-summary" required rows="8" maxlength="4000"></textarea>
+<label for="reading-questions">Questions for class discussion</label><textarea id="reading-questions" required rows="5" maxlength="2000"></textarea>
+<input id="reading-description" type="hidden" name="entry.48860208">
+<button class="button" type="submit">Submit reading</button><p id="submission-status" role="status" aria-live="polite"></p></form><iframe title="Submission receipt" name="question-receipt" id="question-receipt" hidden></iframe>
+<p><a href="visual-stories.html?week=4">View submissions →</a></p><section hidden><button id="refresh-questions" type="button">Refresh</button><p id="questions-status"></p><div id="question-list"></div></section></main>
+<script src="assets/i18n.js?v=ai-reading-1"></script><script src="assets/site.js?v=separate-assessments-1"></script><script src="assets/visual-story-config.js"></script><script>
+Object.assign(window.ASSIGNMENT_SUBMISSION_CONFIG,{titlePrefix:'[Week 4 AI] ',excludeTitlePrefix:'',publicationPending:false});
+document.querySelector('#question-form').addEventListener('submit',()=>{document.querySelector('#reading-description').value='Summary / Reaction:\n'+document.querySelector('#reading-summary').value.trim()+'\n\nDiscussion questions:\n'+document.querySelector('#reading-questions').value.trim();});
+</script><script src="assets/yoko-questions.js?v=ai-reading-1"></script></body></html>

@@ -4,6 +4,23 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Week 4 · October 20': '第4週 · 10月20日',
+    'Your stories, then a conversation about AI.': 'みんなの物語から、AIについての対話へ。',
+    'Last week we listened to Yoko. This week, share your work and lead a discussion. Then we’ll explore Re:Mirai and ask who should shape—and answer for—our AI future.': '先週はYokoさんの話を聞きました。今週は自分の作品を紹介し、対話を進める番です。その後、Re:Miraiを体験し、AIと暮らす未来を誰が決め、誰が責任を負うのかを考えます。',
+    'Student stories →': '学生の作品 →',
+    'AI reading assignment →': 'AIの読書課題 →',
+    'Open Week 4': '第4週を開く',
+    'Week 4 · AI reading': '第4週・AIを読む',
+    'Week 4 · AI reading and discussion': '第4週・AIの読書と対話',
+    'AI: what I read and what I think': 'AIを読んで、考えたこと',
+    'DUE · October 26, 23:59 JST': '締切：10月26日23:59（日本時間）',
+    'Choose an AI article or book. Summarize its main idea, add your reaction, and prepare questions for next week.': 'AIの記事や本を選び、要点を自分の言葉でまとめ、自分の反応と次週話し合いたい問いを書いてください。',
+    'Your name, reading, response, and questions will be public in the class gallery. Use the same name to resubmit; your latest submission counts.': '名前、選んだ文章、回答、質問はクラスの作品一覧で公開されます。再提出は同じ名前で行い、最新の提出を採用します。',
+    'Article or book title': '記事・本の題名',
+    'Source link': '出典リンク',
+    'Summary and your reaction': '要約と自分の反応',
+    'Questions for class discussion': 'クラスで話し合いたい問い',
+    'Submit reading': '読書の回答を提出',
     '**Who is this designed for?** Explore how technology feels to the people who use it. Begin with something that interests, frustrates, or surprises you, and look beyond Japan for another perspective. Create something that shares your inquiry and invites a conversation. Yoko’s stories might offer a starting point.': '**これは誰のためのデザイン？** 技術を使う人の体験を探究しましょう。気になること、不便に感じること、驚いたことから始め、日本の外にも目を向けてみてください。自分の問いを伝え、対話を生むものをつくりましょう。Yokoさんの話が出発点になるかもしれません。',
     '**Your creation**': '**つくるもの**',
     'Choose your own form and scope. A storytelling website is encouraged; slides, video, sketches, a prototype, or another creative form are welcome. There is no required slide count or fixed presentation length.': '形式も規模も自由です。ストーリーを伝えるウェブサイトをおすすめしますが、スライド、映像、スケッチ、試作品など、自分に合う表現を選んでください。スライド枚数や発表だけの時間は指定しません。',
