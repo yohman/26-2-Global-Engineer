@@ -4,6 +4,14 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Bring your AI reading, summary, reaction, and discussion questions from Week 4. Read the class responses before we meet. Also bring a **WHO / NEED / ROBOT / HUMAN** card and one boundary your robot must not cross.': '第4週の課題で選んだAIの文章、要約、自分の反応、対話の問いを持参してください。授業前にクラスの回答にも目を通しましょう。**WHO / NEED / ROBOT / HUMAN**のカードと、ロボットが越えてはいけない境界も一つ考えてきてください。',
+    'Week 5 · October 27': '第5週 · 10月27日',
+    'AI, robotics, and care.': 'AI・ロボティクス・ケア。',
+    'Bring your AI reading and questions for Atsushi Koshio. We’ll explore what a helpful care robot might do—and what we would never want it to take over.': 'AIについて読んだことと、越塩敦史さんへの問いを持ってきてください。ケアを支えるロボットに何ができるか、そして何を任せたくないかを考えます。',
+    'Meet Atsushi Koshio →': '越塩敦史さんの紹介 →',
+    'Class AI reading responses →': 'クラスのAI読書回答 →',
+    'Submit your AI reading →': 'AIの読書回答を提出 →',
+    'Open Week 5': '第5週を開く',
     'Week 4 · October 20': '第4週 · 10月20日',
     'Your stories, then a conversation about AI.': 'みんなの物語から、AIについての対話へ。',
     'Last week we listened to Yoko. This week, share your work and lead a discussion. Then we’ll explore Re:Mirai and ask who should shape—and answer for—our AI future.': '先週はYokoさんの話を聞きました。今週は自分の作品を紹介し、対話を進める番です。その後、Re:Miraiを体験し、AIと暮らす未来を誰が決め、誰が責任を負うのかを考えます。',

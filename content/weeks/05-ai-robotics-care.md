@@ -16,7 +16,7 @@ guest_id: atsushi-koshio
 
 ## Guest Preparation
 
-Bring a **WHO / NEED / ROBOT / HUMAN** card. Name one boundary your robot must not cross.
+Bring your AI reading, summary, reaction, and discussion questions from Week 4. Read the class responses before we meet. Also bring a **WHO / NEED / ROBOT / HUMAN** card and one boundary your robot must not cross.
 
 ## In Class
 
