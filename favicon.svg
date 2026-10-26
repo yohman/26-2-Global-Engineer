@@ -1,12 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <title>Global Engineer — a connected world</title>
-  <rect width="64" height="64" rx="14" fill="#143c63"/>
-  <g fill="none" stroke="#f7f4ed" stroke-width="3" stroke-linecap="round">
-    <circle cx="32" cy="32" r="22"/>
-    <ellipse cx="32" cy="32" rx="10" ry="22"/>
-    <path d="M10 32h44M14 20q18 9 36 0M14 44q18-9 36 0"/>
-  </g>
-  <path d="M16 44Q28 12 49 23" fill="none" stroke="#e2b73b" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="16" cy="44" r="4.5" fill="#e2b73b"/>
-  <circle cx="49" cy="23" r="4.5" fill="#e2b73b"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>Global Engineer — globe</title>
+  <rect width="32" height="32" rx="7" fill="#172e46"/>
+  <path d="M23 2h5v7l-2.5-2L23 9Z" fill="#f2c35b"/>
+  <g fill="none" stroke="#fffaf0" stroke-width="1.8"><circle cx="16" cy="18" r="9"/><ellipse cx="16" cy="18" rx="4" ry="9"/><path d="M7 18h18"/></g>
 </svg>
