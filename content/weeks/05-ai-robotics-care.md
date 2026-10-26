@@ -8,11 +8,17 @@ kind: Guest 02
 lead: Atsushi Koshio
 make_id: make05
 guest_id: atsushi-koshio
+lecture_preview: lectures/week05-koshio-ai-robotics-care.pdf
+slide_image: lectures/assets/week05-koshio-cover.png
 ---
 
 ## Guest / Big Question
 
 **Atsushi Koshio** — AI, robotics, care, and Japan as a laboratory for the aging world. What should a care robot never do?
+
+## Lecture
+
+[Official guest slides: AI, Robotics and Care — Atsushi Koshio](https://yohman.github.io/26-2-Global-Engineer/lectures/week05-koshio-ai-robotics-care.pdf)
 
 ## Guest Preparation
 

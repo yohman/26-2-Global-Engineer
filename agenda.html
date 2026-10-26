@@ -164,7 +164,7 @@
   const slideCardHtml = week => {
     const file = week.lecture_preview || '';
     const story = file === 'week2-traffic.html';
-    const available = story || /^lectures\/[A-Za-z0-9_-]+\.html$/.test(file);
+    const available = story || /^lectures\/[A-Za-z0-9_-]+\.(?:html|pdf)$/.test(file);
     if (!available) return `<div class="agenda-slide-card agenda-slide-card--pending"><span>WEEK ${String(week.week).padStart(2, '0')}</span><strong>Lecture slides</strong><p>Preview will appear here when the slides are ready.</p></div>`;
     const href = `lecture-preview.html?file=${encodeURIComponent(file)}&week=${week.week}`;
     const image = /^lectures\/assets\/[A-Za-z0-9._-]+$/.test(week.slide_image || '') ? `<img src="${escapeHtml(week.slide_image)}" alt="" loading="lazy">` : `<span class="agenda-slide-placeholder">WEEK ${String(week.week).padStart(2, '0')}</span>`;

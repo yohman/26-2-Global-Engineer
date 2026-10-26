@@ -4,6 +4,7 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    '[Official guest slides: AI, Robotics and Care — Atsushi Koshio](https://yohman.github.io/26-2-Global-Engineer/lectures/week05-koshio-ai-robotics-care.pdf)': '[公式講演資料：AI・ロボティクス・ケア — 小塩篤史](https://yohman.github.io/26-2-Global-Engineer/lectures/week05-koshio-ai-robotics-care.pdf)',
     'Bring your AI reading, summary, reaction, and discussion questions from Week 4. Read the class responses before we meet. Also bring a **WHO / NEED / ROBOT / HUMAN** card and one boundary your robot must not cross.': '第4週の課題で選んだAIの文章、要約、自分の反応、対話の問いを持参してください。授業前にクラスの回答にも目を通しましょう。**WHO / NEED / ROBOT / HUMAN**のカードと、ロボットが越えてはいけない境界も一つ考えてきてください。',
     'Week 5 · October 27': '第5週 · 10月27日',
     'AI, robotics, and care.': 'AI・ロボティクス・ケア。',
