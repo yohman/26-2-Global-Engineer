@@ -202,7 +202,7 @@
         if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = 'EXPLORE THE CLASS ATLAS ↗'; activity.append(link); }
         if (week.week !== 3) addResources(activity, week.resources.filter(resource => ['EXPLORE', 'TOOLS'].includes(resource.category)), 'Tools / explore');
         work.append(activity);
-        const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = `<header><span>03 / HOMEWORK</span><h3>${week.week === 4 ? t('AI: something I read, something I questioned') : week.week === 3 ? t('Who is this designed for?') : t('Carry it forward')}</h3></header>`;
+        const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = `<header><span>03 / HOMEWORK</span><h3>${week.week === 5 ? t('Build a small act of care') : week.week === 4 ? t('AI: something I read, something I questioned') : week.week === 3 ? t('Who is this designed for?') : t('Carry it forward')}</h3></header>`;
         if (week.week === 2) {
           const tabs = document.createElement('div'); tabs.className = 'homework-tabs'; tabs.setAttribute('role', 'tablist'); tabs.setAttribute('aria-label', t('Two homework assignments'));
           const panels = [];

@@ -30,7 +30,20 @@ My Doraemon, 2050: define a helpful robot, its human partners, and its red line.
 
 ## MAKE
 
-**My Doraemon.** Create a care-companion concept grounded in a real need—and state what it must never do.
+**Build a small act of care.** Choose one person and one everyday situation where support would matter. Make a small AI-assisted experience someone can try—not just an idea to explain. Help a person without taking over their choices or relationships.
+
+**Requirements**
+
+- Build one interaction: a simple website, chatbot, voice experience, physical mock-up, or another form. A simulated AI is fine; clearly show what works and what is imagined. No paid tools are required.
+- Define who it helps, what it does, and what it must never do. Make it possible to stop, decline, or ask a person for help. Use fictional information—not private or medical data—and do not offer diagnosis or treatment.
+- Try it with a classmate using a fictional scenario. Show what happened, what failed, and one change you made. What would count as helpful to that person?
+- Connect it to one idea from Koshio’s talk. Consider how language, culture, or access might change the experience outside Japan.
+
+For example: help someone ask for assistance, rehearse a difficult conversation, or turn an overwhelming everyday task into manageable choices. Choose your own direction, tools, and scope.
+
+## Homework
+
+**Due November 2, 23:59 JST.** Prepare a shareable prototype link or a short demo recording with brief notes on the person, boundaries, test, and global perspective. Bring it to class on November 3 so others can try it and discuss: did this feel like care, or just automation? No fixed slide count or presentation format.
 
 ## Discussion
 

@@ -8,7 +8,7 @@ window.MAKE_SUBMISSIONS_CONFIG = {
     make02: { title: 'Local Spatial Problem', formUrl: '' },
     make03: { title: 'Who is this designed for?', formUrl: 'ui-ux-submit.html' },
     make04: { title: 'Redesign It', formUrl: '' },
-    make05: { title: 'My Doraemon', formUrl: '' },
+    make05: { title: 'Build a small act of care', formUrl: '' },
     make06: { title: 'AI Impact Card', formUrl: '' },
     make07: { title: 'Infrastructure Decision Map', formUrl: '' },
     make08: { title: 'Appropriate Intervention', formUrl: '' },
