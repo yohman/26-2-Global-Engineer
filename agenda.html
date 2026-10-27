@@ -82,6 +82,12 @@
     section.append(grid); target.append(section);
   };
   const scheduleFor = week => {
+    if (week.week === 5) return [
+      ['00–40', 'Koshio: AI and Care', 'Guest presentation.'],
+      ['40–80', 'Student AI readings', 'Each student shares their chosen reading and thoughts.'],
+      ['80–95', 'Open dialogue', 'Follow the questions raised by the talk and readings.'],
+      ['95–100', 'Next week’s homework', 'Introduce the AI-and-care prototype assignment.']
+    ];
     if (week.week === 4) return [
       ['00–60/85', "Student stories + dialogue", "About 15 minutes each, including discussion."],
       ['Next 10', 'RE: Mirai', "Yoh shares the site; students enter their own thoughts on AI."],

@@ -22,11 +22,11 @@ slide_image: lectures/assets/week05-koshio-cover.png
 
 ## Guest Preparation
 
-Bring your AI reading, summary, reaction, and discussion questions from Week 4. Read the class responses before we meet. Also bring a **WHO / NEED / ROBOT / HUMAN** card and one boundary your robot must not cross.
+Bring your chosen AI reading, summary, reaction, and discussion questions from Week 4.
 
 ## In Class
 
-My Doraemon, 2050: define a helpful robot, its human partners, and its red line.
+[Class AI reading responses](https://yohman.github.io/26-2-Global-Engineer/visual-stories.html?week=4)
 
 ## MAKE
 
@@ -47,7 +47,7 @@ For example: help someone ask for assistance, rehearse a difficult conversation,
 
 ## Discussion
 
-When is care assistance dignifying? When does it replace a relationship that matters?
+Open dialogue: follow the questions raised by Koshio’s presentation and your readings.
 
 ## Resources
 

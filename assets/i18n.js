@@ -4,6 +4,17 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Koshio: AI and Care': '小塩さん：AIとケア',
+    'Guest presentation.': 'ゲストによる講演。',
+    'Student AI readings': '学生が選んだAIの読み物',
+    'Each student shares their chosen reading and thoughts.': '一人ずつ、選んだ文章と自分の考えを紹介。',
+    'Open dialogue': '自由な対話',
+    'Follow the questions raised by the talk and readings.': '講演や読み物から生まれた問いを話し合う。',
+    'Next week’s homework': '次週の宿題',
+    'Introduce the AI-and-care prototype assignment.': 'AIとケアの試作品をつくる課題を紹介。',
+    'Bring your chosen AI reading, summary, reaction, and discussion questions from Week 4.': '第4週の課題で選んだAIの文章、要約、自分の反応、対話の問いを持参してください。',
+    '[Class AI reading responses](https://yohman.github.io/26-2-Global-Engineer/visual-stories.html?week=4)': '[クラスのAI読書回答](https://yohman.github.io/26-2-Global-Engineer/visual-stories.html?week=4)',
+    'Open dialogue: follow the questions raised by Koshio’s presentation and your readings.': '自由な対話：小塩さんの講演やみんなの読み物から生まれた問いを話し合います。',
     'Build a small act of care': '小さなケアをつくる',
     '**Build a small act of care.** Choose one person and one everyday situation where support would matter. Make a small AI-assisted experience someone can try—not just an idea to explain. Help a person without taking over their choices or relationships.': '**小さなケアをつくる。** 支えがあると助かる人と日常の場面を一つ選び、実際に試せる小さなAIの体験をつくってください。アイデアの説明だけではなく、その人の選択や人との関係を奪わずに支えるものを。',
     'Build one interaction: a simple website, chatbot, voice experience, physical mock-up, or another form. A simulated AI is fine; clearly show what works and what is imagined. No paid tools are required.': '一つのやり取りをつくる。ウェブサイト、チャットボット、音声、実物の模型など形式は自由。AIの動きを人が演じても構いません。動く部分と想定の部分を明示し、有料ツールは不要です。',
