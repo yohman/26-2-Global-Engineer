@@ -66,7 +66,8 @@
       if (config.publicFieldsOnly) table = table.map(row => ['', ...row]);
       if (!table[0]?.some(cell => cell.includes(storyMode ? 'Story title' : 'Question 1'))) throw new Error('Unexpected fields');
       const latest = new Map();
-      allRows = table.slice(1).filter(row => row[1]?.trim() && row[2]?.trim() && row[3]?.trim() && (!config.excludeTitlePrefix || !row[2].startsWith(config.excludeTitlePrefix)) && (config.titlePrefix ? row[2].startsWith(config.titlePrefix) : !row[2].startsWith('[Week 4 AI] ')));
+      const otherAssignments = Object.values(window.SUBMISSION_ASSIGNMENTS || {}).map(item => item.prefix).filter(Boolean);
+      allRows = table.slice(1).filter(row => row[1]?.trim() && row[2]?.trim() && row[3]?.trim() && (!config.excludeTitlePrefix || !row[2].startsWith(config.excludeTitlePrefix)) && (config.titlePrefix ? row[2].startsWith(config.titlePrefix) : !otherAssignments.some(prefix => row[2].startsWith(prefix))));
       // Google's response sheet appends rows in submission order; later rows replace earlier ones.
       allRows.forEach(row => { const key = nameKey(row); latest.delete(key); latest.set(key, row); });
       rows = [...latest.values()].reverse();
@@ -121,16 +122,19 @@
   document.querySelector('#refresh-questions').addEventListener('click', load);
   document.querySelector('#assignment-week')?.addEventListener('change', event => {
     const week = event.target.value;
-    config.titlePrefix = week === '4' ? '[Week 4 AI] ' : week === '3' ? '[Week 3 UI/UX] ' : '';
+    const assignment = window.SUBMISSION_ASSIGNMENTS[week];
+    config.titlePrefix = assignment.prefix;
     config.excludeTitlePrefix = week === '2' ? '[Week 3 UI/UX] ' : '';
     const submissionLink = document.querySelector('.live-footer a');
-    if (submissionLink) submissionLink.href = week === '4' ? 'ai-reading-submit.html' : week === '3' ? 'ui-ux-submit.html#submit' : 'visual-story-submit.html#submit';
+    if (submissionLink) submissionLink.href = assignment.form;
+    document.querySelector('.live-heading > a')?.setAttribute('href', `agenda.html#week-${Number(week) + 1}`);
     const url = new URL(location.href); url.searchParams.set('week', week); history.replaceState(null, '', url);
     rows = []; message = 'Loading submissions…'; render(); load();
   });
   form?.querySelector('input[type="url"]')?.addEventListener('input', event => event.target.setCustomValidity(''));
   window.addEventListener('course-language-change', render);
   const gallerySubmissionLink = document.querySelector('.live-footer a');
-  if (document.querySelector('#assignment-week') && gallerySubmissionLink) gallerySubmissionLink.href = config.titlePrefix === '[Week 4 AI] ' ? 'ai-reading-submit.html' : config.titlePrefix ? 'ui-ux-submit.html#submit' : 'visual-story-submit.html#submit';
+  if (document.querySelector('#assignment-week') && gallerySubmissionLink) gallerySubmissionLink.href = window.SUBMISSION_ASSIGNMENTS[document.querySelector('#assignment-week').value].form;
+  if (document.querySelector('#assignment-week')) document.querySelector('.live-heading > a')?.setAttribute('href', `agenda.html#week-${Number(document.querySelector('#assignment-week').value) + 1}`);
   load();
 })();

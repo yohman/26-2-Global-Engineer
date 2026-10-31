@@ -12,7 +12,7 @@
   <section class="wrap agenda-week-list" id="weekly-agenda" aria-live="polite"></section>
 </main>
 <footer class="site-footer"><div class="wrap footer-grid"><p><strong>2026-2 Global Engineer</strong><br>Instructor: Yoh</p><p>Fall 2026 · Tuesdays<br>9/29–1/12</p><p><a href="projects.html">Mid-term + final</a><br><a href="resources.html">Reading & viewing</a></p></div></footer>
-<script src="assets/make-submissions-config.js?v=yoko-visit-3"></script><script src="assets/i18n.js?v=assignment-gallery-1"></script><script src="assets/site.js?v=separate-assessments-1"></script><script src="assets/course-editor.js?v=manual-4"></script><script>
+<script src="assets/make-submissions-config.js?v=care-gallery-1"></script><script src="assets/i18n.js?v=care-gallery-1"></script><script src="assets/site.js?v=separate-assessments-1"></script><script src="assets/course-editor.js?v=manual-4"></script><script>
 (() => {
   const weekFiles = [
     '01-global-engineer.md', '02-global-engineering-atlas.md', '03-gis-data-public-service.md', '04-human-centered-ui-ux.md',
@@ -207,6 +207,16 @@
         else if (!(week.week === 4)) week.sections.filter(section => sectionMatches(section, activityNames)).forEach(section => addSection(activity, section));
         if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = 'EXPLORE THE CLASS ATLAS ↗'; activity.append(link); }
         if (week.week !== 3) addResources(activity, week.resources.filter(resource => ['EXPLORE', 'TOOLS'].includes(resource.category)), 'Tools / explore');
+        if (week.week === 6) {
+          const gallery = document.createElement('iframe');
+          gallery.src = 'visual-stories.html?week=5&embed=1';
+          gallery.title = t('Care prototype gallery');
+          gallery.loading = 'lazy';
+          gallery.dataset.assignmentGallery = '5';
+          gallery.style.cssText = 'display:block;width:100%;height:420px;border:0;margin-top:1rem';
+          gallery.addEventListener('load', () => gallery.contentWindow?.postMessage({ type: 'assignment-gallery-language', lang: document.documentElement.lang }, location.origin));
+          activity.append(gallery);
+        }
         work.append(activity);
         const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = `<header><span>03 / HOMEWORK</span><h3>${week.week === 5 ? t('Build a small act of care') : week.week === 4 ? t('AI: something I read, something I questioned') : week.week === 3 ? t('Who is this designed for?') : t('Carry it forward')}</h3></header>`;
         if (week.week === 2) {
@@ -267,6 +277,12 @@
     return parseWeek(await response.text());
   };
   let loadedAgenda = null;
+  window.addEventListener('message', event => {
+    if (event.origin !== location.origin || event.data?.type !== 'assignment-gallery-height') return;
+    const gallery = [...document.querySelectorAll('iframe[data-assignment-gallery]')].find(frame => frame.contentWindow === event.source);
+    const height = event.data.height;
+    if (gallery && Number.isFinite(height)) gallery.style.height = `${Math.max(160, Math.min(height, 20000))}px`;
+  });
   window.addEventListener('hashchange', () => { if (loadedAgenda) render(...loadedAgenda); });
   window.addEventListener('course-language-change', () => { if (loadedAgenda) render(...loadedAgenda); });
   window.addEventListener('course-content-change', () => { if (loadedAgenda) render(...loadedAgenda); });

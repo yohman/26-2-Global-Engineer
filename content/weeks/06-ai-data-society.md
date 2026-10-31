@@ -19,6 +19,10 @@ Explore one AI decision: its data, risks, and accountability. Then plan your two
 
 ## Participatory Class Activity
 
+Open the care-prototype gallery. Try each other’s work, then discuss what felt helpful, what needed a human, and what you would change.
+
+[View care prototypes](visual-stories.html?week=5)
+
 AI grades 30% of learning: design, audit, appeal, or reject the system.
 
 ## MAKE

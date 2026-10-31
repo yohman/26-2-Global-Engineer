@@ -45,6 +45,10 @@ For example: help someone ask for assistance, rehearse a difficult conversation,
 
 **Due November 2, 23:59 JST.** Prepare a shareable prototype link or a short demo recording with brief notes on the person, boundaries, test, and global perspective. Bring it to class on November 3 so others can try it and discuss: did this feel like care, or just automation? No fixed slide count or presentation format.
 
+[Submit your care prototype](care-prototype-submit.html)
+
+[View care prototypes](visual-stories.html?week=5)
+
 ## Discussion
 
 Open dialogue: follow the questions raised by Koshio’s presentation and your readings.
