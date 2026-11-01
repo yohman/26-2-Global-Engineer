@@ -4,6 +4,13 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Week 6 · November 3': '第6週 · 11月3日',
+    'Trying what we built.': 'つくったものを、試してみる。',
+    'Bring your small act of care. We’ll try each other’s prototypes, question an AI decision, and plan your mid-term session and final installation with Yoh.': '自分の「小さなケア」を持ってきてください。互いの試作品を体験し、AIの判断を問い直し、Yohと中間セッション・期末インスタレーションの計画を立てます。',
+    'Care prototype gallery →': 'ケアの試作品ギャラリー →',
+    'Submit your care prototype →': 'ケアの試作品を提出 →',
+    'Mid-term topics and slots →': '中間発表のテーマと日程 →',
+    'Open Week 6': '第6週を開く',
     'Open a submission to present or try it. Each student’s latest submission is shown.': '提出作品を開いて発表したり、試したりしましょう。各学生の最新の提出を表示しています。',
     'Submit assignment ↗': '課題を提出 ↗',
     'Week 5 · AI and care': '第5週・AIとケア',
