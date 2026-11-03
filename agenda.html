@@ -31,6 +31,7 @@
   const escapeHtml = value => value.replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
   const inlineMarkdown = value => escapeHtml(value)
     .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/\[([^\]]+)\]\(((?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_-]+\.(?:html|pdf|pptx)(?:[?#][^\s)]*)?)\)/g, '<a href="$2">$1</a>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/`(.+?)`/g, '<code>$1</code>');
   const markdownHtml = value => {
@@ -178,7 +179,7 @@
     const available = story || /^lectures\/[A-Za-z0-9_-]+\.(?:html|pdf)$/.test(file);
     if (!available) return `<div class="agenda-slide-card agenda-slide-card--pending"><span>WEEK ${String(week.week).padStart(2, '0')}</span><strong>Lecture slides</strong><p>Preview will appear here when the slides are ready.</p></div>`;
     const href = `lecture-preview.html?file=${encodeURIComponent(file)}&week=${week.week}`;
-    const image = /^lectures\/assets\/[A-Za-z0-9._-]+$/.test(week.slide_image || '') ? `<img src="${escapeHtml(week.slide_image)}" alt="" loading="lazy">` : `<span class="agenda-slide-placeholder">WEEK ${String(week.week).padStart(2, '0')}</span>`;
+    const image = /^lectures\/assets\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9._-]+$/.test(week.slide_image || '') ? `<img src="${escapeHtml(week.slide_image)}" alt="" loading="lazy">` : `<span class="agenda-slide-placeholder">WEEK ${String(week.week).padStart(2, '0')}</span>`;
     const followup = /^lectures\/[A-Za-z0-9_-]+\.html$/.test(week.lecture_followup || '')
       ? `<a class="agenda-slide-followup" href="lecture-preview.html?file=${encodeURIComponent(week.lecture_followup)}&week=${week.week}">Later conversation: Fukushima and energy systems ↗</a>`
       : '';

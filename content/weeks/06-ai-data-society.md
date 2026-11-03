@@ -7,6 +7,8 @@ subtitle: AI, Data & Society
 kind: Workshop
 lead: Yoh + everyone
 make_id: make06
+lecture_preview: lectures/week06-jan-elliq.html
+slide_image: lectures/assets/jan-elliq/evening.png
 ---
 
 ## Overview / Big Question
