@@ -4,6 +4,23 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Care prototype presentations': 'ケアの試作品の発表',
+    'Five students: show, try, and discuss each prototype.': '5人が作品を見せ、互いに試し、話し合う。',
+    'What felt like care?': '何がケアと感じられた？',
+    'Compare boundaries, human support, and global contexts.': '境界、人の支え、地域による違いを比べる。',
+    'Mid-term + final planning': '中間・期末制作の相談',
+    'Confirm topics and slots; discuss installation proposals with Yoh.': 'テーマと発表枠を確定し、Yohと期末展示の企画を相談。',
+    'Next steps': '次に取り組むこと',
+    'Choose one revision and confirm what to prepare next.': '改善点を一つ選び、次回への準備を確認。',
+    'Show your small act of care. Let others try it, explain what you learned from testing, and bring one question to the group. Then confirm your mid-term topic and slot and discuss your final-installation proposal with Yoh.': '自分の「小さなケア」を見せ、互いに試してもらいましょう。試してわかったことと問いを一つ共有します。その後、中間発表のテーマ・日程を確定し、Yohと期末展示の企画を相談します。',
+    'Revise your act of care': '小さなケアを磨く',
+    '**Revise your act of care.** Choose one change from today’s feedback. Make the experience more helpful, clearer about its limits, or easier to stop. Explain why this matters to your intended user.': '**小さなケアを磨く。** 今日のフィードバックから改善点を一つ選びます。より役立つ体験、限界が伝わる体験、止めやすい体験へ。その変更が対象者にとってなぜ大切かを説明してください。',
+    'Before next class, update your care prototype and its notes using the same submission form. Your latest version counts. Develop the mid-term and final-installation direction agreed with Yoh; bring one question or early sketch. No fixed slide count.': '次回までにケアの試作品とメモを更新し、同じフォームから再提出してください。最新の版を採用します。Yohと相談した中間・期末制作の方向性を深め、問いや初期スケッチを持参しましょう。スライド枚数の指定はありません。',
+    '[Update your care prototype](care-prototype-submit.html)': '[ケアの試作品を更新](care-prototype-submit.html)',
+    '[Mid-term topics and slots](projects.html#slots)': '[中間発表のテーマと日程](projects.html#slots)',
+    '[Final installation requirements](projects.html#final)': '[期末インスタレーションの要件](projects.html#final)',
+    'Show your small act of care and let others try it. We’ll discuss what felt helpful, what still needs a person, and how the experience might change elsewhere. Then we’ll confirm mid-term plans and talk about your final installations.': '自分の「小さなケア」を見せ、互いに試しましょう。何が助けになり、何に人が必要で、他の地域ではどう変わるかを話し合います。その後、中間発表の計画を確定し、期末展示について相談します。',
+    'Final installation requirements →': '期末インスタレーションの要件 →',
     'Week 6 · November 3': '第6週 · 11月3日',
     'Trying what we built.': 'つくったものを、試してみる。',
     'Bring your small act of care. We’ll try each other’s prototypes, question an AI decision, and plan your mid-term session and final installation with Yoh.': '自分の「小さなケア」を持ってきてください。互いの試作品を体験し、AIの判断を問い直し、Yohと中間セッション・期末インスタレーションの計画を立てます。',

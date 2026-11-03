@@ -15,7 +15,7 @@ AI, data, and society. The question is not only “Can we use AI?” but “Shou
 
 ## Lecture
 
-Explore one AI decision: its data, risks, and accountability. Then plan your two individual assessments with Yoh.
+Show your small act of care. Let others try it, explain what you learned from testing, and bring one question to the group. Then confirm your mid-term topic and slot and discuss your final-installation proposal with Yoh.
 
 ## Participatory Class Activity
 
@@ -23,15 +23,20 @@ Open the care-prototype gallery. Try each other’s work, then discuss what felt
 
 [View care prototypes](visual-stories.html?week=5)
 
-AI grades 30% of learning: design, audit, appeal, or reject the system.
 
 ## MAKE
 
-**AI Impact Card.** Make benefit, harm, data, oversight, and red line inspectable.
+**Revise your act of care.** Choose one change from today’s feedback. Make the experience more helpful, clearer about its limits, or easier to stop. Explain why this matters to your intended user.
 
 ## Homework
 
-Bring first and second choices of mid-term topic and slot, plus a short final-installation proposal today. Confirm your slot with Yoh in class. See [Projects: choices, requirements, and milestones](projects.html).
+Before next class, update your care prototype and its notes using the same submission form. Your latest version counts. Develop the mid-term and final-installation direction agreed with Yoh; bring one question or early sketch. No fixed slide count.
+
+[Update your care prototype](care-prototype-submit.html)
+
+[Mid-term topics and slots](projects.html#slots)
+
+[Final installation requirements](projects.html#final)
 
 ## Resources
 

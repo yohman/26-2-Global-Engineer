@@ -9,7 +9,7 @@ window.MAKE_SUBMISSIONS_CONFIG = {
     make03: { title: 'Who is this designed for?', formUrl: 'ui-ux-submit.html' },
     make04: { title: 'Redesign It', formUrl: '' },
     make05: { title: 'Build a small act of care', formUrl: 'care-prototype-submit.html' },
-    make06: { title: 'AI Impact Card', formUrl: '' },
+    make06: { title: 'Revise your act of care', formUrl: '' },
     make07: { title: 'Infrastructure Decision Map', formUrl: '' },
     make08: { title: 'Appropriate Intervention', formUrl: '' },
     make09: { title: 'Field-Test Revision', formUrl: '' },
