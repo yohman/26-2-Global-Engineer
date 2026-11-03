@@ -19,24 +19,24 @@ Show your small act of care. Let others try it, explain what you learned from te
 
 ## Participatory Class Activity
 
-Open the care-prototype gallery. Try each other’s work, then discuss what felt helpful, what needed a human, and what you would change.
-
 [View care prototypes](visual-stories.html?week=5)
 
 
 ## MAKE
 
-**Revise your act of care.** Choose one change from today’s feedback. Make the experience more helpful, clearer about its limits, or easier to stop. Explain why this matters to your intended user.
+**A recommendation for Seetha’s visit.** Review Seetha’s presentation material, then recommend an urban development policy as a Global Engineer. How could it help prosperity and quality growth in Asia and the Pacific while supporting resilience, equity, and sustainability?
 
 ## Homework
 
-Before next class, update your care prototype and its notes using the same submission form. Your latest version counts. Develop the mid-term and final-installation direction agreed with Yoh; bring one question or early sketch. No fixed slide count.
+Prepare this mini assignment before Seetha’s in-person visit on November 10. You can continue working on it during class.
 
-[Update your care prototype](care-prototype-submit.html)
+[Review Seetha’s presentation material (PowerPoint)](week07-seetha-infrastructure-assignment.pptx)
 
-[Mid-term topics and slots](projects.html#slots)
+### Requirements
 
-[Final installation requirements](projects.html#final)
+- Choose one stakeholder type: government, multilateral bank, private sector, or civil society.
+- Make a recommendation to that stakeholder as a Global Engineer. Clearly identify your stakeholder in the presentation.
+- Prepare 3–4 slides for a 4–5 minute presentation.
 
 ## Resources
 

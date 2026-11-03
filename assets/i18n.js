@@ -4,6 +4,13 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'A recommendation for Seetha’s visit': 'Seethaさんへの政策提案',
+    '**A recommendation for Seetha’s visit.** Review Seetha’s presentation material, then recommend an urban development policy as a Global Engineer. How could it help prosperity and quality growth in Asia and the Pacific while supporting resilience, equity, and sustainability?': '**Seethaさんへの政策提案。** Seethaさんの発表資料を読み、グローバルエンジニアとして都市開発政策を提案してください。レジリエンス、公平性、持続可能性を支えながら、アジア太平洋の繁栄と質の高い成長にどう貢献できるでしょうか。',
+    'Prepare this mini assignment before Seetha’s in-person visit on November 10. You can continue working on it during class.': '11月10日のSeethaさんの対面授業までに、このミニ課題を準備してください。授業中も引き続き取り組めます。',
+    '[Review Seetha’s presentation material (PowerPoint)](week07-seetha-infrastructure-assignment.pptx)': '[Seethaさんの発表資料を読む（PowerPoint）](week07-seetha-infrastructure-assignment.pptx)',
+    'Choose one stakeholder type: government, multilateral bank, private sector, or civil society.': '政府、国際開発銀行、民間企業、市民社会から、提案先のステークホルダーを一つ選ぶ。',
+    'Make a recommendation to that stakeholder as a Global Engineer. Clearly identify your stakeholder in the presentation.': 'グローバルエンジニアとして、選んだ相手に提案する。発表では提案先を明示する。',
+    'Prepare 3–4 slides for a 4–5 minute presentation.': 'スライド3〜4枚で、4〜5分の発表を準備する。',
     'Care prototype presentations': 'ケアの試作品の発表',
     'Five students: show, try, and discuss each prototype.': '5人が作品を見せ、互いに試し、話し合う。',
     'What felt like care?': '何がケアと感じられた？',

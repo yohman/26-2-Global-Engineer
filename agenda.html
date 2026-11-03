@@ -39,7 +39,7 @@
       const line = raw.trim();
       if (!line) { if (listOpen) { output.push('</ul>'); listOpen = false; } return; }
       if (line.startsWith('- ')) { if (!listOpen) { output.push('<ul>'); listOpen = true; } output.push(`<li>${inlineMarkdown(line.slice(2))}</li>`); }
-      else { if (listOpen) { output.push('</ul>'); listOpen = false; } output.push(`<p>${inlineMarkdown(line)}</p>`); }
+      else { if (listOpen) { output.push('</ul>'); listOpen = false; } const heading = line.match(/^###\s+(.+)$/); output.push(heading ? `<h4 class="homework-requirements-heading">${inlineMarkdown(t(heading[1]))}</h4>` : `<p>${inlineMarkdown(line)}</p>`); }
     });
     if (listOpen) output.push('</ul>');
     return output.join('');
@@ -212,18 +212,8 @@
         else if (!(week.week === 4)) week.sections.filter(section => sectionMatches(section, activityNames)).forEach(section => addSection(activity, section));
         if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = 'EXPLORE THE CLASS ATLAS ↗'; activity.append(link); }
         if (week.week !== 3) addResources(activity, week.resources.filter(resource => ['EXPLORE', 'TOOLS'].includes(resource.category)), 'Tools / explore');
-        if (week.week === 6) {
-          const gallery = document.createElement('iframe');
-          gallery.src = 'visual-stories.html?week=5&embed=1';
-          gallery.title = t('Care prototype gallery');
-          gallery.loading = 'lazy';
-          gallery.dataset.assignmentGallery = '5';
-          gallery.style.cssText = 'display:block;width:100%;height:420px;border:0;margin-top:1rem';
-          gallery.addEventListener('load', () => gallery.contentWindow?.postMessage({ type: 'assignment-gallery-language', lang: document.documentElement.lang }, location.origin));
-          activity.append(gallery);
-        }
         work.append(activity);
-        const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = `<header><span>03 / HOMEWORK</span><h3>${week.week === 6 ? t('Revise your act of care') : week.week === 5 ? t('Build a small act of care') : week.week === 4 ? t('AI: something I read, something I questioned') : week.week === 3 ? t('Who is this designed for?') : t('Carry it forward')}</h3></header>`;
+        const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = `<header><span>03 / HOMEWORK</span><h3>${week.week === 6 ? t('A recommendation for Seetha’s visit') : week.week === 5 ? t('Build a small act of care') : week.week === 4 ? t('AI: something I read, something I questioned') : week.week === 3 ? t('Who is this designed for?') : t('Carry it forward')}</h3></header>`;
         if (week.week === 2) {
           const tabs = document.createElement('div'); tabs.className = 'homework-tabs'; tabs.setAttribute('role', 'tablist'); tabs.setAttribute('aria-label', t('Two homework assignments'));
           const panels = [];
