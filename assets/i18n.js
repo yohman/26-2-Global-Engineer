@@ -4,6 +4,14 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Week 7 · November 10': '第7週 · 11月10日',
+    'Open Week 7': '第7週を開く',
+    'Infrastructure and growth in Asia': 'アジアのインフラと成長',
+    'Seetha joins us in person. Review his material and bring your recommendation for a government, multilateral bank, private sector, or civil society stakeholder. Prepare 3–4 slides for 4–5 minutes. You can continue working during class.': 'Seethaさんが対面で参加します。資料を読み、政府、国際開発銀行、民間企業、市民社会のいずれかに向けた提案を準備してください。スライド3〜4枚で4〜5分の発表。授業中も引き続き取り組めます。',
+    'Seetha’s presentation material →': 'Seethaさんの発表資料 →',
+    'Preparation requirements →': '事前課題の要件 →',
+    'Meet Seetha →': 'Seethaさんの紹介 →',
+    'Review Seetha’s material. Choose government, a multilateral bank, private sector, or civil society, and make a recommendation as a Global Engineer. Prepare 3–4 slides for 4–5 minutes before class. You can continue working during class.': 'Seethaさんの資料を読み、政府、国際開発銀行、民間企業、市民社会から提案先を選び、グローバルエンジニアとして提案してください。授業前にスライド3〜4枚で4〜5分の発表を準備。授業中も引き続き取り組めます。',
     'A recommendation for Seetha’s visit': 'Seethaさんへの政策提案',
     '**A recommendation for Seetha’s visit.** Review Seetha’s presentation material, then recommend an urban development policy as a Global Engineer. How could it help prosperity and quality growth in Asia and the Pacific while supporting resilience, equity, and sustainability?': '**Seethaさんへの政策提案。** Seethaさんの発表資料を読み、グローバルエンジニアとして都市開発政策を提案してください。レジリエンス、公平性、持続可能性を支えながら、アジア太平洋の繁栄と質の高い成長にどう貢献できるでしょうか。',
     'Prepare this mini assignment before Seetha’s in-person visit on November 10. You can continue working on it during class.': '11月10日のSeethaさんの対面授業までに、このミニ課題を準備してください。授業中も引き続き取り組めます。',

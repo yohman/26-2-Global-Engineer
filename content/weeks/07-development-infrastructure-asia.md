@@ -16,7 +16,9 @@ guest_id: seetha-ram
 
 ## Guest Preparation
 
-Bring a ¥100B decision: one investment, its beneficiaries, its losers, and a 20-year effect.
+Review Seetha’s material. Choose government, a multilateral bank, private sector, or civil society, and make a recommendation as a Global Engineer. Prepare 3–4 slides for 4–5 minutes before class. You can continue working during class.
+
+[Review Seetha’s presentation material (PowerPoint)](week07-seetha-infrastructure-assignment.pptx)
 
 ## In Class
 
