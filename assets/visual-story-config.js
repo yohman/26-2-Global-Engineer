@@ -2,7 +2,8 @@ window.SUBMISSION_ASSIGNMENTS = {
   '2': { prefix: '', form: 'visual-story-submit.html#submit' },
   '3': { prefix: '[Week 3 UI/UX] ', form: 'ui-ux-submit.html#submit' },
   '4': { prefix: '[Week 4 AI] ', form: 'ai-reading-submit.html' },
-  '5': { prefix: '[Week 5 Care] ', form: 'care-prototype-submit.html' }
+  '5': { prefix: '[Week 5 Care] ', form: 'care-prototype-submit.html' },
+  midterm: { prefix: '[Midterm ', form: 'midterm-signup.html' }
 };
 window.ASSIGNMENT_SUBMISSION_CONFIG = {
   mode: 'story',

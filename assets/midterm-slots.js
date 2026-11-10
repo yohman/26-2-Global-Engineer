@@ -5,6 +5,7 @@
   const t = (en,jp) => ja()?jp:en;
   const slots = ['A · November 17 · First','B · November 17 · Second','C · December 1 · First','D · December 1 · Second','E · December 15 · First'];
   let rows=[], message='';
+  try { if (new URLSearchParams(location.search).get('lang') === 'ja' || localStorage.getItem('ge-language') === 'ja') document.documentElement.lang='ja'; } catch {}
   function csv(s) { const out=[];let row=[],v='',q=false;for(let i=0;i<s.length;i++){let c=s[i];if(c==='"'){if(q&&s[i+1]==='"'){v+='"';i++;}else q=!q;}else if(c===','&&!q){row.push(v);v='';}else if(/[\r\n]/.test(c)&&!q){if(c==='\r'&&s[i+1]==='\n')i++;row.push(v);out.push(row);row=[];v='';}else v+=c;}if(v||row.length){row.push(v);out.push(row);}return out; }
   function render(){
     root.replaceChildren();
@@ -25,6 +26,6 @@
     const frame=document.createElement('iframe');frame.name='slot-receipt';frame.title='Submission receipt';frame.hidden=true;root.append(frame);
     const refresh=document.createElement('button');refresh.textContent=t('Refresh schedule','日程を更新');refresh.addEventListener('click',load);root.append(refresh);
   }
-  async function load(){message=t('Loading…','読み込み中…');render();try{const res=await fetch(window.ASSIGNMENT_SUBMISSION_CONFIG.feed,{cache:'no-store'});if(!res.ok)throw Error();const latest=new Map();csv(await res.text()).filter(r=>/^\[Midterm [A-E]\] /.test(r[2]||'')).forEach(r=>latest.set(r[1].normalize('NFKC').trim().toLowerCase(),r));rows=[...latest.values()];message='';}catch{message=t('Schedule unavailable. Please refresh.','日程を取得できません。更新してください。');}render();}
+  async function load(){message=t('Loading…','読み込み中…');render();try{const res=await fetch(window.ASSIGNMENT_SUBMISSION_CONFIG.feed,{cache:'no-store'});if(!res.ok)throw Error();const source=await res.text();if(/^\s*</.test(source))throw Error();const table=csv(source);if(!table[0]?.[0]?.includes('Name'))throw Error();const latest=new Map();table.slice(1).map(r=>['',...r]).filter(r=>/^\[Midterm [A-E]\] /.test(r[2]||'')).forEach(r=>latest.set(r[1].normalize('NFKC').trim().toLowerCase(),r));rows=[...latest.values()];message='';}catch{message=t('Schedule unavailable. Please refresh.','日程を取得できません。更新してください。');}render();}
   new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});load();
 })();

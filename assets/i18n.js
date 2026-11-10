@@ -4,6 +4,7 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Prepare your mid-term session': '中間発表の準備',
     'Mid-term signup and schedule': '中間発表の申込みと日程',
     '**Prepare your mid-term session.** Choose your presentation slot and topic today, November 10. Use the form and shared schedule below.': '**中間発表の準備。** 本日11月10日に日程とテーマを選びます。下のフォームと共有日程を使ってください。',
     'Choose a slot: November 17 (A/B), December 1 (C/D), or December 15 (E).': '11月17日（A/B）、12月1日（C/D）、12月15日（E）から発表枠を選ぶ。',

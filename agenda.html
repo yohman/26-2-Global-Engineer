@@ -214,7 +214,7 @@
         if (week.week <= 2) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = 'atlas.html'; link.textContent = 'EXPLORE THE CLASS ATLAS ↗'; activity.append(link); }
         if (week.week !== 3) addResources(activity, week.resources.filter(resource => ['EXPLORE', 'TOOLS'].includes(resource.category)), 'Tools / explore');
         work.append(activity);
-        const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = `<header><span>03 / HOMEWORK</span><h3>${week.week === 6 ? t('A recommendation for Seetha’s visit') : week.week === 5 ? t('Build a small act of care') : week.week === 4 ? t('AI: something I read, something I questioned') : week.week === 3 ? t('Who is this designed for?') : t('Carry it forward')}</h3></header>`;
+        const homework = document.createElement('section'); homework.className = 'agenda-work-card agenda-work-card--homework'; homework.innerHTML = `<header><span>03 / HOMEWORK</span><h3>${week.week === 7 ? t('Prepare your mid-term session') : week.week === 6 ? t('A recommendation for Seetha’s visit') : week.week === 5 ? t('Build a small act of care') : week.week === 4 ? t('AI: something I read, something I questioned') : week.week === 3 ? t('Who is this designed for?') : t('Carry it forward')}</h3></header>`;
         if (week.week === 2) {
           const tabs = document.createElement('div'); tabs.className = 'homework-tabs'; tabs.setAttribute('role', 'tablist'); tabs.setAttribute('aria-label', t('Two homework assignments'));
           const panels = [];
@@ -237,7 +237,7 @@
         const formUrl = week.week === 3 ? null : week.make_form_url || assignments[week.make_id]?.formUrl;
         if (week.make_id && formUrl) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = formUrl; link.target = '_blank'; link.rel = 'noopener'; link.textContent = 'SUBMIT / UPDATE YOUR MAKE'; homework.append(link); }
         work.append(homework); detail.append(work);
-        if (week.week === 7) { const frame=document.createElement('iframe'); frame.src='midterm-signup.html'; frame.title=t('Mid-term signup and schedule'); frame.loading='lazy'; frame.style.cssText='width:100%;height:1050px;border:0;margin-top:1rem'; homework.append(frame); }
+        if (week.week === 7) { const frame=document.createElement('iframe'); frame.src='midterm-signup.html?lang='+document.documentElement.lang; frame.title=t('Mid-term signup and schedule'); frame.loading='lazy'; frame.style.cssText='width:100%;height:1050px;border:0;margin-top:1rem'; homework.append(frame); }
         article.append(detail);
       }
       list.append(article);
