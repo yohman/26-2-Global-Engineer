@@ -237,6 +237,7 @@
         const formUrl = week.week === 3 ? null : week.make_form_url || assignments[week.make_id]?.formUrl;
         if (week.make_id && formUrl) { const link = document.createElement('a'); link.className = 'button agenda-make-button'; link.href = formUrl; link.target = '_blank'; link.rel = 'noopener'; link.textContent = 'SUBMIT / UPDATE YOUR MAKE'; homework.append(link); }
         work.append(homework); detail.append(work);
+        if (week.week === 7) { const frame=document.createElement('iframe'); frame.src='midterm-signup.html'; frame.title=t('Mid-term signup and schedule'); frame.loading='lazy'; frame.style.cssText='width:100%;height:1050px;border:0;margin-top:1rem'; homework.append(frame); }
         article.append(detail);
       }
       list.append(article);

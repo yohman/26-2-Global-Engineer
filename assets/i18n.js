@@ -4,6 +4,14 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Mid-term signup and schedule': '中間発表の申込みと日程',
+    '**Prepare your mid-term session.** Choose your presentation slot and topic today, November 10. Use the form and shared schedule below.': '**中間発表の準備。** 本日11月10日に日程とテーマを選びます。下のフォームと共有日程を使ってください。',
+    'Choose a slot: November 17 (A/B), December 1 (C/D), or December 15 (E).': '11月17日（A/B）、12月1日（C/D）、12月15日（E）から発表枠を選ぶ。',
+    'Choose a proposed topic from the mid-term page, or discuss your own topic with Yoh.': '中間課題ページのテーマから選ぶか、自分のテーマをYohに相談する。',
+    'Begin preparing your 30-minute session. Start in English, connect Japan with another country, and plan an activity or dialogue.': '30分の担当授業の準備を始める。冒頭は英語、日本と他国をつなぎ、活動や対話を計画する。',
+    'Submit your presentation material, sources, and one-page facilitation plan by 23:59 JST the day before your session.': '担当日の前日23:59（日本時間）までに、発表資料・出典・進行計画1ページを提出する。',
+    '[Choose your slot and topic / view schedule](midterm-signup.html)': '[日程とテーマを選ぶ・共有日程を見る](midterm-signup.html)',
+    '[Mid-term requirements and suggested topics](projects.html#midterm)': '[中間課題の要件とテーマ](projects.html#midterm)',
     'Week 7 · November 10': '第7週 · 11月10日',
     'Open Week 7': '第7週を開く',
     'Infrastructure and growth in Asia': 'アジアのインフラと成長',

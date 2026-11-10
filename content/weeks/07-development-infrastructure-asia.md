@@ -26,7 +26,18 @@ Infrastructure investment studio: choose a project in Asia and argue for it in p
 
 ## MAKE
 
-**Infrastructure Decision Map.** WHERE / WHAT / WHY / BENEFICIARIES / 20-YEAR EFFECT.
+**Prepare your mid-term session.** Choose your presentation slot and topic today, November 10. Use the form and shared schedule below.
+
+## Homework
+
+- Choose a slot: November 17 (A/B), December 1 (C/D), or December 15 (E).
+- Choose a proposed topic from the mid-term page, or discuss your own topic with Yoh.
+- Begin preparing your 30-minute session. Start in English, connect Japan with another country, and plan an activity or dialogue.
+- Submit your presentation material, sources, and one-page facilitation plan by 23:59 JST the day before your session.
+
+[Choose your slot and topic / view schedule](midterm-signup.html)
+
+[Mid-term requirements and suggested topics](projects.html#midterm)
 
 ## Atlas
 
