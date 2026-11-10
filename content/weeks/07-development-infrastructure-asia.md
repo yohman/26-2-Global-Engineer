@@ -22,7 +22,11 @@ Review Seetha’s material. Choose government, a multilateral bank, private sect
 
 ## In Class
 
-Infrastructure investment studio: choose a project in Asia and argue for it in public.
+[View Seetha assignments](visual-stories.html?week=6)
+
+## Lecture
+
+[Submit your Seetha assignment](seetha-submit.html)
 
 ## MAKE
 

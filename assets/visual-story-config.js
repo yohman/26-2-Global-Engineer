@@ -3,6 +3,7 @@ window.SUBMISSION_ASSIGNMENTS = {
   '3': { prefix: '[Week 3 UI/UX] ', form: 'ui-ux-submit.html#submit' },
   '4': { prefix: '[Week 4 AI] ', form: 'ai-reading-submit.html' },
   '5': { prefix: '[Week 5 Care] ', form: 'care-prototype-submit.html' },
+  '6': { prefix: '[Week 6 Seetha] ', form: 'seetha-submit.html' },
   midterm: { prefix: '[Midterm ', form: 'midterm-signup.html' }
 };
 window.ASSIGNMENT_SUBMISSION_CONFIG = {

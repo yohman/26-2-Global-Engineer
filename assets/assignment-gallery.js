@@ -1,6 +1,8 @@
 (() => {
   const params = new URLSearchParams(location.search);
   const assignments = window.SUBMISSION_ASSIGNMENTS;
+  const seethaOption = new Option('Week 6 · Recommendation for Seetha', '6');
+  document.querySelector('#assignment-week').append(seethaOption);
   const week = Object.hasOwn(assignments, params.get('week')) ? params.get('week') : '2';
   document.querySelector('#assignment-week').value = week;
   Object.assign(window.ASSIGNMENT_SUBMISSION_CONFIG, {

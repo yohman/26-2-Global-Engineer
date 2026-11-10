@@ -4,6 +4,14 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    '[Submit your Seetha assignment](seetha-submit.html)': '[Seethaさんへの提案を提出](seetha-submit.html)',
+    '[View Seetha assignments](visual-stories.html?week=6)': '[Seethaさんへの提案を見る](visual-stories.html?week=6)',
+    'November 10 · Seetha’s visit': '11月10日・Seethaさんの対面授業',
+    'Submit your 3–4 slides for a 4–5 minute presentation. Identify your stakeholder: government, multilateral bank, private sector, or civil society.': '4〜5分の発表用スライド3〜4枚を提出してください。政府、国際開発銀行、民間企業、市民社会のどの相手への提案かを明示してください。',
+    'Share a website or online presentation link. Enable viewing access and test the link before submitting.': 'ウェブサイトまたはオンライン発表資料のリンクを提出してください。閲覧権限を設定し、提出前にリンクを確認してください。',
+    'Your name, title, link, and optional notes will be public. Resubmit using the same name; your latest submission for this assignment counts.': '名前、タイトル、リンク、任意のメモは公開されます。同じ名前で再提出すると、この課題の最新の提出を採用します。',
+    'Stakeholder / notes (optional)': '提案先・メモ（任意）',
+    'Week 6 · Recommendation for Seetha': '第6週・Seethaさんへの提案',
     'Prepare your mid-term session': '中間発表の準備',
     'Mid-term signup and schedule': '中間発表の申込みと日程',
     '**Prepare your mid-term session.** Choose your presentation slot and topic today, November 10. Use the form and shared schedule below.': '**中間発表の準備。** 本日11月10日に日程とテーマを選びます。下のフォームと共有日程を使ってください。',

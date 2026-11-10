@@ -40,6 +40,10 @@ Prepare this mini assignment before Seetha’s in-person visit on November 10. Y
 - Make a recommendation to that stakeholder as a Global Engineer. Clearly identify your stakeholder in the presentation.
 - Prepare 3–4 slides for a 4–5 minute presentation.
 
+[Submit your Seetha assignment](seetha-submit.html)
+
+[View Seetha assignments](visual-stories.html?week=6)
+
 ## Resources
 
 - [Recommendation on the Ethics of Artificial Intelligence](https://www.unesco.org/en/articles/recommendation-ethics-artificial-intelligence) — UNESCO | Values and principles for the debate {READ}
