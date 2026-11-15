@@ -40,6 +40,8 @@ Review Kana’s introduction and prepare 3–4 slides for a 4–5 minute contrib
 
 Have your slides ready by November 23, 23:59 JST. Kairu’s mid-term reflection is due within one week of his session.
 
+[Submit your Kana assignment](kana-submit.html)
+
 [Kana’s visit · Week 9](agenda.html#week-9)
 
 ## Resources

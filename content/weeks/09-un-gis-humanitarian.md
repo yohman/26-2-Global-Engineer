@@ -20,6 +20,8 @@ Bring a humanitarian data or response idea ready to be challenged by security, l
 
 ## In Class
 
+[View Kana assignments](visual-stories.html?week=8)
+
 Humanitarian data sprint: work with incomplete maps and changing constraints.
 
 ## MAKE

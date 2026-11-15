@@ -4,6 +4,13 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Week 8 · Preparing for Kana': '第8週・Kanaさんの授業への準備',
+    'DUE · November 23, 23:59 JST': '締切：11月23日23:59（日本時間）',
+    'Submit your 3–4 slides for a 4–5 minute contribution on November 24. Include your proposed GIS decision, one limitation or risk, and a question for Kana.': '11月24日の4〜5分の発表用スライド3〜4枚を提出してください。GISを使う判断の提案、限界やリスクを一つ、Kanaさんへの質問を含めてください。',
+    'Notes (optional)': 'メモ（任意）',
+    'Week 8 · A GIS decision for Kana': '第8週・Kanaさんと考えるGISの提案',
+    '[Submit your Kana assignment](kana-submit.html)': '[Kanaさんへの課題を提出](kana-submit.html)',
+    '[View Kana assignments](visual-stories.html?week=8)': '[Kanaさんへの課題を見る](visual-stories.html?week=8)',
     'A GIS decision to discuss with Kana': 'Kanaさんと考えるGISの提案',
     'Kairu + Yoh': 'Kairu・Yoh',
     'Kairu’s session + humanitarian GIS pathways': 'Kairuの担当授業・人道支援とGISへの道',
