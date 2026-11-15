@@ -32,9 +32,8 @@ render=function(){
  if(revealed){const answer=stage.querySelector('.answer');if(guesses.has(index))el('p',t('Your choice: ','選んだ答え：')+guesses.get(index),answer).className='your-choice';
  const proof=el('section',null,answer);proof.className='evidence';proof.setAttribute('aria-label',t('Visual evidence','目で見る根拠'));
  const gallery=el('div',null,proof);gallery.className='evidence-images';
- q.proof[1].forEach((file,i)=>{const link=el('a',null,gallery);link.href='assets/un-proof/'+file;link.target='_blank';link.rel='noopener';const image=el('img',null,link);image.src=link.href;image.alt=q.proof[2]+(q.proof[1].length>1?' · '+(i+1):'');});
+ window.drawUNScene(gallery,q);
  const caption=el('a',q.proof[2]+' · '+t('open source','出典を開く'),proof);caption.href=q.proof[3];caption.target='_blank';caption.rel='noopener';caption.className='proof-caption';
- if(q.proof[0]!=='toilet')el('p',t('Actual official-source capture · 15 Nov 2026. Open image to inspect.','公式ページの実際の画面・2026年11月15日。画像を開いて確認できます。'),proof).className='capture-note';
  if(q.gis==='privacy')el('p',t('The map is fictional. The source documents the risk of sharing sensitive locations.','地図は架空。出典は機微な位置情報の共有リスクを説明しています。'),answer);
  }
 };
