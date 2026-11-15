@@ -4,6 +4,7 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    '[United Nations quiz · interactive maps](lectures/week08-un-quiz.html)': '[国連クイズ・地図を操作しながら](lectures/week08-un-quiz.html)',
     '[United Nations quiz (PowerPoint)](lectures/week08-un-quiz.pptx)': '[国連クイズ（PowerPoint）](lectures/week08-un-quiz.pptx)',
     'Week 8 · Preparing for Kana': '第8週・Kanaさんの授業への準備',
     'DUE · November 23, 23:59 JST': '締切：11月23日23:59（日本時間）',

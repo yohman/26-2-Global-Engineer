@@ -7,6 +7,7 @@ subtitle: Kairu’s session + humanitarian GIS pathways
 kind: Mid-term · student-led
 lead: Kairu + Yoh
 make_id: make08
+lecture_preview: lectures/week08-un-quiz.html
 ---
 
 ## Overview / Big Question
@@ -19,7 +20,7 @@ Kairu leads the first 30 minutes, including participation and dialogue. Yoh then
 
 [Meet Kana](guests.html#kana-kudo)
 
-[United Nations quiz (PowerPoint)](lectures/week08-un-quiz.pptx)
+[United Nations quiz · interactive maps](lectures/week08-un-quiz.html)
 
 ## Participatory Class Activity
 
