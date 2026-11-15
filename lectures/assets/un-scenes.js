@@ -1,5 +1,6 @@
 // Data scenes are derived from the linked UN sources. Scenarios are explicitly labelled.
 window.drawUNScene=function(host,q){
+ if(window.drawStoryScene?.(host,q))return;
  const key=q.proof[0];host.classList.add('story-scene');document.body.dataset.scene=key;
  const E=(tag,copy,parent=host)=>{const n=document.createElement(tag);if(copy!==null)n.textContent=copy;parent.append(n);return n;};
  const T=(en,ja)=>document.documentElement.lang==='ja'?ja:en;
