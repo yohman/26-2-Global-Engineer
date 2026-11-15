@@ -4,6 +4,7 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'A GIS decision to discuss with Kana': 'Kanaさんと考えるGISの提案',
     'Kairu + Yoh': 'Kairu・Yoh',
     'Kairu’s session + humanitarian GIS pathways': 'Kairuの担当授業・人道支援とGISへの道',
     'Kairu’s session': 'Kairuの担当授業',
