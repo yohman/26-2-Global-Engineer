@@ -29,7 +29,7 @@ render=function(){
  const raw=choices.textContent.trim();choices.replaceChildren();choices.setAttribute('role','group');choices.setAttribute('aria-label',t('Choose an answer','答えを選ぶ'));
  const options=[...raw.matchAll(/(?:^|\n|\s{2,})([A-C])\s+([^]*?)(?=(?:\n|\s{2,})[A-C]\s+|$)/g)];
  options.forEach(([,letter,copy])=>{const button=el('button',null,choices);button.className='choice';button.setAttribute('aria-pressed',String(guesses.get(index)===letter));const badge=el('span',letter,button);badge.className='choice-letter';el('span',copy.trim(),button);button.onclick=()=>{guesses.set(index,letter);choices.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));};});
- if(!options.length)el('p',raw,choices);
+ if(!options.length&&!q.discussion)el('p',raw,choices);if(q.discussion&&!revealed){el('p',t('Discuss first. Then reveal the record.','まず話そう。その後で、実際に起きたことを見る。'),choices);}
  if(revealed){const answer=stage.querySelector('.answer');if(guesses.has(index))el('p',t('Your choice: ','選んだ答え：')+guesses.get(index),answer).className='your-choice';
  const proof=el('section',null,answer);proof.className='evidence';proof.setAttribute('aria-label',t('Visual evidence','目で見る根拠'));
  const gallery=el('div',null,proof);gallery.className='evidence-images';

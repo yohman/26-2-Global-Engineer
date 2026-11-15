@@ -38,7 +38,8 @@ window.buildUNStory=function(old){
   protection:['A  身分証があれば、どこでも安全\nB  法的な保護があっても、危険は残る','B・法的な保護は、安全の保証ではない'],
   closing:['A  大変な一日は、実際にどんな一日？\nB  地図で判断が変わったことは？\nC  この道のために、手放したものは？','どれも聞きたい。用意した質問より、返ってきた答えをたどろう。']
  };
- return keys.map((v,i)=>{const q=typeof v==='string'?by[v]:v;q.chapter=q.chapter||(i<6?room:i<14?field:life);[q.optionsJA,q.answerJA]=japanese[q.proof[0]];return q;});
+ const story=keys.map((v,i)=>{const q=typeof v==='string'?by[v]:v;q.chapter=q.chapter||(i<6?room:i<14?field:life);[q.optionsJA,q.answerJA]=japanese[q.proof[0]];return q;});
+ return window.applyBentiuStory(story);
 };
 
 // Keep visual and text in separate flow columns: neither can cover the other.
@@ -53,7 +54,7 @@ window.layoutUNStory=function(stage,q,revealed){
  panel.append(choices);if(reveal)panel.append(reveal);if(answer)panel.append(answer);
  if(gis){visual.append(gis);if(gallery)gallery.remove();}
  else if(gallery)visual.append(gallery);
- else {const teaser=document.createElement('div');teaser.className='scene-teaser';const img=document.createElement('img');img.src='assets/un-photos/'+(q.chapter[0].startsWith('01')?'charter-1945.jpg':q.chapter[0].startsWith('02')?'peacekeepers.jpg':'field-map.webp');img.alt=T('UN work, from the meeting room to the field','会議の場から現場へ、国連の仕事');teaser.append(img);const text=document.createElement('p');text.textContent=T('Make a choice. Then look closer.','選んでから、その先を見てみよう。');teaser.append(text);visual.append(teaser);}
+ else {const teaser=document.createElement('div');teaser.className='scene-teaser';const img=document.createElement('img');img.src='assets/un-photos/'+(q.photo||((q.chapter[0].startsWith('01')?'charter-1945.jpg':q.chapter[0].startsWith('02')?'peacekeepers.jpg':'field-map.webp')));img.alt=T('UN work, from the meeting room to the field','会議の場から現場へ、国連の仕事');teaser.append(img);const text=document.createElement('p');text.textContent=T('Make a choice. Then look closer.','選んでから、その先を見てみよう。');teaser.append(text);visual.append(teaser);}
  layout.append(visual,panel);stage.replaceChildren(layout);
 };
 
