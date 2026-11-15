@@ -83,6 +83,13 @@
     section.append(grid); target.append(section);
   };
   const scheduleFor = week => {
+    if (week.week === 8) return [
+      ['00–30', 'Kairu’s session', 'Student-led presentation, participation, and dialogue.'],
+      ['30–45', 'Introducing Kana', 'Urban planning, GIS skills, and a determination to do humanitarian work.'],
+      ['45–70', 'Humanitarian GIS pathways', 'Impact, field constraints, responsibility, and ways into the work.'],
+      ['70–90', 'Prepare a GIS decision', 'Begin your short presentation for Kana’s visit.'],
+      ['90–100', 'Questions for Kana', 'Share a question and confirm next week’s preparation.']
+    ];
     if (week.week === 5) return [
       ['00–40', 'Koshio: AI and Care', 'Guest presentation.'],
       ['40–80', 'Student AI readings', 'Each student shares their chosen reading and thoughts.'],
