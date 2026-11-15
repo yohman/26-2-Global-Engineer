@@ -68,3 +68,5 @@ body[data-visual=evidence][data-gis=""] .answer>h2,body[data-visual=evidence][da
 .choices .choice{animation:scene-rise .35s ease-out both}.choices .choice:nth-child(2){animation-delay:70ms}.choices .choice:nth-child(3){animation-delay:140ms}
 
 body[data-visual=evidence] .answer{animation:none}
+
+.member-dots button.selected-country{outline:3px solid #17343e;outline-offset:3px;transform:scale(1.18)}
