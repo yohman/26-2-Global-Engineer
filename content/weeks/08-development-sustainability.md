@@ -19,6 +19,8 @@ Kairu leads the first 30 minutes, including participation and dialogue. Yoh then
 
 [Meet Kana](guests.html#kana-kudo)
 
+[United Nations quiz (PowerPoint)](lectures/week08-un-quiz.pptx)
+
 ## Participatory Class Activity
 
 What could a map help someone decide? Who might remain invisible? Discuss the impact of humanitarian GIS, the difficulty of acting with incomplete information, and the responsibility that comes with sensitive data. What skills, experiences, and determination could take you from this classroom into that work?

@@ -4,6 +4,7 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    '[United Nations quiz (PowerPoint)](lectures/week08-un-quiz.pptx)': '[国連クイズ（PowerPoint）](lectures/week08-un-quiz.pptx)',
     'Week 8 · Preparing for Kana': '第8週・Kanaさんの授業への準備',
     'DUE · November 23, 23:59 JST': '締切：11月23日23:59（日本時間）',
     'Submit your 3–4 slides for a 4–5 minute contribution on November 24. Include your proposed GIS decision, one limitation or risk, and a question for Kana.': '11月24日の4〜5分の発表用スライド3〜4枚を提出してください。GISを使う判断の提案、限界やリスクを一つ、Kanaさんへの質問を含めてください。',
