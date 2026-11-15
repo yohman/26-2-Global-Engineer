@@ -1,1 +1,44 @@
 :root{--ink:#102c3b;--paper:#f3eee5;--accent:#f0c66a}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--paper);font-family:Georgia,'Yu Mincho',serif}header,footer{position:fixed;display:flex;align-items:center;gap:.7rem;z-index:3;padding:1rem;background:#102c3be8;font:14px system-ui}header{top:0;right:0}footer{bottom:0;right:0}button,a{color:inherit}button{cursor:pointer;border:1px solid #ffffff55;background:transparent;padding:.65rem 1rem;font:inherit}button:focus-visible,a:focus-visible{outline:3px solid var(--accent)}button:disabled{opacity:.3}header a{text-underline-offset:4px;margin-right:1rem}main{min-height:100dvh;padding:5.5rem 7vw 6rem;display:flex;flex-direction:column;justify-content:center;gap:1rem;max-width:1500px;margin:auto}h1{font-size:clamp(1.8rem,3.8vw,3.7rem);line-height:1.2;font-weight:400;margin:0;max-width:30ch}.choices{white-space:pre-line;font:clamp(1rem,1.7vw,1.5rem)/1.7 system-ui;color:#bed2db}.reveal{align-self:flex-start;border-color:var(--accent);color:var(--accent);font:1rem system-ui}.answer{border-top:1px solid #ffffff40;padding-top:1rem}.answer h2{font-size:clamp(1.5rem,2.8vw,2.5rem);font-weight:400;margin:.2rem 0 .6rem;color:var(--accent)}.answer p{font:clamp(1rem,1.5vw,1.35rem)/1.5 system-ui;margin:.5rem 0;max-width:75ch}.answer a{font:12px system-ui;color:#bed2db;margin-right:1rem}dialog{max-width:750px;width:90%;max-height:80vh;overflow:auto;background:var(--paper);color:var(--ink);border:0;padding:2rem}dialog::backdrop{background:#000a}dialog p{white-space:pre-line;font:1rem/1.7 system-ui}.gis{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(220px,1fr);gap:1.5rem;align-items:center}.gis svg{width:100%;max-height:34vh;background:#163e51;border:1px solid #ffffff25}.gis p,.gis label,.gis output{font:1rem/1.5 system-ui}.gis label{display:block;margin:1rem 0}.gis input{width:100%}.country{fill:#426878;stroke:#102c3b;stroke-width:.5}.country:hover{fill:#f0c66a;cursor:pointer}.country.selected{fill:#f0c66a}.point{fill:#f0c66a;stroke:#102c3b;stroke-width:2;cursor:pointer}.gis .notice{color:#f0c66a}.map-caption{font:11px/1.4 system-ui!important;color:#bed2db}#pick{min-height:3em}main[data-revealed=true] .choices{display:none}@media(max-width:700px){main{padding:5rem 1.2rem 5rem;justify-content:flex-start}.gis{grid-template-columns:1fr}.gis svg{max-height:30vh}header,footer{padding:.7rem}h1{font-size:2rem}.answer a{display:inline-block;margin:.3rem}}@media(prefers-reduced-motion:no-preference){.answer{animation:appear .2s ease-out}@keyframes appear{from{opacity:0;transform:translateY(6px)}}}
+:root{--ink:#172c34;--paper:#f5f2eb;--accent:#9b6d24}
+body{background:var(--paper);color:var(--ink)}
+header,footer{background:transparent;color:var(--ink);padding:1rem 1.5rem;font-size:12px;gap:.35rem}
+header button,footer button{border:0;border-radius:50%;padding:.7rem;background:#f5f2ebdc;min-width:40px;min-height:40px}
+header a{background:#f5f2ebdc;padding:.5rem .7rem;text-decoration:none}
+footer span{font-variant-numeric:tabular-nums;letter-spacing:.12em;background:#f5f2ebdc;padding:.7rem}
+main{max-width:1240px;gap:2.5rem;padding:7rem 7vw 6rem}
+h1{font-size:clamp(2rem,4.5vw,4.4rem);line-height:1.15;letter-spacing:-.025em;max-width:23ch}
+.choices{display:grid;grid-template-columns:1fr;gap:.25rem;max-width:780px;width:100%;margin:0;color:var(--ink)}
+.choice{display:flex;align-items:center;gap:1.15rem;text-align:left;font:400 clamp(1.1rem,2vw,1.6rem)/1.45 Georgia,'Yu Mincho',serif;border:0;border-bottom:1px solid #172c3420;padding:1rem .6rem;transition:background .15s,color .15s;min-height:64px}
+.choice:hover{background:#e9e4d8}.choice[aria-pressed=true]{background:#e7dcc5;color:#67440f}
+.choice-letter{display:grid;place-items:center;flex:0 0 34px;height:34px;border:1px solid #172c3450;border-radius:50%;font:13px system-ui}
+.choice[aria-pressed=true] .choice-letter{background:#172c34;border-color:#172c34;color:#f5f2eb}
+.reveal{font:14px system-ui;letter-spacing:.02em;color:var(--ink);border:0;border-bottom:1px solid #172c3460;padding:.4rem 0;align-self:flex-start;background:transparent}
+.reveal:hover{color:var(--accent)}
+.answer{border:0;padding:0}.answer h2{color:var(--ink);font-size:clamp(1.6rem,2.6vw,2.4rem);line-height:1.2}.answer p{font:1rem/1.65 system-ui;max-width:43ch}.answer>a{display:none}.answer .your-choice{font-size:12px;color:#657078}
+.proof-caption,.capture-note{font:11px/1.5 system-ui!important;color:#52646b!important}.proof-caption{display:inline-block;text-underline-offset:3px}.evidence-images a{display:block}.evidence-images img{display:block;width:100%;height:100%;object-fit:contain}
+body[data-visual=evidence]:not([data-gis=""]) .evidence-images{display:flex;gap:.5rem}.evidence-images a{min-width:0}
+body[data-visual=evidence][data-gis=""] main{display:block;padding:0;max-width:none}
+body[data-visual=evidence][data-gis=""] h1{position:fixed;z-index:2;right:4vw;top:13vh;width:29vw;font-size:clamp(1.2rem,2.15vw,2rem);max-width:none;background:#f5f2ebee;padding:1rem;margin:0}
+body[data-visual=evidence][data-gis=""] .answer{position:fixed;right:4vw;top:37vh;width:29vw;z-index:1;background:#f5f2ebee;padding:1rem}
+body[data-visual=evidence][data-gis=""] .evidence-images{position:fixed;inset:0 37vw 0 0;display:flex;gap:1rem;padding:1.5rem;background:white;z-index:-1}
+body[data-visual=evidence][data-gis=""] .evidence-images a{flex:1}
+body[data-visual=evidence][data-gis=""] .choices{display:none!important}
+body[data-gis]:not([data-gis=""]) .gis{display:block;position:fixed;inset:0;z-index:0}
+body[data-gis]:not([data-gis=""]) .gis>div:first-child{position:absolute;inset:0}
+body[data-gis]:not([data-gis=""]) .gis svg{width:100%;height:100%;max-height:none;border:0;background:#e7eceb}
+body[data-gis]:not([data-gis=""]) .country{fill:#bac9c8;stroke:#f5f2eb;stroke-width:.6}
+body[data-gis]:not([data-gis=""]) .country:hover,body[data-gis]:not([data-gis=""]) .country.selected{fill:#b8883f}
+body[data-gis]:not([data-gis=""]) main>h1{position:relative;z-index:1;background:#f5f2ebed;padding:1rem;max-width:19ch;font-size:clamp(1.8rem,3.7vw,3.3rem);margin:0;pointer-events:none}
+body[data-gis]:not([data-gis=""]) main{justify-content:flex-start;padding:7rem 4vw;gap:1rem}
+body[data-gis]:not([data-gis=""]) .choices,body[data-gis]:not([data-gis=""]) .reveal{position:relative;z-index:1;background:#f5f2ebed;max-width:450px}
+body[data-gis]:not([data-gis=""]) .choice{font-size:1.1rem;padding:.75rem}
+body[data-gis]:not([data-gis=""]) .reveal{padding:.8rem 1rem}
+body[data-gis]:not([data-gis=""]) .gis>div:nth-child(2){position:absolute;bottom:8vh;right:3vw;width:min(350px,29vw);padding:1rem 1.2rem;background:#f5f2ebee}
+body[data-gis]:not([data-gis=""]) .gis p,body[data-gis]:not([data-gis=""]) .gis label{font-size:.9rem}
+body[data-gis]:not([data-gis=""]) .gis .notice{color:#805614}
+body[data-gis]:not([data-gis=""]) .map-caption{position:absolute;bottom:0;left:1rem;width:55vw;color:#52646b!important;background:#f5f2ebd9;padding:.4rem;max-height:2.8rem;overflow:auto}
+body[data-visual=evidence]:not([data-gis=""]) .answer{position:relative;z-index:1;background:#f5f2ebed;max-width:450px;padding:1rem}
+body[data-visual=evidence]:not([data-gis=""]) .evidence-images img{max-height:120px;width:180px;object-fit:cover;object-position:top}
+body[data-visual=evidence]:not([data-gis=""]) main[data-revealed=true] .choices{display:none}
+dialog{z-index:10}button:focus-visible,a:focus-visible{outline:2px solid #9b6d24;outline-offset:4px}
+@media(max-width:750px){main{padding:6rem 1.5rem 6rem;gap:2rem}header,footer{padding:.5rem}h1{font-size:2.4rem}.choice{font-size:1.2rem}body[data-visual=evidence][data-gis=""] main{padding:5rem 1rem}body[data-visual=evidence][data-gis=""] h1,body[data-visual=evidence][data-gis=""] .answer{position:relative;top:auto;right:auto;width:100%;padding:.8rem;margin:0}body[data-visual=evidence][data-gis=""] .evidence-images{position:relative;inset:auto;height:55vh;margin:1rem -1rem;padding:.5rem;z-index:auto}body[data-gis]:not([data-gis=""]) .gis{position:relative;min-height:65vh}body[data-gis]:not([data-gis=""]) .gis>div:first-child{height:38vh}body[data-gis]:not([data-gis=""]) .gis>div:nth-child(2){position:relative;top:38vh;bottom:auto;right:auto;width:100%;background:#f5f2ebee;padding:1rem}body[data-gis]:not([data-gis=""]) .map-caption{display:none}body[data-gis]:not([data-gis=""]) main>h1{font-size:2rem}body[data-gis]:not([data-gis=""]) main{padding:5rem 1rem}body[data-gis]:not([data-gis=""]) .answer{max-width:none}}
