@@ -4,6 +4,17 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    "An urban challenge: your proposal for Kana": "都市の課題：Kanaさんに提案しよう",
+    "Choose a city or community you know well or want to learn about. Identify one urban challenge: why does it matter, and who is affected? Propose one realistic solution. It may involve infrastructure, technology, urban planning, data and GIS, community initiatives, or a combination.": "よく知っている、または学びたい都市や地域を選ぼう。都市の課題を一つ挙げ、なぜ重要で、誰が影響を受けるのかを考え、現実的な解決策を一つ提案してください。インフラ、技術、都市計画、データやGIS、地域の取り組み、またはそれらの組み合わせで構いません。",
+    "Prepare a short presentation (3–4 slides) to share during Kana’s visit on November 24.": "11月24日のKanaさんの訪問時に共有する短い発表（スライド3〜4枚）を準備してください。",
+    "Explain the urban challenge and who is affected.": "都市の課題と、影響を受ける人々を説明する。",
+    "Propose one realistic solution and explain who would benefit.": "現実的な解決策を一つ提案し、誰が恩恵を受けるかを説明する。",
+    "Consider trade-offs or limitations.": "トレードオフ（何かを得る代わりに失うこと）や限界を考える。",
+    "Explain how your solution could improve safety, well-being, opportunities, or quality of life.": "安全、心身の健康、機会、生活の質がどう改善されるかを説明する。",
+    "Week 8 · An urban challenge: your proposal for Kana": "第8週・都市の課題：Kanaさんに提案しよう",
+    "**An urban challenge: your proposal for Kana.** Choose a city or community you know well or want to learn about. Identify one urban challenge: why does it matter, and who is affected? Propose one realistic solution. It may involve infrastructure, technology, urban planning, data and GIS, community initiatives, or a combination.": "**都市の課題：Kanaさんに提案しよう。** よく知っている、または学びたい都市や地域を選ぼう。都市の課題を一つ挙げ、なぜ重要で、誰が影響を受けるのかを考え、現実的な解決策を一つ提案してください。インフラ、技術、都市計画、データやGIS、地域の取り組み、またはそれらの組み合わせで構いません。",
+    "Prepare a short presentation (3–4 slides) to share during Kana’s visit on November 24. Choose an urban challenge, propose a realistic solution, and discuss who benefits, trade-offs, and the effect on people’s lives.": "11月24日のKanaさんの訪問時に共有する短い発表（スライド3〜4枚）を準備してください。 都市の課題を選び、現実的な解決策を提案し、恩恵を受ける人、トレードオフ、人々の暮らしへの影響を考えてください。",
+
     'Week 8 · November 17': '第8週 · 11月17日',
     'Open Week 8': '第8週を開く',
     'Kairu leads a 30-minute session. Then we explore the UN’s achievements, failures, and fieldwork through Bentiu, South Sudan, and prepare for Kana’s visit on November 24.': 'Kairuが30分のセッションを担当します。その後、南スーダンのベンティウを通じて国連の成果・失敗・現場の仕事を考え、11月24日のKanaさんの訪問に備えます。',

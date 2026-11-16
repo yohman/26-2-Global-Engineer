@@ -3,7 +3,7 @@
   const assignments = window.SUBMISSION_ASSIGNMENTS;
   const seethaOption = new Option('Week 6 · Recommendation for Seetha', '6');
   document.querySelector('#assignment-week').append(seethaOption);
-  document.querySelector('#assignment-week').append(new Option('Week 8 · A GIS decision for Kana', '8'));
+  document.querySelector('#assignment-week').append(new Option('Week 8 · An urban challenge: your proposal for Kana', '8'));
   const week = Object.hasOwn(assignments, params.get('week')) ? params.get('week') : '2';
   document.querySelector('#assignment-week').value = week;
   Object.assign(window.ASSIGNMENT_SUBMISSION_CONFIG, {

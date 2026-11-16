@@ -28,18 +28,18 @@ What could a map help someone decide? Who might remain invisible? Discuss the im
 
 ## MAKE
 
-**A GIS decision to discuss with Kana.** Choose a humanitarian situation in a place you want to understand. As a Global Engineer, recommend one decision that GIS could help a responder, local government, or community make.
+**An urban challenge: your proposal for Kana.** Choose a city or community you know well or want to learn about. Identify one urban challenge: why does it matter, and who is affected? Propose one realistic solution. It may involve infrastructure, technology, urban planning, data and GIS, community initiatives, or a combination.
 
 ## Homework
 
-Review Kana’s introduction and prepare 3–4 slides for a 4–5 minute contribution on November 24. You can begin during class.
+Prepare a short presentation (3–4 slides) to share during Kana’s visit on November 24.
 
 ### Requirements
 
-- Show the place, the situation, and whose needs matter. Link your sources.
-- Recommend one decision and show what map or data could support it. A sketch is fine.
-- Explain one limitation or risk: missing voices, unreliable data, privacy, safety, or access. Use public information only.
-- Bring one question for Kana about the work or her pathway into it.
+- Explain the urban challenge and who is affected.
+- Propose one realistic solution and explain who would benefit.
+- Consider trade-offs or limitations.
+- Explain how your solution could improve safety, well-being, opportunities, or quality of life.
 
 Have your slides ready by November 23, 23:59 JST. Kairu’s mid-term reflection is due within one week of his session.
 
