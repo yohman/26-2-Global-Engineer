@@ -4,6 +4,13 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    'Week 8 · November 17': '第8週 · 11月17日',
+    'Open Week 8': '第8週を開く',
+    'Kairu leads a 30-minute session. Then we explore the UN’s achievements, failures, and fieldwork through Bentiu, South Sudan, and prepare for Kana’s visit on November 24.': 'Kairuが30分のセッションを担当します。その後、南スーダンのベンティウを通じて国連の成果・失敗・現場の仕事を考え、11月24日のKanaさんの訪問に備えます。',
+    'UN story and quiz →': '国連のストーリーとクイズ →',
+    'Meet Kana →': 'Kanaさんの紹介 →',
+    'Submit your Kana assignment →': 'Kanaさんへの課題を提出 →',
+
     '[United Nations quiz · interactive maps](lectures/week08-un-quiz.html)': '[国連クイズ・地図を操作しながら](lectures/week08-un-quiz.html)',
     '[United Nations quiz (PowerPoint)](lectures/week08-un-quiz.pptx)': '[国連クイズ（PowerPoint）](lectures/week08-un-quiz.pptx)',
     'Week 8 · Preparing for Kana': '第8週・Kanaさんの授業への準備',
