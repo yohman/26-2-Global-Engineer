@@ -9,7 +9,8 @@ window.buildUNStory=function(data){
   make('opening-yoh','Banda Aceh. Muli and me.','バンダ・アチェ。Muliと、私。','','','Muli was working for UNDP in Jakarta. He took some time off, and together—just the two of us—we toured the disaster zone in Banda Aceh.','当時、MuliはジャカルタのUNDP（国連開発計画）で働いていた。彼が休みを取り、私たちは二人だけで、バンダ・アチェの被災地を巡った。','',4)
  ];
  const gallery=make('closing-gallery','Ten landmark achievements','世界を変えた十の取り組み','','','','','',null);gallery.chapter=['After the questions','十の問いの、その先へ'];
- return [...intro,...quiz,gallery];
+ const album=make('closing-album','Banda Aceh · Photo album','バンダ・アチェ · 写真アルバム','','','','','',null);
+ return [...intro,...quiz,gallery,album];
 };
 const tenQuestionDraw=window.drawUNScene;
 window.drawUNScene=function(host,q){
@@ -34,12 +35,13 @@ window.drawUNScene=function(host,q){
   const map=E('div');map.className='journey-map';const svg=worldMap(map,()=>{});svg.setAttribute('viewBox','540 150 110 75');const ns='http://www.w3.org/2000/svg';[[95.32,5.55,'Banda Aceh'],[106.85,-6.21,'Jakarta']].forEach(([lon,lat,name])=>{const x=(lon+180)*2,y=(90-lat)*2,c=document.createElementNS(ns,'circle');[['cx',x],['cy',y],['r',1.3],['fill','#b56b35']].forEach(([k,v])=>c.setAttribute(k,v));svg.append(c);const t=document.createElementNS(ns,'text');t.setAttribute('x',x+2);t.setAttribute('y',y-2);t.setAttribute('font-size','3');t.textContent=name;svg.append(t);});
   E('p',T('Jakarta → Banda Aceh','ジャカルタ → バンダ・アチェ')).className='journey-label';E('p',T('Yoh’s personal account. Map marks the two cities; it does not reconstruct the route travelled.','Yoh自身の記憶。地図は二つの都市の位置で、実際の移動経路を再現したものではありません。')).className='scene-caption';return;
  }
+ if(q.bookend==='closing-album'){host.classList.add('album-scene');E('h1',T('Banda Aceh · Photo album','バンダ・アチェ · 写真アルバム'));const link=a('', 'https://photos.google.com/album/AF1QipNIw7yKmVUajCzX-VSoZL-r7SCYiGXHRII6c3-o');link.className='album-link';link.setAttribute('aria-label',T('Open my Banda Aceh photo album in a new tab','バンダ・アチェの写真アルバムを新しいタブで開く'));const img=E('img',null,link);img.src='assets/un-gallery/yoh-aceh-album.png';img.alt=T('Collage of photographs from Banda Aceh: people and streets after the tsunami.','津波後のバンダ・アチェの人々と街を写した写真のコラージュ。');E('span',T('Open photo album ↗','写真アルバムを開く ↗'),link);return;}
  E('h1',T('Ten achievements with global impact','世界に影響を与えた十の成果'));E('p',T('A curated selection, not a numerical ranking. These were achieved with states, communities, researchers and other partners. They do not cancel the failures we have discussed.','数値による順位ではなく、重要な取り組みを選んだもの。各国、地域、研究者、協力者とともに実現した成果であり、ここまで見た失敗を帳消しにするものではない。')).className='gallery-intro';
  const grid=E('div');grid.className='achievement-grid';window.UN_ACHIEVEMENTS.forEach(([en,ja,date,file,copy,jcopy,url,credit,photoURL],i)=>{const card=E('article',null,grid),photo=a('',file.startsWith('../')?'assets/un-photos/wfp-food.jpg':'assets/un-gallery/'+file,card),img=E('img',null,photo);img.src=photo.href;img.alt=credit;img.loading='lazy';const content=E('div',null,card);E('p',date,content).className='achievement-date';E('h2',T(en,ja),content);E('p',T(copy,jcopy),content);a(T('Reference ↗','参考資料 ↗'),url,content);const caption=E('p',credit,content);caption.className='achievement-credit';a(T('Photo source ↗','写真の出典 ↗'),photoURL,caption);});
 };
 window.afterUNRender=function(stage,q){
  document.body.dataset.bookend=q.bookend||'';const panel=stage.querySelector('.story-panel');
- if(q.bookend==='closing-gallery')panel.hidden=true;
+ if(q.bookend==='closing-gallery'||q.bookend==='closing-album')panel.hidden=true;
  if(q.bookend==='opening-yoh')stage.querySelector('.evidence')?.remove();
- const pos=document.querySelector('#position');pos.textContent=q.quizNumber?`${q.quizNumber} / 10`:q.openingNumber?`${document.documentElement.lang==='ja'?'はじめに':'Opening'} ${q.openingNumber} / 4`:(document.documentElement.lang==='ja'?'成果のギャラリー':'Achievement gallery');
+ const pos=document.querySelector('#position');pos.textContent=q.quizNumber?`${q.quizNumber} / 10`:q.openingNumber?`${document.documentElement.lang==='ja'?'はじめに':'Opening'} ${q.openingNumber} / 4`:(q.bookend==='closing-album'?(document.documentElement.lang==='ja'?'写真アルバム':'Photo album'):(document.documentElement.lang==='ja'?'成果のギャラリー':'Achievement gallery'));
 };
