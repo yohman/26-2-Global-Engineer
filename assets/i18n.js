@@ -64,7 +64,7 @@ window.COURSE_TRANSLATIONS = {
     'Recommend one decision and show what map or data could support it. A sketch is fine.': '判断を一つ提案し、それを支える地図やデータを示す。スケッチでも構いません。',
     'Explain one limitation or risk: missing voices, unreliable data, privacy, safety, or access. Use public information only.': '声の欠落、データの不確かさ、プライバシー、安全、利用環境など、限界やリスクを一つ説明する。公開情報のみを使う。',
     'Bring one question for Kana about the work or her pathway into it.': '仕事の内容やそこへ至る道について、Kanaさんへの質問を一つ用意する。',
-    'Have your slides ready by November 23, 23:59 JST. Kairu’s mid-term reflection is due within one week of his session.': '11月23日23:59（日本時間）までにスライドを準備してください。Kairuの中間発表の振り返りは、担当授業から1週間以内です。',
+    'Have your slides ready by November 23, 23:59 JST.': '11月23日23:59（日本時間）までにスライドを準備してください。',
     '[Kana’s visit · Week 9](agenda.html#week-9)': '[Kanaさんの訪問・第9週](agenda.html#week-9)',
     '[Submit your Seetha assignment](seetha-submit.html)': '[Seethaさんへの提案を提出](seetha-submit.html)',
     '[View Seetha assignments](visual-stories.html?week=6)': '[Seethaさんへの提案を見る](visual-stories.html?week=6)',

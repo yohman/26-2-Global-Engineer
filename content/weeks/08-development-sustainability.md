@@ -41,7 +41,7 @@ Prepare a short presentation (3–4 slides) to share during Kana’s visit on No
 - Consider trade-offs or limitations.
 - Explain how your solution could improve safety, well-being, opportunities, or quality of life.
 
-Have your slides ready by November 23, 23:59 JST. Kairu’s mid-term reflection is due within one week of his session.
+Have your slides ready by November 23, 23:59 JST.
 
 [Submit your Kana assignment](kana-submit.html)
 
