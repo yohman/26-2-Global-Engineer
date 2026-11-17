@@ -54,7 +54,7 @@ window.layoutUNStory=function(stage,q,revealed){
  panel.append(choices);if(reveal)panel.append(reveal);if(answer)panel.append(answer);
  if(gis){visual.append(gis);if(gallery)gallery.remove();}
  else if(gallery)visual.append(gallery);
- else {const teaser=document.createElement('div');teaser.className='scene-teaser';const img=document.createElement('img');img.src='assets/un-photos/'+(q.photo||((q.chapter[0].startsWith('01')?'charter-1945.jpg':q.chapter[0].startsWith('02')?'peacekeepers.jpg':'field-map.webp')));img.alt=T('UN work, from the meeting room to the field','会議の場から現場へ、国連の仕事');teaser.append(img);const text=document.createElement('p');text.textContent=T('Make a choice. Then look closer.','選んでから、その先を見てみよう。');teaser.append(text);visual.append(teaser);}
+ else {const teaser=document.createElement('div');teaser.className='scene-teaser';const img=document.createElement('img');img.src=q.previewSrc||'assets/un-photos/'+(q.photo||((q.chapter[0].startsWith('01')?'charter-1945.jpg':q.chapter[0].startsWith('02')?'peacekeepers.jpg':'field-map.webp')));img.alt=q.previewCaption?T(...q.previewCaption):T('UN work, from the meeting room to the field','会議の場から現場へ、国連の仕事');teaser.append(img);const text=document.createElement('p');text.textContent=q.previewCaption?T(...q.previewCaption):T('Make a choice. Then look closer.','選んでから、その先を見てみよう。');teaser.append(text);visual.append(teaser);}
  layout.append(visual,panel);stage.replaceChildren(layout);
 };
 
