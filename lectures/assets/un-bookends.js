@@ -3,11 +3,13 @@ window.buildUNStory=function(data){
  const quiz=tenQuestionBuilder(data);quiz.forEach((q,i)=>q.quizNumber=i+1);
  const make=(key,en,ja,head,jhead,copy,jcopy,source,n)=>{const q=[en,ja,'',head,copy,jcopy,source,'Opening based on documented disaster history and Yoh’s supplied personal account.'];q.answerJA=jhead;q.proof=[key,[],'Sources / 出典',source];q.autoReveal=true;q.bookend=key;q.openingNumber=n;q.chapter=['Before the quiz','クイズの前に'];return q;};
  const intro=[
+  make('opening-claudio','Claudio','Claudio','','','Claudio is a photographer friend I met in Los Angeles. He greatly influenced my photography. Shortly after, I went to Banda Aceh.','Claudioは、ロサンゼルスで出会った写真家の友人。私の写真に大きな影響を与えてくれた。その後まもなく、私はバンダ・アチェへ向かった。','',1),
   make('opening-photo','26 December 2004','2004年12月26日','','','The Indian Ocean tsunami.','インド洋大津波。','https://legacy.itic.ioc-unesco.org/legacy.itic.ioc-unesco.org/index50c4.html?Itemid=1373&id=1136&layout=blog&option=com_content&view=category',1),
   make('opening-scale','A disaster across an ocean.','海を越えて広がった災害。','The scale','被害の規模','A magnitude 9.1 earthquake off Sumatra generated a tsunami across the Indian Ocean. The figures are historical estimates of dead or missing people, not a count of confirmed deaths alone.','スマトラ沖のマグニチュード9.1の地震が、インド洋を越える津波を起こした。数値は死亡・行方不明者の歴史的な推計で、確認された死者数だけではない。','https://legacy.itic.ioc-unesco.org/legacy.itic.ioc-unesco.org/index50c4.html?Itemid=1373&id=1136&layout=blog&option=com_content&view=category',2),
   make('opening-response','What did the UN do?','国連は、何をしたのか。','An international response, alongside local action.','地域の行動を支えた、国際的な対応。','Survivors, communities, governments and many other responders acted first and throughout the recovery. UN agencies helped coordinate international assistance, deliver supplies, support water and sanitation, and rebuild livelihoods.','生存者、地域、各国政府、多くの支援者が初動から復興まで動いた。国連の機関は、国際支援の調整、物資の輸送、水と衛生の確保、暮らしの再建を支えた。','https://digitallibrary.un.org/record/589279',3),
   make('opening-yoh','Banda Aceh. Muli and me.','バンダ・アチェ。Muliと、私。','','','Muli was working for UNDP in Jakarta. He took some time off, and together—just the two of us—we toured the disaster zone in Banda Aceh.','当時、MuliはジャカルタのUNDP（国連開発計画）で働いていた。彼が休みを取り、私たちは二人だけで、バンダ・アチェの被災地を巡った。','',4)
  ];
+ intro.forEach((q,i)=>q.openingNumber=i+1);
  const gallery=make('closing-gallery','Ten landmark achievements','世界を変えた十の取り組み','','','','','',null);gallery.chapter=['After the questions','十の問いの、その先へ'];
  const album=make('closing-album','Banda Aceh · Photo album','バンダ・アチェ · 写真アルバム','','','','','',null);
  return [...intro,...quiz,gallery,album];
@@ -19,6 +21,7 @@ window.drawUNScene=function(host,q){
  const E=(tag,copy,parent=host)=>{const n=document.createElement(tag);if(copy)n.textContent=copy;parent.append(n);return n;};
  const a=(copy,url,parent=host)=>{const n=E('a',copy,parent);n.href=url;n.target='_blank';n.rel='noopener';return n;};
  host.classList.add('story-scene','bookend-scene');
+ if(q.bookend==='opening-claudio'){host.classList.add('claudio-scene');const link=a('', 'https://www.facebook.com/photo?fbid=10161073665540036&set=pcb.10164187407288943');link.className='claudio-photo-link';link.setAttribute('aria-label',T('View Claudio’s photographs on Facebook in a new tab','Claudioの写真をFacebookの新しいタブで見る'));const img=E('img',null,link);img.src='assets/un-gallery/claudio-photography.png';img.alt=T('Black-and-white collage of ships, shipbreaking and workers, shared as Claudio’s photography.','Claudioの写真として紹介する、船、船の解体、働く人々の白黒写真のコラージュ。');E('span',T('Claudio’s photography · View on Facebook ↗','Claudioの写真 · Facebookで見る ↗'),link);return;}
  if(q.bookend==='opening-photo'){
   host.classList.add('opening-bleed');const img=E('img',null);img.src='assets/un-gallery/yoh-aceh-cover.png';img.alt=T('Banda Aceh disaster zone: two visitors beside a damaged building and overturned vehicle.','バンダ・アチェの被災地。損壊した建物と横転した車両のそばに立つ二人。');return;
  }
@@ -42,6 +45,6 @@ window.drawUNScene=function(host,q){
 window.afterUNRender=function(stage,q){
  document.body.dataset.bookend=q.bookend||'';const panel=stage.querySelector('.story-panel');
  if(q.bookend==='closing-gallery'||q.bookend==='closing-album')panel.hidden=true;
- if(q.bookend==='opening-yoh')stage.querySelector('.evidence')?.remove();
- const pos=document.querySelector('#position');pos.textContent=q.quizNumber?`${q.quizNumber} / 10`:q.openingNumber?`${document.documentElement.lang==='ja'?'はじめに':'Opening'} ${q.openingNumber} / 4`:(q.bookend==='closing-album'?(document.documentElement.lang==='ja'?'写真アルバム':'Photo album'):(document.documentElement.lang==='ja'?'成果のギャラリー':'Achievement gallery'));
+ if(q.bookend==='opening-yoh'||q.bookend==='opening-claudio')stage.querySelector('.evidence')?.remove();
+ const pos=document.querySelector('#position');pos.textContent=q.quizNumber?`${q.quizNumber} / 10`:q.openingNumber?`${document.documentElement.lang==='ja'?'はじめに':'Opening'} ${q.openingNumber} / 5`:(q.bookend==='closing-album'?(document.documentElement.lang==='ja'?'写真アルバム':'Photo album'):(document.documentElement.lang==='ja'?'成果のギャラリー':'Achievement gallery'));
 };
