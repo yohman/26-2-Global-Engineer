@@ -4,6 +4,16 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    "Kairu’s session + getting to know the UN": "Kairuの担当授業・国連を知ろう",
+    "Let’s get to know the UN": "国連を知ろう",
+    "Yoh’s story, the UN quiz, and discussion.": "Yohのストーリー、国連クイズ、対話。",
+    "Introducing Kana + her assignment": "Kanaさんの紹介と課題",
+    "Her work in humanitarian GIS, next week’s visit, and your urban challenge proposal.": "人道支援とGISの仕事、来週の訪問、都市の課題への提案。",
+    "Kairu’s session, followed by Yoh’s story and UN quiz. We finish by introducing Kana and her assignment for next week.": "Kairuの担当授業に続き、Yohのストーリーと国連クイズ。最後にKanaさんと、来週に向けた課題を紹介します。",
+    "Kairu leads the first 30 minutes. Yoh then shares his story and asks: how does the UN work, and what can engineers do there? We finish with Kana’s work and the assignment for her November 24 visit.": "最初の30分はKairuの担当授業。その後、Yohのストーリーを通して、国連の仕組みとエンジニアにできることを考えます。最後に、Kanaさんの仕事と11月24日の訪問に向けた課題を紹介します。",
+    "Let’s get to know the UN · Yoh’s story and quiz": "国連を知ろう・Yohのストーリーとクイズ",
+    "What can the UN achieve—and what gets in its way? Bring those questions into our conversation with Kana next week.": "国連には何ができ、何が壁になるのか。来週のKanaさんとの対話につなげよう。",
+
     "An urban challenge: your proposal for Kana": "都市の課題：Kanaさんに提案しよう",
     "Choose a city or community you know well or want to learn about. Identify one urban challenge: why does it matter, and who is affected? Propose one realistic solution. It may involve infrastructure, technology, urban planning, data and GIS, community initiatives, or a combination.": "よく知っている、または学びたい都市や地域を選ぼう。都市の課題を一つ挙げ、なぜ重要で、誰が影響を受けるのかを考え、現実的な解決策を一つ提案してください。インフラ、技術、都市計画、データやGIS、地域の取り組み、またはそれらの組み合わせで構いません。",
     "Prepare a short presentation (3–4 slides) to share during Kana’s visit on November 24.": "11月24日のKanaさんの訪問時に共有する短い発表（スライド3〜4枚）を準備してください。",

@@ -2,8 +2,8 @@
 week: 8
 date: 2026-11-17
 publish_at: 2026-11-16T00:00:00+09:00
-title: Kairuの担当授業・人道支援とGISへの道
-subtitle: Kairu’s session + humanitarian GIS pathways
+title: Kairuの担当授業・国連を知ろう・Kanaさんの紹介
+subtitle: Kairu’s session + getting to know the UN
 kind: Mid-term · student-led
 lead: Kairu + Yoh
 make_id: make08
@@ -12,19 +12,19 @@ lecture_preview: lectures/week08-un-quiz.html
 
 ## Overview / Big Question
 
-Kairu leads a 30-minute session. Then we look ahead to Kana’s visit: how can planning and GIS skills become a way to do humanitarian work?
+Kairu’s session, followed by Yoh’s story and UN quiz. We finish by introducing Kana and her assignment for next week.
 
 ## Lecture
 
-Kairu leads the first 30 minutes, including participation and dialogue. Yoh then introduces Kana’s pathway from urban planning and GIS toward humanitarian work, ahead of her November 24 visit.
+Kairu leads the first 30 minutes. Yoh then shares his story and asks: how does the UN work, and what can engineers do there? We finish with Kana’s work and the assignment for her November 24 visit.
+
+[Let’s get to know the UN · Yoh’s story and quiz](lectures/week08-un-quiz.html)
 
 [Meet Kana](guests.html#kana-kudo)
 
-[United Nations quiz · interactive maps](lectures/week08-un-quiz.html)
-
 ## Participatory Class Activity
 
-What could a map help someone decide? Who might remain invisible? Discuss the impact of humanitarian GIS, the difficulty of acting with incomplete information, and the responsibility that comes with sensitive data. What skills, experiences, and determination could take you from this classroom into that work?
+What can the UN achieve—and what gets in its way? Bring those questions into our conversation with Kana next week.
 
 ## MAKE
 
