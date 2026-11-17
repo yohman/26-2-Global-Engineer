@@ -45,6 +45,13 @@ window.drawUNScene=function(host,q){
 window.afterUNRender=function(stage,q){
  document.body.dataset.bookend=q.bookend||'';const panel=stage.querySelector('.story-panel');
  if(q.bookend==='closing-gallery'||q.bookend==='closing-album'||q.bookend==='opening-claudio')panel.hidden=true;
+ if(['opening-photo','opening-scale','opening-response'].includes(q.bookend)){
+  panel.hidden=true;
+  const caption=document.createElement('p');caption.className='personal-opening-caption';
+  caption.textContent=q.bookend==='opening-photo'?(document.documentElement.lang==='ja'?'2004年12月26日。インド洋大津波。その後、Muliと二人でバンダ・アチェの被災地を巡った。':'26 December 2004. The Indian Ocean tsunami. Later, Muli and I travelled through the disaster zone in Banda Aceh.'):q.bookend==='opening-scale'?(document.documentElement.lang==='ja'?'インド洋を越えて広がった災害。死亡・行方不明者は歴史的な推計。':'A disaster across the Indian Ocean. Dead or missing: a historical estimate.'):(document.documentElement.lang==='ja'?'地域の人々と政府が動いた。国連は支援の調整、物資、水と衛生、暮らしの再建を支えた。':'Communities and governments responded. The UN helped coordinate aid, deliver supplies, restore water and sanitation, and rebuild livelihoods.');
+  stage.querySelector('.bookend-scene').append(caption);
+ }
+
  if(q.bookend==='opening-yoh'||q.bookend==='opening-claudio')stage.querySelector('.evidence')?.remove();
  const pos=document.querySelector('#position');pos.textContent=q.quizNumber?`${q.quizNumber} / 10`:q.openingNumber?`${document.documentElement.lang==='ja'?'はじめに':'Opening'} ${q.openingNumber} / 5`:(q.bookend==='closing-album'?(document.documentElement.lang==='ja'?'写真アルバム':'Photo album'):(document.documentElement.lang==='ja'?'成果のギャラリー':'Achievement gallery'));
 };
