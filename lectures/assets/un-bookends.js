@@ -21,7 +21,7 @@ window.drawUNScene=function(host,q){
  const E=(tag,copy,parent=host)=>{const n=document.createElement(tag);if(copy)n.textContent=copy;parent.append(n);return n;};
  const a=(copy,url,parent=host)=>{const n=E('a',copy,parent);n.href=url;n.target='_blank';n.rel='noopener';return n;};
  host.classList.add('story-scene','bookend-scene');
- if(q.bookend==='opening-claudio'){host.classList.add('claudio-scene');const link=a('', 'https://www.facebook.com/photo?fbid=10161073665540036&set=pcb.10164187407288943');link.className='claudio-photo-link';link.setAttribute('aria-label',T('View Claudio’s photographs on Facebook in a new tab','Claudioの写真をFacebookの新しいタブで見る'));const img=E('img',null,link);img.src='assets/un-gallery/claudio-photography.png';img.alt=T('Black-and-white collage of ships, shipbreaking and workers, shared as Claudio’s photography.','Claudioの写真として紹介する、船、船の解体、働く人々の白黒写真のコラージュ。');E('span',T('Claudio’s photography · View on Facebook ↗','Claudioの写真 · Facebookで見る ↗'),link);return;}
+ if(q.bookend==='opening-claudio'){host.classList.add('claudio-scene');const link=a('', 'https://www.facebook.com/photo?fbid=10161073665540036&set=pcb.10164187407288943');link.className='claudio-photo-link';link.setAttribute('aria-label',T('View Claudio’s photographs on Facebook in a new tab','Claudioの写真をFacebookの新しいタブで見る'));const img=E('img',null,link);img.src='assets/un-gallery/claudio-photography.png';img.alt=T('Black-and-white collage of ships, shipbreaking and workers, shared as Claudio’s photography.','Claudioの写真として紹介する、船、船の解体、働く人々の白黒写真のコラージュ。');E('span',T('Claudio, a photographer friend I met in Los Angeles, greatly influenced my photography. Soon after, I went to Banda Aceh. ↗','ロサンゼルスで出会った写真家の友人Claudio。私の写真に大きな影響を与えてくれた。その後まもなく、バンダ・アチェへ。↗'),link);return;}
  if(q.bookend==='opening-photo'){
   host.classList.add('opening-bleed');const img=E('img',null);img.src='assets/un-gallery/yoh-aceh-cover.png';img.alt=T('Banda Aceh disaster zone: two visitors beside a damaged building and overturned vehicle.','バンダ・アチェの被災地。損壊した建物と横転した車両のそばに立つ二人。');return;
  }
@@ -44,7 +44,7 @@ window.drawUNScene=function(host,q){
 };
 window.afterUNRender=function(stage,q){
  document.body.dataset.bookend=q.bookend||'';const panel=stage.querySelector('.story-panel');
- if(q.bookend==='closing-gallery'||q.bookend==='closing-album')panel.hidden=true;
+ if(q.bookend==='closing-gallery'||q.bookend==='closing-album'||q.bookend==='opening-claudio')panel.hidden=true;
  if(q.bookend==='opening-yoh'||q.bookend==='opening-claudio')stage.querySelector('.evidence')?.remove();
  const pos=document.querySelector('#position');pos.textContent=q.quizNumber?`${q.quizNumber} / 10`:q.openingNumber?`${document.documentElement.lang==='ja'?'はじめに':'Opening'} ${q.openingNumber} / 5`:(q.bookend==='closing-album'?(document.documentElement.lang==='ja'?'写真アルバム':'Photo album'):(document.documentElement.lang==='ja'?'成果のギャラリー':'Achievement gallery'));
 };
