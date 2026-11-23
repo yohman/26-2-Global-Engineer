@@ -4,6 +4,13 @@
 // matching Japanese value here. Layout and language-switching code stay fixed.
 window.COURSE_TRANSLATIONS = {
   ja: {
+    "Week 9 · November 24": "第9週 · 11月24日",
+    "Open Week 9": "第9週を開く",
+    "GIS, the UN & humanitarian work · Kana Kudo": "GIS・国連・人道支援 · Kana Kudo",
+    "Kana joins us to discuss GIS, humanitarian work, and life in the field. Bring your urban-challenge proposal to share and discuss with her.": "Kanaさんを迎え、GIS、人道支援、現場での仕事と暮らしについて話します。都市の課題への提案を持ち寄り、Kanaさんと共有・対話しましょう。",
+    "View student proposals →": "学生の提案を見る →",
+    "Review Kana’s profile and bring your urban-challenge proposal (3–4 slides), ready to share and discuss with her.": "Kanaさんの紹介を読み、都市の課題への提案（スライド3〜4枚）を準備し、共有・対話できるようにしましょう。",
+
     "Kairu’s session + getting to know the UN": "Kairuの担当授業・国連を知ろう",
     "Let’s get to know the UN": "国連を知ろう",
     "Yoh’s story, the UN quiz, and discussion.": "Yohのストーリー、国連クイズ、対話。",

@@ -16,7 +16,11 @@ guest_id: kana-kudo
 
 ## Guest Preparation
 
-Bring a humanitarian data or response idea ready to be challenged by security, language, connectivity, and trust.
+Review Kana’s profile and bring your urban-challenge proposal (3–4 slides), ready to share and discuss with her.
+
+[Meet Kana](guests.html#kana-kudo)
+
+[Submit your Kana assignment](kana-submit.html)
 
 ## In Class
 
